@@ -28,7 +28,7 @@ library(devtools)
 install_github("AustralianAntarcticDivision/blueant",build_vignettes=TRUE)
 ```
 
-Bowerbird (and by extension, Blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. `wget` is typically installed by default on Linux.
+Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. `wget` is typically installed by default on Linux.
 On Windows you can use the `install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from https://eternallybored.org/misc/wget/current/wget.exe) and make sure it is on your path.
 
 ## Usage
@@ -41,7 +41,7 @@ Build up a configuration by first defining global options such as the destinatio
 cf <- bb_config(local_file_root="~/your/data/directory")
 ```
 
-Add data sources from those provided by Blueant. A summary of these sources is given at the end of this document.
+Add data sources from those provided by blueant. A summary of these sources is given at the end of this document.
 
 ```{r eval=FALSE}
 cf <- cf %>% add(blueant_sources("CERSAT SSM/I sea ice concentration"))
@@ -110,7 +110,7 @@ If the pre-packages data sources don't cover your needs, you can define your own
 
 ## Data source summary
 
-These are the data source definitions that are provided as part of the Blueant package.
+These are the data source definitions that are provided as part of the blueant package.
 
 ```{r echo=FALSE,message=FALSE,warning=FALSE,results="asis"}
 devtools::load_all()
