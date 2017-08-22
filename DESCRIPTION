@@ -1,0 +1,29 @@
+Package: blueant
+Type: Package
+Title: Antarctic and Southern Ocean environmental data sources
+Version: 0.0.1
+Authors@R: c(person("Ben","Raymond",email="ben.raymond@aad.gov.au",
+  	   role=c("aut","cre")),
+	   person("Michael","Sumner",role="aut"))
+Description: Tools to get and maintain a data repository from third-party data
+    providers.
+URL: https://github.com/AustralianAntarcticDivision/blueant
+BugReports: https://github.com/AustralianAntarcticDivision/blueant/issues
+License: MIT + file LICENSE
+Depends:
+    bowerbird
+Imports:
+    assertthat,
+    dplyr,
+    rmarkdown,
+    rvest,
+    stringr,
+    xml2
+LazyLoad: yes
+RoxygenNote: 6.0.1
+Suggests:
+    knitr,
+    testthat,
+    covr
+Remotes: AustralianAntarcticDivision/bowerbird
+VignetteBuilder: knitr
