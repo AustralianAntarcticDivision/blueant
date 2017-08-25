@@ -13,8 +13,12 @@
 aadc_eds_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is.data.frame(cfrow))
     assert_that(nrow(cfrow)==1)
+    assert_that(is.list(cfrow$method_flags))
+    assert_that(is.character(cfrow$method_flags[[1]]))
     assert_that(is.flag(verbose))
     assert_that(is.flag(local_dir_only))
+
+    method_flags <- cfrow$method_flags[[1]]
 
     slidx <- !grepl("/download$",cfrow$source_url) & !grepl("/$",cfrow$source_url)
     if (any(slidx)) {
@@ -47,20 +51,16 @@ aadc_eds_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
     settings <- bowerbird:::save_current_settings()
     on.exit({ bowerbird:::restore_settings(settings) })
     setwd(file.path(cfrow$local_file_root,trailing_path))
-    if (is.na(cfrow$method_flags)) cfrow$method_flags <- ""
+
     ## don't set the --content-disposition flag. It seems to cause problems with used with --timestamping on large files, and
     ##  isn't really needed anyway. Without it, we just get the downloaded file names as "download" (for the /download url form)
     ##  or "index.html" (for the /eds/file/wxyz/ form). But these are still valid zip files
     ##
-    ##if (!grepl("--content-disposition",cfrow$method_flags,ignore.case=TRUE)) {
-    ##    cfrow$method_flags <- paste(cfrow$method_flags,"--content-disposition",sep=" ")
+    ##if (!grepl("--content-disposition",method_flags,ignore.case=TRUE)) {
+    ##    method_flags <- paste(method_flags,"--content-disposition",sep=" ")
     ##}
-    ## these two should be doable in a single regex, but done separately until I can figure it out
-    if (grepl("--recursive ",cfrow$method_flags,ignore.case=TRUE)) {
-        cfrow$method_flags <- str_trim(sub("--recursive ","",cfrow$method_flags))
-    }
-    if (grepl("--recursive$",cfrow$method_flags,ignore.case=TRUE)) {
-        cfrow$method_flags <- str_trim(sub("--recursive$","",cfrow$method_flags))
-    }
+    ## don't use --recursive, since we're handling the destination directory explicitly
+    method_flags <- setdiff(method_flags,c("--recursive","-r"))
+    cfrow$method_flags <- list(method_flags)
     bb_wget(cfrow,verbose=verbose)
 }

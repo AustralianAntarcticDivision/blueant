@@ -11,7 +11,8 @@
 rapid_response_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is.data.frame(cfrow))
     assert_that(nrow(cfrow)==1)
-    assert_that(is.flag(local_dir_only))
+    assert_that(is.list(cfrow$method_flags))
+    assert_that(is.character(cfrow$method_flags[[1]]))
     assert_that(is.flag(local_dir_only))
     if (local_dir_only) {
         dummy <- cfrow
@@ -51,7 +52,7 @@ rapid_response_do_download <- function(d,platform,resolution,cfrow,verbose) {
     ##dummy$method_flags=paste("--progress=dot:giga","--recursive",sep=" ")
     ## this gives output filenames like "index.html@mosaic=Antarctica.2014003.terra.4km.tif" - would prefer these to be just "Antarctica.*"
     ## note that we can't use --output_document option with --timestamping, but since the server doesn't support timestamping anyway
-    dummy$method_flags <- paste0("--output-document=lance-modis.eosdis.nasa.gov/imagery/subsets/",sub("^http.*mosaic=","",this_url))
+    dummy$method_flags <- list(paste0("--output-document=lance-modis.eosdis.nasa.gov/imagery/subsets/",sub("^http.*mosaic=","",this_url)))
     if (file.exists(paste0("lance-modis.eosdis.nasa.gov/imagery/subsets/",sub("^http.*mosaic=","",this_url))) & (cfrow$clobber<2)) {
         if (verbose) cat(sprintf("not downloading %s, local file exists and clobber setting is <2\n",this_url))
     } else {

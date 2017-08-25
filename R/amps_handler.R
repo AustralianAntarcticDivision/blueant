@@ -14,7 +14,6 @@ amps_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is.flag(verbose))
     assert_that(is.flag(local_dir_only))
     ## shouldn't need any specific method_flags for this
-    ## could potentially set e.g. --progress=dot:giga
     ## --timestamping not needed (handled through clobber config setting)
     ## --recursive, etc not needed
     if (sub("/$","",cfrow$source_url)!="http://www2.mmm.ucar.edu/rt/amps/wrf_grib") {

@@ -30,8 +30,12 @@ ghrsst_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
 
     assert_that(is.data.frame(cfrow))
     assert_that(nrow(cfrow)==1)
+    assert_that(is.list(cfrow$method_flags))
+    assert_that(is.character(cfrow$method_flags[[1]]))
     assert_that(is.flag(verbose))
     assert_that(is.flag(local_dir_only))
+
+    method_flags <- cfrow$method_flags[[1]]
 
     if (!grepl("\\d\\d\\d\\d/?$",cfrow$source_url)) {
         ## pointing to root
@@ -50,12 +54,11 @@ ghrsst_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
     yearlist <- na.omit(yearlist)
     if (length(yearlist)<1) warning("ghrsst: empty yearlist")
     ## make sure method_flags include --recursive --no-parent
-    if (!grepl("--recursive",cfrow$method_flags,ignore.case=TRUE)) {
-        cfrow$method_flags <- paste(cfrow$method_flags,"--recursive",sep=" ")
-    }
-    if (!grepl("--no-parent",cfrow$method_flags,ignore.case=TRUE)) {
-        cfrow$method_flags <- paste(cfrow$method_flags,"--no-parent",sep=" ")
-    }
+    if (!any(tolower(method_flags) %in% c("--recursive","-r")))
+        method_flags <- c(method_flags,"--recursive")
+    if (!any(tolower(method_flags) %in% c("--no-parent","-np")))
+        method_flags <- c(method_flags,"--no-parent")
+    cfrow$method_flags <- list(method_flags)
     for (thisyear in yearlist) {
         daylist <- if (thisyear==2002) 152:365 else 1:366
         if (thisyear==as.numeric(format(Sys.Date(),"%Y"))) daylist <- daylist[daylist<=as.numeric(format(Sys.Date(),"%j"))]
