@@ -8,7 +8,7 @@ sources_reanalysis <- function() {
         source_url="ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis2/",
         license="Please cite",
         method=quote(bb_wget),
-        method_flags="--recursive --no-parent",
+        method_flags=c("--recursive","--level=3","--no-parent"),
         postprocess=NULL,
         collection_size=NA, ## haven't downloaded full collection yet, so don't have a figure for this
         data_group="Reanalysis") %>%
@@ -22,9 +22,9 @@ sources_reanalysis <- function() {
                 source_url="ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis2.dailyavgs/",
                 license="Please cite",
                 method=quote(bb_wget),
-                method_flags="--recursive --no-parent",
+                method_flags=c("--recursive","--level=3","--no-parent"),
                 postprocess=NULL,
-                collection_size=50,                
+                collection_size=50,
                 data_group="Reanalysis")) %>%
         bind_rows(
             bb_source(
@@ -36,9 +36,9 @@ sources_reanalysis <- function() {
                 source_url="ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis2.derived/",
                 license="Please cite",
                 method=quote(bb_wget),
-                method_flags="--recursive --no-parent",
+                method_flags=c("--recursive","--level=3","--no-parent"),
                 postprocess=NULL,
-                collection_size=2,                
+                collection_size=2,
                 data_group="Reanalysis"))
 }
 
