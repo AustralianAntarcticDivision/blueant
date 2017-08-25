@@ -9,7 +9,7 @@ sources_meteorological <- function() {
         license="Please cite",
         comment="d1,d2 files for hours 000-027 only. Note that this web site provides only the last few days of files.",
         method=quote(amps_get),
-        method_flags=c(),
+        method_flags=character(),
         postprocess=NULL,
         collection_size=NA, ## depends on how long the sync has been running, since only the last few days worth are exposed at any one time
         data_group="Meteorological")

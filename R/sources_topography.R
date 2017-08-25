@@ -78,7 +78,7 @@ sources_topography <- function() {
             license="CC-BY",
             source_url="https://data.aad.gov.au/eds/file/4494/", ## migrate to https://data.aad.gov.au/eds/3403/download if we prefer that form
             method=quote(aadc_eds_get),
-            method_flags=c(),
+            method_flags=character(),
             postprocess=quote(pp_unzip),
             collection_size=0.2,
             data_group="Topography"),
