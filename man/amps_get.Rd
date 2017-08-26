@@ -4,10 +4,10 @@
 \alias{amps_get}
 \title{Handler for AMPS data (Antarctic mesoscale prediction system)}
 \usage{
-amps_get(cfrow, verbose = FALSE, local_dir_only = FALSE)
+amps_get(config, verbose = FALSE, local_dir_only = FALSE)
 }
 \arguments{
-\item{cfrow}{data.frame: a single row from a bowerbird configuration (as returned by \code{bb_config})}
+\item{config}{bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source}
 
 \item{verbose}{logical: if TRUE, provide additional progress output}
 

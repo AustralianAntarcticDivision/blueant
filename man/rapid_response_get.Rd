@@ -4,10 +4,10 @@
 \alias{rapid_response_get}
 \title{Handler for NASA MODIS Rapid Response files}
 \usage{
-rapid_response_get(cfrow, verbose = FALSE, local_dir_only = FALSE)
+rapid_response_get(config, verbose = FALSE, local_dir_only = FALSE)
 }
 \arguments{
-\item{cfrow}{data.frame: a single row from a bowerbird configuration (as returned by \code{bb_config})}
+\item{config}{bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source}
 
 \item{verbose}{logical: if TRUE, provide additional progress output}
 

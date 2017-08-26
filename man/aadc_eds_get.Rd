@@ -4,10 +4,10 @@
 \alias{aadc_eds_get}
 \title{Handler for files downloaded from the Australian Antarctic Data Centre EDS system}
 \usage{
-aadc_eds_get(cfrow, verbose = FALSE, local_dir_only = FALSE)
+aadc_eds_get(config, verbose = FALSE, local_dir_only = FALSE)
 }
 \arguments{
-\item{cfrow}{data.frame: a single row from a bowerbird configuration (as returned by \code{bb_config})}
+\item{config}{bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source}
 
 \item{verbose}{logical: if TRUE, provide additional progress output}
 

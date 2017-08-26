@@ -163,7 +163,7 @@ test_that("source nsidc0082 still works under ftp (due to be moved to https)",{
     cf <- bb_config(local_file_root=temp_root) %>%
         add(blueant_sources(name="Radarsat Antarctic digital elevation model V2") %>%
             mutate(source_url="ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr")) %>%
-            slice(1L)
+        bb_subset(1L)
     bb_sync(cf)
     fnm <- file.path(temp_root,"sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr")
     expect_true(file.exists(fnm))

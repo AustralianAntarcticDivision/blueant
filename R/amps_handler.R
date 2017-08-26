@@ -1,30 +1,30 @@
 #' Handler for AMPS data (Antarctic mesoscale prediction system)
 #'
 #' @references http://www2.mmm.ucar.edu/rt/amps/
-#' @param cfrow data.frame: a single row from a bowerbird configuration (as returned by \code{bb_config})
+#' @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
 #' @param verbose logical: if TRUE, provide additional progress output
 #' @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
 #'
 #' @return the directory if local_dir_only is TRUE, otherwise TRUE on success
 #'
 #' @export
-amps_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
-    assert_that(is.data.frame(cfrow))
-    assert_that(nrow(cfrow)==1)
+amps_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
+    assert_that(is(config,"bb_config"))
+    assert_that(nrow(config$data_sources)==1)
     assert_that(is.flag(verbose))
     assert_that(is.flag(local_dir_only))
     ## shouldn't need any specific method_flags for this
     ## --timestamping not needed (handled through clobber config setting)
     ## --recursive, etc not needed
-    if (sub("/$","",cfrow$source_url)!="http://www2.mmm.ucar.edu/rt/amps/wrf_grib") {
-        stop(sprintf("source_url (%s) not as expected, not processing.\n",cfrow$source_url))
+    if (sub("/$","",config$data_sources$source_url)!="http://www2.mmm.ucar.edu/rt/amps/wrf_grib") {
+        stop(sprintf("source_url (%s) not as expected, not processing.\n",config$data_sources$source_url))
     }
-    if (local_dir_only) return(bb_wget(cfrow,verbose=verbose,local_dir_only=TRUE))
-    x <- html_session(cfrow$source_url)
+    if (local_dir_only) return(bb_wget(config,verbose=verbose,local_dir_only=TRUE))
+    x <- html_session(config$data_sources$source_url)
     n <- html_attr(html_nodes(x,"a"),"href")
     idx <- grepl("[[:digit:]]+",n,ignore.case=TRUE) ## links that are all digits
     accept <- function(z) grepl("\\.txt$",html_attr(z,"href"),ignore.case=TRUE) || grepl("d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$",html_attr(z,"href"),ignore.case=TRUE) ## which files to accept
-    this_path_no_trailing_sep <- sub("[\\/]$","",bowerbird:::directory_from_url(cfrow$source_url))
+    this_path_no_trailing_sep <- sub("[\\/]$","",bowerbird:::directory_from_url(config$data_sources$source_url))
     for (i in idx) { ## loop through directories
         target_dir <- sub("/$","",n[i])
         target_dir <- file.path(this_path_no_trailing_sep,sub("(00|12)$","",target_dir))
@@ -44,8 +44,8 @@ amps_get <- function(cfrow,verbose=FALSE,local_dir_only=FALSE) {
         for (f in files) {
             ## loop through files to download
             file_url <- xml2::url_absolute(f,x2$url)
-            dummy <- cfrow
-            dummy$source_url <- file_url
+            dummy <- config
+            dummy$data_sources$source_url <- file_url
             bb_wget(dummy,verbose=verbose)
         }
     }
