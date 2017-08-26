@@ -24,7 +24,7 @@ sources_topography <- function() {
             source_url="https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/grid_registered/netcdf/",
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=3","--no-parent","--accept=*gdal*,*.txt"),
-            postprocess=quote(pp_gunzip),
+            postprocess=quote(bb_gunzip),
             access_function="readtopo",
             collection_size=1.3,
             data_group="Topography"),
@@ -38,7 +38,7 @@ sources_topography <- function() {
             source_url=c("https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2/ETOPO2v2-2006/ETOPO2v2c/netCDF/ETOPO2v2c_f4_netCDF.zip","https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2/ETOPO2v2-2006/ETOPO2v2c/ETOPO2v2c_ReadMe.txt"),
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=1","--no-parent"),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             access_function="readtopo",
             collection_size=0.3,
             data_group="Topography"),
@@ -53,7 +53,7 @@ sources_topography <- function() {
             method=quote(bb_wget),
             method_flags=c("--recursive","--no-parent","-e","robots=off","--accept=*bin.zip,*tiff.zip,*.txt,*.rtf","--no-check-certificate"),
             comment="--no-check-certificate flag to wget until certificate authority issue fixed",
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=3.3,
             data_group="Topography"),
         bb_source(
@@ -66,7 +66,7 @@ sources_topography <- function() {
             license="CC-BY",
             method=quote(bb_wget),
             method_flags=c("--recursive","--no-parent"),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=0.7,
             data_group="Topography"),
         bb_source(
@@ -79,7 +79,7 @@ sources_topography <- function() {
             source_url="https://data.aad.gov.au/eds/file/4494/", ## migrate to https://data.aad.gov.au/eds/3403/download if we prefer that form
             method=quote(aadc_eds_get),
             method_flags=character(),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=0.2,
             data_group="Topography"),
         bb_source(
@@ -92,7 +92,7 @@ sources_topography <- function() {
             license="CC-BY 4.0",
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=1","--accept=zip","--no-parent"),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=0.4,
             data_group="Topography"),
         bb_source(
@@ -105,7 +105,7 @@ sources_topography <- function() {
             source_url=c("http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_bed_PS71_500m_grd.zip","http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_is_PS71_500m_grd.zip","http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_sid_PS71_500m_grd.zip","http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_is_PS71_500m_tif.zip","http://www.ibcso.org/data/IBCSO_background_hq.zip"),
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=1","--no-parent"),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=4.1,
             data_group="Topography"),
         bb_source(
@@ -145,7 +145,7 @@ sources_topography <- function() {
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=2","--no-parent","--reject=*.txt.gz,*.tar.gz"),
             comment="Only the 200m and 1km binary files are retrieved here: adjust the source_url or method_flags for others",
-            postprocess=quote(pp_gunzip),
+            postprocess=quote(bb_gunzip),
             collection_size=3.3,
             data_group="Topography"),
         bb_source(
@@ -158,7 +158,7 @@ sources_topography <- function() {
             license="NIWA Open Data Licence BY-NN-NC-SA version 1, see https://www.niwa.co.nz/environmental-information/licences/niwa-open-data-licence-by-nn-nc-sa-version-1",
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=1","--no-parent"),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=1.3,
             data_group="Topography"),
         bb_source(
@@ -184,7 +184,7 @@ sources_topography <- function() {
             source_url="http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/10m_physical.zip",
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=1","--no-parent"),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=0.2,
             data_group="Topography"),
         bb_source(
@@ -197,7 +197,7 @@ sources_topography <- function() {
             license="LGPL",
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=1","--accept=*bin*.zip,README.TXT"),
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=0.6,
             data_group="Topography"),
         bb_source(
@@ -213,7 +213,7 @@ sources_topography <- function() {
             method_flags=c("--recursive","--level=1","--no-parent"),
             user="",
             password="",
-            postprocess=quote(pp_unzip),
+            postprocess=quote(bb_unzip),
             collection_size=620,
             data_group="Topography",warn_empty_auth=FALSE)
     )

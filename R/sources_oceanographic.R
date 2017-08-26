@@ -10,7 +10,7 @@ sources_oceanographic <- function() {
             license="Please cite",
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=1","--accept-regex=.*2009.*.nc.gz"),
-            postprocess=quote(pp_gunzip),
+            postprocess=quote(bb_gunzip),
             collection_size=2.8,
             data_group="Oceanographic"),
         bb_source(

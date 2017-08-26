@@ -10,7 +10,7 @@ sources_sst <- function() {
             license="Please cite",
             method=quote(bb_wget),
             method_flags=c("--recursive","--level=4","--accept=avhrr-only*","--reject=*preliminary*","--follow-ftp","--no-parent"),
-            postprocess=quote(pp_gunzip),
+            postprocess=quote(bb_gunzip),
             access_function="readsst",
             collection_size=140,
             data_group="Sea surface temperature"),
@@ -76,7 +76,7 @@ sources_sst <- function() {
             comment="Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2015/",
             method=quote(ghrsst_get),
             method_flags=c("--recursive","--level=4","--no-parent"),
-            postprocess=quote(pp_bunzip2),
+            postprocess=quote(bb_bunzip2),
             collection_size=2000,
             data_group="Sea surface temperature")
     )
