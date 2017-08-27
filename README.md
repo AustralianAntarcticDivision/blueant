@@ -16,7 +16,7 @@ library(devtools)
 install_github("AustralianAntarcticDivision/blueant",build_vignettes=TRUE)
 ```
 
-Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. `wget` is typically installed by default on Linux. On Windows you can use the `install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from <https://eternallybored.org/misc/wget/current/wget.exe>) and make sure it is on your path.
+Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. `wget` is typically installed by default on Linux. On Windows you can use the `bb_install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from <https://eternallybored.org/misc/wget/current/wget.exe>) and make sure it is on your path.
 
 Usage
 -----
@@ -32,7 +32,7 @@ cf <- bb_config(local_file_root="~/your/data/directory")
 Add data sources from those provided by blueant. A summary of these sources is given at the end of this document.
 
 ``` r
-cf <- cf %>% add(blueant_sources("CERSAT SSM/I sea ice concentration"))
+cf <- cf %>% bb_add(blueant_sources("CERSAT SSM/I sea ice concentration"))
 ```
 
 ### Synchronisation
@@ -64,21 +64,21 @@ Some data providers require users to log in. These are indicated by the `authent
 src <- blueant_sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)")
 src$user <- "yourusername"
 src$password <- "yourpassword"
-cf <- add(cf,src)
+cf <- bb_add(cf,src)
 
 ## or, using dplyr
-cf <- cf %>% add(blueant_sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
+cf <- cf %>% bb_add(blueant_sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
                  mutate(user="yourusername",password="yourpassword"))
 ```
 
 #### Reducing download sizes
 
-Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_wget` method, you can restrict what is downloaded by modifying the data source's `method_flags`, particularly the `--accept`, `--reject`, `--accept-regex`, and `--reject-regex` options. Be sure to leave the original method flags in place, unless you know what you are doing.
+Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_handler_wget` method, you can restrict what is downloaded by modifying the data source's `method_flags`, particularly the `--accept`, `--reject`, `--accept-regex`, and `--reject-regex` options. Be sure to leave the original method flags in place, unless you know what you are doing.
 
 For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly directories, so it is fairly easy to restrict ourselves to, say, only the 2017 data:
 
 ``` r
-cf <- cf %>% add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
+cf <- cf %>% bb_add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
                  mutate(method_flags=paste(method_flags,"--accept-regex=\"/2017/\"")))
 ```
 
@@ -87,7 +87,7 @@ See the bowerbird documentation for further guidances on the accept/reject flags
 Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is "<ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/*>" (with yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
 
 ``` r
-cf <- cf %>% add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
+cf <- cf %>% bb_add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
     mutate(source_url=c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/*",
                         "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/*")))
 ```

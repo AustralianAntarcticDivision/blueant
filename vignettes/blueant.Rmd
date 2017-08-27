@@ -37,7 +37,7 @@ cf <- bb_config(local_file_root="~/your/data/directory")
 Add data sources from those provided by blueant. A summary of these sources is given at the end of this document.
 
 ```{r eval=FALSE}
-cf <- cf %>% add(blueant_sources("CERSAT SSM/I sea ice concentration"))
+cf <- cf %>% bb_add(blueant_sources("CERSAT SSM/I sea ice concentration"))
 ```
 
 ### Synchronisation
@@ -69,11 +69,11 @@ Some data providers require users to log in. These are indicated by the `authent
 src <- blueant_sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)")
 src$user <- "yourusername"
 src$password <- "yourpassword"
-cf <- add(cf,src)
+cf <- bb_add(cf,src)
 
 ## or, using dplyr
 cf <- cf %>%
-  add(blueant_sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
+  bb_add(blueant_sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
   mutate(user="yourusername",password="yourpassword"))
 ```
 
@@ -85,7 +85,7 @@ For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly 
 
 ```{r eval=FALSE}
 cf <- cf %>%
-  add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
+  bb_add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
   mutate(method_flags=paste(method_flags,"--accept-regex=\"/2017/\"")))
 ```
 
@@ -95,7 +95,7 @@ Alternatively, for data sources that are divided into subdirectories, one could 
 
 ```{r eval=FALSE}
 cf <- cf %>%
-  add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
+  bb_add(blueant_sources("CERSAT SSM/I sea ice concentration") %>%
   mutate(source_url=c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/*",
                       "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/*")))
 ```
@@ -110,7 +110,7 @@ These are the data source definitions that are provided as part of the blueant p
 
 ```{r echo=FALSE,message=FALSE,warning=FALSE,results="asis"}
 library(blueant)
-cf <- bb_config("/your/data/root/") %>% add(blueant_sources())
+cf <- bb_config("/your/data/root/") %>% bb_add(blueant_sources())
 sf <- bb_summary(cf,format="rmd",inc_license=FALSE,inc_access_function=FALSE,inc_path=FALSE)
 stxt <- readLines(sf)
 stxt <- stxt[(grep("Last updated:",stxt)+1):length(stxt)]
