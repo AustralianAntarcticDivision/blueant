@@ -22,7 +22,7 @@ install_github("AustralianAntarcticDivision/blueant",build_vignettes=TRUE)
 ```
 
 Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. `wget` is typically installed by default on Linux.
-On Windows you can use the `install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from https://eternallybored.org/misc/wget/current/wget.exe) and make sure it is on your path.
+On Windows you can use the `bb_install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from https://eternallybored.org/misc/wget/current/wget.exe) and make sure it is on your path.
 
 ## Usage
 
@@ -79,7 +79,7 @@ cf <- cf %>%
 
 #### Reducing download sizes
 
-Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_wget` method, you can restrict what is downloaded by modifying the data source's `method_flags`, particularly the `--accept`, `--reject`, `--accept-regex`, and `--reject-regex` options. Be sure to leave the original method flags in place, unless you know what you are doing.
+Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_handler_wget` method, you can restrict what is downloaded by modifying the data source's `method_flags`, particularly the `--accept`, `--reject`, `--accept-regex`, and `--reject-regex` options. Be sure to leave the original method flags in place, unless you know what you are doing.
 
 For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly directories, so it is fairly easy to restrict ourselves to, say, only the 2017 data:
 
