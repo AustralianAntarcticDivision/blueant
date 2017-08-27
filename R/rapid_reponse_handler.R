@@ -17,7 +17,7 @@ rapid_response_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     if (local_dir_only) {
         dummy <- config
         dummy$data_sources$source_url <- "http://lance-modis.eosdis.nasa.gov/imagery/subsets/"
-        return(bb_wget(dummy,verbose=verbose,local_dir_only=TRUE))
+        return(bb_handler_wget(dummy,verbose=verbose,local_dir_only=TRUE))
     }
     ## NASA MODIS rapid response synchronisation handler
 
@@ -57,6 +57,6 @@ rapid_response_do_download <- function(d,platform,resolution,config,verbose) {
         if (verbose) cat(sprintf("not downloading %s, local file exists and clobber setting is <2\n",this_url))
     } else {
         dummy$data_sources$source_url <- this_url
-        bb_wget(dummy,verbose=verbose)
+        bb_handler_wget(dummy,verbose=verbose)
     }
 }

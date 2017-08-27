@@ -44,11 +44,11 @@ ghrsst_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
             ## all years, so return the root dir
             dummy <- config
             dummy$data_sources$source_url <- "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/"
-            return(bb_wget(dummy,verbose=verbose,local_dir_only=TRUE))
+            return(bb_handler_wget(dummy,verbose=verbose,local_dir_only=TRUE))
         }
     } else {
         ## a specific year
-        if (local_dir_only) return(bb_wget(config,verbose=verbose,local_dir_only=TRUE))
+        if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE))
         yearlist <- as.numeric(basename(config$data_sources$source_url))
     }
     yearlist <- na.omit(yearlist)
@@ -65,7 +65,7 @@ ghrsst_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
         for (thisday in daylist) {
             dummy <- config
             dummy$data_sources$source_url <- paste0("ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",thisyear,"/",sprintf("%03d",thisday),"/")
-            bb_wget(dummy,verbose=verbose)
+            bb_handler_wget(dummy,verbose=verbose)
         }
     }
 }

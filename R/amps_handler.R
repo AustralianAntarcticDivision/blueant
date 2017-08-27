@@ -19,7 +19,7 @@ amps_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     if (sub("/$","",config$data_sources$source_url)!="http://www2.mmm.ucar.edu/rt/amps/wrf_grib") {
         stop(sprintf("source_url (%s) not as expected, not processing.\n",config$data_sources$source_url))
     }
-    if (local_dir_only) return(bb_wget(config,verbose=verbose,local_dir_only=TRUE))
+    if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE))
     x <- html_session(config$data_sources$source_url)
     n <- html_attr(html_nodes(x,"a"),"href")
     idx <- grepl("[[:digit:]]+",n,ignore.case=TRUE) ## links that are all digits
@@ -46,7 +46,7 @@ amps_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
             file_url <- xml2::url_absolute(f,x2$url)
             dummy <- config
             dummy$data_sources$source_url <- file_url
-            bb_wget(dummy,verbose=verbose)
+            bb_handler_wget(dummy,verbose=verbose)
         }
     }
 }

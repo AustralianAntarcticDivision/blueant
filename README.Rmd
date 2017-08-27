@@ -85,7 +85,7 @@ cf <- cf %>% add(blueant_sources(name="CMEMS global gridded SSH reprocessed (199
 
 #### Reducing download sizes
 
-Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_wget` method, you can restrict what is downloaded by modifying the data source's `method_flags`, particularly the `--accept`, `--reject`, `--accept-regex`, and `--reject-regex` options. Be sure to leave the original method flags in place, unless you know what you are doing.
+Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_handler_wget` method, you can restrict what is downloaded by modifying the data source's `method_flags`, particularly the `--accept`, `--reject`, `--accept-regex`, and `--reject-regex` options. Be sure to leave the original method flags in place, unless you know what you are doing.
 
 For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly directories, so it is fairly easy to restrict ourselves to, say, only the 2017 data:
 

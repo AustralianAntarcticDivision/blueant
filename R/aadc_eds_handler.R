@@ -62,5 +62,5 @@ aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     ## don't use --recursive, since we're handling the destination directory explicitly
     method_flags <- setdiff(method_flags,c("--recursive","-r"))
     config$data_sources$method_flags <- list(method_flags)
-    bb_wget(config,verbose=verbose)
+    bb_handler_wget(config,verbose=verbose)
 }
