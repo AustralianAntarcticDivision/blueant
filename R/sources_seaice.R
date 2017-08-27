@@ -53,7 +53,7 @@ sources_seaice <- function() {
             source_url="https://n5eil01u.ecs.nsidc.org/NIMBUS/NmIcEdg2.001/",
             license="Please cite, see http://nsidc.org/about/use_copyright.html",
             authentication_note="Requires Earthdata login, see https://urs.earthdata.nasa.gov/",
-            method=quote(earthdata_get),
+            method=quote(bb_handler_earthdata),
             method_flags=c("--recursive","--level=2","--no-parent","--accept-regex=/NmIcEdg2.001/"),
             user="",
             password="",

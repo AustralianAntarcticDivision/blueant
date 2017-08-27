@@ -209,7 +209,7 @@ sources_topography <- function() {
             citation="NASA JPL. (2013). NASA Shuttle Radar Topography Mission Global 1 arc second [Data set]. NASA LP DAAC. https://doi.org/10.5067/measures/srtm/srtmgl1.003",
             license="Please cite, see https://lpdaac.usgs.gov/node/51",
             authentication_note="Requires Earthdata login, see https://urs.earthdata.nasa.gov/",
-            method=quote(earthdata_get),
+            method=quote(bb_handler_earthdata),
             method_flags=c("--recursive","--level=1","--no-parent"),
             user="",
             password="",
