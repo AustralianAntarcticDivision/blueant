@@ -146,6 +146,19 @@ sources_seaice <- function() {
             collection_size=2.5,
             data_group="Sea ice"),
         bb_source(
+            name="CERSAT SSM/I sea ice concentration supporting files",
+            id="CERSAT_SSMI_grids",
+            description="Grids for the CERSAT SSM/I sea ice concentration data.",
+            reference= "http://cersat.ifremer.fr/data/tools-and-services/quicklooks/sea-ice/ssm-i-sea-ice-concentration-maps",
+            citation="",
+            source_url="ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/*",
+            license="Unknown",
+            method=quote(bb_handler_wget),
+            method_flags=c("--recursive","--level=1","--no-parent"),
+            postprocess=quote(bb_gunzip),
+            collection_size=0.01,
+            data_group="Sea ice"),
+        bb_source(
             name="MODIS Composite Based Maps of East Antarctic Fast Ice Coverage",
             id="10.4225/15/5667AC726B224", ##modis_20day_fast_ice
             description="Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31",
