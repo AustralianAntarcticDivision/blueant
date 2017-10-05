@@ -24,15 +24,15 @@ amps_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
 
     x <- html_session(bb_data_sources(config)$source_url)
     n <- html_attr(html_nodes(x,"a"),"href")
-    idx <- grepl("[[:digit:]]+",n,ignore.case=TRUE) ## links that are all digits
+    idx <- grep("^[[:digit:]]+/?$",n,ignore.case=TRUE) ## links that are all digits
     accept <- function(z) grepl("\\.txt$",html_attr(z,"href"),ignore.case=TRUE) || grepl("d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$",html_attr(z,"href"),ignore.case=TRUE) ## which files to accept
-    this_path_no_trailing_sep <- sub("[\\/]$","",bowerbird:::directory_from_url(bb_data_sources(config)$source_url))
+    this_path_no_trailing_sep <- sub("[\\/]$","",bb_data_source_dir(config))
     for (i in idx) { ## loop through directories
         target_dir <- sub("/$","",n[i])
         target_dir <- file.path(this_path_no_trailing_sep,sub("(00|12)$","",target_dir))
         ## make target_dir if it doesn't exist
         if (!dir.exists(target_dir)) {
-            ok <- dir.create(target_dir)
+            ok <- dir.create(target_dir,recursive=TRUE)
             if (!ok) {
                 stop(sprintf("Could not create target directory %s: aborting.\n",target_dir))
             }
