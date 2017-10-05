@@ -27,6 +27,7 @@ amps_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     idx <- grep("^[[:digit:]]+/?$",n,ignore.case=TRUE) ## links that are all digits
     accept <- function(z) grepl("\\.txt$",html_attr(z,"href"),ignore.case=TRUE) || grepl("d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$",html_attr(z,"href"),ignore.case=TRUE) ## which files to accept
     this_path_no_trailing_sep <- sub("[\\/]$","",bb_data_source_dir(config))
+    all_ok <- TRUE
     for (i in idx) { ## loop through directories
         target_dir <- sub("/$","",n[i])
         target_dir <- file.path(this_path_no_trailing_sep,sub("(00|12)$","",target_dir))
@@ -50,7 +51,8 @@ amps_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
             temp <- bb_data_sources(dummy)
             temp$source_url <- file_url
             bb_data_sources(dummy) <- temp
-            bb_handler_wget(dummy,verbose=verbose)
+            all_ok <- all_ok && bb_handler_wget(dummy,verbose=verbose)
         }
     }
+    all_ok
 }
