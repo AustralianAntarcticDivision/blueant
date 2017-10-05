@@ -1,7 +1,7 @@
 Package: blueant
 Type: Package
 Title: Antarctic and Southern Ocean environmental data sources
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: c(person("Ben","Raymond",email="ben.raymond@aad.gov.au",
   	   role=c("aut","cre")),
 	   person("Michael","Sumner",role="aut"))
@@ -11,7 +11,8 @@ URL: https://github.com/AustralianAntarcticDivision/blueant
 BugReports: https://github.com/AustralianAntarcticDivision/blueant/issues
 License: MIT + file LICENSE
 Depends:
-    bowerbird
+    bowerbird,
+    R (>= 3.3.0)
 Imports:
     assertthat,
     dplyr,
