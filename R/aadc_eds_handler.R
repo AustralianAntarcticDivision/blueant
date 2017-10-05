@@ -35,11 +35,14 @@ aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     ## change into subdirectory named by file_id of file,
     ## so that we don't get files mixed together in data.aad.gov.au/eds/file/
     ## note that this requires the "--recursive" flag NOT TO BE USED
+    url_form <- -1
     if (grepl("/download",bb_data_sources(config)$source_url)) {
+        url_form <- 1
         this_file_id <- str_match(bb_data_sources(config)$source_url,"/eds/(\\d+)/download$")[2]
         if (is.na(this_file_id)) stop("could not determine AADC EDS file_id")
         trailing_path <- file.path("data.aad.gov.au","eds",this_file_id)
     } else {
+        url_form <- 2
         this_file_id <- str_match(bb_data_sources(config)$source_url,"/eds/file/(\\d+)/?$")[2]
         if (is.na(this_file_id)) stop("could not determine AADC EDS file_id")
         trailing_path <- file.path("data.aad.gov.au","eds","file",this_file_id)
@@ -60,7 +63,7 @@ aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
 
     ## don't set the --content-disposition flag. It seems to cause problems with used with --timestamping on large files, and
     ##  isn't really needed anyway. Without it, we just get the downloaded file names as "download" (for the /download url form)
-    ##  or "index.html" (for the /eds/file/wxyz/ form). But these are still valid zip files
+    ##  or "index.html" (for the /eds/file/wxyz/ form). But these are still valid zip files - just need to rename them so that postprocess finds them
     ##
     ##if (!grepl("--content-disposition",method_flags,ignore.case=TRUE)) {
     ##    method_flags <- paste(method_flags,"--content-disposition",sep=" ")
@@ -70,5 +73,18 @@ aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     temp <- bb_data_sources(config)
     temp$method_flags <- list(method_flags)
     bb_data_sources(config) <- temp
-    bb_handler_wget(config,verbose=verbose)
+    ok <- bb_handler_wget(config,verbose=verbose)
+    ## rename files. Note that this relies on the download being a zip file, so test it first with unzip(...,list=TRUE)
+    is_zip <- function(filename) {
+        zip <- FALSE
+        try({blah <- unzip(filename,list=TRUE); zip <- TRUE },silent=TRUE)
+        zip
+    }
+    downloaded_file <- if (url_form==1) "download" else "index.html" ## expected name of downloaded file
+    if (file.exists(downloaded_file) && is_zip(downloaded_file)) {
+        zname <- paste0(downloaded_file,".zip")
+        if (file.exists(zname)) file.remove(zname)
+        ok <- ok && file.rename(downloaded_file,zname)
+    }
+    ok
 }
