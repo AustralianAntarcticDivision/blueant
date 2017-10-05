@@ -10,13 +10,15 @@
 #' @export
 rapid_response_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is(config,"bb_config"))
-    assert_that(nrow(config$data_sources)==1)
-    assert_that(is.list(config$data_sources$method_flags))
-    assert_that(is.character(config$data_sources$method_flags[[1]]))
+    assert_that(nrow(bb_data_sources(config))==1)
+    assert_that(is.list(bb_data_sources(config)$method_flags))
+    assert_that(is.character(bb_data_sources(config)$method_flags[[1]]))
     assert_that(is.flag(local_dir_only))
     if (local_dir_only) {
         dummy <- config
-        dummy$data_sources$source_url <- "http://lance-modis.eosdis.nasa.gov/imagery/subsets/"
+        temp <- bb_data_sources(dummy)
+        temp$source_url <- "http://lance-modis.eosdis.nasa.gov/imagery/subsets/"
+        bb_data_sources(dummy) <- temp
         return(bb_handler_wget(dummy,verbose=verbose,local_dir_only=TRUE))
     }
     ## NASA MODIS rapid response synchronisation handler
@@ -52,11 +54,13 @@ rapid_response_do_download <- function(d,platform,resolution,config,verbose) {
     ##dummy$method_flags=paste("--progress=dot:giga","--recursive",sep=" ")
     ## this gives output filenames like "index.html@mosaic=Antarctica.2014003.terra.4km.tif" - would prefer these to be just "Antarctica.*"
     ## note that we can't use --output_document option with --timestamping, but since the server doesn't support timestamping anyway
-    dummy$data_sources$method_flags <- list(paste0("--output-document=lance-modis.eosdis.nasa.gov/imagery/subsets/",sub("^http.*mosaic=","",this_url)))
+    temp <- bb_data_sources(dummy)
+    temp$method_flags <- list(paste0("--output-document=lance-modis.eosdis.nasa.gov/imagery/subsets/",sub("^http.*mosaic=","",this_url)))
     if (file.exists(paste0("lance-modis.eosdis.nasa.gov/imagery/subsets/",sub("^http.*mosaic=","",this_url))) && (bb_settings(config)$clobber<2)) {
         if (verbose) cat(sprintf("not downloading %s, local file exists and clobber setting is <2\n",this_url))
     } else {
-        dummy$data_sources$source_url <- this_url
+        temp$source_url <- this_url
+        bb_data_sources(dummy) <- temp
         bb_handler_wget(dummy,verbose=verbose)
     }
 }

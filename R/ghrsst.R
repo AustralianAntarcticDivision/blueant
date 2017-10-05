@@ -29,27 +29,29 @@ ghrsst_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     ## for the latter, just hit that specific yearly directory
 
     assert_that(is(config,"bb_config"))
-    assert_that(nrow(config$data_sources)==1)
-    assert_that(is.list(config$data_sources$method_flags))
-    assert_that(is.character(config$data_sources$method_flags[[1]]))
+    assert_that(nrow(bb_data_sources(config))==1)
+    assert_that(is.list(bb_data_sources(config)$method_flags))
+    assert_that(is.character(bb_data_sources(config)$method_flags[[1]]))
     assert_that(is.flag(verbose))
     assert_that(is.flag(local_dir_only))
 
-    method_flags <- config$data_sources$method_flags[[1]]
+    method_flags <- bb_data_sources(config)$method_flags[[1]]
 
-    if (!grepl("\\d\\d\\d\\d/?$",config$data_sources$source_url)) {
+    if (!grepl("\\d\\d\\d\\d/?$",bb_data_sources(config)$source_url)) {
         ## pointing to root
         yearlist <- seq(from=2002,to=as.numeric(format(Sys.Date(),"%Y")),by=1)
         if (local_dir_only) {
             ## all years, so return the root dir
             dummy <- config
-            dummy$data_sources$source_url <- "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/"
+            temp <- bb_data_sources(dummy)
+            temp$source_url <- "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/"
+            bb_data_sources(dummy) <- temp
             return(bb_handler_wget(dummy,verbose=verbose,local_dir_only=TRUE))
         }
     } else {
         ## a specific year
         if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE))
-        yearlist <- as.numeric(basename(config$data_sources$source_url))
+        yearlist <- as.numeric(basename(bb_data_sources(config)$source_url))
     }
     yearlist <- na.omit(yearlist)
     if (length(yearlist)<1) warning("ghrsst: empty yearlist")
@@ -58,13 +60,17 @@ ghrsst_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
         method_flags <- c(method_flags,"--recursive")
     if (!any(tolower(method_flags) %in% c("--no-parent","-np")))
         method_flags <- c(method_flags,"--no-parent")
-    config$data_sources$method_flags <- list(method_flags)
+    temp <- bb_data_sources(config)
+    temp$method_flags <- list(method_flags)
+    bb_data_sources(config) <- temp
     for (thisyear in yearlist) {
         daylist <- if (thisyear==2002) 152:365 else 1:366
         if (thisyear==as.numeric(format(Sys.Date(),"%Y"))) daylist <- daylist[daylist<=as.numeric(format(Sys.Date(),"%j"))]
         for (thisday in daylist) {
             dummy <- config
-            dummy$data_sources$source_url <- paste0("ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",thisyear,"/",sprintf("%03d",thisday),"/")
+            temp <- bb_data_sources(dummy)
+            temp$source_url <- paste0("ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",thisyear,"/",sprintf("%03d",thisday),"/")
+            bb_data_sources(dummy) <- temp
             bb_handler_wget(dummy,verbose=verbose)
         }
     }

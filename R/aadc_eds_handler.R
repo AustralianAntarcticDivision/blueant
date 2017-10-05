@@ -12,18 +12,20 @@
 #' @export
 aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is(config,"bb_config"))
-    assert_that(nrow(config$data_sources)==1)
-    assert_that(is.list(config$data_sources$method_flags))
-    assert_that(is.character(config$data_sources$method_flags[[1]]))
+    assert_that(nrow(bb_data_sources(config))==1)
+    assert_that(is.list(bb_data_sources(config)$method_flags))
+    assert_that(is.character(bb_data_sources(config)$method_flags[[1]]))
     assert_that(is.flag(verbose))
     assert_that(is.flag(local_dir_only))
 
-    method_flags <- config$data_sources$method_flags[[1]]
+    method_flags <- bb_data_sources(config)$method_flags[[1]]
 
-    slidx <- !grepl("/download$",config$data_sources$source_url) & !grepl("/$",config$data_sources$source_url)
+    temp <- bb_data_sources(config)
+    slidx <- !grepl("/download$",temp$source_url) & !grepl("/$",temp$source_url)
     if (any(slidx)) {
         warning("each source_url for data sources using the aadc_eds_get method should have a trailing /. These will be added now")
-        config$data_sources$source_url[slidx] <- paste0(config$data_sources$source_url[slidx],"/")
+        temp$source_url[slidx] <- paste0(temp$source_url[slidx],"/")
+        bb_data_sources(config) <- temp
     }
     ## clumsy way to get around AADC EDS file naming issues
     ## e.g. if we ask for http://data.aad.gov.au/eds/file/4494
@@ -33,16 +35,20 @@ aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     ## change into subdirectory named by file_id of file,
     ## so that we don't get files mixed together in data.aad.gov.au/eds/file/
     ## note that this requires the "--recursive" flag NOT TO BE USED
-    if (grepl("/download",config$data_sources$source_url)) {
-        this_file_id <- str_match(config$data_sources$source_url,"/eds/(\\d+)/download$")[2]
+    if (grepl("/download",bb_data_sources(config)$source_url)) {
+        this_file_id <- str_match(bb_data_sources(config)$source_url,"/eds/(\\d+)/download$")[2]
         if (is.na(this_file_id)) stop("could not determine AADC EDS file_id")
         trailing_path <- file.path("data.aad.gov.au","eds",this_file_id)
     } else {
-        this_file_id <- str_match(config$data_sources$source_url,"/eds/file/(\\d+)/?$")[2]
+        this_file_id <- str_match(bb_data_sources(config)$source_url,"/eds/file/(\\d+)/?$")[2]
         if (is.na(this_file_id)) stop("could not determine AADC EDS file_id")
         trailing_path <- file.path("data.aad.gov.au","eds","file",this_file_id)
-        if (!grepl("/$",config$data_sources$source_url))
-            config$data_sources$source_url <- paste0(config$data_sources$source_url,"/") ## this form needs trgailing /
+        if (!grepl("/$",bb_data_sources(config)$source_url)) {
+            temp <- bb_data_sources(config)
+            temp$source_url <- paste0(temp$source_url,"/") ## this form needs trailing /
+            bb_data_sources(config) <- temp
+        }
+
     }
     if (local_dir_only) return(file.path(bb_settings(config)$local_file_root,trailing_path))
     if (!file.exists(file.path(bb_settings(config)$local_file_root,trailing_path))) {
@@ -61,6 +67,8 @@ aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     ##}
     ## don't use --recursive, since we're handling the destination directory explicitly
     method_flags <- setdiff(method_flags,c("--recursive","-r"))
-    config$data_sources$method_flags <- list(method_flags)
+    temp <- bb_data_sources(config)
+    temp$method_flags <- list(method_flags)
+    bb_data_sources(config) <- temp
     bb_handler_wget(config,verbose=verbose)
 }
