@@ -1,13 +1,13 @@
-#' Handler for NASA MODIS Rapid Response files
-#'
-#' @references https://earthdata.nasa.gov/earth-observation-data/near-real-time/rapid-response
-#' @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
-#' @param verbose logical: if TRUE, provide additional progress output
-#' @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
-#'
-#' @return the directory if local_dir_only is TRUE, otherwise TRUE on success
-#'
-#' @export
+# Handler for NASA MODIS Rapid Response files
+#
+# @references https://earthdata.nasa.gov/earth-observation-data/near-real-time/rapid-response
+# @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
+# @param verbose logical: if TRUE, provide additional progress output
+# @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
+#
+# @return the directory if local_dir_only is TRUE, otherwise TRUE on success
+#
+# @export
 rapid_response_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is(config,"bb_config"))
     assert_that(nrow(bb_data_sources(config))==1)
