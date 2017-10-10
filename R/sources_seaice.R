@@ -119,10 +119,10 @@ sources_seaice <- function() {
         bb_source(
             name="Artist AMSR2 supporting files",
             id="AMSR2_ASI_grids",
-            description="Grids for Artist AMSR2 passive microwave sea ice data.",
+            description="Grids and landmasks for Artist AMSR2 passive microwave sea ice data.",
             reference="https://seaice.uni-bremen.de/sea-ice-concentration/",
             citation="See the citation details of the particular sea ice dataset used",
-            source_url="https://seaice.uni-bremen.de/data/grid_coordinates/",##http://www.iup.uni-bremen.de:8084/amsredata/asi_daygrid_swath/l1a/s6250/grid_coordinates/LongitudeLatitudeGrid-s6250-Antarctic.hdf", ## see also c("https://seaice.uni-bremen.de/data/amsre/grid_coordinates/","https://seaice.uni-bremen.de/data/amsre/landmasks/")
+            source_url=c("https://seaice.uni-bremen.de/data/grid_coordinates/","https://seaice.uni-bremen.de/data/amsre/landmasks/"),
             license="Please cite",
             method=quote(bb_handler_wget),
             method_flags=c("--recursive","--level=2","--accept=hdf","--no-parent"),
