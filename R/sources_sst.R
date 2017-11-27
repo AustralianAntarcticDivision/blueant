@@ -9,7 +9,7 @@ sources_sst <- function() {
             source_url="ftp://eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/*",
             license="Please cite",
             method=quote(bb_handler_wget),
-            method_flags=c("--recursive","--level=4","--accept=avhrr-only*","--reject=*preliminary*","--follow-ftp","--no-parent"),
+            method_flags=c("--recursive","--level=4","--accept=avhrr-only*","--follow-ftp","--no-parent"), ##"--reject=*preliminary*"
             postprocess=quote(bb_gunzip),
             access_function="readsst",
             collection_size=140,
