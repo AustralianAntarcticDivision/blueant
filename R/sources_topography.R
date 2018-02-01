@@ -86,7 +86,7 @@ sources_topography <- function() {
             name="Geoscience Australia multibeam bathymetric grids of the Macquarie Ridge",
             id="10.4225/25/53D9B12E0F96E",
             description="This is a compilation of all the processed multibeam bathymetry data that are publicly available in Geoscience Australia's data holding for the Macquarie Ridge.",
-            reference="http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_b9224f95-a416-07f8-e044-00144fdd4fa6/XYZ+multibeam+bathymetric+grids+of+the+Macquarie+Ridge",
+            reference="https://doi.org/10.4225/25/53D9B12E0F96E",
             citation="Spinoccia, M., 2012. XYZ multibeam bathymetric grids of the Macquarie Ridge. Geoscience Australia, Canberra.",
             source_url="http://www.ga.gov.au/corporate_data/73697/Macquarie_ESRI_Raster.zip",
             license="CC-BY 4.0",
