@@ -10,7 +10,7 @@
 #' @return TRUE on success
 #'
 #' @export
-aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
+bb_handler_aadc <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is(config,"bb_config"))
     assert_that(nrow(bb_data_sources(config))==1)
     assert_that(is.list(bb_data_sources(config)$method_flags))
@@ -23,7 +23,7 @@ aadc_eds_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     temp <- bb_data_sources(config)
     slidx <- !grepl("/download$",temp$source_url) & !grepl("/$",temp$source_url)
     if (any(slidx)) {
-        warning("each source_url for data sources using the aadc_eds_get method should have a trailing /. These will be added now")
+        warning("each source_url for data sources using the bb_handler_aadc method should have a trailing /. These will be added now")
         temp$source_url[slidx] <- paste0(temp$source_url[slidx],"/")
         bb_data_sources(config) <- temp
     }

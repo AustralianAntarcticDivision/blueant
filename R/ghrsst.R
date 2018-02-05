@@ -8,7 +8,7 @@
 #' @return the directory if local_dir_only is TRUE, otherwise TRUE on success
 #'
 #' @export
-ghrsst_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
+bb_handler_ghrsst <- function(config,verbose=FALSE,local_dir_only=FALSE) {
 
     ## The data source is ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/
     ## with yearly subdirectories

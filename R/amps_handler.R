@@ -8,7 +8,7 @@
 #' @return the directory if local_dir_only is TRUE, otherwise TRUE on success
 #'
 #' @export
-amps_get <- function(config,verbose=FALSE,local_dir_only=FALSE) {
+bb_handler_amps <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     assert_that(is(config,"bb_config"))
     assert_that(nrow(bb_data_sources(config))==1)
     assert_that(is.flag(verbose))
