@@ -15,7 +15,7 @@ Depends:
     R (>= 3.3.0)
 Imports:
     assertthat,
-    dplyr,
+    magrittr,
     rmarkdown,
     rvest,
     stringr,
