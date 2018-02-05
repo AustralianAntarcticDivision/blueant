@@ -1,5 +1,5 @@
 sources_ocean_colour <- function() {
-    bind_rows(
+    rbind(
         bb_source(
             name="Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a",
             id="SeaWiFS_L3m_MO_CHL_chlor_a_9km",

@@ -1,5 +1,5 @@
 sources_altimetry <- function() {
-    bind_rows(
+    rbind(
         bb_source(
             name="CMEMS global gridded SSH reprocessed (1993-ongoing)",
             id="SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047",

@@ -1,5 +1,5 @@
 sources_oceanographic <- function() {
-    bind_rows(
+    rbind(
         bb_source(
             name="CSIRO Atlas of Regional Seas 2009",
             id="cars2009",

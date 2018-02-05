@@ -16,7 +16,7 @@
 blueant_sources <- function(name,data_group) {
     if (!missing(name)) assert_that(is.character(name))
     if (!missing(data_group)) assert_that(is.character(data_group))
-    out <- bind_rows(
+    out <- rbind(
         if (missing(data_group) || (!missing(data_group) && "sea ice" %in% tolower(data_group))) sources_seaice(),
         if (missing(data_group) || (!missing(data_group) && "topography" %in% tolower(data_group))) sources_topography(),
         if (missing(data_group) || (!missing(data_group) && "sea surface temperature" %in% tolower(data_group))) sources_sst(),

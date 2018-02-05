@@ -1,5 +1,5 @@
 sources_sst <- function() {
-    bind_rows(
+    rbind(
         bb_source(
             name="NOAA OI 1/4 Degree Daily SST AVHRR",
             id="10.7289/V5SQ8XB5",
@@ -9,7 +9,7 @@ sources_sst <- function() {
             source_url="ftp://eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/*",
             license="Please cite",
             method=list("bb_handler_wget",level=4,accept="avhrr-only*"), ##--recursive --no-parent --follow-ftp
-            postprocess=list("bb_gunzip",
+            postprocess=list("bb_gunzip"),
             access_function="readsst",
             collection_size=140,
             data_group="Sea surface temperature"),

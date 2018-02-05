@@ -1,5 +1,5 @@
 sources_topography <- function() {
-    bind_rows(
+    rbind(
         bb_source(
             name="Smith and Sandwell bathymetry",
             id="global_topo_1min",

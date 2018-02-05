@@ -1,5 +1,5 @@
 sources_seaice <- function() {
-    bind_rows(
+    rbind(
         bb_source(
             name="NSIDC SMMR-SSM/I Nasateam sea ice concentration",
             id="10.5067/8GQ8LZQVL0VL", ##nsidc0051
