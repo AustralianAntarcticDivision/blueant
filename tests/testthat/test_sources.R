@@ -86,11 +86,11 @@ test_that("authentication checks work",{
 test_that("source nsidc0051 still works under ftp (due to be moved to https)",{
     skip_on_cran()
     temp_root <- tempdir()
-    cf <- bb_config(local_file_root=temp_root) %>%
-        bb_add(blueant_sources(name="NSIDC SMMR-SSM/I Nasateam sea ice concentration") %>%
-            mutate(source_url="ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1978/nt_19781231_n07_v1.1_s.bin"))
+    cf <- bb_config(local_file_root=temp_root)
+    tmp <- blueant_sources(name="NSIDC SMMR-SSM/I Nasateam sea ice concentration")
+    tmp$source_url[[1]] <- "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1978/nt_19781231_n07_v1.1_s.bin"
+    cf <- bb_add(cf,tmp)
     bb_sync(cf)
-
     fnm <- file.path(temp_root,"sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1978/nt_19781231_n07_v1.1_s.bin")
     expect_true(file.exists(fnm))
     fi <- file.info(fnm)
@@ -101,10 +101,10 @@ test_that("source nsidc0081 still works under ftp (due to be moved to https)",{
     skip_on_cran()
     temp_root <- tempdir()
     target_file <- format(Sys.Date()-10,"nt_%Y%m%d_f18_nrt_s.bin")
-    cf <- bb_config(local_file_root=temp_root) %>%
-        bb_add(blueant_sources(name="NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration") %>%
-            mutate(source_url=paste0("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south/",target_file)))
-
+    cf <- bb_config(local_file_root=temp_root)
+    tmp <- blueant_sources(name="NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration")
+    tmp$source_url[[1]] <- paste0("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south/",target_file)
+    cf <- bb_add(cf,tmp)
     bb_sync(cf)
     fnm <- file.path(temp_root,"sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south",target_file)
     expect_true(file.exists(fnm))
@@ -115,10 +115,10 @@ test_that("source nsidc0081 still works under ftp (due to be moved to https)",{
 test_that("source nsidc0082 still works under ftp (due to be moved to https)",{
     skip_on_cran()
     temp_root <- tempdir()
-    cf <- bb_config(local_file_root=temp_root) %>%
-        bb_add(blueant_sources(name="Radarsat Antarctic digital elevation model V2") %>%
-            mutate(source_url="ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr")) %>%
-        bb_subset(1L)
+    cf <- bb_config(local_file_root=temp_root)
+    tmp <- blueant_sources(name="Radarsat Antarctic digital elevation model V2")
+    tmp$source_url[[1]] <- "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr"
+    cf <- bb_add(cf,tmp)
     bb_sync(cf)
     fnm <- file.path(temp_root,"sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr")
     expect_true(file.exists(fnm))
