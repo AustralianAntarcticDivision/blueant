@@ -1,31 +1,36 @@
 #' Bowerbird configurations for various Antarctic and Southern Ocean data sources
 #'
+#' The \code{blueant_sources} function is a convenience wrapper around the thematic functions: \code{sources_seaice}, \code{sources_altimetry}, etc.
+#'
 #' @param name character vector: only return data sources with name or id matching these values
-#' @param data_group character vector: only return data sources belonging to these data groups
+#' @param formats character: for some sources, the format can be specified. See thematic source functions for details.
+#' @param time_resolutions character: for some sources, the time resolution can be specified. See thematic source functions for details.
 #'
 #' @references See \code{reference} and \code{citation} field in each row of the returned tibble
 #'
 #' @return tibble
 #'
-#' @seealso \code{\link{bb_config}}
+#' @seealso \code{\link{bb_config}}, \code{\link{sources_altimetry}}, \code{\link{sources_seaice}}, \code{\link{sources_reanalysis}}
 #'
 #' @examples
 #' blueant_sources()
 #'
 #' @export
-blueant_sources <- function(name,data_group) {
-    if (!missing(name)) assert_that(is.character(name))
-    if (!missing(data_group)) assert_that(is.character(data_group))
+blueant_sources <- function(name,formats,time_resolutions) {
+    if (missing(name)) name <- NULL
+    if (missing(formats)) formats <- NULL
+    if (missing(time_resolutions)) time_resolutions <- NULL
+
     out <- rbind(
-        if (missing(data_group) || (!missing(data_group) && "sea ice" %in% tolower(data_group))) sources_seaice(),
-        if (missing(data_group) || (!missing(data_group) && "topography" %in% tolower(data_group))) sources_topography(),
-        if (missing(data_group) || (!missing(data_group) && "sea surface temperature" %in% tolower(data_group))) sources_sst(),
-        if (missing(data_group) || (!missing(data_group) && "altimetry" %in% tolower(data_group))) sources_altimetry(),
-        if (missing(data_group) || (!missing(data_group) && "oceanographic" %in% tolower(data_group))) sources_oceanographic(),
-        if (missing(data_group) || (!missing(data_group) && any(c("ocean colour","ocean color") %in% tolower(data_group)))) sources_ocean_colour(),
-        if (missing(data_group) || (!missing(data_group) && "meteorological" %in% tolower(data_group))) sources_meteorological(),
-        if (missing(data_group) || (!missing(data_group) && "reanalysis" %in% tolower(data_group))) sources_reanalysis()
-        )
-    if (!missing(name)) out <- out[tolower(out$name) %in% tolower(name) | tolower(out$id) %in% tolower(name),]
+        sources_seaice(name=name,formats=formats,time_resolutions=time_resolutions),
+        sources_topography(name=name,formats=formats,time_resolutions=time_resolutions),
+        ##sources_sst(name=name,formats=formats,time_resolutions=time_resolutions),
+        sources_altimetry(name=name,formats=formats,time_resolutions=time_resolutions),
+        ##sources_oceanographic(name=name,formats=formats,time_resolutions=time_resolutions),
+        ##sources_ocean_colour(name=name,formats=formats,time_resolutions=time_resolutions),
+        sources_meteorological(name=name,formats=formats,time_resolutions=time_resolutions),
+        sources_reanalysis(name=name,formats=formats,time_resolutions=time_resolutions)
+    )
+
     out
 }

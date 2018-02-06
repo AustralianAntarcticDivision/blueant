@@ -22,6 +22,7 @@
 #'
 #' @param name character vector: only return data sources with name or id matching these values
 #' @param formats character: for some sources, the format can be specified. See the list of sources above for details.
+#' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details.
 #'
 #' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
 #'
@@ -35,17 +36,21 @@
 #' }
 #' @export
 
-sources_seaice <- function(name,formats) {
-    if (!missing(name)) {
+sources_seaice <- function(name,formats,time_resolutions) {
+    if (!missing(name) && !is.null(name)) {
         assert_that(is.character(name))
         name <- tolower(name)
+    } else {
+        name <- NULL
     }
-    if (!missing(formats)) {
+    if (!missing(formats) && !is.null(formats)) {
         assert_that(is.character(formats))
         formats <- tolower(formats)
+    } else {
+        formats <- NULL
     }
     out <- tibble()
-    if (missing(name) || name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam sea ice concentration","10.5067/8GQ8LZQVL0VL"))) {
+    if (is.null(name) || any(name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam sea ice concentration","10.5067/8GQ8LZQVL0VL")))) {
         out <- rbind(out,
                      bb_source(
                          name="NSIDC SMMR-SSM/I Nasateam sea ice concentration",
@@ -63,7 +68,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration","10.5067/U8C09DWVX9LM"))) {
+    if (is.null(name) || any(name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration","10.5067/U8C09DWVX9LM")))) {
         out <- rbind(out,
                      bb_source(
                          name="NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration",
@@ -81,7 +86,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("NSIDC passive microwave supporting files","nsidc_seaice_grids"))) {
+    if (is.null(name) || any(name %in% tolower(c("NSIDC passive microwave supporting files","nsidc_seaice_grids")))) {
         out <- rbind(out,
                      bb_source(
                          name="NSIDC passive microwave supporting files",
@@ -98,7 +103,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("Nimbus Ice Edge Points from Nimbus Visible Imagery","10.5067/NIMBUS/NmIcEdg2"))) {
+    if (is.null(name) || any(name %in% tolower(c("Nimbus Ice Edge Points from Nimbus Visible Imagery","10.5067/NIMBUS/NmIcEdg2")))) {
         out <- rbind(out,
                      bb_source(
                          name="Nimbus Ice Edge Points from Nimbus Visible Imagery",
@@ -117,8 +122,8 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice",warn_empty_auth=FALSE))
     }
 
-    if (missing(name) || name %in% tolower(c("Artist AMSR-E sea ice concentration","AMSR-E_ASI_s6250"))) {
-        if (!missing(formats)) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR-E sea ice concentration","AMSR-E_ASI_s6250")))) {
+        if (!is.null(formats)) {
             chk <- !formats %in% c("geotiff","hdf")
             if (any(chk)) stop("only 'geotiff' or 'hdf' formats are supported for the 'Artist AMSR-E sea ice concentration' source")
         } else {
@@ -148,7 +153,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("Artist AMSR-E supporting files","AMSR-E_ASI_grids"))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR-E supporting files","AMSR-E_ASI_grids")))) {
         out <- rbind(out,
                      bb_source(
                          name="Artist AMSR-E supporting files",
@@ -165,7 +170,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration","AMSR2_ASI_s6250"))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration","AMSR2_ASI_s6250")))) {
         out <- rbind(out,
                      bb_source(
                          name="Artist AMSR2 near-real-time sea ice concentration",
@@ -182,7 +187,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration","AMSR2_ASI_s6250"))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration","AMSR2_ASI_s6250")))) {
         out <- rbind(out,
                      bb_source(
                          name="Artist AMSR2 near-real-time 3.125km sea ice concentration",
@@ -199,7 +204,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("Artist AMSR2 regional sea ice concentration","AMSR2_ASI_s3125"))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 regional sea ice concentration","AMSR2_ASI_s3125")))) {
         out <- rbind(out,
                      bb_source(
                          name="Artist AMSR2 regional sea ice concentration",
@@ -216,7 +221,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("Artist AMSR2 supporting files","AMSR2_ASI_grids"))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 supporting files","AMSR2_ASI_grids")))) {
         out <- rbind(out,
                      bb_source(
                          name="Artist AMSR2 supporting files",
@@ -232,7 +237,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("CERSAT SSM/I sea ice concentration","CERSAT_SSMI"))) {
+    if (is.null(name) || any(name %in% tolower(c("CERSAT SSM/I sea ice concentration","CERSAT_SSMI")))) {
         out <- rbind(out,
                      bb_source(
                          name="CERSAT SSM/I sea ice concentration",
@@ -249,7 +254,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("CERSAT SSM/I sea ice concentration supporting files","CERSAT_SSMI_grids"))) {
+    if (is.null(name) || any(name %in% tolower(c("CERSAT SSM/I sea ice concentration supporting files","CERSAT_SSMI_grids")))) {
         out <- rbind(out,
                      bb_source(
                          name="CERSAT SSM/I sea ice concentration supporting files",
@@ -265,7 +270,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("MODIS Composite Based Maps of East Antarctic Fast Ice Coverage","10.4225/15/5667AC726B224"))) {
+    if (is.null(name) || any(name %in% tolower(c("MODIS Composite Based Maps of East Antarctic Fast Ice Coverage","10.4225/15/5667AC726B224")))) {
         out <- rbind(out,
                      bb_source(
                          name="MODIS Composite Based Maps of East Antarctic Fast Ice Coverage",
@@ -281,7 +286,7 @@ sources_seaice <- function(name,formats) {
                          data_group="Sea ice"))
     }
 
-    if (missing(name) || name %in% tolower(c("National Ice Center Antarctic daily sea ice charts","NIC_daily_charts_antarctic"))) {
+    if (is.null(name) || any(name %in% tolower(c("National Ice Center Antarctic daily sea ice charts","NIC_daily_charts_antarctic")))) {
         out <- rbind(out,
                      bb_source(
                          name="National Ice Center Antarctic daily sea ice charts",
@@ -294,7 +299,5 @@ sources_seaice <- function(name,formats) {
                          method=list("bb_handler_wget",accept="*.kmz"), ## --recursive --level=1
                          data_group="Sea ice"))
     }
-
-    if (nrow(out)<1 && !missing(name)) warning("no data sources matched the specified name/id")
     out
 }

@@ -1,4 +1,4 @@
-context("data sources")
+context("general tests around data sources")
 
 test_that("predefined sources work", {
     src <- blueant_sources(c("NSIDC passive microwave supporting files"))
@@ -7,10 +7,6 @@ test_that("predefined sources work", {
 
     src_all <- blueant_sources()
     expect_gt(nrow(src_all),0)
-    src_si <- blueant_sources(data_group="Sea ice")
-    expect_gt(nrow(src_si),0)
-    expect_lt(nrow(src_si),nrow(src_all))
-    expect_true(all(src_si$data_group=="Sea ice"))
 })
 
 test_that("sources with authentication have an authentication_note entry", {
@@ -79,69 +75,13 @@ test_that("authentication checks work",{
         data_group="blah")
 })
 
-test_that("source nsidc0051 still works under ftp (due to be moved to https)",{
-    skip_on_cran()
-    temp_root <- tempdir()
-    cf <- bb_config(local_file_root=temp_root)
-    tmp <- blueant_sources(name="NSIDC SMMR-SSM/I Nasateam sea ice concentration")
-    tmp$source_url[[1]] <- "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1978/nt_19781231_n07_v1.1_s.bin"
-    cf <- bb_add(cf,tmp)
-    bb_sync(cf)
-    fnm <- file.path(temp_root,"sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1978/nt_19781231_n07_v1.1_s.bin")
-    expect_true(file.exists(fnm))
-    fi <- file.info(fnm)
-    expect_gt(fi$size,50e3)
-})
-
-test_that("source nsidc0081 still works under ftp (due to be moved to https)",{
-    skip_on_cran()
-    temp_root <- tempdir()
-    target_file <- format(Sys.Date()-10,"nt_%Y%m%d_f18_nrt_s.bin")
-    cf <- bb_config(local_file_root=temp_root)
-    tmp <- blueant_sources(name="NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration")
-    tmp$source_url[[1]] <- paste0("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south/",target_file)
-    cf <- bb_add(cf,tmp)
-    bb_sync(cf)
-    fnm <- file.path(temp_root,"sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south",target_file)
-    expect_true(file.exists(fnm))
-    fi <- file.info(fnm)
-    expect_gt(fi$size,50e3)
-})
-
-test_that("source nsidc0082 still works under ftp (due to be moved to https)",{
-    skip_on_cran()
-    temp_root <- tempdir()
-    cf <- bb_config(local_file_root=temp_root)
-    tmp <- blueant_sources(name="Radarsat Antarctic digital elevation model V2")
-    tmp$source_url[[1]] <- "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr"
-    cf <- bb_add(cf,tmp)
-    bb_sync(cf)
-    fnm <- file.path(temp_root,"sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr")
-    expect_true(file.exists(fnm))
-    fi <- file.info(fnm)
-    expect_gt(fi$size,1e3)
-})
-
-test_that("seaice AMSR format options work",{
-    src <- sources_seaice("AMSR-E_ASI_s6250")
-    expect_true(nrow(src)==1)
-    expect_true(grepl("/hdf/",src$source_url[[1]],fixed=TRUE))
-    expect_error(sources_seaice("AMSR-E_ASI_s6250",formats="bananas"))
-    src <- sources_seaice("AMSR-E_ASI_s6250",formats="geotiff")
-    expect_true(nrow(src)==1)
-    expect_true(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE))
-    expect_false(grepl("/hdf/",src$source_url[[1]],fixed=TRUE))
-    src <- sources_seaice("AMSR-E_ASI_s6250",formats=c("hdf","geotiff"))
-    expect_true(nrow(src)==1)
-    expect_true(length(src$source_url[[1]])==2)
-    expect_true(any(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE)))
-    expect_true(any(grepl("/hdf/",src$source_url[[1]],fixed=TRUE)))
-})
-
 test_that("selection by name or ID works",{
-    temp1 <- blueant_sources("CNES-CLS09 MDT")
-    temp2 <- blueant_sources("CNES-CLS09 Mean Dynamic Topography")
+    temp1 <- blueant_sources("CNES-CLS2013 MDT")
+    temp2 <- blueant_sources("CNES-CLS2013 Mean Dynamic Topography")
     expect_identical(temp1,temp2)
 })
 
-
+test_that("multiple selections work",{
+    temp1 <- blueant_sources(c("CNES-CLS2013 MDT","NIC_daily_charts_antarctic"))
+    expect_true(setequal(temp1$name,c("National Ice Center Antarctic daily sea ice charts","CNES-CLS2013 Mean Dynamic Topography")))
+})

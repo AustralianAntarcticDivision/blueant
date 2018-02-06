@@ -4,18 +4,20 @@
 \alias{blueant_sources}
 \title{Bowerbird configurations for various Antarctic and Southern Ocean data sources}
 \usage{
-blueant_sources(name, data_group)
+blueant_sources(name, formats, time_resolutions)
 }
 \arguments{
 \item{name}{character vector: only return data sources with name or id matching these values}
 
-\item{data_group}{character vector: only return data sources belonging to these data groups}
+\item{formats}{character: for some sources, the format can be specified. See thematic source functions for details.}
+
+\item{time_resolutions}{character: for some sources, the time resolution can be specified. See thematic source functions for details.}
 }
 \value{
 tibble
 }
 \description{
-Bowerbird configurations for various Antarctic and Southern Ocean data sources
+The \code{blueant_sources} function is a convenience wrapper around the thematic functions: \code{sources_seaice}, \code{sources_altimetry}, etc.
 }
 \examples{
 blueant_sources()
@@ -25,5 +27,5 @@ blueant_sources()
 See \code{reference} and \code{citation} field in each row of the returned tibble
 }
 \seealso{
-\code{\link{bb_config}}
+\code{\link{bb_config}}, \code{\link{sources_altimetry}}, \code{\link{sources_seaice}}, \code{\link{sources_reanalysis}}
 }
