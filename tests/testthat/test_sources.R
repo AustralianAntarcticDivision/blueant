@@ -122,6 +122,22 @@ test_that("source nsidc0082 still works under ftp (due to be moved to https)",{
     expect_gt(fi$size,1e3)
 })
 
+test_that("seaice AMSR format options work",{
+    src <- sources_seaice("AMSR-E_ASI_s6250")
+    expect_true(nrow(src)==1)
+    expect_true(grepl("/hdf/",src$source_url[[1]],fixed=TRUE))
+    expect_error(sources_seaice("AMSR-E_ASI_s6250",formats="bananas"))
+    src <- sources_seaice("AMSR-E_ASI_s6250",formats="geotiff")
+    expect_true(nrow(src)==1)
+    expect_true(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE))
+    expect_false(grepl("/hdf/",src$source_url[[1]],fixed=TRUE))
+    src <- sources_seaice("AMSR-E_ASI_s6250",formats=c("hdf","geotiff"))
+    expect_true(nrow(src)==1)
+    expect_true(length(src$source_url[[1]])==2)
+    expect_true(any(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE)))
+    expect_true(any(grepl("/hdf/",src$source_url[[1]],fixed=TRUE)))
+})
+
 test_that("selection by name or ID works",{
     temp1 <- blueant_sources("CNES-CLS09 MDT")
     temp2 <- blueant_sources("CNES-CLS09 Mean Dynamic Topography")

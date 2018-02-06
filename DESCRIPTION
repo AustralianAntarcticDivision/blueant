@@ -20,6 +20,7 @@ Imports:
     rmarkdown,
     rvest,
     stringr,
+    tibble,
     xml2
 LazyLoad: yes
 RoxygenNote: 6.0.1

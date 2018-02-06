@@ -10,6 +10,7 @@
 #' @importFrom rvest html_session jump_to html_attr html_nodes
 #' @importFrom stats na.omit
 #' @importFrom stringr str_match str_trim
+#' @importFrom tibble tibble
 #' @importFrom utils unzip
 #' @importFrom xml2 url_absolute
 NULL
