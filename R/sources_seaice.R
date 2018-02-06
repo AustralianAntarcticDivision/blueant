@@ -62,10 +62,10 @@ sources_seaice <- function() {
             description="Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011.",
             doc_url="http://icdc.zmaw.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html",
             citation="Include the acknowledgement: \"ASI Algorithm AMSR-E sea ice concentration were obtained for [PERIOD] from the Integrated Climate Date Center (ICDC, http://icdc.zmaw,de/), University of Hamburg, Hamburg, Germany.\" Also please cite: Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
-            source_url="ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/hdf/s6250/*",
+            source_url=c("ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/hdf/s6250/*","ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/geotiff/s6250/*"),
             license="Please cite",
             method=list("bb_handler_wget",level=4), ##--recursive --follow-ftp
-            postprocess=list("bb_gunzip"),
+            postprocess=list("bb_gunzip"), ## nb only for hdfs
             access_function="readice",
             collection_size=25,
             data_group="Sea ice"),
