@@ -1,16 +1,22 @@
 #' Handler for files downloaded from the Australian Antarctic Data Centre EDS system
 #'
-#' AADC EDS files have a URL of the form https://data.aad.gov.au/eds/file/wxyz/ or https://data.aad.gov.au/eds/wxyz/download where wxyz is a numeric file identifier.
+#' This is a handler function to be used with data from the Australian Antarctic Data Centre. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}. AADC EDS files have a URL of the form https://data.aad.gov.au/eds/file/wxyz/ or https://data.aad.gov.au/eds/wxyz/download where wxyz is a numeric file identifier.
 #'
 #' @references http://data.aad.gov.au
-#' @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
-#' @param verbose logical: if TRUE, provide additional progress output
-#' @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
+#'
+#' @param ... : parameters passed to \code{\link{bb_wget}}
 #'
 #' @return TRUE on success
 #'
 #' @export
-bb_handler_aadc <- function(config,verbose=FALSE,local_dir_only=FALSE) {
+bb_handler_aadc <- function(...) {
+    bb_handler_aadc_inner(...)
+}
+
+# @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
+# @param verbose logical: if TRUE, provide additional progress output
+# @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
+bb_handler_aadc_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...) {
     assert_that(is(config,"bb_config"))
     assert_that(nrow(bb_data_sources(config))==1)
     assert_that(is.list(bb_data_sources(config)$method_flags))
@@ -73,7 +79,7 @@ bb_handler_aadc <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     temp <- bb_data_sources(config)
     temp$method_flags <- list(method_flags)
     bb_data_sources(config) <- temp
-    ok <- bb_handler_wget(config,verbose=verbose)
+    ok <- bb_handler_wget(config,verbose=verbose,...)
     ## rename files. Note that this relies on the download being a zip file, so test it first with unzip(...,list=TRUE)
     is_zip <- function(filename) {
         zip <- FALSE

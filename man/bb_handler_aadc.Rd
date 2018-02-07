@@ -4,20 +4,16 @@
 \alias{bb_handler_aadc}
 \title{Handler for files downloaded from the Australian Antarctic Data Centre EDS system}
 \usage{
-bb_handler_aadc(config, verbose = FALSE, local_dir_only = FALSE)
+bb_handler_aadc(...)
 }
 \arguments{
-\item{config}{bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source}
-
-\item{verbose}{logical: if TRUE, provide additional progress output}
-
-\item{local_dir_only}{logical: if TRUE, just return the local directory into which files from this data source would be saved}
+\item{...}{: parameters passed to \code{\link{bb_wget}}}
 }
 \value{
 TRUE on success
 }
 \description{
-AADC EDS files have a URL of the form https://data.aad.gov.au/eds/file/wxyz/ or https://data.aad.gov.au/eds/wxyz/download where wxyz is a numeric file identifier.
+This is a handler function to be used with data from the Australian Antarctic Data Centre. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}. AADC EDS files have a URL of the form https://data.aad.gov.au/eds/file/wxyz/ or https://data.aad.gov.au/eds/wxyz/download where wxyz is a numeric file identifier.
 }
 \references{
 http://data.aad.gov.au
