@@ -10,7 +10,7 @@
 #'
 #' @return tibble
 #'
-#' @seealso \code{\link{bb_config}}, \code{\link{sources_altimetry}}, \code{\link{sources_seaice}}, \code{\link{sources_reanalysis}}
+#' @seealso \code{\link{bb_config}}, \code{\link{sources_altimetry}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 #'
 #' @examples
 #' blueant_sources()
