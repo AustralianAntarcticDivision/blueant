@@ -1,14 +1,23 @@
 #' Handler for GHRSST data sources
 #'
-#' @references https://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST
-#' @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
-#' @param verbose logical: if TRUE, provide additional progress output
-#' @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
+#' This is a handler function to be used with GHRSST data from podaac-ftp.jpl.nasa.gov. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
 #'
-#' @return the directory if local_dir_only is TRUE, otherwise TRUE on success
+#' @references https://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST
+#' @param ... : parameters passed to \code{\link{bb_wget}}
+#'
+#' @return TRUE on success
 #'
 #' @export
-bb_handler_ghrsst <- function(config,verbose=FALSE,local_dir_only=FALSE) {
+bb_handler_ghrsst <- function(...) {
+    bb_handler_ghrsst_inner(...)
+}
+
+# @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
+# @param verbose logical: if TRUE, provide additional progress output
+# @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
+#
+# @return TRUE on success or the directory name if local_dir_only is TRUE
+bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...) {
 
     ## The data source is ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/
     ## with yearly subdirectories
@@ -46,11 +55,11 @@ bb_handler_ghrsst <- function(config,verbose=FALSE,local_dir_only=FALSE) {
             temp <- bb_data_sources(dummy)
             temp$source_url <- "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/"
             bb_data_sources(dummy) <- temp
-            return(bb_handler_wget(dummy,verbose=verbose,local_dir_only=TRUE))
+            return(bb_handler_wget(dummy,verbose=verbose,local_dir_only=TRUE,...))
         }
     } else {
         ## a specific year
-        if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE))
+        if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE,...))
         yearlist <- as.numeric(basename(bb_data_sources(config)$source_url))
     }
     yearlist <- na.omit(yearlist)
@@ -71,7 +80,7 @@ bb_handler_ghrsst <- function(config,verbose=FALSE,local_dir_only=FALSE) {
             temp <- bb_data_sources(dummy)
             temp$source_url <- paste0("ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",thisyear,"/",sprintf("%03d",thisday),"/")
             bb_data_sources(dummy) <- temp
-            bb_handler_wget(dummy,verbose=verbose)
+            bb_handler_wget(dummy,verbose=verbose,...)
         }
     }
 }
