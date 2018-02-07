@@ -25,7 +25,6 @@
 #'
 #' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_meteorological}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 #'
-#' @seealso
 #' @return a tibble with columns as specified by \code{\link{bb_source}}
 #'
 #' @examples
