@@ -1,14 +1,23 @@
 #' Handler for AMPS data (Antarctic mesoscale prediction system)
 #'
-#' @references http://www2.mmm.ucar.edu/rt/amps/
-#' @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
-#' @param verbose logical: if TRUE, provide additional progress output
-#' @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
+#' This is a handler function to be used with AMPS data from http://www2.mmm.ucar.edu/rt/amps/. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
 #'
-#' @return the directory if local_dir_only is TRUE, otherwise TRUE on success
+#' @references http://www2.mmm.ucar.edu/rt/amps/
+#'
+#' @param ... : parameters passed to \code{\link{bb_wget}}
+#'
+#' @return TRUE on success
 #'
 #' @export
-bb_handler_amps <- function(config,verbose=FALSE,local_dir_only=FALSE) {
+bb_handler_amps <- function(...) {
+    bb_handler_amps_inner(...)
+}
+
+# @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
+# @param verbose logical: if TRUE, provide additional progress output
+# @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
+# @return the directory if local_dir_only is TRUE, otherwise TRUE on success
+bb_handler_amps_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...) {
     assert_that(is(config,"bb_config"))
     assert_that(nrow(bb_data_sources(config))==1)
     assert_that(is.flag(verbose))
@@ -20,7 +29,7 @@ bb_handler_amps <- function(config,verbose=FALSE,local_dir_only=FALSE) {
     temp$source_url <- "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/" ## this is fixed for this handler
     bb_data_sources(config) <- temp
 
-    if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE))
+    if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE),...)
 
     x <- html_session(bb_data_sources(config)$source_url)
     n <- html_attr(html_nodes(x,"a"),"href")
@@ -51,7 +60,7 @@ bb_handler_amps <- function(config,verbose=FALSE,local_dir_only=FALSE) {
             temp <- bb_data_sources(dummy)
             temp$source_url <- file_url
             bb_data_sources(dummy) <- temp
-            all_ok <- all_ok && bb_handler_wget(dummy,verbose=verbose)
+            all_ok <- all_ok && bb_handler_wget(dummy,verbose=verbose,...)
         }
     }
     all_ok
