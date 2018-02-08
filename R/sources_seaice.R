@@ -129,8 +129,8 @@ sources_seaice <- function(name,formats,time_resolutions) {
             chk <- !formats %in% c("geotiff","hdf")
             if (any(chk)) stop("only 'geotiff' or 'hdf' formats are supported for the 'Artist AMSR-E sea ice concentration' source")
         } else {
-            ## default to hdf
-            formats <- "hdf"
+            ## default to both hdf and geotiff
+            formats <- c("hdf","geotiff")
         }
         src_url <- character()
         if ("geotiff" %in% formats) src_url <- c(src_url,"ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/geotiff/s6250/*")
