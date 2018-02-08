@@ -32,7 +32,7 @@ test_that("source nsidc0081 still works under ftp (due to be moved to https)",{
 test_that("seaice AMSR format options work",{
     src <- sources_seaice("AMSR-E_ASI_s6250")
     expect_equal(nrow(src),1)
-    expect_true(grepl("/hdf/",src$source_url[[1]],fixed=TRUE))
+    expect_true(any(grepl("/hdf/",src$source_url[[1]],fixed=TRUE)),any(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE))) ## defaults to both formats
     expect_error(sources_seaice("AMSR-E_ASI_s6250",formats="bananas"))
     src <- sources_seaice("AMSR-E_ASI_s6250",formats="geotiff")
     expect_equal(nrow(src),1)
