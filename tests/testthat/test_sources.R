@@ -1,16 +1,16 @@
 context("general tests around data sources")
 
 test_that("predefined sources work", {
-    src <- blueant_sources(c("NSIDC passive microwave supporting files"))
+    src <- sources(c("NSIDC passive microwave supporting files"))
     expect_s3_class(src,"data.frame")
     expect_equal(nrow(src),1)
 
-    src_all <- blueant_sources()
+    src_all <- sources()
     expect_gt(nrow(src_all),0)
 })
 
 test_that("sources with authentication have an authentication_note entry", {
-    src <- blueant_sources()
+    src <- sources()
     na_or_empty <- function(z) is.na(z) | !nzchar(z)
     idx <- (!is.na(src$user) | !is.na(src$password)) & na_or_empty(src$authentication_note)
     expect_false(any(idx),sprintf("%d data sources with non-NA authentication but no authentication_note entry",sum(idx)))
@@ -76,12 +76,12 @@ test_that("authentication checks work",{
 })
 
 test_that("selection by name or ID works",{
-    temp1 <- blueant_sources("CNES-CLS2013 MDT")
-    temp2 <- blueant_sources("CNES-CLS2013 Mean Dynamic Topography")
+    temp1 <- sources("CNES-CLS2013 MDT")
+    temp2 <- sources("CNES-CLS2013 Mean Dynamic Topography")
     expect_identical(temp1,temp2)
 })
 
 test_that("multiple selections work",{
-    temp1 <- blueant_sources(c("CNES-CLS2013 MDT","NIC_daily_charts_antarctic"))
+    temp1 <- sources(c("CNES-CLS2013 MDT","NIC_daily_charts_antarctic"))
     expect_true(setequal(temp1$name,c("National Ice Center Antarctic daily sea ice charts","CNES-CLS2013 Mean Dynamic Topography")))
 })

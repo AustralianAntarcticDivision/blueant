@@ -4,7 +4,7 @@ test_that("source nsidc0051 still works under ftp (due to be moved to https)",{
     skip_on_cran()
     temp_root <- tempdir()
     cf <- bb_config(local_file_root=temp_root)
-    tmp <- blueant_sources(name="NSIDC SMMR-SSM/I Nasateam sea ice concentration")
+    tmp <- sources(name="NSIDC SMMR-SSM/I Nasateam sea ice concentration")
     tmp$source_url[[1]] <- "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1978/nt_19781231_n07_v1.1_s.bin"
     cf <- bb_add(cf,tmp)
     bb_sync(cf,confirm_downloads_larger_than=-1)
@@ -19,7 +19,7 @@ test_that("source nsidc0081 still works under ftp (due to be moved to https)",{
     temp_root <- tempdir()
     target_file <- format(Sys.Date()-10,"nt_%Y%m%d_f18_nrt_s.bin")
     cf <- bb_config(local_file_root=temp_root)
-    tmp <- blueant_sources(name="NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration")
+    tmp <- sources(name="NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration")
     tmp$source_url[[1]] <- paste0("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south/",target_file)
     cf <- bb_add(cf,tmp)
     bb_sync(cf,confirm_downloads_larger_than=-1)
