@@ -182,14 +182,14 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          citation="Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
                          source_url="https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s6250/",
                          license="Please cite",
-                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif")), ##--recursive --no-parent
+                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE), ##--recursive --no-parent
                          postprocess=NULL,
                          access_function="readice",
                          collection_size=11,
                          data_group="Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration","AMSR2_ASI_s6250")))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time 3.125km sea ice concentration","AMSR2_ASI_s3125")))) {
         out <- rbind(out,
                      bb_source(
                          name="Artist AMSR2 near-real-time 3.125km sea ice concentration",
@@ -199,14 +199,14 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          citation="Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
                          source_url="https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
                          license="Please cite",
-                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),accept_regex="Antarctic3125"),
+                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),accept_regex="Antarctic3125",robots_off=TRUE),
                          postprocess=NULL,
                          access_function="readice",
-                         collection_size=90,
+                         collection_size=45,
                          data_group="Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 regional sea ice concentration","AMSR2_ASI_s3125")))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 regional sea ice concentration","AMSR2_ASI_s3125_regional")))) {
         out <- rbind(out,
                      bb_source(
                          name="Artist AMSR2 regional sea ice concentration",
@@ -216,7 +216,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          citation="Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
                          source_url="https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
                          license="Please cite",
-                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.tif","asi*.png",reject_regex="Antarctic3125")), ## --recursive --no-parent
+                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.tif","asi*.png",reject_regex="Antarctic3125"),robots_off=TRUE), ## --recursive --no-parent
                          postprocess=NULL,
                          access_function="readice",
                          collection_size=100, ## not fully downloaded, so not sure of size. Approx 15G/year excluding full Antarctic 3km data
@@ -233,7 +233,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          citation="See the citation details of the particular sea ice dataset used",
                          source_url=c("https://seaice.uni-bremen.de/data/grid_coordinates/","https://seaice.uni-bremen.de/data/amsre/landmasks/"),
                          license="Please cite",
-                         method=list("bb_handler_wget",level=2,accept="hdf"), ## --recursive --no-parent
+                         method=list("bb_handler_wget",level=2,accept="hdf",robots_off=TRUE), ## --recursive --no-parent
                          postprocess=NULL,
                          collection_size=0.02,
                          data_group="Sea ice"))
