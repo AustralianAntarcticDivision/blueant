@@ -251,13 +251,13 @@ sources_topography <- function(name,formats,time_resolutions) {
                          name="Cryosat-2 digital elevation model",
                          id="cpom_cryosat2_antarctic_dem",
                          description="A New Digital Elevation Model of Antarctica derived from 6 years of continuous CryoSat-2 measurements",
-                         doc_url="http://homepages.see.leeds.ac.uk/~py10ts/cpom_cryosat2_antarctic_dem/",
-                         citation="Slater T, Shepherd A, McMillan M, Muir A, Gilbert L, Hogg A (2017) A New Digital Elevation Model of Antarctica derived from 6 years of continuous CryoSat-2 measurements: Technical Report. http://homepages.see.leeds.ac.uk/~py10ts/cpom_cryosat2_antarctic_dem/",
+                         doc_url="https://doi.org/10.5194/tc-2017-223",
+                         citation="Slater T, Shepherd A, McMillan M, Muir A, Gilbert L, Hogg AE, Konrad H, Parrinello T (2017) A new Digital Elevation Model of Antarctica derived from CryoSat-2 altimetry. The Cryosphere Discussions. https://doi.org/10.5194/tc-2017-223",
                          license="Please cite",
-                         source_url="http://homepages.see.leeds.ac.uk/~py10ts/cpom_cryosat2_antarctic_dem/",
-                         method=list("bb_handler_wget",reject="index.html*"), ## --recursive --no-parent
+                         source_url="https://earth.esa.int/documents/10174/3082676/Antarctica-DEM-CryoSat",
+                         method=list("bb_handler_wget",extra_flags=c("--content-disposition")),
                          postprocess=NULL,
-                         collection_size=0.6,
+                         collection_size=0.2,
                          data_group="Topography"))
     }
 
