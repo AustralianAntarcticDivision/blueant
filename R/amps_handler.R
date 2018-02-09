@@ -60,7 +60,7 @@ bb_handler_amps_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...)
             temp <- bb_data_sources(dummy)
             temp$source_url[[1]] <- file_url
             bb_data_sources(dummy) <- temp
-            all_ok <- all_ok && bb_handler_wget(dummy,verbose=verbose,...)
+            all_ok <- all_ok && bb_handler_wget(dummy,verbose=verbose,recursive=FALSE,...)
         }
     }
     all_ok
