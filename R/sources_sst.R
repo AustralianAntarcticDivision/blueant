@@ -51,7 +51,7 @@ sources_sst <- function(name,formats,time_resolutions) {
                          citation="Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
                          source_url="https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/avhrr-only/",
                          license="Please cite",
-                         method=list("bb_handler_wget",level=2), ##--recursive --no-parent --follow-ftp
+                         method=list("bb_handler_wget",level=2,accept="nc"), ##--recursive --no-parent --follow-ftp
                          postprocess=NULL,
                          access_function="raadtools::readsst",
                          collection_size=140,
