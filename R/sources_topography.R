@@ -256,7 +256,7 @@ sources_topography <- function(name,formats,time_resolutions) {
                          license="Please cite",
                          source_url="https://earth.esa.int/documents/10174/3082676/Antarctica-DEM-CryoSat",
                          method=list("bb_handler_wget",extra_flags=c("--content-disposition")),
-                         postprocess=NULL,
+                         postprocess=list("bb_unzip"),
                          collection_size=0.2,
                          data_group="Topography"))
     }
