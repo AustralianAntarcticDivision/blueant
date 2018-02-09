@@ -29,7 +29,7 @@ bb_handler_amps_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...)
     temp$source_url[[1]] <- "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/" ## this is fixed for this handler
     bb_data_sources(config) <- temp
 
-    if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE),...)
+    if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE,...))
 
     x <- html_session(bb_data_sources(config)$source_url[[1]])
     n <- html_attr(html_nodes(x,"a"),"href")
