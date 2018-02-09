@@ -70,10 +70,8 @@ bb_handler_aadc_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...)
     ##if (!grepl("--content-disposition",method_flags,ignore.case=TRUE)) {
     ##    method_flags <- paste(method_flags,"--content-disposition",sep=" ")
     ##}
-    #temp <- bb_data_sources(config)
     ## don't use --recursive, since we're handling the destination directory explicitly
-    #temp$method[[1]]$recursive <- FALSE
-    #bb_data_sources(config) <- temp
+    ## skip certificate check, it's valid but ubuntu test machine can't verify it locally
     ok <- bb_handler_wget(config,verbose=verbose,recursive=FALSE,no_check_certificate=TRUE,...)
     ## rename files. Note that this relies on the download being a zip file, so test it first with unzip(...,list=TRUE)
     is_zip <- function(filename) {
