@@ -49,11 +49,11 @@ sources_sst <- function(name,formats,time_resolutions) {
                          description="Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present",
                          doc_url="http://www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NCDC/Geoportal/iso/xml/C00844.xml&view=getDataView&header=none",
                          citation="Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
-                         source_url="ftp://eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/*",
+                         source_url="https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/avhrr-only/",
                          license="Please cite",
-                         method=list("bb_handler_wget",level=4,accept="avhrr-only*"), ##--recursive --no-parent --follow-ftp
-                         postprocess=list("bb_gunzip"),
-                         access_function="readsst",
+                         method=list("bb_handler_wget",level=2), ##--recursive --no-parent --follow-ftp
+                         postprocess=NULL,
+                         access_function="raadtools::readsst",
                          collection_size=140,
                          data_group="Sea surface temperature"))
     }
