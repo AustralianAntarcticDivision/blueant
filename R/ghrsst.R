@@ -39,12 +39,8 @@ bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,..
 
     assert_that(is(config,"bb_config"))
     assert_that(nrow(bb_data_sources(config))==1)
-    assert_that(is.list(bb_data_sources(config)$method_flags))
-    assert_that(is.character(bb_data_sources(config)$method_flags[[1]]))
-    assert_that(is.flag(verbose))
-    assert_that(is.flag(local_dir_only))
-
-    method_flags <- bb_data_sources(config)$method_flags[[1]]
+    assert_that(is.flag(verbose),!is.na(verbose))
+    assert_that(is.flag(local_dir_only),!is.na(local_dir_only))
 
     if (!grepl("\\d\\d\\d\\d/?$",bb_data_sources(config)$source_url)) {
         ## pointing to root
@@ -64,14 +60,6 @@ bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,..
     }
     yearlist <- na.omit(yearlist)
     if (length(yearlist)<1) warning("ghrsst: empty yearlist")
-    ## make sure method_flags include --recursive --no-parent
-    if (!any(tolower(method_flags) %in% c("--recursive","-r")))
-        method_flags <- c(method_flags,"--recursive")
-    if (!any(tolower(method_flags) %in% c("--no-parent","-np")))
-        method_flags <- c(method_flags,"--no-parent")
-    temp <- bb_data_sources(config)
-    temp$method_flags <- list(method_flags)
-    bb_data_sources(config) <- temp
     for (thisyear in yearlist) {
         daylist <- if (thisyear==2002) 152:365 else 1:366
         if (thisyear==as.numeric(format(Sys.Date(),"%Y"))) daylist <- daylist[daylist<=as.numeric(format(Sys.Date(),"%j"))]
@@ -80,10 +68,8 @@ bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,..
             temp <- bb_data_sources(dummy)
             temp$source_url <- paste0("ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",thisyear,"/",sprintf("%03d",thisday),"/")
             bb_data_sources(dummy) <- temp
-            bb_handler_wget(dummy,verbose=verbose,...)
+            ## make sure to be using --recursive --no-parent
+            bb_handler_wget(dummy,verbose=verbose,recursive=TRUE,no_parent=TRUE,...)
         }
     }
 }
-
-
-

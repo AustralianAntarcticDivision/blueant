@@ -20,18 +20,18 @@ bb_handler_amps <- function(...) {
 bb_handler_amps_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...) {
     assert_that(is(config,"bb_config"))
     assert_that(nrow(bb_data_sources(config))==1)
-    assert_that(is.flag(verbose))
-    assert_that(is.flag(local_dir_only))
+    assert_that(is.flag(verbose),!is.na(verbose))
+    assert_that(is.flag(local_dir_only),!is.na(local_dir_only))
     ## shouldn't need any specific method_flags for this
     ## --timestamping not needed (handled through clobber config setting)
     ## --recursive, etc not needed
     temp <- bb_data_sources(config)
-    temp$source_url <- "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/" ## this is fixed for this handler
+    temp$source_url[[1]] <- "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/" ## this is fixed for this handler
     bb_data_sources(config) <- temp
 
     if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE),...)
 
-    x <- html_session(bb_data_sources(config)$source_url)
+    x <- html_session(bb_data_sources(config)$source_url[[1]])
     n <- html_attr(html_nodes(x,"a"),"href")
     idx <- grep("^[[:digit:]]+/?$",n,ignore.case=TRUE) ## links that are all digits
     accept <- function(z) grepl("\\.txt$",html_attr(z,"href"),ignore.case=TRUE) || grepl("d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$",html_attr(z,"href"),ignore.case=TRUE) ## which files to accept
@@ -58,7 +58,7 @@ bb_handler_amps_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...)
             file_url <- xml2::url_absolute(f,x2$url)
             dummy <- config
             temp <- bb_data_sources(dummy)
-            temp$source_url <- file_url
+            temp$source_url[[1]] <- file_url
             bb_data_sources(dummy) <- temp
             all_ok <- all_ok && bb_handler_wget(dummy,verbose=verbose,...)
         }
