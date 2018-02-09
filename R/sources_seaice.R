@@ -194,32 +194,15 @@ sources_seaice <- function(name,formats,time_resolutions) {
                      bb_source(
                          name="Artist AMSR2 near-real-time 3.125km sea ice concentration",
                          id="AMSR2_ASI_s3125",
-                         description="Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution, from 1-Jan-2016 to present.",
+                         description="Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution in selected regions (from 24-July-2012 to present) and full Antarctic coverage (from 1-Jan-2016 to present).",
                          doc_url="https://seaice.uni-bremen.de/sea-ice-concentration/",
                          citation="Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
                          source_url="https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
                          license="Please cite",
-                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),accept_regex="Antarctic3125",robots_off=TRUE),
+                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE),
                          postprocess=NULL,
                          access_function="readice",
-                         collection_size=45,
-                         data_group="Sea ice"))
-    }
-
-    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 regional sea ice concentration","AMSR2_ASI_s3125_regional")))) {
-        out <- rbind(out,
-                     bb_source(
-                         name="Artist AMSR2 regional sea ice concentration",
-                         id="AMSR2_ASI_s3125_regional",
-                         description="Passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution in selected regions, from 24-July-2012 to present.",
-                         doc_url="https://seaice.uni-bremen.de/regional/",
-                         citation="Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
-                         source_url="https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
-                         license="Please cite",
-                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.tif","asi*.png",reject_regex="Antarctic3125"),robots_off=TRUE), ## --recursive --no-parent
-                         postprocess=NULL,
-                         access_function="readice",
-                         collection_size=100, ## not fully downloaded, so not sure of size. Approx 15G/year excluding full Antarctic 3km data
+                         collection_size=150,
                          data_group="Sea ice"))
     }
 
