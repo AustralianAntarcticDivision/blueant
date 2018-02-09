@@ -21,10 +21,10 @@ sources <- function(name,formats,time_resolutions) {
     out <- rbind(
         sources_seaice(name=name,formats=formats,time_resolutions=time_resolutions),
         sources_topography(name=name,formats=formats,time_resolutions=time_resolutions),
-        ##sources_sst(name=name,formats=formats,time_resolutions=time_resolutions),
+        sources_sst(name=name,formats=formats,time_resolutions=time_resolutions),
         sources_altimetry(name=name,formats=formats,time_resolutions=time_resolutions),
-        ##sources_oceanographic(name=name,formats=formats,time_resolutions=time_resolutions),
-        ##sources_ocean_colour(name=name,formats=formats,time_resolutions=time_resolutions),
+        sources_oceanographic(name=name,formats=formats,time_resolutions=time_resolutions),
+        sources_ocean_colour(name=name,formats=formats,time_resolutions=time_resolutions),
         sources_meteorological(name=name,formats=formats,time_resolutions=time_resolutions),
         sources_reanalysis(name=name,formats=formats,time_resolutions=time_resolutions)
     )
