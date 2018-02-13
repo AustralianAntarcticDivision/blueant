@@ -48,7 +48,7 @@ sources_oceanographic <- function(name,formats,time_resolutions) {
                          citation="Ridgway K.R., J.R. Dunn, and J.L. Wilkin, Ocean interpolation by four-dimensional least squares -Application to the waters around Australia, J. Atmos. Ocean. Tech., Vol 19, No 9, 1357-1375, 2002",
                          source_url="http://www.marine.csiro.au/atlas/",
                          license="Please cite",
-                         method=list("bb_handler_wget",accept_regex=".*2009.*.nc.gz"), ## --recursive --level=1
+                         method=list("bb_handler_wget",accept_regex=".*2009.*.nc.gz",robots_off=TRUE), ## --recursive --level=1
                          postprocess=list("bb_gunzip"),
                          collection_size=2.8,
                          data_group="Oceanographic"))
@@ -80,8 +80,8 @@ sources_oceanographic <- function(name,formats,time_resolutions) {
                          citation="Citation for WOA13 Temperature:\nLocarnini, R. A., A. V. Mishonov, J. I. Antonov, T. P. Boyer, H. E. Garcia, O. K. Baranova, M. M. Zweng, C. R. Paver, J. R. Reagan, D. R. Johnson, M. Hamilton, and D. Seidov, 2013. World Ocean Atlas 2013, Volume 1: Temperature. S. Levitus, Ed., A. Mishonov Technical Ed.; NOAA Atlas NESDIS 73, 40 pp.\nCitation for WOA13 Salinity:\nZweng, M.M, J.R. Reagan, J.I. Antonov, R.A. Locarnini, A.V. Mishonov, T.P. Boyer, H.E. Garcia, O.K. Baranova, D.R. Johnson, D.Seidov, M.M. Biddle, 2013. World Ocean Atlas 2013, Volume 2: Salinity. S. Levitus, Ed., A. Mishonov Technical Ed.; NOAA Atlas NESDIS 74, 39 pp.\nCitation for WOA13 Oxygen:\nGarcia, H. E., R. A. Locarnini, T. P. Boyer, J. I. Antonov, O.K. Baranova, M.M. Zweng, J.R. Reagan, D.R. Johnson, 2014. World Ocean Atlas 2013, Volume 3: Dissolved Oxygen, Apparent Oxygen Utilization, and Oxygen Saturation. S. Levitus, Ed., A. Mishonov Technical Ed.; NOAA Atlas NESDIS 75, 27 pp.\nCitation for WOA13 Nutrients:\nGarcia, H. E., R. A. Locarnini, T. P. Boyer, J. I. Antonov, O.K. Baranova, M.M. Zweng, J.R. Reagan, D.R. Johnson, 2014. World Ocean Atlas 2013, Volume 4: Dissolved Inorganic Nutrients (phosphate, nitrate, silicate). S. Levitus, Ed., A. Mishonov Technical Ed.; NOAA Atlas NESDIS 76, 25 pp.",
                          license="Please cite",
                          source_url="https://data.nodc.noaa.gov/woa/WOA13/DATAv2/",
-                         method=list("bb_handler_wget",robots_off=TRUE,reject="index.html*",reject_regex="/(ascii|csv|shape|5564|6574|7584|8594|95A4|A5B2)/"), ## --recursive --no-parent
-                         comment="Only the long-term (not per-decade) netcdf files are retrieved here: adjust the method_flags --reject-regex parameter if you want ascii, csv, or shapefiles, or per-decade files.",
+                         method=list("bb_handler_wget",level=5,robots_off=TRUE,reject="index.html*",reject_regex="/(ascii|csv|shape|5564|6574|7584|8594|95A4|A5B2)/"), ## --recursive --no-parent
+                         comment="Only the long-term (not per-decade) netcdf files are retrieved here: adjust the method reject_regex parameter if you want ascii, csv, or shapefiles, or per-decade files.",
                          postprocess=NULL,
                          collection_size=57,
                          data_group="Oceanographic"))
