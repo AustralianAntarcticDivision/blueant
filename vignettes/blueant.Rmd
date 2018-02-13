@@ -11,7 +11,7 @@ vignette: >
 
 # Blueant
 
-Blueant provides a set of data source configurations to use with the [bowerbird](https://github.com/AustralianAntarcticDivision/bowerbird) package. These packages will allow you to download data from external data providers to your local file system, and to keep that data collection up to date.
+Blueant provides a set of data source configurations to use with the [bowerbird](https://github.com/AustralianAntarcticDivision/bowerbird) package. These data sources are themed around Antarctic and Southern Ocean data, and include a range of oceanographic, meteorological, topographic, and other environmental data sets. Blueant will allow you to download data from these external data providers to your local file system, and to keep that data collection up to date.
 
 ## Installing
 
@@ -21,37 +21,66 @@ library(devtools)
 install_github("AustralianAntarcticDivision/blueant",build_vignettes=TRUE)
 ```
 
-Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. `wget` is typically installed by default on Linux.
-On Windows you can use the `bb_install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from https://eternallybored.org/misc/wget/current/wget.exe) and make sure it is on your path.
+Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. Note that installing `wget` may require admin privileges on your local machine.
 
-## Usage
+### Linux
+
+`wget` is typically installed by default on Linux. Otherwise use your package manager to install it, e.g. `sudo apt install wget` on Ubuntu/Debian or `sudo yum install wget` on Fedora/CentOS.
+
+### Windows
+
+On Windows you can use the `bb_install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from https://eternallybored.org/misc/wget/) and make sure it is on your system path.
+
+### Mac
+
+Use `brew install wget` or try `brew install --with-libressl wget` if you get SSL-related errors. If you do not have brew installed, see https://brew.sh/.
+
+
+## Usage overview
 
 ### Configuration
 
-Build up a configuration by first defining global options such as the destination on your local file system:
+Build up a configuration by first defining global options such as the destination on your local file system. Usually you would choose this destination data directory to be persistent location suitable for a data library. For demonstration purposes here we'll just use a temporary directory:
 
 ```{r eval=FALSE}
-cf <- bb_config(local_file_root="~/your/data/directory")
+library(blueant)
+my_data_dir <- tempdir()
+cf <- bb_config(local_file_root=my_data_dir)
 ```
 
-Add data sources from those provided by blueant. A summary of these sources is given at the end of this document.
+Add data sources from those provided by blueant. A summary of these sources is given at the end of this document. Here we'll use the "George V bathymetry" data source as an example, because it's fairly small:
 
 ```{r eval=FALSE}
-cf <- cf %>% bb_add(sources("CERSAT SSM/I sea ice concentration"))
+cf <- cf %>% bb_add(sources("George V bathymetry"))
 ```
 
 ### Synchronisation
 
-Once the configuration has been defined, run the sync process:
+Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose=TRUE` here so that we see additional progress output:
 
 ```{r eval=FALSE}
-bb_sync(cf)
+status <- bb_sync(cf,verbose=TRUE)
 ```
 
-Congratulations! You now have your own local copy of your chosen data sets.
+Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
 
-The pre-packaged environmental data sources can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster).
+```{r eval=FALSE}
+bb_data_source_dir(cf)
+```
 
+The contents of that directory:
+
+```{r eval=FALSE}
+list.files(bb_data_source_dir(cf),recursive=TRUE,full.names=TRUE)
+```
+
+The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
+
+```{r eval=FALSE}
+library(raster)
+x <- raster(file.path(bb_data_source_dir(cf),"gvdem500m_v3.nc"))
+plot(x)
+```
 
 ## Nuances
 
@@ -59,9 +88,7 @@ The pre-packaged environmental data sources can be read, manipulated, and plotte
 
 It's up to you where you want your data collection kept, and to provide that location to bowerbird. A common use case for bowerbird is maintaining a central data collection for multiple users, in which case that location is likely to be some sort of networked file share. However, if you are keeping a collection for your own use, you might like to look at https://github.com/r-lib/rappdirs to help find a suitable directory location.
 
-### Modifying data sources
-
-#### Authentication
+### Authentication
 
 Some data providers require users to log in. These are indicated by the `authentication_note` column in the configuration table. For these sources, you will need to provide your user name and password, e.g.:
 
@@ -77,32 +104,39 @@ cf <- cf %>%
   mutate(user="yourusername",password="yourpassword"))
 ```
 
+### Writing and modifying data sources
+
+The bowerbird documentation is a good place to start to find out more about writing your own data sources or modifying existing ones.
+
 #### Reducing download sizes
 
-Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_handler_wget` method, you can restrict what is downloaded by modifying the data source's `method_flags`, particularly the `--accept`, `--reject`, `--accept-regex`, and `--reject-regex` options. Be sure to leave the original method flags in place, unless you know what you are doing.
+Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_handler_wget` method, you can restrict what is downloaded by modifying the data source's `method` parameters, particularly the `accept`, `reject`, `accept_regex`, and `reject_regex` options. 
 
-For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly directories, so it is fairly easy to restrict ourselves to, say, only the 2017 data:
+For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly directories, and so it is fairly easy to restrict ourselves to, say, only the 2017 data:
 
 ```{r eval=FALSE}
-cf <- cf %>%
-  bb_add(sources("CERSAT SSM/I sea ice concentration") %>%
-  mutate(method_flags=paste(method_flags,"--accept-regex=\"/2017/\"")))
-```
+mysrc <- sources("CERSAT SSM/I sea ice concentration")
 
-See the bowerbird documentation for further guidances on the accept/reject flags.
+## first make sure that the data source doesn't already have an accept_regex parameter defined
+mysrc$method[[1]]
+
+## nope, so we can safely go ahead and impose our own
+mysrc$method[[1]]$accept_regex <- "/2017/"
+cf <- cf %>% bb_add(mysrc)
+```
 
 Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/*" (with yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
 
 ```{r eval=FALSE}
-cf <- cf %>%
-  bb_add(sources("CERSAT SSM/I sea ice concentration") %>%
-  mutate(source_url=c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/*",
-                      "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/*")))
+mysrc <- sources("CERSAT SSM/I sea ice concentration")
+mysrc$source_url[[1]] <- c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/*",
+                        "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/*")
+cf <- cf %>% bb_add(mysrc)
 ```
 
-### Defining new data sources
+#### Defining new data sources
 
-If the pre-packages data sources don't cover your needs, you can define your own using the `bb_source` function. See the bowerbird documentation.
+If the blueant data sources don't cover your needs, you can define your own using the `bb_source` function. See the bowerbird documentation.
 
 ## Data source summary
 
