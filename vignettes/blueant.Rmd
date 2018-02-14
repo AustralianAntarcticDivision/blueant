@@ -48,13 +48,16 @@ my_data_dir <- tempdir()
 cf <- bb_config(local_file_root=my_data_dir)
 ```
 
-Add data sources from those provided by blueant. A summary of these sources is given at the end of this document. Here we'll use the "George V bathymetry" data source as an example, because it's fairly small:
+Add data sources from those provided by blueant. A summary of these sources is given at the end of this document. Here we'll use the "George V bathymetry" data source as an example:
 
 ```{r eval=FALSE}
-cf <- cf %>% bb_add(sources("George V bathymetry"))
+mysrc <- sources("George V bathymetry")
+cf <- cf %>% bb_add(mysrc)
 ```
 
-### Synchronisation
+This data source is fairly small (around 200MB, see `mysrc$collection_size`). Be sure to check the `collection_size` parameter of your chosen data source before running the synchronization. Some of these collections are quite large (see the summary table at the bottom of this document).
+
+### Synchronization
 
 Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose=TRUE` here so that we see additional progress output:
 
