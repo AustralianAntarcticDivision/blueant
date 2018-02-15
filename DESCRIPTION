@@ -1,7 +1,7 @@
 Package: blueant
 Type: Package
 Title: Antarctic and Southern Ocean environmental data sources
-Version: 0.0.8
+Version: 0.1.0
 Authors@R: c(person("Ben","Raymond",email="ben.raymond@aad.gov.au",
   	   role=c("aut","cre")),
 	   person("Michael","Sumner",role="aut"))
@@ -28,5 +28,5 @@ Suggests:
     knitr,
     testthat,
     covr
-Remotes: AustralianAntarcticDivision/bowerbird@postrev
+Remotes: AustralianAntarcticDivision/bowerbird
 VignetteBuilder: knitr
