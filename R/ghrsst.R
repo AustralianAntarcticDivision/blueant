@@ -60,6 +60,7 @@ bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,..
     }
     yearlist <- na.omit(yearlist)
     if (length(yearlist)<1) warning("ghrsst: empty yearlist")
+    status <- TRUE
     for (thisyear in yearlist) {
         daylist <- if (thisyear==2002) 152:365 else 1:366
         if (thisyear==as.numeric(format(Sys.Date(),"%Y"))) daylist <- daylist[daylist<=as.numeric(format(Sys.Date(),"%j"))]
@@ -69,7 +70,14 @@ bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,..
             temp$source_url <- paste0("ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",thisyear,"/",sprintf("%03d",thisday),"/")
             bb_data_sources(dummy) <- temp
             ## make sure to be using --recursive --no-parent
-            bb_handler_wget(dummy,verbose=verbose,recursive=TRUE,no_parent=TRUE,...)
+            this_status <- bb_handler_wget(dummy,verbose=verbose,recursive=TRUE,no_parent=TRUE,...)
+            ## we will fail for very recent days, because the data doesn't exist yet
+            if (!this_status && thisyear==as.numeric(format(Sys.Date(),"%Y")) && thisday>(as.numeric(format(Sys.Date(),"%j"))-5)) {
+                ## ignore errors for recent days
+                this_status <- TRUE
+            }
+            status <- status && this_status
         }
     }
+    status
 }
