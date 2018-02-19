@@ -55,7 +55,7 @@ sources_altimetry <- function(name,formats,time_resolutions) {
                          authentication_note="Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user="",
                          password="",
-                         access_function="readssh",
+                         access_function="raadtools::readssh",
                          collection_size=310,
                          data_group="Altimetry",warn_empty_auth=FALSE))
     }
@@ -75,7 +75,7 @@ sources_altimetry <- function(name,formats,time_resolutions) {
                          authentication_note="Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user="",
                          password="",
-                         access_function="readssh",
+                         access_function="raadtools::readssh",
                          collection_size=3,
                          data_group="Altimetry",warn_empty_auth=FALSE))
     }

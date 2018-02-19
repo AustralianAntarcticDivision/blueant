@@ -69,7 +69,7 @@ sources_sst <- function(name,formats,time_resolutions) {
                          license="Please cite",
                          method=list("bb_handler_wget"), ## "--recursive","--level=1","--no-parent"
                          postprocess=NULL,
-                         access_function="readsst",
+                         access_function="raadtools::readsst",
                          collection_size=0.9,
                          data_group="Sea surface temperature"))
     }

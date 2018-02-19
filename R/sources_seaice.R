@@ -65,7 +65,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Please cite, see http://nsidc.org/about/use_copyright.html",
                          method=list("bb_handler_wget",exclude_directories="pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/browse",level=6), ##--recursive
                          postprocess=NULL,
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=10,
                          data_group="Sea ice"))
     }
@@ -83,7 +83,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Please cite, see http://nsidc.org/about/use_copyright.html",
                          method=list("bb_handler_wget",exclude_directories="pub/DATASETS/nsidc0081_nrt_nasateam_seaice/browse",level=3), ##"--recursive"
                          postprocess=NULL,
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=0.6,
                          data_group="Sea ice"))
     }
@@ -100,7 +100,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Please cite, see http://nsidc.org/about/use_copyright.html",
                          method=list("bb_handler_wget",level=3), ##--recursive
                          postprocess=NULL,
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=0.1,
                          data_group="Sea ice"))
     }
@@ -150,7 +150,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Please cite",
                          method=list("bb_handler_wget",level=4), ##--recursive --follow-ftp
                          postprocess=list("bb_gunzip"), ## nb only needed for hdfs
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=25,
                          data_group="Sea ice"))
     }
@@ -167,7 +167,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Please cite",
                          method=list("bb_handler_wget",level=2), ## --recursive --follow-ftp
                          postprocess=NULL,
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=0.01,
                          data_group="Sea ice"))
     }
@@ -184,7 +184,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Please cite",
                          method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE), ##--recursive --no-parent
                          postprocess=NULL,
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=11,
                          data_group="Sea ice"))
     }
@@ -201,7 +201,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Please cite",
                          method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE),
                          postprocess=NULL,
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=150,
                          data_group="Sea ice"))
     }
@@ -234,7 +234,7 @@ sources_seaice <- function(name,formats,time_resolutions) {
                          license="Unknown",
                          method=list("bb_handler_wget",level=3), ## --recursive --no-parent
                          postprocess=list("bb_uncompress"),
-                         access_function="readice",
+                         access_function="raadtools::readice",
                          collection_size=2.5,
                          data_group="Sea ice"))
     }

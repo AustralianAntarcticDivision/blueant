@@ -60,7 +60,7 @@ sources_topography <- function(name,formats,time_resolutions) {
                          license="See ftp://topex.ucsd.edu/pub/global_topo_1min/COPYRIGHT.txt",
                          method=list("bb_handler_wget"), ## --recursive  --level=1 --no-parent
                          postprocess=NULL,
-                         access_function="readbathy",
+                         access_function="raadtools::readbathy",
                          collection_size=1.4,
                          data_group="Topography"))
     }
@@ -77,7 +77,7 @@ sources_topography <- function(name,formats,time_resolutions) {
                          source_url="https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/grid_registered/netcdf/",
                          method=list("bb_handler_wget",level=3,accept="*gdal*,*.txt"), ## --recursive --no-parent
                          postprocess=list("bb_gunzip"),
-                         access_function="readtopo",
+                         access_function="raadtools::readtopo",
                          collection_size=1.3,
                          data_group="Topography"))
     }
@@ -94,7 +94,7 @@ sources_topography <- function(name,formats,time_resolutions) {
                          source_url=c("https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2/ETOPO2v2-2006/ETOPO2v2c/netCDF/ETOPO2v2c_f4_netCDF.zip","https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2/ETOPO2v2-2006/ETOPO2v2c/ETOPO2v2c_ReadMe.txt"),
                          method=list("bb_handler_wget"), ## --recursive --level=1 --no-parent
                          postprocess=list("bb_unzip"),
-                         access_function="readtopo",
+                         access_function="raadtools::readtopo",
                          collection_size=0.3,
                          data_group="Topography"))
     }
