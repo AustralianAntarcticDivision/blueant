@@ -24,6 +24,7 @@ Data sources providing SST data.
   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present
   \item "NOAA OI SST V2": Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
   \item "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
+  \item "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
   \item "Oceandata MODIS Terra Level-3 mapped monthly 9km SST": Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution
   \item "Oceandata MODIS Aqua Level-3 mapped monthly 9km SST": Monthly remote-sensing SST from the MODIS Aqua satellite at 9km spatial resolution
   \item "GHRSST Level 4 MUR Global Foundation SST v4.1": A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) on a global 0.011 degree grid

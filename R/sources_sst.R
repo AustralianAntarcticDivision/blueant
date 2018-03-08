@@ -6,6 +6,7 @@
 #'   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present
 #'   \item "NOAA OI SST V2": Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
 #'   \item "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
+#'   \item "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
 #'   \item "Oceandata MODIS Terra Level-3 mapped monthly 9km SST": Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution
 #'   \item "Oceandata MODIS Aqua Level-3 mapped monthly 9km SST": Monthly remote-sensing SST from the MODIS Aqua satellite at 9km spatial resolution
 #'   \item "GHRSST Level 4 MUR Global Foundation SST v4.1": A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) on a global 0.011 degree grid
@@ -77,7 +78,7 @@ sources_sst <- function(name,formats,time_resolutions) {
         out <- rbind(out,
                      bb_source(
                          name="NOAA Extended Reconstructed SST V3b",
-                         id="ersst",
+                         id="ersstv3",
                          description="A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods",
                          doc_url="http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.ersst.html",
                          citation="NOAA_ERSST_V3 data provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, from their web site at http://www.esrl.noaa.gov/psd/",
@@ -93,7 +94,7 @@ sources_sst <- function(name,formats,time_resolutions) {
                      bb_source(
                          name="NOAA Extended Reconstructed SST V5",
                          id="10.7289/V5T72FNM",
-                         description="A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean–Atmosphere Dataset (ICOADS)",
+                         description="A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset (ICOADS)",
                          doc_url="https://www.ncdc.noaa.gov/data-access/marineocean-data/extended-reconstructed-sea-surface-temperature-ersst-v5",
                          citation="Huang B, Thorne PW, Banzon VF, Boyer T, Chepurin G, Lawrimore JH, Menne MJ, Smith TM, Vose RS, Zhang H-M (2017) NOAA Extended Reconstructed Sea Surface Temperature (ERSST), Version 5. [indicate subset used]. NOAA National Centers for Environmental Information. doi:10.7289/V5T72FNM [access date].",
                          comment="Publications using this dataset should also reference the following journal article: Huang, B., Peter W. Thorne, Viva F. Banzon, Tim Boyer, Gennady Chepurin, Jay H. Lawrimore, Matthew J. Menne, Thomas M. Smith, Russell S. Vose, and Huai-Min Zhang, 2017: Extended Reconstructed Sea Surface Temperature version 5 (ERSSTv5), Upgrades, validations, and intercomparisons. J. Climate, https://doi.org/10.1175/JCLI-D-16-0836.1. In review.",
