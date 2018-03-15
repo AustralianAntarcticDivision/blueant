@@ -221,11 +221,10 @@ sources_topography <- function(name,formats,time_resolutions) {
                          doc_url="http://nsidc.org/data/nsidc-0082",
                          citation="Liu, H., K. Jezek, B. Li, and Z. Zhao. 2001. Radarsat Antarctic Mapping Project Digital Elevation Model Version 2. [indicate subset used]. Boulder, Colorado USA: National Snow and Ice Data Center. http://dx.doi.org/10.5067/PXKC81A7WAXD",
                          license="Please cite",
-                         source_url=c("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/*","ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/1KM/BINARY/*","ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/00README_v2.txt"),
-                         method=list("bb_handler_wget",level=2,reject="*.txt.gz,*.tar.gz"), ## --recursive --no-parent
-                         comment="Only the 200m and 1km binary files are retrieved here: adjust the source_url or method_flags for others",
+                         source_url=c("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/*"),
+                         method=list("bb_handler_wget",level=3,reject="*.txt.gz"),
                          postprocess=list("bb_gunzip"),
-                         collection_size=3.3,
+                         collection_size=5.3,
                          data_group="Topography"))
     }
 
