@@ -4,14 +4,16 @@
 \alias{sources_reanalysis}
 \title{Reanalysis data sources}
 \usage{
-sources_reanalysis(name, formats, time_resolutions)
+sources_reanalysis(name, formats, time_resolutions, ...)
 }
 \arguments{
 \item{name}{character vector: only return data sources with name or id matching these values}
 
-\item{formats}{character: for some sources, the format can be specified. See the list of sources above for details.}
+\item{formats}{character: for some sources, the format can be specified. See the list of sources above for details}
 
-\item{time_resolutions}{character: for some sources, the time resolution can be specified. See the list of sources above for details.}
+\item{time_resolutions}{character: for some sources, the time resolution can be specified. See the list of sources above for details}
+
+\item{...}{: additional source-specific parameters. See the list of sources above for details}
 }
 \value{
 a tibble with columns as specified by \code{\link{bb_source}}
@@ -22,6 +24,7 @@ Data sources providing data from global reanalysis models.
 \details{
 \itemize{
   \item "NCEP-DOE Reanalysis 2": NCEP-DOE Reanalysis 2 is an improved version of the NCEP Reanalysis I model that fixed errors and updated paramterizations of of physical processes. Accepts \code{time_resolution} values of "6 hour", "day", and/or "month" (default). The 6-hourly data is the original output time resolution. Daily and monthly averages are calculated from the 6-hourly model output
+  \item "NCEP/NCAR Reanalysis 1": The NCEP/NCAR Reanalysis 1 project is using a state-of-the-art analysis/forecast system to perform data assimilation using past data from 1948 to the present. Only the monthly data are so far included here
 }
 
 The returned tibble contains more information about each source.

@@ -4,13 +4,15 @@
 #'
 #' \itemize{
 #'   \item "NCEP-DOE Reanalysis 2": NCEP-DOE Reanalysis 2 is an improved version of the NCEP Reanalysis I model that fixed errors and updated paramterizations of of physical processes. Accepts \code{time_resolution} values of "6 hour", "day", and/or "month" (default). The 6-hourly data is the original output time resolution. Daily and monthly averages are calculated from the 6-hourly model output
+#'   \item "NCEP/NCAR Reanalysis 1": The NCEP/NCAR Reanalysis 1 project is using a state-of-the-art analysis/forecast system to perform data assimilation using past data from 1948 to the present. Only the monthly data are so far included here
 #' }
 #'
 #' The returned tibble contains more information about each source.
 #'
 #' @param name character vector: only return data sources with name or id matching these values
-#' @param formats character: for some sources, the format can be specified. See the list of sources above for details.
-#' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details.
+#' @param formats character: for some sources, the format can be specified. See the list of sources above for details
+#' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
+#' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
 #' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
 #'
@@ -24,7 +26,7 @@
 #'   bb_add(sources_reanalysis("NCEP-DOE Reanalysis 2",time_resolution="month"))
 #' }
 #' @export
-sources_reanalysis <- function(name,formats,time_resolutions) {
+sources_reanalysis <- function(name,formats,time_resolutions, ...) {
     if (!missing(name) && !is.null(name)) {
         assert_that(is.character(name))
         name <- tolower(name)
@@ -91,6 +93,21 @@ sources_reanalysis <- function(name,formats,time_resolutions) {
                              collection_size=2,
                              data_group="Reanalysis"))
         }
+    }
+    if (is.null(name) || any(name %in% tolower(c("NCEP/NCAR Reanalysis 1","ncep.reanalysis","ncep.reanalysis.derived")))) {
+            out <- rbind(out,
+                         bb_source(
+                             name="NCEP-DOE Reanalysis 1 monthly averages",
+                             id="ncep.reanalysis2.derived",
+                             description="The NCEP/NCAR Reanalysis 1 project is using a state-of-the-art analysis/forecast system to perform data assimilation using past data from 1948 to the present. Monthly averages are calculated from the 6-hourly model output.",
+                             doc_url="https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.html",
+                             citation="Kalnay et al.,The NCEP/NCAR 40-year reanalysis project, Bull. Amer. Meteor. Soc., 77, 437-470, 1996",
+                             source_url="ftp://ftp.cdc.noaa.gov/Datasets/ncep.reanalysis.derived/surface/",
+                             license="Please cite",
+                             method=list("bb_handler_wget"),
+                             postprocess=NULL,
+                             collection_size=2,
+                             data_group="Reanalysis"))
     }
     out
 }

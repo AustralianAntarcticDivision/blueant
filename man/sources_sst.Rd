@@ -4,14 +4,16 @@
 \alias{sources_sst}
 \title{Sea surface temperature data sources}
 \usage{
-sources_sst(name, formats, time_resolutions)
+sources_sst(name, formats, time_resolutions, ...)
 }
 \arguments{
 \item{name}{character vector: only return data sources with name or id matching these values}
 
-\item{formats}{character: for some sources, the format can be specified. See the list of sources above for details.}
+\item{formats}{character: for some sources, the format can be specified. See the list of sources above for details}
 
-\item{time_resolutions}{character: for some sources, the time resolution can be specified. See the list of sources above for details.}
+\item{time_resolutions}{character: for some sources, the time resolution can be specified. See the list of sources above for details}
+
+\item{...}{: additional source-specific parameters. See the list of sources above for details}
 }
 \value{
 a tibble with columns as specified by \code{\link{bb_source}}

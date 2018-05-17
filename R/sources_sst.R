@@ -15,8 +15,9 @@
 #' The returned tibble contains more information about each source.
 #'
 #' @param name character vector: only return data sources with name or id matching these values
-#' @param formats character: for some sources, the format can be specified. See the list of sources above for details.
-#' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details.
+#' @param formats character: for some sources, the format can be specified. See the list of sources above for details
+#' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
+#' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
 #' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
 #'
@@ -33,7 +34,7 @@
 #' }
 #'
 #' @export
-sources_sst <- function(name,formats,time_resolutions) {
+sources_sst <- function(name,formats,time_resolutions, ...) {
     if (!missing(name) && !is.null(name)) {
         assert_that(is.character(name))
         name <- tolower(name)

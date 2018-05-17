@@ -4,14 +4,16 @@
 \alias{sources}
 \title{Bowerbird configurations for various Antarctic and Southern Ocean data sources}
 \usage{
-sources(name, formats, time_resolutions)
+sources(name, formats, time_resolutions, ...)
 }
 \arguments{
 \item{name}{character vector: only return data sources with name or id matching these values}
 
-\item{formats}{character: for some sources, the format can be specified. See thematic source functions for details.}
+\item{formats}{character: for some sources, the format can be specified. See thematic source functions for details}
 
-\item{time_resolutions}{character: for some sources, the time resolution can be specified. See thematic source functions for details.}
+\item{time_resolutions}{character: for some sources, the time resolution can be specified. See thematic source functions for details}
+
+\item{...}{: other parameters passed to thematic source functions}
 }
 \value{
 tibble
