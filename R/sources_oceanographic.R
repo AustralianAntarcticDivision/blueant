@@ -6,6 +6,7 @@
 #'   \item "CSIRO Atlas of Regional Seas 2009": CARS is a digital climatology, or atlas of seasonal ocean water properties
 #'   \item "World Ocean Atlas 2009": World Ocean Atlas 2009 is included here for convenience but has been superseded by the World Ocean Atlas 2013 V2
 #'   \item "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
+#'   \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -27,6 +28,17 @@
 #' cf <- bb_config("/my/file/root")
 #' src <- sources_oceanographic("CSIRO Atlas of Regional Seas 2009")
 #' cf <- bb_add(cf,src)
+#'
+#' ## Argo data, Pacific ocean basin only, all years
+#' src <- sources_oceanographic("Argo ocean basin data (USGODAE)", region="pacific")
+#'
+#' ## Argo data, Pacific ocean basin for 2018 only
+#' src <- sources_oceanographic("Argo ocean basin data (USGODAE)",
+#'   region="pacific", years=2018)
+#'
+#' ## Argo data, all ocean basins and for 2017 and 2018 only
+#' src <- sources_oceanographic("Argo ocean basin data (USGODAE)",
+#'   region=c("pacific", "indian", "atlantic"), years=c(2017, 2018))
 #' }
 #'
 #' @export
@@ -37,6 +49,8 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
     } else {
         name <- NULL
     }
+    dots <- list(...)
+
     out <- tibble()
 
     if (is.null(name) || any(name %in% tolower(c("CSIRO Atlas of Regional Seas 2009","cars2009")))) {
@@ -85,6 +99,39 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          comment="Only the long-term (not per-decade) netcdf files are retrieved here: adjust the method reject_regex parameter if you want ascii, csv, or shapefiles, or per-decade files.",
                          postprocess=NULL,
                          collection_size=57,
+                         data_group="Oceanographic"))
+    }
+
+
+    if (is.null(name) || any(name %in% tolower(c("Argo ocean basin data (USGODAE)","10.17882/42182")))) {
+        if ("region" %in% names(dots)) {
+            region <- tolower(dots[["region"]])
+            if (!all(region %in% c("pacific", "atlantic", "indian")))
+                stop("the region parameter should be one or more of \"pacific\", \"atlantic\", or \"indian\"")
+        } else {
+            region <- "pacific" ## default
+        }
+        if ("years" %in% names(dots)) {
+            years <- dots[["years"]]
+            assert_that(is.numeric(years) || is.character(years))
+        } else {
+            years <- ""
+        }
+        ## all source_url combinations of region and years
+        temp <- paste0(apply(expand.grid(paste0("http://www.usgodae.org/ftp/outgoing/argo/geo/", region, "_ocean"), years), 1, paste0, collapse="/"), "/")
+        out <- rbind(out,
+                     bb_source(
+                         name="Argo ocean basin data (USGODAE)",
+                         id="10.17882/42182",
+                         description="Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin.",
+                         doc_url="http://www.argodatamgt.org/Documentation",
+                         citation="To properly acknowledge Argo data usage, please use the following sentence: \"These data were collected and made freely available by the International Argo Program and the national programs that contribute to it (http://www.argo.ucsd.edu, http://argo.jcommops.org). The Argo Program is part of the Global Ocean Observing System. http://doi.org/10.17882/42182\"",
+                         license="Please cite",
+                         source_url=temp,
+                         method=list("bb_handler_wget", level=3, robots_off=TRUE),
+                         comment="Only the 2018 data is so far included here",
+                         postprocess=NULL,
+                         collection_size=NA, ## unknown yet
                          data_group="Oceanographic"))
     }
     out

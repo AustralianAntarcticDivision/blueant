@@ -26,6 +26,7 @@ Data sources providing oceanographic data.
   \item "CSIRO Atlas of Regional Seas 2009": CARS is a digital climatology, or atlas of seasonal ocean water properties
   \item "World Ocean Atlas 2009": World Ocean Atlas 2009 is included here for convenience but has been superseded by the World Ocean Atlas 2013 V2
   \item "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
+  \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
 }
 
 The returned tibble contains more information about each source.
@@ -36,6 +37,17 @@ The returned tibble contains more information about each source.
 cf <- bb_config("/my/file/root")
 src <- sources_oceanographic("CSIRO Atlas of Regional Seas 2009")
 cf <- bb_add(cf,src)
+
+## Argo data, Pacific ocean basin only, all years
+src <- sources_oceanographic("Argo ocean basin data (USGODAE)", region="pacific")
+
+## Argo data, Pacific ocean basin for 2018 only
+src <- sources_oceanographic("Argo ocean basin data (USGODAE)",
+  region="pacific", years=2018)
+
+## Argo data, all ocean basins and for 2017 and 2018 only
+src <- sources_oceanographic("Argo ocean basin data (USGODAE)",
+  region=c("pacific", "indian", "atlantic"), years=c(2017, 2018))
 }
 
 }
