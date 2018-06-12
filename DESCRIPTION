@@ -28,5 +28,5 @@ Suggests:
     knitr,
     testthat,
     covr
-Remotes: AustralianAntarcticDivision/bowerbird
+Remotes: ropensci/bowerbird
 VignetteBuilder: knitr
