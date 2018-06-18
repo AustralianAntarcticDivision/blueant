@@ -89,7 +89,7 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          description="CNES-CLS2013 Mean dynamic topography over the 1993-2012 period of the sea surface height above geoid. The MDT_CNES-CLS13 is an estimate of the ocean MDT for the 1993-2012 period. Since April 2014 (Duacs 2014, v15.0 version), the Ssalto/Duacs (M)SLA products are computed relative to 1993-2012 period that is consistent with this new MDT CNES-CLS13. Based on 2 years of GOCE data, 7 years of GRACE data, and 20 years of altimetry and in-situ data (hydrologic and drifters data).",
                          doc_url="https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html",
                          citation="Rio, M-H, P. Schaeffer, G. Moreaux, J-M Lemoine, E. Bronner (2009) : A new Mean Dynamic Topography computed over the global ocean from GRACE data, altimetry and in-situ measurements . Poster communication at OceanObs09 symposium, 21-25 September 2009, Venice.",
-                         source_url="ftp://ftp.aviso.altimetry.fr/auxiliary/mdt/mdt_cnes_cls2013_global/",
+                         source_url="ftp://ftp-access.aviso.altimetry.fr/auxiliary/mdt/mdt_cnes_cls2013_global/",
                          license="See https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html",
                          method=list("bb_handler_wget"), ## --recursive --level=1 --no-parent
                          postprocess=list("bb_gunzip"),
