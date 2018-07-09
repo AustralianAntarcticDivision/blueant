@@ -55,7 +55,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list(bb_handler_oceandata,search="S*L3m_MO_CHL_chlor_a_9km.nc"),
+                         method=list("bb_handler_oceandata",search="S*L3m_MO_CHL_chlor_a_9km.nc"),
                          postprocess=NULL,
                          collection_size=7.2,
                          data_group="Ocean colour"))
