@@ -19,4 +19,9 @@ test_that("Argo ocean basin data source works",{
     src <- sources_oceanographic("Argo ocean basin data (USGODAE)", years="2018")
     expect_equal(nrow(src), 1)
     expect_equal(length(src$source_url[[1]]), 1)
+
+    src <- sources("10.17882/42182", region = "indian", years = 1999)
+    cf <- bb_add(bb_config("c:/temp/data/bbtest"), src)
+    res <- bb_sync(cf, dry_run = TRUE)
+    expect_equal(nrow(res$files[[1]]), 30)
 })

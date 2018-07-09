@@ -106,23 +106,23 @@ sources_seaice <- function(name,formats,time_resolutions, ...) {
                          data_group="Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Nimbus Ice Edge Points from Nimbus Visible Imagery","10.5067/NIMBUS/NmIcEdg2")))) {
+    if (is.null(name) || any(name %in% tolower(c("Nimbus Ice Edge Points from Nimbus Visible Imagery", "10.5067/NIMBUS/NmIcEdg2")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Nimbus Ice Edge Points from Nimbus Visible Imagery",
-                         id="10.5067/NIMBUS/NmIcEdg2",
-                         description="This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery.",
-                         doc_url="http://nsidc.org/data/nmicedg2/",
-                         citation="Gallaher, D. and G. Campbell. 2014. Nimbus Ice Edge Points from Nimbus Visible Imagery L2, CSV. [indicate subset used]. Boulder, Colorado USA: NASA National Snow and Ice Data Center Distributed Active Archive Center. http://dx.doi.org/10.5067/NIMBUS/NmIcEdg2",
-                         source_url=c("https://n5eil01u.ecs.nsidc.org/NIMBUS/NmIcEdg2.001/"),
-                         license="Please cite, see http://nsidc.org/about/use_copyright.html",
-                         authentication_note="Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method=list("bb_handler_earthdata",level=2,relative=TRUE),##,"--accept-regex=/NmIcEdg2.001/"), ##--recursive --no-parent
-                         user="",
-                         password="",
-                         postprocess=NULL,
-                         collection_size=0.1,
-                         data_group="Sea ice",warn_empty_auth=FALSE))
+                         name = "Nimbus Ice Edge Points from Nimbus Visible Imagery",
+                         id = "10.5067/NIMBUS/NmIcEdg2",
+                         description = "This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery.",
+                         doc_url = "http://nsidc.org/data/nmicedg2/",
+                         citation = "Gallaher, D. and G. Campbell. 2014. Nimbus Ice Edge Points from Nimbus Visible Imagery L2, CSV. [indicate subset used]. Boulder, Colorado USA: NASA National Snow and Ice Data Center Distributed Active Archive Center. http://dx.doi.org/10.5067/NIMBUS/NmIcEdg2",
+                         source_url = "https://n5eil01u.ecs.nsidc.org/NIMBUS/NmIcEdg2.001/",
+                         license = "Please cite, see http://nsidc.org/about/use_copyright.html",
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
+                         method = list("bb_handler_earthdata", level = 2, relative = TRUE),##,"--accept-regex=/NmIcEdg2.001/"), ##--recursive --no-parent
+                         user = "",
+                         password = "",
+                         postprocess = NULL,
+                         collection_size = 0.1,
+                         data_group = "Sea ice", warn_empty_auth = FALSE))
     }
 
     if (is.null(name) || any(name %in% tolower(c("Artist AMSR-E sea ice concentration","AMSR-E_ASI_s6250")))) {
@@ -145,7 +145,7 @@ sources_seaice <- function(name,formats,time_resolutions, ...) {
                          name="Artist AMSR-E sea ice concentration",
                          id="AMSR-E_ASI_s6250",
                          description="Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011.",
-                         doc_url="http://icdc.zmaw.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html",
+                         doc_url="https://icdc.cen.uni-hamburg.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html",
                          citation="Include the acknowledgement: \"ASI Algorithm AMSR-E sea ice concentration were obtained for [PERIOD] from the Integrated Climate Date Center (ICDC, http://icdc.zmaw,de/), University of Hamburg, Hamburg, Germany.\" Also please cite: Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
                          source_url=src_url,
                          license="Please cite",
@@ -173,54 +173,57 @@ sources_seaice <- function(name,formats,time_resolutions, ...) {
                          data_group="Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration","AMSR2_ASI_s6250")))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration", "AMSR2_ASI_s6250")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Artist AMSR2 near-real-time sea ice concentration",
-                         id="AMSR2_ASI_s6250",
-                         description="Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present.",
-                         doc_url="https://seaice.uni-bremen.de/sea-ice-concentration/",
-                         citation="Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
-                         source_url="https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s6250/",
-                         license="Please cite",
-                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE), ##--recursive --no-parent
-                         postprocess=NULL,
-                         access_function="raadtools::readice",
-                         collection_size=11,
-                         data_group="Sea ice"))
+                         name = "Artist AMSR2 near-real-time sea ice concentration",
+                         id = "AMSR2_ASI_s6250",
+                         description = "Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present.",
+                         doc_url = "https://seaice.uni-bremen.de/sea-ice-concentration/",
+                         citation = "Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
+                         source_url = "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s6250/",
+                         license = "Please cite",
+                         ##method = list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE), ##--recursive --no-parent
+                         method = list("bb_handler_rget", level = 5, accept_download = "asi.*\\.(hdf|png|tif)"),
+                         postprocess = NULL,
+                         access_function = "raadtools::readice",
+                         collection_size = 11,
+                         data_group = "Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time 3.125km sea ice concentration","AMSR2_ASI_s3125")))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time 3.125km sea ice concentration", "AMSR2_ASI_s3125")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Artist AMSR2 near-real-time 3.125km sea ice concentration",
-                         id="AMSR2_ASI_s3125",
-                         description="Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution in selected regions (from 24-July-2012 to present) and full Antarctic coverage (from 1-Jan-2016 to present).",
-                         doc_url="https://seaice.uni-bremen.de/sea-ice-concentration/",
-                         citation="Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
-                         source_url="https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
-                         license="Please cite",
-                         method=list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE),
-                         postprocess=NULL,
-                         access_function="raadtools::readice",
-                         collection_size=150,
-                         data_group="Sea ice"))
+                         name = "Artist AMSR2 near-real-time 3.125km sea ice concentration",
+                         id = "AMSR2_ASI_s3125",
+                         description = "Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution in selected regions (from 24-July-2012 to present) and full Antarctic coverage (from 1-Jan-2016 to present).",
+                         doc_url = "https://seaice.uni-bremen.de/sea-ice-concentration/",
+                         citation = "Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
+                         source_url = "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
+                         license = "Please cite",
+                         ##method = list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE),
+                         method = list("bb_handler_rget", level = 5, accept_download = "asi.*\\.(hdf|png|tif"),
+                         postprocess = NULL,
+                         access_function = "raadtools::readice",
+                         collection_size = 150,
+                         data_group = "Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 supporting files","AMSR2_ASI_grids")))) {
+    if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 supporting files", "AMSR2_ASI_grids")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Artist AMSR2 supporting files",
-                         id="AMSR2_ASI_grids",
-                         description="Grids and landmasks for Artist AMSR2 passive microwave sea ice data.",
-                         doc_url="https://seaice.uni-bremen.de/sea-ice-concentration/",
-                         citation="See the citation details of the particular sea ice dataset used",
-                         source_url=c("https://seaice.uni-bremen.de/data/grid_coordinates/","https://seaice.uni-bremen.de/data/amsre/landmasks/"),
-                         license="Please cite",
-                         method=list("bb_handler_wget",level=2,accept="hdf",robots_off=TRUE), ## --recursive --no-parent
-                         postprocess=NULL,
-                         collection_size=0.02,
-                         data_group="Sea ice"))
+                         name = "Artist AMSR2 supporting files",
+                         id = "AMSR2_ASI_grids",
+                         description = "Grids and landmasks for Artist AMSR2 passive microwave sea ice data.",
+                         doc_url = "https://seaice.uni-bremen.de/sea-ice-concentration/",
+                         citation = "See the citation details of the particular sea ice dataset used",
+                         source_url = c("https://seaice.uni-bremen.de/data/grid_coordinates/","https://seaice.uni-bremen.de/data/amsre/landmasks/"),
+                         license = "Please cite",
+                         ##method = list("bb_handler_wget",level=2,accept="hdf",robots_off=TRUE), ## --recursive --no-parent
+                         method = list("bb_handler_rget", level = 2),
+                         postprocess = NULL,
+                         collection_size = 0.02,
+                         data_group = "Sea ice"))
     }
 
     if (is.null(name) || any(name %in% tolower(c("CERSAT SSM/I sea ice concentration","CERSAT_SSMI")))) {
