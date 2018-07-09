@@ -17,11 +17,11 @@ bb_handler_amps <- function(...) {
 # @param verbose logical: if TRUE, provide additional progress output
 # @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
 # @return the directory if local_dir_only is TRUE, otherwise TRUE on success
-bb_handler_amps_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...) {
-    assert_that(is(config,"bb_config"))
-    assert_that(nrow(bb_data_sources(config))==1)
-    assert_that(is.flag(verbose),!is.na(verbose))
-    assert_that(is.flag(local_dir_only),!is.na(local_dir_only))
+bb_handler_amps_inner <- function(config, verbose = FALSE, local_dir_only = FALSE, ...) {
+    assert_that(is(config, "bb_config"))
+    assert_that(nrow(bb_data_sources(config)) == 1)
+    assert_that(is.flag(verbose), !is.na(verbose))
+    assert_that(is.flag(local_dir_only), !is.na(local_dir_only))
     ## shouldn't need any specific method_flags for this
     ## --timestamping not needed (handled through clobber config setting)
     ## --recursive, etc not needed
@@ -29,39 +29,46 @@ bb_handler_amps_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,...)
     temp$source_url[[1]] <- "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/" ## this is fixed for this handler
     bb_data_sources(config) <- temp
 
-    if (local_dir_only) return(bb_handler_wget(config,verbose=verbose,local_dir_only=TRUE,...))
+    if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE, ...))
 
     x <- html_session(bb_data_sources(config)$source_url[[1]])
-    n <- html_attr(html_nodes(x,"a"),"href")
-    idx <- grep("^[[:digit:]]+/?$",n,ignore.case=TRUE) ## links that are all digits
-    accept <- function(z) grepl("\\.txt$",html_attr(z,"href"),ignore.case=TRUE) || grepl("d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$",html_attr(z,"href"),ignore.case=TRUE) ## which files to accept
-    this_path_no_trailing_sep <- sub("[\\/]$","",bb_data_source_dir(config))
+    n <- html_attr(html_nodes(x, "a"), "href")
+    idx <- grep("^[[:digit:]]+/?$", n, ignore.case = TRUE) ## links that are all digits
+    ## which files to accept
+    accept <- function(z) grepl("\\.txt$", html_attr(z, "href"), ignore.case = TRUE) || grepl("d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$", html_attr(z, "href"), ignore.case = TRUE)
+    this_path_no_trailing_sep <- sub("[\\/]$", "", bb_data_source_dir(config))
     all_ok <- TRUE
+    msg <- c()
+    downloads <- tibble(url = character(), file = character(), was_downloaded = logical())
     for (i in idx) { ## loop through directories
-        target_dir <- sub("/$","",n[i])
-        target_dir <- file.path(this_path_no_trailing_sep,sub("(00|12)$","",target_dir))
+        target_dir <- sub("/$", "", n[i])
+        target_dir <- file.path(this_path_no_trailing_sep, sub("(00|12)$", "", target_dir))
         ## make target_dir if it doesn't exist
         if (!dir.exists(target_dir)) {
-            ok <- dir.create(target_dir,recursive=TRUE)
+            ok <- dir.create(target_dir, recursive = TRUE)
             if (!ok) {
-                stop(sprintf("Could not create target directory %s: aborting.\n",target_dir))
+                stop(sprintf("Could not create target directory %s: aborting.\n", target_dir))
             }
         }
-        x2 <- jump_to(x,n[i])
-        files <- html_attr(Filter(accept,html_nodes(x2,"a")),"href")
+        x2 <- jump_to(x, n[i])
+        files <- html_attr(Filter(accept, html_nodes(x2, "a")), "href")
         ## change into target directory, with no recursive fetch, to allow --timestamping on retrievals
         settings <- bowerbird:::save_current_settings()
         on.exit({ bowerbird:::restore_settings(settings) })
         setwd(target_dir)
         for (f in files) {
             ## loop through files to download
-            file_url <- xml2::url_absolute(f,x2$url)
+            file_url <- xml2::url_absolute(f, x2$url)
             dummy <- config
             temp <- bb_data_sources(dummy)
             temp$source_url[[1]] <- file_url
             bb_data_sources(dummy) <- temp
-            all_ok <- all_ok && bb_handler_wget(dummy,verbose=verbose,recursive=FALSE,...)
+            this <- bb_handler_rget(dummy, verbose = verbose, level = 0, accept_download = "\\.(txt|grb)$", ...)
+            all_ok <- all_ok && this$ok
+            if (nrow(this$files[[1]])>0) downloads <- rbind(downloads, this$files[[1]])
+            if (nzchar(this$message)) msg <- c(msg, this$message)
         }
     }
-    all_ok
+    if (length(msg)<1) msg <- ""
+    tibble(ok = all_ok, files = list(downloads), message = msg)
 }
