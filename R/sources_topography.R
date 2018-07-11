@@ -236,7 +236,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          ##source_url = "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/*",
                          source_url = "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/",
                          ##method = list("bb_handler_wget",level=3,reject="*.txt.gz"),
-                         method = list("bb_handler_rget", level = 3, reject_download = "\\.txt\\.gz$"),
+                         method = list("bb_handler_rget", level = 3, accept_download_extra = "\\.hdr$", reject_download = "\\.txt\\.gz$"),
                          postprocess = list("bb_gunzip"),
                          collection_size = 5.3,
                          data_group = "Topography"))
