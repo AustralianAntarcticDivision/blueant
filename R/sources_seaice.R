@@ -281,7 +281,8 @@ sources_seaice <- function(name,formats,time_resolutions, ...) {
                          source_url = "https://data.aad.gov.au/eds/file/3656/", ## migrate to https://data.aad.gov.au/eds/3403/download if we prefer that form
                          license = "CC-BY",
                          ##method=list("bb_handler_aadc"),
-                         method = list("bb_handler_rget", force_local_filename = "download.zip"),
+                         method = list("bb_handler_rget", force_local_filename = "download.zip", no_check_certificate = TRUE),
+                         comment = "server certificate is valid but not recognized as such by some systems (e.g. Ubuntu)",
                          postprocess = list("bb_unzip"),
                          collection_size = 0.4,
                          data_group = "Sea ice"))

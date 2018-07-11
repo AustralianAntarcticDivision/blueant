@@ -150,7 +150,8 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          license = "CC-BY",
                          source_url = "https://data.aad.gov.au/eds/file/4494/", ## migrate to https://data.aad.gov.au/eds/3403/download if we prefer that form
                          ##method = list("bb_handler_aadc"),
-                         method = list("bb_handler_rget", force_local_filename = "download.zip"),
+                         method = list("bb_handler_rget", force_local_filename = "download.zip", no_check_certificate = TRUE),
+                         comment = "server certificate is valid but not recognized as such by some systems (e.g. Ubuntu)",
                          postprocess = list("bb_unzip"),
                          collection_size = 0.2,
                          data_group = "Topography"))
