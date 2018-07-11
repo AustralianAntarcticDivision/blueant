@@ -16,20 +16,6 @@ library(devtools)
 install_github("AustralianAntarcticDivision/blueant",build_vignettes=TRUE)
 ```
 
-Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. Note that installing `wget` may require admin privileges on your local machine.
-
-### Linux
-
-`wget` is typically installed by default on Linux. Otherwise use your package manager to install it, e.g. `sudo apt install wget` on Ubuntu/Debian or `sudo yum install wget` on Fedora/CentOS.
-
-### Windows
-
-On Windows you can use the `bb_install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from <https://eternallybored.org/misc/wget/>) and make sure it is on your system path.
-
-### Mac
-
-Use `brew install wget` or try `brew install --with-libressl wget` if you get SSL-related errors. If you do not have brew installed, see <https://brew.sh/>.
-
 Usage overview
 --------------
 
@@ -40,7 +26,7 @@ Build up a configuration by first defining global options such as the destinatio
 ``` r
 library(blueant)
 my_data_dir <- tempdir()
-cf <- bb_config(local_file_root=my_data_dir)
+cf <- bb_config(local_file_root = my_data_dir)
 ```
 
 Add data sources from those provided by blueant. A summary of these sources is given at the end of this document. Here we'll use the "George V bathymetry" data source as an example:
@@ -57,7 +43,7 @@ This data source is fairly small (around 200MB, see `mysrc$collection_size`). Be
 Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose=TRUE` here so that we see additional progress output:
 
 ``` r
-status <- bb_sync(cf,verbose=TRUE)
+status <- bb_sync(cf, verbose = TRUE)
 ```
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
@@ -69,14 +55,14 @@ bb_data_source_dir(cf)
 The contents of that directory:
 
 ``` r
-list.files(bb_data_source_dir(cf),recursive=TRUE,full.names=TRUE)
+list.files(bb_data_source_dir(cf), recursive = TRUE, full.names = TRUE)
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
 
 ``` r
 library(raster)
-x <- raster(file.path(bb_data_source_dir(cf),"gvdem500m_v3.nc"))
+x <- raster(file.path(bb_data_source_dir(cf), "gvdem500m_v3.nc"))
 plot(x)
 ```
 
@@ -97,9 +83,10 @@ src$user <- "yourusername"
 src$password <- "yourpassword"
 cf <- bb_add(cf,src)
 
-## or, using dplyr
-cf <- cf %>% bb_add(sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
-                 mutate(user="yourusername",password="yourpassword"))
+## or, using the pipe operator
+mysrc <- bb_example_sources("CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
+  bb_modify_source(user = "yourusername", password = "yourpassword")
+cf <- cf %>% bb_add(mysrc)
 ```
 
 ### Writing and modifying data sources
@@ -108,27 +95,27 @@ The bowerbird documentation is a good place to start to find out more about writ
 
 #### Reducing download sizes
 
-Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_handler_wget` method, you can restrict what is downloaded by modifying the data source's `method` parameters, particularly the `accept`, `reject`, `accept_regex`, and `reject_regex` options.
+Sometimes you might only want part of a data collection. Perhaps you only want a few years from a long-term collection, or perhaps the data are provided in multiple formats and you only need one. If the data source uses the `bb_handler_rget` method, you can restrict what is downloaded by modifying the arguments passed through the data source's `method` parameter, particularly the `accept_follow`, `reject_follow`, `accept_download`, and `reject_download` options.
 
 For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly directories, and so it is fairly easy to restrict ourselves to, say, only the 2017 data:
 
 ``` r
 mysrc <- sources("CERSAT SSM/I sea ice concentration")
 
-## first make sure that the data source doesn't already have an accept_regex parameter defined
+## first make sure that the data source doesn't already have an accept_follow parameter defined
 mysrc$method[[1]]
 
 ## nope, so we can safely go ahead and impose our own
-mysrc$method[[1]]$accept_regex <- "/2017/"
+mysrc$method[[1]]$accept_follow <- "/2017"
 cf <- cf %>% bb_add(mysrc)
 ```
 
-Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is "<ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/*>" (with yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
+Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is "<ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/>" (with yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
 
 ``` r
 mysrc <- sources("CERSAT SSM/I sea ice concentration")
-mysrc$source_url[[1]] <- c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/*",
-                        "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/*")
+mysrc$source_url[[1]] <- c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/",
+                        "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/")
 cf <- cf %>% bb_add(mysrc)
 ```
 
@@ -163,7 +150,7 @@ Authentication note: Copernicus Marine login required, see <http://marine.copern
 
 Approximate size: 3 GB
 
-Documentation link: <http://cmems-resources.cls.fr/?option=com_csw&view=details&tab=info&product_id=SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046>
+Documentation link: <http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&view=details&product_id=SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046>
 
 #### CMEMS global gridded SSH reprocessed (1993-ongoing)
 
@@ -185,7 +172,7 @@ Authentication note: Copernicus Marine login required, see <http://marine.copern
 
 Approximate size: 310 GB
 
-Documentation link: <http://cmems-resources.cls.fr/?option=com_csw&view=details&tab=info&product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047>
+Documentation link: <http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&view=details&product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047>
 
 #### CNES-CLS2013 Mean Dynamic Topography
 
@@ -291,6 +278,14 @@ Documentation link: <http://oceancolor.gsfc.nasa.gov/>
 
 ### Data group: Oceanographic
 
+#### Argo ocean basin data (USGODAE)
+
+Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin.
+
+Approximate size: not specified
+
+Documentation link: <http://www.argodatamgt.org/Documentation>
+
 #### CSIRO Atlas of Regional Seas 2009
 
 CARS is a digital climatology, or atlas of seasonal ocean water properties.
@@ -317,6 +312,14 @@ Documentation link: <https://www.nodc.noaa.gov/OC5/woa13/>
 
 ### Data group: Reanalysis
 
+#### NCEP-DOE Reanalysis 1 monthly averages
+
+The NCEP/NCAR Reanalysis 1 project is using a state-of-the-art analysis/forecast system to perform data assimilation using past data from 1948 to the present. Monthly averages are calculated from the 6-hourly model output.
+
+Approximate size: 2 GB
+
+Documentation link: <https://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.html>
+
 #### NCEP-DOE Reanalysis 2 monthly averages
 
 NCEP-DOE Reanalysis 2 is an improved version of the NCEP Reanalysis I model that fixed errors and updated paramterizations of of physical processes. Monthly averages are calculated from the 6-hourly model output.
@@ -333,7 +336,7 @@ Passive microwave estimates of daily sea ice concentration at 6.25km spatial res
 
 Approximate size: 25 GB
 
-Documentation link: <http://icdc.zmaw.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html>
+Documentation link: <https://icdc.cen.uni-hamburg.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html>
 
 #### Artist AMSR-E supporting files
 
@@ -450,6 +453,14 @@ A global monthly SST analysis from 1854 to the present derived from ICOADS data 
 Approximate size: 0.3 GB
 
 Documentation link: <http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.ersst.html>
+
+#### NOAA Extended Reconstructed SST V5
+
+A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset (ICOADS)
+
+Approximate size: 0.3 GB
+
+Documentation link: <https://www.ncdc.noaa.gov/data-access/marineocean-data/extended-reconstructed-sea-surface-temperature-ersst-v5>
 
 #### NOAA OI 1/4 Degree Daily SST AVHRR
 
@@ -585,7 +596,7 @@ Documentation link: <https://www.niwa.co.nz/our-science/oceans/bathymetry/furthe
 
 The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation model (DEM) combines topographic data from a variety of sources to provide consistent coverage of all of Antarctica. Version 2 improves upon the original version by incorporating new topographic data, error corrections, extended coverage, and other modifications.
 
-Approximate size: 3.3 GB
+Approximate size: 5.3 GB
 
 Documentation link: <http://nsidc.org/data/nsidc-0082>
 

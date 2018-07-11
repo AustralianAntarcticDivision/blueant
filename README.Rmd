@@ -28,21 +28,6 @@ library(devtools)
 install_github("AustralianAntarcticDivision/blueant",build_vignettes=TRUE)
 ```
 
-Bowerbird (and by extension, blueant) use the third-party utility `wget` to do the heavy lifting of recursively downloading files from data providers. Note that installing `wget` may require admin privileges on your local machine.
-
-### Linux
-
-`wget` is typically installed by default on Linux. Otherwise use your package manager to install it, e.g. `sudo apt install wget` on Ubuntu/Debian or `sudo yum install wget` on Fedora/CentOS.
-
-### Windows
-
-On Windows you can use the `bb_install_wget()` function to install it. Otherwise download `wget` yourself (e.g. from https://eternallybored.org/misc/wget/) and make sure it is on your system path.
-
-### Mac
-
-Use `brew install wget` or try `brew install --with-libressl wget` if you get SSL-related errors. If you do not have brew installed, see https://brew.sh/.
-
-
 ## Usage overview
 
 ### Configuration
@@ -52,7 +37,7 @@ Build up a configuration by first defining global options such as the destinatio
 ```{r eval=FALSE}
 library(blueant)
 my_data_dir <- tempdir()
-cf <- bb_config(local_file_root=my_data_dir)
+cf <- bb_config(local_file_root = my_data_dir)
 ```
 
 Add data sources from those provided by blueant. A summary of these sources is given at the end of this document. Here we'll use the "George V bathymetry" data source as an example:
@@ -69,7 +54,7 @@ This data source is fairly small (around 200MB, see `mysrc$collection_size`). Be
 Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose=TRUE` here so that we see additional progress output:
 
 ```{r eval=FALSE}
-status <- bb_sync(cf,verbose=TRUE)
+status <- bb_sync(cf, verbose = TRUE)
 ```
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
@@ -81,14 +66,14 @@ bb_data_source_dir(cf)
 The contents of that directory:
 
 ```{r eval=FALSE}
-list.files(bb_data_source_dir(cf),recursive=TRUE,full.names=TRUE)
+list.files(bb_data_source_dir(cf), recursive = TRUE, full.names = TRUE)
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
 
 ```{r eval=FALSE}
 library(raster)
-x <- raster(file.path(bb_data_source_dir(cf),"gvdem500m_v3.nc"))
+x <- raster(file.path(bb_data_source_dir(cf), "gvdem500m_v3.nc"))
 plot(x)
 ```
 
@@ -108,9 +93,10 @@ src$user <- "yourusername"
 src$password <- "yourpassword"
 cf <- bb_add(cf,src)
 
-## or, using dplyr
-cf <- cf %>% bb_add(sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
-                 mutate(user="yourusername",password="yourpassword"))
+## or, using the pipe operator
+mysrc <- bb_example_sources("CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
+  bb_modify_source(user = "yourusername", password = "yourpassword")
+cf <- cf %>% bb_add(mysrc)
 ```
 
 ### Writing and modifying data sources
@@ -119,27 +105,27 @@ The bowerbird documentation is a good place to start to find out more about writ
 
 #### Reducing download sizes
 
-Sometimes you might only want part of a pre-configured data source. If the data source uses the `bb_handler_wget` method, you can restrict what is downloaded by modifying the data source's `method` parameters, particularly the `accept`, `reject`, `accept_regex`, and `reject_regex` options. 
+Sometimes you might only want part of a data collection. Perhaps you only want a few years from a long-term collection, or perhaps the data are provided in multiple formats and you only need one. If the data source uses the `bb_handler_rget` method, you can restrict what is downloaded by modifying the arguments passed through the data source's `method` parameter, particularly the `accept_follow`, `reject_follow`, `accept_download`, and `reject_download` options.
 
 For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly directories, and so it is fairly easy to restrict ourselves to, say, only the 2017 data:
 
 ```{r eval=FALSE}
 mysrc <- sources("CERSAT SSM/I sea ice concentration")
 
-## first make sure that the data source doesn't already have an accept_regex parameter defined
+## first make sure that the data source doesn't already have an accept_follow parameter defined
 mysrc$method[[1]]
 
 ## nope, so we can safely go ahead and impose our own
-mysrc$method[[1]]$accept_regex <- "/2017/"
+mysrc$method[[1]]$accept_follow <- "/2017"
 cf <- cf %>% bb_add(mysrc)
 ```
 
-Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/*" (with yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
+Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/" (with yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
 
 ```{r eval=FALSE}
 mysrc <- sources("CERSAT SSM/I sea ice concentration")
-mysrc$source_url[[1]] <- c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/*",
-                        "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/*")
+mysrc$source_url[[1]] <- c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/",
+                        "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/")
 cf <- cf %>% bb_add(mysrc)
 ```
 
