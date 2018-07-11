@@ -4,7 +4,7 @@
 #'
 #' @references http://www2.mmm.ucar.edu/rt/amps/
 #'
-#' @param ... : parameters passed to \code{\link{bb_wget}}
+#' @param ... : parameters passed to \code{\link{bb_rget}}
 #'
 #' @return TRUE on success
 #'

@@ -7,7 +7,7 @@
 bb_handler_amps(...)
 }
 \arguments{
-\item{...}{: parameters passed to \code{\link{bb_wget}}}
+\item{...}{: parameters passed to \code{\link{bb_rget}}}
 }
 \value{
 TRUE on success
