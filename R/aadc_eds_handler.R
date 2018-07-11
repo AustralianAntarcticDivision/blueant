@@ -10,6 +10,7 @@
 #'
 #' @export
 bb_handler_aadc <- function(...) {
+    warning("bb_handler_aadc is deprecated, use bb_handler_rget instead")
     bb_handler_aadc_inner(...)
 }
 

@@ -9,6 +9,7 @@
 #'
 #' @export
 bb_handler_ghrsst <- function(...) {
+    warning("bb_handler_ghrsst is deprecated, use bb_handler_rget instead")
     bb_handler_ghrsst_inner(...)
 }
 
