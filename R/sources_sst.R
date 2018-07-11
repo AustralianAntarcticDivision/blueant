@@ -46,18 +46,19 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
     if (is.null(name) || any(name %in% tolower(c("NOAA OI 1/4 Degree Daily SST AVHRR","10.7289/V5SQ8XB5")))) {
         out <- rbind(out,
                      bb_source(
-                         name="NOAA OI 1/4 Degree Daily SST AVHRR",
-                         id="10.7289/V5SQ8XB5",
-                         description="Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present",
-                         doc_url="http://www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NCDC/Geoportal/iso/xml/C00844.xml&view=getDataView&header=none",
-                         citation="Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
-                         source_url="https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/avhrr-only/",
-                         license="Please cite",
-                         method=list("bb_handler_wget",level=2,accept="nc"), ##--recursive --no-parent --follow-ftp
-                         postprocess=NULL,
-                         access_function="raadtools::readsst",
-                         collection_size=140,
-                         data_group="Sea surface temperature"))
+                         name = "NOAA OI 1/4 Degree Daily SST AVHRR",
+                         id = "10.7289/V5SQ8XB5",
+                         description = "Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present",
+                         doc_url = "http://www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NCDC/Geoportal/iso/xml/C00844.xml&view=getDataView&header=none",
+                         citation = "Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
+                         source_url = "https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/avhrr-only/",
+                         license = "Please cite",
+                         ##method=list("bb_handler_wget",level=2,accept="nc"), ##--recursive --no-parent --follow-ftp
+                         method = list("bb_handler_rget", level = 2),
+                         postprocess = NULL,
+                         access_function = "raadtools::readsst",
+                         collection_size = 140,
+                         data_group = "Sea surface temperature"))
     }
     if (is.null(name) || any(name %in% tolower(c("NOAA OI SST V2","oisst.v2")))) {
         out <- rbind(out,
@@ -90,65 +91,66 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          collection_size=0.3,
                          data_group="Sea surface temperature"))
     }
-    if (is.null(name) || any(name %in% tolower(c("NOAA Extended Reconstructed SST V5","ersstv5","10.7289/V5T72FNM")))) {
+    if (is.null(name) || any(name %in% tolower(c("NOAA Extended Reconstructed SST V5", "ersstv5", "10.7289/V5T72FNM")))) {
         out <- rbind(out,
                      bb_source(
-                         name="NOAA Extended Reconstructed SST V5",
-                         id="10.7289/V5T72FNM",
-                         description="A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset (ICOADS)",
-                         doc_url="https://www.ncdc.noaa.gov/data-access/marineocean-data/extended-reconstructed-sea-surface-temperature-ersst-v5",
-                         citation="Huang B, Thorne PW, Banzon VF, Boyer T, Chepurin G, Lawrimore JH, Menne MJ, Smith TM, Vose RS, Zhang H-M (2017) NOAA Extended Reconstructed Sea Surface Temperature (ERSST), Version 5. [indicate subset used]. NOAA National Centers for Environmental Information. doi:10.7289/V5T72FNM [access date].",
-                         comment="Publications using this dataset should also reference the following journal article: Huang, B., Peter W. Thorne, Viva F. Banzon, Tim Boyer, Gennady Chepurin, Jay H. Lawrimore, Matthew J. Menne, Thomas M. Smith, Russell S. Vose, and Huai-Min Zhang, 2017: Extended Reconstructed Sea Surface Temperature version 5 (ERSSTv5), Upgrades, validations, and intercomparisons. J. Climate, https://doi.org/10.1175/JCLI-D-16-0836.1. In review.",
-                         source_url="ftp://ftp.ncdc.noaa.gov/pub/data/cmb/ersst/v5/netcdf/", ## also https://www1.ncdc.same
-                         license="Please cite",
-                         method=list("bb_handler_wget"),
-                         postprocess=NULL,
-                         collection_size=0.3,
-                         data_group="Sea surface temperature"))
+                         name = "NOAA Extended Reconstructed SST V5",
+                         id = "10.7289/V5T72FNM",
+                         description = "A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset (ICOADS)",
+                         doc_url = "https://www.ncdc.noaa.gov/data-access/marineocean-data/extended-reconstructed-sea-surface-temperature-ersst-v5",
+                         citation = "Huang B, Thorne PW, Banzon VF, Boyer T, Chepurin G, Lawrimore JH, Menne MJ, Smith TM, Vose RS, Zhang H-M (2017) NOAA Extended Reconstructed Sea Surface Temperature (ERSST), Version 5. [indicate subset used]. NOAA National Centers for Environmental Information. doi:10.7289/V5T72FNM [access date].",
+                         comment = "Publications using this dataset should also reference the following journal article: Huang, B., Peter W. Thorne, Viva F. Banzon, Tim Boyer, Gennady Chepurin, Jay H. Lawrimore, Matthew J. Menne, Thomas M. Smith, Russell S. Vose, and Huai-Min Zhang, 2017: Extended Reconstructed Sea Surface Temperature version 5 (ERSSTv5), Upgrades, validations, and intercomparisons. J. Climate, https://doi.org/10.1175/JCLI-D-16-0836.1. In review.",
+                         ##source_url = "ftp://ftp.ncdc.noaa.gov/pub/data/cmb/ersst/v5/netcdf/", ## also https://www1.ncdc.same
+                         source_url = "https://www1.ncdc.noaa.gov/pub/data/cmb/ersst/v5/netcdf/",
+                         license = "Please cite",
+                         method = list("bb_handler_rget", level = 1),
+                         postprocess = NULL,
+                         collection_size = 0.3,
+                         data_group = "Sea surface temperature"))
     }
-    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Terra Level-3 mapped monthly 9km SST","TERRA_L3m_MO_SST_sst_9km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Terra Level-3 mapped monthly 9km SST", "TERRA_L3m_MO_SST_sst_9km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata MODIS Terra Level-3 mapped monthly 9km SST",
-                         id="TERRA_L3m_MO_SST_sst_9km",
-                         description="Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution",
-                         doc_url="http://oceancolor.gsfc.nasa.gov/",
-                         citation="See https://oceancolor.gsfc.nasa.gov/citations",
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="T*L3m_MO_SST_sst_9km.nc"),
-                         postprocess=NULL,
-                         collection_size=7,
-                         data_group="Sea surface temperature"))
+                         name = "Oceandata MODIS Terra Level-3 mapped monthly 9km SST",
+                         id = "TERRA_L3m_MO_SST_sst_9km",
+                         description = "Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution",
+                         doc_url = "http://oceancolor.gsfc.nasa.gov/",
+                         citation = "See https://oceancolor.gsfc.nasa.gov/citations",
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "T*L3m_MO_SST_sst_9km.nc"),
+                         postprocess = NULL,
+                         collection_size = 7,
+                         data_group = "Sea surface temperature"))
     }
-    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 mapped monthly 9km SST","MODISA_L3m_MO_SST_sst_9km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 mapped monthly 9km SST", "MODISA_L3m_MO_SST_sst_9km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata MODIS Aqua Level-3 mapped monthly 9km SST",
-                         id="MODISA_L3m_MO_SST_sst_9km",
-                         description="Monthly remote-sensing SST from the MODIS Aqua satellite at 9km spatial resolution",
-                         doc_url="http://oceancolor.gsfc.nasa.gov/",
-                         citation="See https://oceancolor.gsfc.nasa.gov/citations",
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="A*L3m_MO_SST_sst_9km.nc"),
-                         postprocess=NULL,
-                         collection_size=7,
-                         data_group="Sea surface temperature"))
+                         name = "Oceandata MODIS Aqua Level-3 mapped monthly 9km SST",
+                         id = "MODISA_L3m_MO_SST_sst_9km",
+                         description = "Monthly remote-sensing SST from the MODIS Aqua satellite at 9km spatial resolution",
+                         doc_url = "http://oceancolor.gsfc.nasa.gov/",
+                         citation = "See https://oceancolor.gsfc.nasa.gov/citations",
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search="A*L3m_MO_SST_sst_9km.nc"),
+                         postprocess = NULL,
+                         collection_size = 7,
+                         data_group = "Sea surface temperature"))
     }
-    if (is.null(name) || any(name %in% tolower(c("GHRSST Level 4 MUR Global Foundation SST v4.1","GHRSST-MUR-SST_v4.1")))) {
+    if (is.null(name) || any(name %in% tolower(c("GHRSST Level 4 MUR Global Foundation SST v4.1", "GHRSST-MUR-SST_v4.1")))) {
         out <- rbind(out,
                      bb_source(
-                         name="GHRSST Level 4 MUR Global Foundation SST v4.1",
-                         id="GHRSST-MUR-SST_v4.1",
-                         description="A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) at the JPL Physical Oceanography DAAC using wavelets as basis functions in an optimal interpolation approach on a global 0.011 degree grid. The version 4 Multiscale Ultrahigh Resolution (MUR) L4 analysis is based upon nighttime GHRSST L2P skin and subskin SST observations from several instruments including the NASA Advanced Microwave Scanning Radiometer-EOS (AMSRE), the Moderate Resolution Imaging Spectroradiometer (MODIS) on the NASA Aqua and Terra platforms, the US Navy microwave WindSat radiometer and in situ SST observations from the NOAA iQuam project. The ice concentration data are from the archives at the EUMETSAT Ocean and Sea Ice Satellite Application Facility (OSI SAF) High Latitude Processing Center and are also used for an improved SST parameterization for the high-latitudes. This data set is funded by the NASA MEaSUREs program (http://earthdata.nasa.gov/our-community/community-data-system-programs/measures-projects), and created by a team led by Dr. Toshio Chin from JPL.",
-                         doc_url="https://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST",
-                         citation="Cite as: US NASA; Jet Propulsion Laboratory; Physical Oceanography Distributed Active Archive Center (JPL PO.DAAC) (2002). GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis (v4.1) (GDS versions 1 and 2). National Oceanographic Data Center, NOAA. Dataset. [access date]",
-                         source_url="ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",
-                         license="Please cite",
-                         comment="Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2015/",
-                         method=list("bb_handler_ghrsst",level=4), ##--recursive --no-parent
-                         postprocess=list("bb_bunzip2"),
-                         collection_size=2000,
-                         data_group="Sea surface temperature"))
+                         name = "GHRSST Level 4 MUR Global Foundation SST v4.1",
+                         id = "GHRSST-MUR-SST_v4.1",
+                         description = "A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) at the JPL Physical Oceanography DAAC using wavelets as basis functions in an optimal interpolation approach on a global 0.011 degree grid. The version 4 Multiscale Ultrahigh Resolution (MUR) L4 analysis is based upon nighttime GHRSST L2P skin and subskin SST observations from several instruments including the NASA Advanced Microwave Scanning Radiometer-EOS (AMSRE), the Moderate Resolution Imaging Spectroradiometer (MODIS) on the NASA Aqua and Terra platforms, the US Navy microwave WindSat radiometer and in situ SST observations from the NOAA iQuam project. The ice concentration data are from the archives at the EUMETSAT Ocean and Sea Ice Satellite Application Facility (OSI SAF) High Latitude Processing Center and are also used for an improved SST parameterization for the high-latitudes. This data set is funded by the NASA MEaSUREs program (http://earthdata.nasa.gov/our-community/community-data-system-programs/measures-projects), and created by a team led by Dr. Toshio Chin from JPL.",
+                         doc_url = "https://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST",
+                         citation = "Cite as: US NASA; Jet Propulsion Laboratory; Physical Oceanography Distributed Active Archive Center (JPL PO.DAAC) (2002). GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis (v4.1) (GDS versions 1 and 2). National Oceanographic Data Center, NOAA. Dataset. [access date]",
+                         source_url = "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",
+                         license = "Please cite",
+                         comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2015/",
+                         method = list("bb_handler_ghrsst", level = 4), ##--recursive --no-parent
+                         postprocess = list("bb_bunzip2"),
+                         collection_size = 2000,
+                         data_group = "Sea surface temperature"))
     }
     out
 }
