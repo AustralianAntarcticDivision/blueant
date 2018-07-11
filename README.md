@@ -64,7 +64,7 @@ additional progress output:
 ``` r
 status <- bb_sync(cf, verbose = TRUE)
 ## 
-## Wed Jul 11 21:19:13 2018
+## Wed Jul 11 21:24:20 2018
 ## Synchronizing dataset: George V bathymetry
 ## Source URL https://data.aad.gov.au/eds/file/4494/
 ## --------------------------------------------------------------------------------------------
@@ -73,9 +73,9 @@ status <- bb_sync(cf, verbose = TRUE)
 ##  building file list ... done.
 ## downloading file: https://data.aad.gov.au/eds/file/4494/ ...
 ##  file unchanged on server, not downloading.
-##   decompressing: /tmp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/download.zip ... no new files to extract (not overwriting existing files) ... done.
+##   decompressing: /tmp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into /tmp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494 ... done.
 ## 
-## Wed Jul 11 21:19:14 2018 dataset synchronization complete: George V bathymetry
+## Wed Jul 11 21:24:21 2018 dataset synchronization complete: George V bathymetry
 ```
 
 Congratulations\! You now have your own local copy of this data set. The
@@ -106,9 +106,7 @@ the data files are netcdf, which can be read by `raster`:
 
 ``` r
 library(raster)
-## Loading required package: sp
 x <- raster(file.path(bb_data_source_dir(cf), "gvdem500m_v3.nc"))
-## Loading required namespace: ncdf4
 plot(x)
 ```
 
