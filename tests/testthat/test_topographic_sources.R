@@ -1,6 +1,6 @@
 context("topographic data sources")
 
-test_that("source nsidc0082 still works under ftp (due to be moved to https)",{
+test_that("source nsidc0082 still works under ftp (may be moved to https)",{
     skip_on_cran()
     temp_root <- tempdir()
     cf <- bb_config(local_file_root=temp_root)
