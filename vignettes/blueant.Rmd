@@ -44,7 +44,7 @@ This data source is fairly small (around 200MB, see `mysrc$collection_size`). Be
 
 ### Synchronization
 
-Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose=TRUE` here so that we see additional progress output:
+Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose = TRUE` here so that we see additional progress output:
 
 ```{r eval=FALSE}
 status <- bb_sync(cf, verbose = TRUE)
@@ -84,7 +84,7 @@ Some data providers require users to log in. These are indicated by the `authent
 src <- sources(name="CMEMS global gridded SSH reprocessed (1993-ongoing)")
 src$user <- "yourusername"
 src$password <- "yourpassword"
-cf <- bb_add(cf,src)
+cf <- bb_add(cf, src)
 
 ## or, using the pipe operator
 mysrc <- bb_example_sources("CMEMS global gridded SSH reprocessed (1993-ongoing)") %>%
@@ -106,14 +106,14 @@ For example, the CERSAT SSM/I sea ice concentration data are arranged in yearly 
 mysrc <- sources("CERSAT SSM/I sea ice concentration")
 
 ## first make sure that the data source doesn't already have an accept_follow parameter defined
-mysrc$method[[1]]
+"accept_follow" %in% names(mysrc$method[[1]])
 
 ## nope, so we can safely go ahead and impose our own
 mysrc$method[[1]]$accept_follow <- "/2017"
 cf <- cf %>% bb_add(mysrc)
 ```
 
-Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/" (with yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
+Alternatively, for data sources that are divided into subdirectories, one could replace the whole-data-source `source_url` with one or more that point to specific yearly (or other) subdirectories. For example, the default `source_url` for the CERSAT sea ice data above is `ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/` (which has yearly subdirectories). So e.g. for 2016 and 2017 data we could do:
 
 ```{r eval=FALSE}
 mysrc <- sources("CERSAT SSM/I sea ice concentration")
