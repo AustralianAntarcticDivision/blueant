@@ -60,21 +60,23 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          collection_size = 140,
                          data_group = "Sea surface temperature"))
     }
-    if (is.null(name) || any(name %in% tolower(c("NOAA OI SST V2","oisst.v2")))) {
+    if (is.null(name) || any(name %in% tolower(c("NOAA OI SST V2", "oisst.v2")))) {
         out <- rbind(out,
                      bb_source(
-                         name="NOAA OI SST V2",
-                         id="oisst.v2",
-                         description="Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis",
-                         doc_url="http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.html",
-                         citation="NOAA_OI_SST_V2 data provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, from their web site at http://www.esrl.noaa.gov/psd/",
-                         source_url="ftp://ftp.cdc.noaa.gov/Datasets/noaa.oisst.v2/*",
-                         license="Please cite",
-                         method=list("bb_handler_wget"), ## "--recursive","--level=1","--no-parent"
-                         postprocess=NULL,
-                         access_function="raadtools::readsst",
-                         collection_size=0.9,
-                         data_group="Sea surface temperature"))
+                         name = "NOAA OI SST V2",
+                         id = "oisst.v2",
+                         description = "Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis",
+                         doc_url = "http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.html",
+                         citation = "NOAA_OI_SST_V2 data provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, from their web site at http://www.esrl.noaa.gov/psd/",
+                         ##source_url = "ftp://ftp.cdc.noaa.gov/Datasets/noaa.oisst.v2/*",
+                         source_url = "ftp://ftp.cdc.noaa.gov/Datasets/noaa.oisst.v2/",
+                         license = "Please cite",
+                         ##method = list("bb_handler_wget"), ## "--recursive","--level=1","--no-parent"
+                         method = list("bb_handler_rget", level = 1),
+                         postprocess = NULL,
+                         access_function = "raadtools::readsst",
+                         collection_size = 0.9,
+                         data_group = "Sea surface temperature"))
     }
     if (is.null(name) || any(name %in% tolower(c("NOAA Extended Reconstructed SST V3b","ersstv3")))) {
         out <- rbind(out,
@@ -84,9 +86,11 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          description="A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods",
                          doc_url="http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.ersst.html",
                          citation="NOAA_ERSST_V3 data provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, from their web site at http://www.esrl.noaa.gov/psd/",
-                         source_url="ftp://ftp.cdc.noaa.gov/Datasets/noaa.ersst/*",
+                         ##source_url="ftp://ftp.cdc.noaa.gov/Datasets/noaa.ersst/*",
+                         source_url="ftp://ftp.cdc.noaa.gov/Datasets/noaa.ersst/",
                          license="Please cite",
-                         method=list("bb_handler_wget"), ## "--recursive","--level=1","--no-parent"
+                         ##method=list("bb_handler_wget"), ## "--recursive","--level=1","--no-parent"
+                         method=list("bb_handler_rget", level = 1),
                          postprocess=NULL,
                          collection_size=0.3,
                          data_group="Sea surface temperature"))
@@ -147,7 +151,8 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          source_url = "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",
                          license = "Please cite",
                          comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2015/",
-                         method = list("bb_handler_ghrsst", level = 4), ##--recursive --no-parent
+                         ##method = list("bb_handler_ghrsst", level = 4), ##--recursive --no-parent
+                         method = list("bb_handler_rget", level = 4, accept_download_extra = "md5$"),
                          postprocess = list("bb_bunzip2"),
                          collection_size = 2000,
                          data_group = "Sea surface temperature"))

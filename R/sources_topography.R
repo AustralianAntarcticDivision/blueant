@@ -49,21 +49,23 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
         name <- NULL
     }
     out <- tibble()
-    if (is.null(name) || any(name %in% tolower(c("Smith and Sandwell bathymetry","global_topo_1min")))) {
+    if (is.null(name) || any(name %in% tolower(c("Smith and Sandwell bathymetry", "global_topo_1min")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Smith and Sandwell bathymetry",
-                         id="global_topo_1min",
-                         description="Global seafloor topography from satellite altimetry and ship depth soundings",
-                         doc_url="http://topex.ucsd.edu/WWW_html/mar_topo.html",
-                         citation="Smith, W. H. F., and D. T. Sandwell, Global seafloor topography from satellite altimetry and ship depth soundings, Science, v. 277, p. 1957-1962, 26 Sept., 1997",
-                         source_url="ftp://topex.ucsd.edu/pub/global_topo_1min/*",
-                         license="See ftp://topex.ucsd.edu/pub/global_topo_1min/COPYRIGHT.txt",
-                         method=list("bb_handler_wget"), ## --recursive  --level=1 --no-parent
-                         postprocess=NULL,
-                         access_function="raadtools::readbathy",
-                         collection_size=1.4,
-                         data_group="Topography"))
+                         name = "Smith and Sandwell bathymetry",
+                         id = "global_topo_1min",
+                         description = "Global seafloor topography from satellite altimetry and ship depth soundings",
+                         doc_url = "http://topex.ucsd.edu/WWW_html/mar_topo.html",
+                         citation = "Smith, W. H. F., and D. T. Sandwell, Global seafloor topography from satellite altimetry and ship depth soundings, Science, v. 277, p. 1957-1962, 26 Sept., 1997",
+                         ##source_url = "ftp://topex.ucsd.edu/pub/global_topo_1min/*",
+                         source_url = "ftp://topex.ucsd.edu/pub/global_topo_1min/",
+                         license = "See ftp://topex.ucsd.edu/pub/global_topo_1min/COPYRIGHT.txt",
+                         ##method = list("bb_handler_wget"), ## --recursive  --level=1 --no-parent
+                         method = list("bb_handler_rget", level = 1, accept_download_extra = "img$"),
+                         postprocess = NULL,
+                         access_function = "raadtools::readbathy",
+                         collection_size = 1.4,
+                         data_group = "Topography"))
     }
 
     if (is.null(name) || any(name %in% tolower(c("ETOPO1 bathymetry", "10.7289/V5C8276M")))) {
@@ -222,20 +224,22 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group = "Topography"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Radarsat Antarctic digital elevation model V2","nsidc0082")))) {
+    if (is.null(name) || any(name %in% tolower(c("Radarsat Antarctic digital elevation model V2", "nsidc0082")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Radarsat Antarctic digital elevation model V2",
-                         id="nsidc0082",
-                         description="The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation model (DEM) combines topographic data from a variety of sources to provide consistent coverage of all of Antarctica. Version 2 improves upon the original version by incorporating new topographic data, error corrections, extended coverage, and other modifications.",
-                         doc_url="http://nsidc.org/data/nsidc-0082",
-                         citation="Liu, H., K. Jezek, B. Li, and Z. Zhao. 2001. Radarsat Antarctic Mapping Project Digital Elevation Model Version 2. [indicate subset used]. Boulder, Colorado USA: National Snow and Ice Data Center. http://dx.doi.org/10.5067/PXKC81A7WAXD",
-                         license="Please cite",
-                         source_url=c("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/*"),
-                         method=list("bb_handler_wget",level=3,reject="*.txt.gz"),
-                         postprocess=list("bb_gunzip"),
-                         collection_size=5.3,
-                         data_group="Topography"))
+                         name = "Radarsat Antarctic digital elevation model V2",
+                         id = "nsidc0082",
+                         description = "The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation model (DEM) combines topographic data from a variety of sources to provide consistent coverage of all of Antarctica. Version 2 improves upon the original version by incorporating new topographic data, error corrections, extended coverage, and other modifications.",
+                         doc_url = "http://nsidc.org/data/nsidc-0082",
+                         citation = "Liu, H., K. Jezek, B. Li, and Z. Zhao. 2001. Radarsat Antarctic Mapping Project Digital Elevation Model Version 2. [indicate subset used]. Boulder, Colorado USA: National Snow and Ice Data Center. http://dx.doi.org/10.5067/PXKC81A7WAXD",
+                         license = "Please cite",
+                         ##source_url = "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/*",
+                         source_url = "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/",
+                         ##method = list("bb_handler_wget",level=3,reject="*.txt.gz"),
+                         method = list("bb_handler_rget", level = 3, reject_download = "\\.txt\\.gz$"),
+                         postprocess = list("bb_gunzip"),
+                         collection_size = 5.3,
+                         data_group = "Topography"))
     }
 
     if (is.null(name) || any(name %in% tolower(c("New Zealand Regional Bathymetry 2016", "NZBathy_DTM_2016_binary_grid")))) {
@@ -292,17 +296,19 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
     if (is.null(name) || any(name %in% tolower(c("GSHHG coastline data", "gshhg_coastline")))) {
         out <- rbind(out,
                      bb_source(
-                         name="GSHHG coastline data",
-                         id="gshhg_coastline",
-                         description="A Global Self-consistent, Hierarchical, High-resolution Geography Database",
-                         doc_url="http://www.soest.hawaii.edu/pwessel/gshhg",
-                         citation="Wessel, P., and W. H. F. Smith, A Global Self-consistent, Hierarchical, High-resolution Shoreline Database, J. Geophys. Res., 101, 8741-8743, 1996",
-                         source_url="ftp://ftp.soest.hawaii.edu/gshhg/*",
-                         license="LGPL",
-                         method=list("bb_handler_wget",accept="*bin*.zip,README.TXT"), ## --recursive --level=1
-                         postprocess=list("bb_unzip"),
-                         collection_size=0.6,
-                         data_group="Topography"))
+                         name = "GSHHG coastline data",
+                         id = "gshhg_coastline",
+                         description = "A Global Self-consistent, Hierarchical, High-resolution Geography Database",
+                         doc_url = "http://www.soest.hawaii.edu/pwessel/gshhg",
+                         citation = "Wessel, P., and W. H. F. Smith, A Global Self-consistent, Hierarchical, High-resolution Shoreline Database, J. Geophys. Res., 101, 8741-8743, 1996",
+                         ##source_url = "ftp://ftp.soest.hawaii.edu/gshhg/*",
+                         source_url = "ftp://ftp.soest.hawaii.edu/gshhg/",
+                         license = "LGPL",
+                         ##method = list("bb_handler_wget",accept="*bin*.zip,README.TXT"), ## --recursive --level=1
+                         method = list("bb_handler_rget", level = 1, accept_download = "README|bin.*\\.zip$"),
+                         postprocess = list("bb_unzip"),
+                         collection_size = 0.6,
+                         data_group = "Topography"))
     }
 
     if (is.null(name) || any(name %in% tolower(c("Shuttle Radar Topography Mission elevation data SRTMGL1 V3","10.5067/measures/srtm/srtmgl1.003")))) {
