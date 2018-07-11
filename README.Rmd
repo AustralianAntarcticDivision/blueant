@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   ##comment = "#>",
-  fig.path = "README-"
+  fig.path = "vignettes/README-"
 )
 ```
 
@@ -23,18 +23,26 @@ Blueant provides a set of data source configurations to use with the [bowerbird]
 ## Installing
 
 ```{r eval=FALSE}
-install.packages("devtools")
-library(devtools)
-install_github("AustralianAntarcticDivision/blueant", build_vignettes = TRUE)
+install.packages("remotes")
+remotes::install_github("AustralianAntarcticDivision/blueant", build_vignettes = TRUE)
 ```
 
 ## Usage overview
 
 ### Configuration
 
-Build up a configuration by first defining global options such as the destination on your local file system. Usually you would choose this destination data directory to be persistent location suitable for a data library. For demonstration purposes here we'll just use a temporary directory:
+Build up a configuration by first defining global options such as the destination on your local file system. Usually you would choose this destination data directory to be a persistent location, suitable for a data library. For demonstration purposes here we'll just use a temporary directory:
 
-```{r eval=FALSE}
+```{r include = FALSE}
+## code not shown in the README: (1) use load_all() instead of library(blueant) for convenience, (2) use fixed "temporary" dir, and (3) hide the progress bar
+devtools::load_all()
+my_data_dir <- "/tmp/RtmpjAqcVC"
+cf <- bb_config(local_file_root = my_data_dir)
+mysrc <- sources("George V bathymetry") %>% bb_modify_source(method = list(show_progress = FALSE))
+cf <- cf %>% bb_add(mysrc)
+```
+
+```{r eval = FALSE}
 library(blueant)
 my_data_dir <- tempdir()
 cf <- bb_config(local_file_root = my_data_dir)
@@ -42,7 +50,7 @@ cf <- bb_config(local_file_root = my_data_dir)
 
 Add data sources from those provided by blueant. A summary of these sources is given at the end of this document. Here we'll use the "George V bathymetry" data source as an example:
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 mysrc <- sources("George V bathymetry")
 cf <- cf %>% bb_add(mysrc)
 ```
@@ -53,25 +61,25 @@ This data source is fairly small (around 200MB, see `mysrc$collection_size`). Be
 
 Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose = TRUE` here so that we see additional progress output:
 
-```{r eval=FALSE}
+```{r}
 status <- bb_sync(cf, verbose = TRUE)
 ```
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
 
-```{r eval=FALSE}
+```{r}
 bb_data_source_dir(cf)
 ```
 
 The contents of that directory:
 
-```{r eval=FALSE}
+```{r}
 list.files(bb_data_source_dir(cf), recursive = TRUE, full.names = TRUE)
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
 
-```{r eval=FALSE}
+```{r rasterplot}
 library(raster)
 x <- raster(file.path(bb_data_source_dir(cf), "gvdem500m_v3.nc"))
 plot(x)
