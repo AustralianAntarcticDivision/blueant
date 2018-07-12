@@ -151,19 +151,19 @@ If the blueant data sources don't cover your needs, you can define your own usin
 
 These are the data source definitions that are provided as part of the blueant package.
 
-```{r sources_summary,echo=FALSE,message=FALSE,warning=FALSE,results="asis"}
+```{r sources_summary, echo = FALSE, message = FALSE, warning = FALSE, results = "asis"}
 devtools::load_all("../bowerbird")
 devtools::load_all()
-library(DT)
+##library(DT)
 cf <- bb_config("/your/data/root/") %>% bb_add(sources())
-cfsum <- do.call(rbind, lapply(seq_len(nrow(cf$data_sources)), function(z) cf$data_sources[z, c("data_group", "name", "description", "authentication_note", "collection_size", "doc_url")]))
-cfsum <- setNames(cfsum[order(cfsum$data_group), ], c("Data group", "Data source name", "Description", "Authentication note", "Approximate size (GB)", "Documentation link"))
-datatable(cfsum, rownames = FALSE, options = list(
-  autoWidth = TRUE, columnDefs = list(list(className = "dt-head-left", targets = "_all")))) %>% formatStyle(1:6, "vertical-align" = "top") %>% formatStyle(1:6, "text-align" = "left")
-##sf <- bb_summary(cf,format="rmd",inc_license=FALSE,inc_access_function=FALSE,inc_path=FALSE)
-##stxt <- readLines(sf)
-##stxt <- stxt[(grep("Last updated:",stxt)+1):length(stxt)]
-##stxt <- gsub("^#","##",stxt) ## push each header level down one
-##stxt <- gsub("^\\-","\n-",stxt)
-##for (k in stxt) cat(k,"\n")
+##cfsum <- do.call(rbind, lapply(seq_len(nrow(cf$data_sources)), function(z) cf$data_sources[z, c("data_group", "name", "description", "authentication_note", "collection_size", "doc_url")]))
+##cfsum <- setNames(cfsum[order(cfsum$data_group), ], c("Data group", "Data source name", "Description", "Authentication note", "Approximate size (GB)", "Documentation link"))
+##datatable(cfsum, rownames = FALSE, options = list(
+##  autoWidth = TRUE, columnDefs = list(list(className = "dt-head-left", targets = "_all")))) %>% formatStyle(1:6, "vertical-align" = "top") %>% formatStyle(1:6, "text-align" = "left")
+sf <- bb_summary(cf, format = "rmd", inc_license = FALSE, inc_access_function = FALSE, inc_path = FALSE)
+stxt <- readLines(sf)
+stxt <- stxt[(grep("Last updated:", stxt) + 1):length(stxt)]
+stxt <- gsub("^#", "##", stxt) ## push each header level down one
+stxt <- gsub("^\\-", "\n-", stxt)
+for (k in stxt) cat(k, "\n")
 ```
