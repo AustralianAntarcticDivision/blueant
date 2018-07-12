@@ -44,36 +44,35 @@ Once the configuration has been defined and the data source added to it, we can 
 ``` r
 status <- bb_sync(cf, verbose = TRUE)
 ## 
-## Thu Jul 12 06:44:48 2018
+## Thu Jul 12 07:04:38 2018
 ## Synchronizing dataset: George V bathymetry
 ## Source URL https://data.aad.gov.au/eds/file/4494/
 ## --------------------------------------------------------------------------------------------
 ## 
-##  this dataset path is: C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494
+##  this dataset path is: c:/tmp/data/data.aad.gov.au/eds/file/4494
 ##  building file list ... done.
-## downloading file: https://data.aad.gov.au/eds/file/4494/ ...
-##  file unchanged on server, not downloading.
-##   decompressing: C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494 ... done.
+##  downloading file: https://data.aad.gov.au/eds/file/4494/ ...  done.
+##   decompressing: c:/tmp/data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
 ## 
-## Thu Jul 12 06:44:50 2018 dataset synchronization complete: George V bathymetry
+## Thu Jul 12 07:05:35 2018 dataset synchronization complete: George V bathymetry
 ```
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
 
 ``` r
 bb_data_source_dir(cf)
-## [1] "C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494"
+## [1] "c:/tmp/data/data.aad.gov.au/eds/file/4494"
 ```
 
 The contents of that directory:
 
 ``` r
 list.files(bb_data_source_dir(cf), recursive = TRUE, full.names = TRUE)
-## [1] "C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/download.zip"    
-## [2] "C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/gvdem1000m_v3.nc"
-## [3] "C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/gvdem100m_v3.nc" 
-## [4] "C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/gvdem250m_v3.nc" 
-## [5] "C:/Users/ben_ray/AppData/Local/Temp/RtmpjAqcVC/data.aad.gov.au/eds/file/4494/gvdem500m_v3.nc"
+## [1] "c:/tmp/data/data.aad.gov.au/eds/file/4494/download.zip"    
+## [2] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem1000m_v3.nc"
+## [3] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem100m_v3.nc" 
+## [4] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem250m_v3.nc" 
+## [5] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem500m_v3.nc"
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:

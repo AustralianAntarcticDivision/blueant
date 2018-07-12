@@ -39,7 +39,7 @@ Build up a configuration by first defining global options such as the destinatio
 ```{r include = FALSE}
 ## code not shown in the README: (1) use load_all() instead of library(blueant) for convenience, (2) use fixed "temporary" dir so we don't re-download the zip multiple times, and (3) hide the progress bar
 devtools::load_all()
-my_data_dir <- file.path(dirname(tempdir()), "RtmpjAqcVC")
+my_data_dir <- "c:/tmp/data" ##tempdir()#file.path(dirname(tempdir()), "RtmpjAqcVC")
 if (!dir.exists(my_data_dir)) dir.create(my_data_dir)
 file.remove(dir(my_data_dir, pattern = "gvdem.*\\.nc$", full.names = TRUE, recursive = TRUE))
 cf <- bb_config(local_file_root = my_data_dir)
