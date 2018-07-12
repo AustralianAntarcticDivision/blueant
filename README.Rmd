@@ -15,6 +15,9 @@ knitr::opts_chunk$set(
 [![Travis-CI Build Status](https://travis-ci.org/AustralianAntarcticDivision/blueant.svg?branch=master)](https://travis-ci.org/AustralianAntarcticDivision/blueant)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/5idrimyx0uuv6liu?svg=true)](https://ci.appveyor.com/project/raymondben/blueant)
 [![codecov](https://codecov.io/gh/AustralianAntarcticDivision/blueant/branch/master/graph/badge.svg)](https://codecov.io/gh/AustralianAntarcticDivision/blueant)
+<!-- [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) -->
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/blueant)](http://cran.r-project.org/web/packages/blueant)
+![downloads](http://cranlogs.r-pkg.org/badges/grand-total/blueant)
 
 # Blueant
 
@@ -36,7 +39,8 @@ Build up a configuration by first defining global options such as the destinatio
 ```{r include = FALSE}
 ## code not shown in the README: (1) use load_all() instead of library(blueant) for convenience, (2) use fixed "temporary" dir so we don't re-download the zip multiple times, and (3) hide the progress bar
 devtools::load_all()
-my_data_dir <- "/tmp/RtmpjAqcVC"
+my_data_dir <- file.path(dirname(tempdir()), "RtmpjAqcVC")
+if (!dir.exists(my_data_dir)) dir.create(my_data_dir)
 file.remove(dir(my_data_dir, pattern = "gvdem.*\\.nc$", full.names = TRUE, recursive = TRUE))
 cf <- bb_config(local_file_root = my_data_dir)
 mysrc <- sources("George V bathymetry") %>% bb_modify_source(method = list(show_progress = FALSE))
@@ -133,8 +137,9 @@ Alternatively, for data sources that are divided into subdirectories, one could 
 
 ```{r eval=FALSE}
 mysrc <- sources("CERSAT SSM/I sea ice concentration")
-mysrc$source_url[[1]] <- c("ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/",
-                        "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/")
+mysrc$source_url[[1]] <- c(
+  "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2016/",
+  "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2017/")
 cf <- cf %>% bb_add(mysrc)
 ```
 
@@ -146,14 +151,19 @@ If the blueant data sources don't cover your needs, you can define your own usin
 
 These are the data source definitions that are provided as part of the blueant package.
 
-```{r echo=FALSE,message=FALSE,warning=FALSE,results="asis"}
+```{r sources_summary,echo=FALSE,message=FALSE,warning=FALSE,results="asis"}
 devtools::load_all("../bowerbird")
 devtools::load_all()
+library(DT)
 cf <- bb_config("/your/data/root/") %>% bb_add(sources())
-sf <- bb_summary(cf,format="rmd",inc_license=FALSE,inc_access_function=FALSE,inc_path=FALSE)
-stxt <- readLines(sf)
-stxt <- stxt[(grep("Last updated:",stxt)+1):length(stxt)]
-stxt <- gsub("^#","##",stxt) ## push each header level down one
-stxt <- gsub("^\\-","\n-",stxt)
-for (k in stxt) cat(k,"\n")
+cfsum <- do.call(rbind, lapply(seq_len(nrow(cf$data_sources)), function(z) cf$data_sources[z, c("data_group", "name", "description", "authentication_note", "collection_size", "doc_url")]))
+cfsum <- setNames(cfsum[order(cfsum$data_group), ], c("Data group", "Data source name", "Description", "Authentication note", "Approximate size (GB)", "Documentation link"))
+datatable(cfsum, rownames = FALSE, options = list(
+  autoWidth = TRUE, columnDefs = list(list(className = "dt-head-left", targets = "_all")))) %>% formatStyle(1:6, "vertical-align" = "top") %>% formatStyle(1:6, "text-align" = "left")
+##sf <- bb_summary(cf,format="rmd",inc_license=FALSE,inc_access_function=FALSE,inc_path=FALSE)
+##stxt <- readLines(sf)
+##stxt <- stxt[(grep("Last updated:",stxt)+1):length(stxt)]
+##stxt <- gsub("^#","##",stxt) ## push each header level down one
+##stxt <- gsub("^\\-","\n-",stxt)
+##for (k in stxt) cat(k,"\n")
 ```
