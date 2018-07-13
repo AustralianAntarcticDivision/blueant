@@ -37,11 +37,11 @@ remotes::install_github("AustralianAntarcticDivision/blueant", build_vignettes =
 Build up a configuration by first defining global options such as the destination on your local file system. Usually you would choose this destination data directory to be a persistent location, suitable for a data library. For demonstration purposes here we'll just use a temporary directory:
 
 ```{r include = FALSE}
-## code not shown in the README: (1) use load_all() instead of library(blueant) for convenience, (2) use fixed "temporary" dir so we don't re-download the zip multiple times, and (3) hide the progress bar
-devtools::load_all()
+## code not shown in the README: (1) use load_all() instead of library() for convenience, (2) use anonymous "temporary" dir, and (3) hide the progress bar
+library(blueant) ##devtools::load_all()
 my_data_dir <- "c:/tmp/data" ##tempdir()#file.path(dirname(tempdir()), "RtmpjAqcVC")
 if (!dir.exists(my_data_dir)) dir.create(my_data_dir)
-file.remove(dir(my_data_dir, pattern = "gvdem.*\\.nc$", full.names = TRUE, recursive = TRUE))
+if (dir.exists(file.path(my_data_dir, "data.aad.gov.au/eds/file/4494"))) unlink(file.path(my_data_dir, "data.aad.gov.au/eds/file/4494"), recursive = TRUE)
 cf <- bb_config(local_file_root = my_data_dir)
 mysrc <- sources("George V bathymetry") %>% bb_modify_source(method = list(show_progress = FALSE))
 cf <- cf %>% bb_add(mysrc)
@@ -152,8 +152,7 @@ If the blueant data sources don't cover your needs, you can define your own usin
 These are the data source definitions that are provided as part of the blueant package.
 
 ```{r sources_summary, echo = FALSE, message = FALSE, warning = FALSE, results = "asis"}
-devtools::load_all("../bowerbird")
-devtools::load_all()
+library(blueant) ##devtools::load_all("../bowerbird"); devtools::load_all()
 ##library(DT)
 cf <- bb_config("/your/data/root/") %>% bb_add(sources())
 ##cfsum <- do.call(rbind, lapply(seq_len(nrow(cf$data_sources)), function(z) cf$data_sources[z, c("data_group", "name", "description", "authentication_note", "collection_size", "doc_url")]))

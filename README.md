@@ -44,7 +44,7 @@ Once the configuration has been defined and the data source added to it, we can 
 ``` r
 status <- bb_sync(cf, verbose = TRUE)
 ## 
-## Thu Jul 12 07:04:38 2018
+## Fri Jul 13 05:36:49 2018
 ## Synchronizing dataset: George V bathymetry
 ## Source URL https://data.aad.gov.au/eds/file/4494/
 ## --------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ status <- bb_sync(cf, verbose = TRUE)
 ##  downloading file: https://data.aad.gov.au/eds/file/4494/ ...  done.
 ##   decompressing: c:/tmp/data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
 ## 
-## Thu Jul 12 07:05:35 2018 dataset synchronization complete: George V bathymetry
+## Fri Jul 13 05:38:28 2018 dataset synchronization complete: George V bathymetry
 ```
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
