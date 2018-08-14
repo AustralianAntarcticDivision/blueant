@@ -214,7 +214,8 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          comment = "server certificate is valid but not recognized as such by some systems (e.g. Ubuntu)",
                          postprocess = list("bb_unzip"),
                          collection_size = 0.05,
-                         data_group="Ocean colour"))
+                         data_group="Ocean colour",
+                         access_function = "raster::raster"))
     }
 
     out
