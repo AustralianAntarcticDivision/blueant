@@ -36,6 +36,7 @@ Data sources providing ocean colour data.
   \item "Oceandata MODIS Aqua Level-3 binned daily RRS": Daily remote-sensing reflectance from MODIS Aqua. RRS is used to produce standard ocean colour products such as chlorophyll concentration
   \item "Oceandata SeaWiFS Level-3 binned daily RRS": Daily remote-sensing reflectance from SeaWiFS. RRS is used to produce standard ocean colour products such as chlorophyll concentration
   \item "Oceandata VIIRS Level-3 mapped 32-day 9km chl-a": Rolling 32-day composite remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
+  \item "Southern Ocean summer chlorophyll-a climatology (Johnson)": Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)
 }
 
 The returned tibble contains more information about each source.
