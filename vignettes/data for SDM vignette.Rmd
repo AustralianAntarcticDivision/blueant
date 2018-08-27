@@ -1,0 +1,112 @@
+---
+title: "Dataset of environmental descriptors for Species Distribution Models applied for Southern Ocean case studies"
+author: "Guillaumot C"
+date: ""
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Environmental descriptors list
+ Environmental descriptors dataset (58 layers).
+ All environmental descriptors are set at a 0.1° grid-cell resolution, on the Southern Ocean extent (80°S,45°S; -180,180°). Provided as a netCDF file format. Sources and details are available in the attached metadata file. 
+ 
+   * **1/ depth** Bathymetry of the region (in meters)
+   * **2/ geomorphology** Seafloor geomorphic feature dataset, 27 categories
+   * **3/ sediments** Sediment features, 14 categories
+   * **4/ slope** Seafloor slope, derived from bathymetry layer (in degrees) 
+   * **5/ roughness** Seafloor roughness, derived from bathymetry layer (unitless)
+   * **6/ mixed_layer_depth** Summer mixed layer depth climatology from ARGOS data (in kilometers)
+   * **7/ seasurface_current_speed** Current speed near the surface (2.5m depth); derived from the CAISOM model, based on ROMS
+   * **8/ seafloor_current_speed** Current speed near the sea floor; derived from the CAISOM model, based on ROMS
+   * **9/ distance_antarctica** Distance to the nearest part of Antarctic continent (in kilometers)
+   * **10/ distance_canyon** Distance to the axis of the nearest canyon (in kilometers)
+   * **11/ distance_max_ice_edge** Mean maximum winter sea ice extent derived from daily estimates of sea ice concentration (in kilometers)
+   * **12/ distance_shelf** Distance to nearest area of sea floor of depth 500m or less (in kilometers)
+   * **13/ ice_cover_max** Ice concentration fraction, maximum on 1957-2017 time period (unitless)  
+   * **14/ ice_cover_mean** Ice concentration fraction, mean on 1957-2017 time period (unitless) 
+   * **15/ ice_cover_min** Ice concentration fraction, minimum on 1957-2017 time period (unitless) 
+   * **16/ ice_cover_range** Ice concentration fraction, difference maximum-minimum on 1957-2017 time period (unitless) 
+   * **17/ ice_thickness_max** Ice thickness, maximum on 1957-2017 time period (in meters)
+   * **18/ ice_thickness_mean** Ice thickness, mean on 1957-2017 time period (in meters) 
+   * **19/ ice_thickness_min** Ice thickness, minimum on 1957-2017 time period (in meters) 
+   * **20/ ice_thickness_range** Ice thickness, difference maximum-minimum on 1957-2017 time period (in meters) 
+   * **21/ chla_ampli_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Amplitude of pixel values (difference between maximal and minimal values encountered by each pixel during all months of the period 2005-2012) (in mg.m-3) 
+   * **22/ chla_max_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Maximal value encountered by each pixel during all months of the period 2005-2012 (in mg.m-3) 
+   * **23/ chla_mean_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Mean value of each pixel during all months of the period 2005-2012 (in mg.m-3)
+   * **24/ chla_min_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Minimal value encountered by each pixel during all months of the period 2005-2012 (in mg.m-3) 
+   * **25/ chla_sd_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Standard deviation value of each pixel during all months of the period 2005-2012 (in mg.m-3) 
+   * **26/ POC_2005_2012_ampli** Particulate organic carbon; model Lutz et al. (2007) [10]. Amplitude value (difference maximal and minimal values, see previous layers) of all average seasonal layers of 2005-2012 (in gC.m-2.d-1) 
+   * **27/ POC_2005_2012_max** Particulate organic carbon; model Lutz et al. (2007) [10]. Maximal value encountered on each pixel among all seasonal layers of 2005-2012 (in gC.m-2.d-1) 
+   * **28/ POC_2005_2012_mean** Particulate organic carbon; model Lutz et al. (2007) [10]. Mean of all seasonal layers of 2005-2012 (in gC.m-2.d-1)
+   * **29/ POC_2005_2012_min** Particulate organic carbon; model Lutz et al. (2007) [10]. Minimal value encountered on each pixel among all seasonal layers of 2005-2012 (in gC.m-2.d-1) 
+   * **30/ POC_2005_2012_sd** Particulate organic carbon; model Lutz et al. (2007) [10]. Standard deviation all seasonal layers of 2005-2012 (in gC.m-2.d-1) 
+   * **31/ seafloor_oxy_19552012_ampli** Amplitude (difference max/ min) value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in mL.L-1) 
+   * **32/ seafloor_oxy_19552012_max** Maximum value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in mL.L-1)
+   * **33/ seafloor_oxy_19552012_mean** Mean seafloor temperature over 2005-2012 (average of all monthly layers) (in mL.L-1) 
+   * **34/ seafloor_oxy_19552012_min** Minimum value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in mL.L-1) 
+   * **35/ seafloor_oxy_19552012_sd** Standard deviation seafloor temperature over 2005-2012 (of all monthly layers) (in mL.L-1) 
+   * **36/ seafloor_sali_2005_2012_ampli** Amplitude (difference max/ min) value encountered for each pixel on all month layers of seafloor salinity over 2005-2012 (in PSS) 
+   * **37/ seafloor_sali_2005_2012_max** Maximum value encountered for each pixel on all month layers of seafloor salinity over 2005-2012 (in PSS) 
+   * **38/ seafloor_sali_2005_2012_mean** Mean seafloor salinity over 2005-2012 (average of all monthly layers) (in PSS)
+   * **39/ seafloor_sali_2005_2012_min** Minimum value encountered for each pixel on all month layers of seafloor salinity over 2005-2012 (in PSS)
+   * **40/ seafloor_sali_2005_2012_sd** Standard deviation seafloor salinity over 2005-2012 (of all monthly layers) (in PSS) 
+   * **41/ seafloor_temp_2005_2012_ampli** Amplitude (difference max/min) value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in °C) 
+   * **42/ seafloor_temp_2005_2012_max** Maximum value encountered for each pixel on all monthly layers of seafloor temperature over 2005-2012 (in °C) 
+   * **43/ seafloor_temp_2005_2012_mean** Mean seafloor temperature over 2005-2012 (average of all monthly layers) (in °C) 
+   * **44/ seafloor_temp_2005_2012_min** Minimum value encountered for each pixel on all monthly layers of seafloor temperature over 2005-2012 (in °C) 
+   * **45/ seafloor_temp_2005_2012_sd** Standard deviation seafloor temperature over 2005-2012 (of all monthly layers) (in °C)
+   * **46/ extreme_event_max_chl_2005_2012_ampli** Amplitude value (Maximum-Minimum) of the number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **47/ extreme_event_max_chl_2005_2012_max** Maximum number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **48/ extreme_event_max_chl_2005_2012_mean** Mean of the number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **49/ extreme_event_max_chl_2005_2012_min** Minimum number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **50/ extreme_event_min_chl_2005_2012_ampli** Amplitude value (Maximum-Minimum) of the number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **51/ extreme_event_min_chl_2005_2012_max** Maximum number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **52/ extreme_event_min_chl_2005_2012_mean** Mean of the number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **53/ extreme_event_min_chl_2005_2012_min** Minimum number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
+   * **54/ extreme_event_min_oxy_1955_2012_nb** Number of extreme events (minimal seafloor oxygen concentration records) that happened between January and December of the year  
+   * **55/ nb_extreme_event_max_sali_2005_2012_nb** Number of extreme events (maximal seafloor salinity records) that happened between January and December of the year  
+   * **56/ nb_extreme_event_min_sali_2005_2012_nb** Number of extreme events (minimal seafloor salinity records) that happened between January and December of the year  
+   * **57/ extreme_event_max_temp_2005_2012_nb** Number of extreme events (maximal seafloor temperature records) that happened between January and December of the year 
+   * **58/ extreme_event_min_temp_2005_2012_nb** Number of extreme events (minimal seafloor temperature records) that happened between January and December of the year  
+   
+The full metadata file, compiling data sources is available on: 
+
+
+# How to download the data 
+The first steps to download the data are to define the directory in which the data will be stored. In this example, we used a temporary folder. 
+```{r, eval=F}
+library(blueant)
+my_data_directory <- tempdir()
+config <- bb_config(local_file_root= my_data_directory)
+
+data_name <-sources("SDM_predictors") # TO BEN: here I don't really know how I should call it?? is that OK?? should I put "SDM_source" instead of "sources"? 
+config <- config %>% bb_add(data_name)
+```
+
+Then, once the configuration it ready, you need to launch a synchronization. 
+```{r, eval=F}
+status <- bb_sync(config, verbose = TRUE) # the *verbose = TRUE* argument helps to display the progress output
+```
+Once terminated, you can access and see the content of your files using the commands: 
+```{r, eval=F}
+bb_data_source_dir(config)
+list.files(bb_data_source_dir(config), recursive = TRUE, full.names = TRUE)
+```
+
+And then you can open your data with the *raster* package 
+```{r, eval=F}
+loaded_stack <- raster::stack(file.path(bb_data_source_dir(config), "stack_data_SDM.grd"))
+# TO BEN = I still need to have a look to convert in ncdf file
+
+# have a look at a part of the rasterStack (five first layers)
+plot(subset(loaded_stack, c(1:5)))
+# list of descriptors 
+names(loaded_stack)
+# you can drop a part of the environmental descriptors using the dropLayer function. The numbers provided in the description part correspond to the layer's order in the provided stack. 
+final_stack_for_my_SDM <- raster::dropLayer(loaded_stack, c(1,4,8,12:16)) # the function removes layers 1,4,8,12,13,14,15 and 16
+```
+
+You can also consult the *blueant* vignette for further information <https://github.com/AustralianAntarcticDivision/blueant/blob/master/vignettes/blueant.Rmd>.
+
+
