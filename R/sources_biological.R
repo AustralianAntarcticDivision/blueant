@@ -54,7 +54,11 @@ sources_biological <- function(name, formats, time_resolutions, ...) {
                          id = "SO-CPR",
                          description = "Continuous Plankton Recorder (CPR) surveys from the Southern Ocean. Zooplankton species, numbers and abundance data are recorded on a continuous basis while vessels are in transit",
                          doc_url = "https://data.aad.gov.au/metadata/records/AADC-00099",
-                         citation = "See https://data.aad.gov.au/metadata/records/AADC-00099 for current citation",
+                         citation = tryCatch({
+                             doi <- get_aadc_doi("https://data.aad.gov.au/metadata/records/AADC-00099")
+                             if (is.null(doi)) stop("could not find DOI")
+                             paste0("Hosie, G. (1999, updated 2018) Southern Ocean Continuous Zooplankton Records Australian Antarctic Data Centre - doi:", doi)
+                         }, error = function(e) "See https://data.aad.gov.au/metadata/records/AADC-00099 for current citation"),
                          license = "CC-BY",
                          source_url = "https://data.aad.gov.au/eds/4672/download",
                          method = list("bb_handler_rget", force_local_filename = "download.zip", no_check_certificate = TRUE),
