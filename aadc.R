@@ -1,3 +1,11 @@
+get_aadc_doi <- function(metadata_record_url) {
+    doi <- suppressWarnings(readLines(metadata_record_url))
+    doi <- unique(na.omit(str_match(doi, ">doi:(10[^<]+)<")[, 2]))
+    if (length(doi) == 1) doi else NULL
+}
+
+## Note, bb_handler_aadc is deprecated, AADC sources can now be handled with bb_rget_handler
+
 #' Handler for files downloaded from the Australian Antarctic Data Centre EDS system
 #'
 #' This is a handler function to be used with data from the Australian Antarctic Data Centre. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}. AADC EDS files have a URL of the form https://data.aad.gov.au/eds/file/wxyz/ or https://data.aad.gov.au/eds/wxyz/download where wxyz is a numeric file identifier.

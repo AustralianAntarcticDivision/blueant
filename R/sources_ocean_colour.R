@@ -13,6 +13,7 @@
 #'   \item "Oceandata MODIS Aqua Level-3 binned daily RRS": Daily remote-sensing reflectance from MODIS Aqua. RRS is used to produce standard ocean colour products such as chlorophyll concentration
 #'   \item "Oceandata SeaWiFS Level-3 binned daily RRS": Daily remote-sensing reflectance from SeaWiFS. RRS is used to produce standard ocean colour products such as chlorophyll concentration
 #'   \item "Oceandata VIIRS Level-3 mapped 32-day 9km chl-a": Rolling 32-day composite remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
+#'   \item "Southern Ocean summer chlorophyll-a climatology (Johnson)": Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -24,7 +25,7 @@
 #'
 #' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_meteorological}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
+#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 #'
 #' @return a tibble with columns as specified by \code{\link{bb_source}}
 #'
@@ -198,6 +199,25 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          collection_size=4,
                          data_group="Ocean colour"))
     }
+
+    if (is.null(name) || any(name %in% tolower(c("Southern Ocean summer chlorophyll-a climatology (Johnson)","10.4225/15/5906b48f70bf9")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Southern Ocean summer chlorophyll-a climatology (Johnson)",
+                         id = "10.4225/15/5906b48f70bf9",
+                         description = "Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)",
+                         doc_url = "https://doi.org/doi:10.4225/15/5906b48f70bf9",
+                         source_url = "https://data.aad.gov.au/eds/4423/download",
+                         citation = "Johnson, R., Sumner, M., Raymond, B. (2017, updated 2017) Southern Ocean summer chlorophyll-a climatology Australian Antarctic Data Centre - doi:10.4225/15/5906b48f70bf9",
+                         license = "CC-BY",
+                         method = list("bb_handler_rget", force_local_filename = "download.zip", no_check_certificate = TRUE),
+                         comment = "server certificate is valid but not recognized as such by some systems (e.g. Ubuntu)",
+                         postprocess = list("bb_unzip"),
+                         collection_size = 0.05,
+                         data_group="Ocean colour",
+                         access_function = "raster::raster"))
+    }
+
     out
 }
 

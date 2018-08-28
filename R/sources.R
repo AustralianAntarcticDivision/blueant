@@ -11,7 +11,7 @@
 #'
 #' @return tibble
 #'
-#' @seealso \code{\link{bb_config}}, \code{\link{sources_altimetry}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
+#' @seealso \code{\link{bb_config}}, \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 #'
 #' @export
 sources <- function(name, formats, time_resolutions, ...) {
@@ -26,6 +26,7 @@ sources <- function(name, formats, time_resolutions, ...) {
           sources_oceanographic(name=name, formats=formats, time_resolutions=time_resolutions, ...),
           sources_ocean_colour(name=name, formats=formats, time_resolutions=time_resolutions, ...),
           sources_meteorological(name=name, formats=formats, time_resolutions=time_resolutions, ...),
-          sources_reanalysis(name=name, formats=formats, time_resolutions=time_resolutions, ...)
+          sources_reanalysis(name=name, formats=formats, time_resolutions=time_resolutions, ...),
+          sources_biological(name=name, formats=formats, time_resolutions=time_resolutions, ...)
           )
 }
