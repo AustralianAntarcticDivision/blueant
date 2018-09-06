@@ -98,12 +98,12 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
         if (!is.null(years)) {
             ## for monthly we want files matching /nt_YYYY, for daily we want to follow directories matching /YYYY/ (and files matching /nt_YYYY)
             yre <- paste(years, collapse = "|") ## e.g. "1979|2003"
-            if ("day" %in% time_resolutions) daily_accept_follow <- c(paste0(daily_accept_follow, "$"), paste0(daily_accept_follow, "/", yre))
+            if ("day" %in% time_resolutions) daily_accept_follow <- c(paste0(daily_accept_follow, "/?$"), paste0(daily_accept_follow, "/", yre))
             accept_download <- paste0("/nt_", yre, ".*\\.bin$")
         } else {
             accept_download <- ".*\\.bin$"
         }
-        accept_follow <- paste(c("final-gsfc$", paste0(h, "$"), daily_accept_follow, monthly_accept_follow), collapse = "|") ## OR them together
+        accept_follow <- paste(c("final-gsfc/?$", paste0(h, "/?$"), daily_accept_follow, monthly_accept_follow), collapse = "|") ## OR them together
         ##cat("reject_follow: ", reject_follow, "\n")
         ##cat("accept_follow: ", accept_follow, "\n")
         ##cat("accept_download: ", accept_download, "\n")
