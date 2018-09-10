@@ -2,7 +2,7 @@
 #'
 #' Data sources providing (primarily satellite-derived) sea ice data:
 #' \itemize{
-#'   \item "NSIDC SMMR-SSM/I Nasateam sea ice concentration": Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to near-present. Data undergo a quality checking process and are updated annually. More recent data are available via the 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' source
+#'   \item "NSIDC SMMR-SSM/I Nasateam sea ice concentration": Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to near-present. Data undergo a quality checking process and are updated annually. More recent data are available via the 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' source. Accepts \code{hemisphere} values of "south", "north", "both". Accepts \code{time_resolution} values of "day" or "month". Accepts \code{years} parameter as a vector of years.
 #'   \item "NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration": Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. For older, quality-controlled data see the 'NSIDC SMMR-SSM/I Nasateam sea ice concentration' source
 #'   \item "NSIDC passive microwave supporting files": Grids and other support files for NSIDC passive microwave sea ice data
 #'   \item "Nimbus Ice Edge Points from Nimbus Visible Imagery": This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery
@@ -36,10 +36,16 @@
 #' ## define a configuration and add the AMSR-E data to it (geotiff format)
 #' cf <- bb_config("/my/file/root") %>%
 #'   bb_add(sources_seaice("Artist AMSR-E sea ice concentration",formats="geotiff"))
+#'
+#' ## the NSIDC SMMR-SSM/I Nasateam sea ice concentration, but only
+#' ##    southern hemisphere, daily data from 2013
+#' cf <- bb_config("/my/file/root") %>%
+#'   bb_add(sources_seaice("NSIDC SMMR-SSM/I Nasateam sea ice concentration",
+#'                          time_resolutions = "day", hemisphere = "south", years = "2013"))
 #' }
 #' @export
 
-sources_seaice <- function(name,formats,time_resolutions, ...) {
+sources_seaice <- function(name, formats, time_resolutions, ...) {
     if (!missing(name) && !is.null(name)) {
         assert_that(is.character(name))
         name <- tolower(name)
@@ -52,8 +58,55 @@ sources_seaice <- function(name,formats,time_resolutions, ...) {
     } else {
         formats <- NULL
     }
+    if (!missing(time_resolutions) && !is.null(time_resolutions)) {
+        assert_that(is.character(time_resolutions))
+        time_resolutions <- tolower(time_resolutions)
+    } else {
+        time_resolutions <- NULL
+    }
+    ss_args <- list(...)
     out <- tibble()
     if (is.null(name) || any(name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam sea ice concentration", "10.5067/8GQ8LZQVL0VL")))) {
+        if (!is.null(time_resolutions)) {
+            chk <- !time_resolutions %in% c("day","month")
+            if (any(chk)) stop("unrecognized time_resolutions value for the 'NSIDC SMMR-SSM/I Nasateam sea ice concentration' source, expecting 'day' and/or 'month'")
+        } else {
+            ## default to both
+            time_resolutions <- c("day", "month")
+        }
+        ## source-specific parms
+        hemisphere <- ss_args$hemisphere
+        if (is.null(hemisphere)) hemisphere <- "both"
+        if (!is.null(hemisphere)) {
+            assert_that(is.character(hemisphere))
+            hemisphere <- match.arg(tolower(hemisphere), c("south", "north", "both"))
+        }
+        years <- ss_args$years
+        if (!is.null(years)) {
+            assert_that(is.numeric(years), noNA(years))
+        }
+        ## given hemisphere, time_resolutions, and years, construct appropriate source def
+        ## URLs will be of the form
+        ## ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/browse|south|north/
+        ## ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south|north/daily|monthly
+        ## ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1986/nt_19860113_n07_v1.1_s.bin
+        ## ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/monthly/nt_197811_n07_v1.1_s.bin
+        reject_follow <- "\\.bin$|/browse" ## reject these always
+        h <- switch(hemisphere, south = "/south", north = "/north", both = c("/south", "/north"))
+        daily_accept_follow <- if ("day" %in% time_resolutions) paste0(h, "/daily") else character()
+        monthly_accept_follow <- if ("month" %in% time_resolutions) paste0(h, "/monthly") else character()
+        if (!is.null(years)) {
+            ## for monthly we want files matching /nt_YYYY, for daily we want to follow directories matching /YYYY/ (and files matching /nt_YYYY)
+            yre <- paste(years, collapse = "|") ## e.g. "1979|2003"
+            if ("day" %in% time_resolutions) daily_accept_follow <- c(paste0(daily_accept_follow, "/?$"), paste0(daily_accept_follow, "/", yre))
+            accept_download <- paste0("/nt_", yre, ".*\\.bin$")
+        } else {
+            accept_download <- ".*\\.bin$"
+        }
+        accept_follow <- paste(c("final-gsfc/?$", paste0(h, "/?$"), daily_accept_follow, monthly_accept_follow), collapse = "|") ## OR them together
+        ##cat("reject_follow: ", reject_follow, "\n")
+        ##cat("accept_follow: ", accept_follow, "\n")
+        ##cat("accept_download: ", accept_download, "\n")
         out <- rbind(out,
                      bb_source(
                          name = "NSIDC SMMR-SSM/I Nasateam sea ice concentration",
@@ -65,7 +118,7 @@ sources_seaice <- function(name,formats,time_resolutions, ...) {
                          citation = "Cavalieri, D. J., C. L. Parkinson, P. Gloersen, and H. Zwally. 1996, updated yearly. Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data. [indicate subset used]. Boulder, Colorado USA: NASA National Snow and Ice Data Center Distributed Active Archive Center. http://dx.doi.org/10.5067/8GQ8LZQVL0VL",
                          license = "Please cite, see http://nsidc.org/about/use_copyright.html",
                          ##method = list("bb_handler_wget",exclude_directories="pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/browse",level=6), ##--recursive
-                         method = list("bb_handler_rget", reject_follow = "/browse", level = 6),
+                         method = list("bb_handler_rget", reject_follow = reject_follow, accept_follow = accept_follow, accept_download = accept_download, level = 6),
                          postprocess = NULL,
                          access_function = "raadtools::readice",
                          collection_size = 10,

@@ -24,6 +24,7 @@ Data sources providing selected Southern Ocean biological data sets. Please note
 \details{
 \itemize{
   \item "Southern Ocean Continuous Plankton Recorder": zooplankton species, numbers and abundance data are recorded on a continuous basis while vessels are in transit
+  \item "SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution": outputs of the SEAPODYM Low and Mid-Trophic Levels (LMTL) model, which simulates the spatial and temporal dynamics of six micronekton and one zooplankton functional groups between the sea surface and ~1000m depth
 }
 
 The returned tibble contains more information about each source.

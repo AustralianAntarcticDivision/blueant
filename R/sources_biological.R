@@ -4,6 +4,7 @@
 #'
 #' \itemize{
 #'   \item "Southern Ocean Continuous Plankton Recorder": zooplankton species, numbers and abundance data are recorded on a continuous basis while vessels are in transit
+#'   \item "SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution": outputs of the SEAPODYM Low and Mid-Trophic Levels (LMTL) model, which simulates the spatial and temporal dynamics of six micronekton and one zooplankton functional groups between the sea surface and ~1000m depth
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -68,6 +69,24 @@ sources_biological <- function(name, formats, time_resolutions, ...) {
                          data_group = "Biology"))
     }
 
+    if (is.null(name) || any(name %in% tolower(c("SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution","SEAPODYM_ZM_weekly")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution",
+                         id = "SEAPODYM_ZM_weekly",
+                         description = "The zooplankton & micronekton biomass distributions are outputs of the SEAPODYM Low and Mid-Trophic Levels (LMTL) model (Lehodey et al., 1998; 2010; 2015). SEAPODYM-LMTL model simulates the spatial and temporal dynamics of six micronekton and one zooplankton functional groups between the sea surface and ~1000m. The model is driven by ocean temperature, horizontal currents, primary production and euphotic depth. Primary production can be outputs from biogeochemical models or derived from ocean color satellite data using empirical optical models (e.g., Behrenfeld and Falkowski 1997).",
+                         doc_url = "http://www.mesopp.eu/catalogue/seapodym-zooplankton-micronekton-weekly-potential-and-biomass-distribution-2016/#dataset",
+                         citation = "Lehodey P, Conchon A, Senina I, Domokos R, Calmettes B, Jouanno J, Hernandez O, Kloser R (2015) Optimization of a micronekton model with acoustic data. ICES Journal of Marine Science, 72(5): 1399-1412",
+                         license = "Please cite",
+                         source_url = "http://www.mesopp.eu/data/catalogue/?wpsolr_fq%5B0%5D=model_str%3ASEAPODYM",
+                         method = list("bb_handler_rget", level = 2, accept_follow = "potential-and-biomass-distribution", no_parent = FALSE),
+                         postprocess = list("bb_unzip"),
+                         authentication_note = "Requires registration, see http://www.mesopp.eu/data/registration/",
+                         user = "",
+                         password = "",
+                         warn_empty_auth = FALSE,
+                         ##collection_size = ,
+                         data_group = "Biology"))
+    }
     out
 }
-

@@ -21,7 +21,7 @@ a tibble with columns as specified by \code{\link{bb_source}}
 \description{
 Data sources providing (primarily satellite-derived) sea ice data:
 \itemize{
-  \item "NSIDC SMMR-SSM/I Nasateam sea ice concentration": Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to near-present. Data undergo a quality checking process and are updated annually. More recent data are available via the 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' source
+  \item "NSIDC SMMR-SSM/I Nasateam sea ice concentration": Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to near-present. Data undergo a quality checking process and are updated annually. More recent data are available via the 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' source. Accepts \code{hemisphere} values of "south", "north", "both". Accepts \code{time_resolution} values of "day" or "month". Accepts \code{years} parameter as a vector of years.
   \item "NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration": Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. For older, quality-controlled data see the 'NSIDC SMMR-SSM/I Nasateam sea ice concentration' source
   \item "NSIDC passive microwave supporting files": Grids and other support files for NSIDC passive microwave sea ice data
   \item "Nimbus Ice Edge Points from Nimbus Visible Imagery": This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery
@@ -45,6 +45,12 @@ The returned tibble contains more information about each source.
 ## define a configuration and add the AMSR-E data to it (geotiff format)
 cf <- bb_config("/my/file/root") \%>\%
   bb_add(sources_seaice("Artist AMSR-E sea ice concentration",formats="geotiff"))
+
+## the NSIDC SMMR-SSM/I Nasateam sea ice concentration, but only
+##    southern hemisphere, daily data from 2013
+cf <- bb_config("/my/file/root") \%>\%
+  bb_add(sources_seaice("NSIDC SMMR-SSM/I Nasateam sea ice concentration",
+                         time_resolutions = "day", hemisphere = "south", years = "2013"))
 }
 }
 \references{
