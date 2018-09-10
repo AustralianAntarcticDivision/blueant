@@ -69,44 +69,45 @@ knitr::opts_chunk$set(echo = TRUE)
    * **56/ nb_extreme_event_min_sali_2005_2012_nb** Number of extreme events (minimal seafloor salinity records) that happened between January and December of the year  
    * **57/ extreme_event_max_temp_2005_2012_nb** Number of extreme events (maximal seafloor temperature records) that happened between January and December of the year 
    * **58/ extreme_event_min_temp_2005_2012_nb** Number of extreme events (minimal seafloor temperature records) that happened between January and December of the year  
-   
-The full metadata file, compiling data sources is available on: 
+
+The full metadata file, giving details on each of the data sources, is available from https://data.aad.gov.au/metadata/records/environmental_layers.
 
 
 # How to download the data 
-The first steps to download the data are to define the directory in which the data will be stored. In this example, we used a temporary folder. 
-```{r, eval=F}
+The first steps to download the data are to define the directory in which the data will be stored. In this example, we use a temporary folder. 
+```{r, eval = FALSE}
 library(blueant)
 my_data_directory <- tempdir()
-config <- bb_config(local_file_root= my_data_directory)
 
-data_name <-sources("SDM_predictors") # TO BEN: here I don't really know how I should call it?? is that OK?? should I put "SDM_source" instead of "sources"? 
-config <- config %>% bb_add(data_name)
+## the data source we want
+data_source <- sources_sdm("Southern Ocean marine environmental data")
+
+## fetch the data
+status <- bb_get(data_source, local_file_root = my_data_directory, verbose = TRUE)
 ```
 
-Then, once the configuration it ready, you need to launch a synchronization. 
-```{r, eval=F}
-status <- bb_sync(config, verbose = TRUE) # the *verbose = TRUE* argument helps to display the progress output
-```
-Once terminated, you can access and see the content of your files using the commands: 
-```{r, eval=F}
-bb_data_source_dir(config)
-list.files(bb_data_source_dir(config), recursive = TRUE, full.names = TRUE)
+The `verbose = TRUE` argument helps to display the progress output. Once completed, the `status` object provides some information about the files that were downloaded. In particular, the downloaded netCDF files can be listed with:
+
+```{r, eval = FALSE}
+nc_files <- Filter(function(z) grepl("\\.nc$", z), status$files[[1]]$file)
 ```
 
 And then you can open your data with the *raster* package 
-```{r, eval=F}
-loaded_stack <- raster::stack(file.path(bb_data_source_dir(config), "stack_data_SDM.grd"))
-# TO BEN = I still need to have a look to convert in ncdf file
+```{r, eval = FALSE}
+library(raster)
+loaded_stack <- stack(nc_files)
 
-# have a look at a part of the rasterStack (five first layers)
+## have a look at a part of the rasterStack (five first layers)
 plot(subset(loaded_stack, c(1:5)))
-# list of descriptors 
+
+## list of descriptors 
 names(loaded_stack)
-# you can drop a part of the environmental descriptors using the dropLayer function. The numbers provided in the description part correspond to the layer's order in the provided stack. 
-final_stack_for_my_SDM <- raster::dropLayer(loaded_stack, c(1,4,8,12:16)) # the function removes layers 1,4,8,12,13,14,15 and 16
+
+## you can drop a part of the environmental descriptors using the dropLayer function.
+## The numbers provided in the description part correspond to the layer's order in the provided stack. 
+final_stack_for_my_SDM <- raster::dropLayer(loaded_stack, c(1,4,8,12:16)) ## removes layers 1,4,8,12,13,14,15 and 16
 ```
 
-You can also consult the *blueant* vignette for further information <https://github.com/AustralianAntarcticDivision/blueant/blob/master/vignettes/blueant.Rmd>.
+You can also consult the [blueant vignette](https://australianantarcticdivision.github.io/blueant/articles/blueant.html) for further information.
 
 
