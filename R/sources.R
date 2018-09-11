@@ -27,6 +27,7 @@ sources <- function(name, formats, time_resolutions, ...) {
           sources_ocean_colour(name=name, formats=formats, time_resolutions=time_resolutions, ...),
           sources_meteorological(name=name, formats=formats, time_resolutions=time_resolutions, ...),
           sources_reanalysis(name=name, formats=formats, time_resolutions=time_resolutions, ...),
+          sources_sdm(name=name, formats=formats, time_resolutions=time_resolutions, ...),
           sources_biological(name=name, formats=formats, time_resolutions=time_resolutions, ...)
           )
 }
