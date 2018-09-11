@@ -1,12 +1,14 @@
 ---
-title: "Dataset of environmental descriptors for Species Distribution Models applied for Southern Ocean case studies"
+title: "Data for Southern Ocean species distribution modelling"
 author: "Guillaumot C"
-date: ""
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data for Southern Ocean species distribution modelling}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 # Environmental descriptors list
  Environmental descriptors dataset (58 layers).
  All environmental descriptors are set at a 0.1° grid-cell resolution, on the Southern Ocean extent (80°S,45°S; -180,180°). Provided as a netCDF file format. Sources and details are available in the attached metadata file. 
@@ -75,25 +77,33 @@ The full metadata file, giving details on each of the data sources, is available
 
 # How to download the data 
 The first steps to download the data are to define the directory in which the data will be stored. In this example, we use a temporary folder. 
-```{r, eval = FALSE}
+```{r}
 library(blueant)
 my_data_directory <- tempdir()
 
 ## the data source we want
 data_source <- sources_sdm("Southern Ocean marine environmental data")
 
-## fetch the data
-status <- bb_get(data_source, local_file_root = my_data_directory, verbose = TRUE)
+## put these together into a blueant configuration
+config <- bb_config(my_data_directory) %>% bb_add(data_source)
+config
+```
+
+Now we can ask `blueant` to fetch and unpack the data:
+```{r}
+status <- bb_sync(config, verbose = TRUE)
 ```
 
 The `verbose = TRUE` argument helps to display the progress output. Once completed, the `status` object provides some information about the files that were downloaded. In particular, the downloaded netCDF files can be listed with:
 
-```{r, eval = FALSE}
+```{r}
 nc_files <- Filter(function(z) grepl("\\.nc$", z), status$files[[1]]$file)
+head(basename(nc_files))
 ```
 
 And then you can open your data with the *raster* package 
-```{r, eval = FALSE}
+
+```{r}
 library(raster)
 loaded_stack <- stack(nc_files)
 
@@ -105,7 +115,7 @@ names(loaded_stack)
 
 ## you can drop a part of the environmental descriptors using the dropLayer function.
 ## The numbers provided in the description part correspond to the layer's order in the provided stack. 
-final_stack_for_my_SDM <- raster::dropLayer(loaded_stack, c(1,4,8,12:16)) ## removes layers 1,4,8,12,13,14,15 and 16
+final_stack_for_my_SDM <- dropLayer(loaded_stack, c(1,4,8,12:16)) ## removes layers 1,4,8,12,13,14,15 and 16
 ```
 
 You can also consult the [blueant vignette](https://australianantarcticdivision.github.io/blueant/articles/blueant.html) for further information.
