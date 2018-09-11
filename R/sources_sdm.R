@@ -61,6 +61,7 @@ sources_sdm <- function(name, formats, time_resolutions, ...) {
                                    comment = "server certificate is valid but not recognized as such by some systems (e.g. Ubuntu)",
                                    postprocess = list("bb_unzip"),
                                    collection_size = 0.1,
+                                   access_function = "raster::stack",
                                    data_group = "Modelling"))
     }
     out
