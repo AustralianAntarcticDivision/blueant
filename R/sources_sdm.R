@@ -3,7 +3,7 @@
 #' Data sources providing environmental and similar gridded data, suitable for species distribution modelling, regionalisation analyses, and similar tasks.
 #'
 #' \itemize{
-#'   \item "Southern Ocean marine environmental data": a collection of gridded marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data
+#'   \item "Southern Ocean marine environmental data": a collection of gridded marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data. See the vignette for more information: \code{vignette("Data for Southern Ocean species distribution modelling", package = "blueant")}
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -29,9 +29,8 @@
 #' ## sync it (get the data)
 #' res <- bb_sync(cf, verbose = TRUE)
 #'
-#' nc_files <- Filter(function(z) grepl("\\.nc$", z), res$files[[1]]$file)
-#' x <- stack(ncfiles)
-#'
+#' ## see the vignette for more information on this data source:
+#' vignette("Data for Southern Ocean species distribution modelling", package = "blueant")
 #' }
 #' @export
 sources_sdm <- function(name, formats, time_resolutions, ...) {
