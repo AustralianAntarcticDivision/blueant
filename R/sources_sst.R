@@ -151,8 +151,8 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          source_url = "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",
                          license = "Please cite",
                          comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2015/",
-                         ##method = list("bb_handler_ghrsst", level = 4), ##--recursive --no-parent
-                         method = list("bb_handler_rget", level = 4, accept_download_extra = "md5$"),
+                         method = list("bb_handler_ghrsst", level = 4), ##--recursive --no-parent
+                         ##method = list("bb_handler_rget", level = 4, accept_download_extra = "md5$"), ## rget doesn't work
                          postprocess = list("bb_bunzip2"),
                          collection_size = 2000,
                          data_group = "Sea surface temperature"))

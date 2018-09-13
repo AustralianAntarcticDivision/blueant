@@ -9,7 +9,7 @@
 #'
 #' @export
 bb_handler_ghrsst <- function(...) {
-    warning("bb_handler_ghrsst is deprecated, use bb_handler_rget instead")
+    ##warning("bb_handler_ghrsst is deprecated, use bb_handler_rget instead") ## until rget actually works with GHRSST!
     bb_handler_ghrsst_inner(...)
 }
 
@@ -61,7 +61,7 @@ bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,..
     }
     yearlist <- na.omit(yearlist)
     if (length(yearlist)<1) warning("ghrsst: empty yearlist")
-    status <- TRUE
+    status <- list(ok = TRUE, files = list(NULL), msg = "")
     for (thisyear in yearlist) {
         daylist <- if (thisyear==2002) 152:365 else 1:366
         if (thisyear==as.numeric(format(Sys.Date(),"%Y"))) daylist <- daylist[daylist<=as.numeric(format(Sys.Date(),"%j"))]
@@ -73,11 +73,11 @@ bb_handler_ghrsst_inner <- function(config,verbose=FALSE,local_dir_only=FALSE,..
             ## make sure to be using --recursive --no-parent
             this_status <- bb_handler_wget(dummy,verbose=verbose,recursive=TRUE,no_parent=TRUE,...)
             ## we will fail for very recent days, because the data doesn't exist yet
-            if (!this_status && thisyear==as.numeric(format(Sys.Date(),"%Y")) && thisday>(as.numeric(format(Sys.Date(),"%j"))-5)) {
+            if (!this_status$ok && thisyear==as.numeric(format(Sys.Date(),"%Y")) && thisday>(as.numeric(format(Sys.Date(),"%j"))-5)) {
                 ## ignore errors for recent days
-                this_status <- TRUE
+                this_status$ok <- TRUE
             }
-            status <- status && this_status
+            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$msg))
         }
     }
     status
