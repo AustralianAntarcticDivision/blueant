@@ -21,7 +21,7 @@
 #'
 #' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_topography}}
+#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_topography}}
 #'
 #' @return a tibble with columns as specified by \code{\link{bb_source}}
 #'
@@ -151,8 +151,8 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          source_url = "ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",
                          license = "Please cite",
                          comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. ftp://podaac-ftp.jpl.nasa.gov/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2015/",
-                         ##method = list("bb_handler_ghrsst", level = 4), ##--recursive --no-parent
-                         method = list("bb_handler_rget", level = 4, accept_download_extra = "md5$"),
+                         method = list("bb_handler_ghrsst", level = 4), ##--recursive --no-parent
+                         ##method = list("bb_handler_rget", level = 4, accept_download_extra = "md5$"), ## rget doesn't work
                          postprocess = list("bb_bunzip2"),
                          collection_size = 2000,
                          data_group = "Sea surface temperature"))
