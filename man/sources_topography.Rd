@@ -39,6 +39,7 @@ Data sources providing topographical data.
   \item "Natural Earth 10m physical vector data": Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales
   \item "GSHHG coastline data": a Global Self-consistent, Hierarchical, High-resolution Geography Database
   \item "Shuttle Radar Topography Mission elevation data SRTMGL1 V3": Global 1-arc-second topographic data generated from NASA's Shuttle Radar Topography Mission. Version 3.0 (aka SRTM Plus or Void Filled) removes all of the void areas by incorporating data from other sources such as the ASTER GDEM
+  \item "Reference Elevation Model of Antarctica mosaic tiles": The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution (and reduced-resolution, resampled versions). Accepts a single \code{spatial_resolution} value of "1km", "200m" [default], "100m", "8m"
 }
 
 The returned tibble contains more information about each source.
@@ -54,5 +55,5 @@ cf <- bb_config("/my/file/root") \%>\%
 See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
 }
 \seealso{
-\code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}
+\code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}
 }
