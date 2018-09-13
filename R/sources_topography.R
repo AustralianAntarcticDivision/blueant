@@ -345,7 +345,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group="Topography",warn_empty_auth=FALSE))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Reference Elevation Model of Antarctica","REMA R1")))) {
+    if (is.null(name) || any(name %in% tolower(c("Reference Elevation Model of Antarctica","REMA_R1_mosaic")))) {
         spatial_resolution <- ss_args$spatial_resolution
         if (is.null(spatial_resolution)) spatial_resolution <- "200m"
         assert_that(is.string(spatial_resolution))
