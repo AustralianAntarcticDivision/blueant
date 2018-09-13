@@ -19,6 +19,7 @@
 #'   \item "Natural Earth 10m physical vector data": Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales
 #'   \item "GSHHG coastline data": a Global Self-consistent, Hierarchical, High-resolution Geography Database
 #'   \item "Shuttle Radar Topography Mission elevation data SRTMGL1 V3": Global 1-arc-second topographic data generated from NASA's Shuttle Radar Topography Mission. Version 3.0 (aka SRTM Plus or Void Filled) removes all of the void areas by incorporating data from other sources such as the ASTER GDEM
+#'   \item "Reference Elevation Model of Antarctica mosaic tiles": The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution (and reduced-resolution, resampled versions). Accepts a single \code{spatial_resolution} value of "1km", "200m" [default], "100m", "8m"
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -48,6 +49,19 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
     } else {
         name <- NULL
     }
+    if (!missing(formats) && !is.null(formats)) {
+        assert_that(is.character(formats))
+        formats <- tolower(formats)
+    } else {
+        formats <- NULL
+    }
+    if (!missing(time_resolutions) && !is.null(time_resolutions)) {
+        assert_that(is.character(time_resolutions))
+        time_resolutions <- tolower(time_resolutions)
+    } else {
+        time_resolutions <- NULL
+    }
+    ss_args <- list(...)
     out <- tibble()
     if (is.null(name) || any(name %in% tolower(c("Smith and Sandwell bathymetry", "global_topo_1min")))) {
         out <- rbind(out,
@@ -329,6 +343,49 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          postprocess=list("bb_unzip"),
                          collection_size=620,
                          data_group="Topography",warn_empty_auth=FALSE))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Reference Elevation Model of Antarctica","REMA R1")))) {
+        spatial_resolution <- ss_args$spatial_resolution
+        if (is.null(spatial_resolution)) spatial_resolution <- "200m"
+        assert_that(is.string(spatial_resolution))
+        spatial_resolution <- match.arg(tolower(spatial_resolution), c("1km", "200m", "100m", "8m"))
+        switch(spatial_resolution,
+               "8m" = {
+                   csize = 1500
+                   pp <- list("bb_unzip", "bb_untar")
+                   src_url <- c("http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/8m/", "http://data.pgc.umn.edu/elev/dem/setsm/REMA/indexes/")
+               },
+               "100m" = {
+                   csize <- 0.4
+                   src_url <- "http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/100m/"
+                   pp <- NULL
+               },
+               "200m" = {
+                   csize <- 1.2
+                   src_url <- "http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/" ##"ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/"
+                   pp <- NULL
+               },
+               "1km" = {
+                   csize = 0.15
+                   src_url <- "http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/1km/"
+                   pp <- NULL
+               },
+               stop("unexpected spatial_resolution: ", spatial_resolution))
+        out <- rbind(out,
+                     bb_source(
+                         name = "Reference Elevation Model of Antarctica mosaic tiles",
+                         id = "REMA_R1_mosaic",
+                         description = "The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution. REMA is constructed from hundreds of thousands of individual stereoscopic Digital Elevation Models (DEM) extracted from pairs of submeter (0.32 to 0.5 m) resolution DigitalGlobe satellite imagery. Version 1 of REMA includes approximately 98% of the contiguous continental landmass extending to maximum of roughly 88\xb0S. Output DEM raster files are being made available as both 'strip' files as they are output directly from SETSM that preserve the original source material temporal resolution, as well as mosaic tiles that are compiled from multiple strips that have been co-registered, blended, and feathered to reduce edge-matching artifacts.",
+                         doc_url = "https://www.pgc.umn.edu/data/rema/",
+                         comment = "Note that the 100m version only provides coverage of the Antarctic Peninsula region",
+                         source_url = src_url,
+                         citation = "DEMs provided by the Byrd Polar and Climate Research Center and the Polar Geospatial Center under NSF-OPP awards 1543501, 1810976, 1542736, 1559691, 1043681, 1541332, 0753663, 1548562, 1238993 and NASA award NNX10AN61G. Computer time provided through a Blue Waters Innovation Initiative. DEMs produced using data from DigitalGlobe, Inc",
+                         license = "Please cite, see https://www.pgc.umn.edu/guides/user-services/acknowledgement-policy/",
+                         method = list("bb_handler_rget", level = 2, accept_follow = "/[[:digit:]]+_[[:digit:]]+/?$"),
+                         postprocess = pp,
+                         collection_size = csize,
+                         data_group = "Topography"))
     }
     out
 }
