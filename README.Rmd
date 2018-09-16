@@ -83,7 +83,7 @@ myfiles
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
 
-```{r rasterplot, message = FALSE}
+```{r rasterplot, message = FALSE, warning = FALSE}
 library(raster)
 x <- raster(myfiles$file[grepl("gvdem500m_v3", myfiles$file)])
 plot(x)
