@@ -66,27 +66,26 @@ This data source is fairly small (around 200MB, see `mysrc$collection_size`). Be
 
 Once the configuration has been defined and the data source added to it, we can run the sync process. We set `verbose = TRUE` here so that we see additional progress output:
 
-```{r}
+```{r eval = FALSE}
 status <- bb_sync(cf, verbose = TRUE)
 ```
-
-Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
-
-```{r}
-bb_data_source_dir(cf)
+```{r echo = FALSE}
+## actually run this one so we don't get asked for confirmation
+status <- bb_sync(cf, verbose = TRUE, confirm_downloads_larger_than = -1)
 ```
 
-The contents of that directory:
+Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned `status` object:
 
 ```{r}
-list.files(bb_data_source_dir(cf), recursive = TRUE, full.names = TRUE)
+myfiles <- status$files[[1]]
+myfiles
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
 
 ```{r rasterplot, message = FALSE}
 library(raster)
-x <- raster(file.path(bb_data_source_dir(cf), "gvdem500m_v3.nc"))
+x <- raster(myfiles$file[grepl("gvdem500m_v3", myfiles$file)])
 plot(x)
 ```
 

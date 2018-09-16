@@ -43,45 +43,55 @@ Once the configuration has been defined and the data source added to it, we can 
 
 ``` r
 status <- bb_sync(cf, verbose = TRUE)
-## 
-## Fri Jul 13 05:36:49 2018
-## Synchronizing dataset: George V bathymetry
-## Source URL https://data.aad.gov.au/eds/file/4494/
-## --------------------------------------------------------------------------------------------
-## 
-##  this dataset path is: c:/tmp/data/data.aad.gov.au/eds/file/4494
-##  building file list ... done.
-##  downloading file: https://data.aad.gov.au/eds/file/4494/ ...  done.
-##   decompressing: c:/tmp/data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
-## 
-## Fri Jul 13 05:38:28 2018 dataset synchronization complete: George V bathymetry
 ```
 
-Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root:
+    ## 
+    ## Mon Sep 17 09:27:39 2018
+    ## Synchronizing dataset: George V bathymetry
+    ## Source URL https://data.aad.gov.au/eds/file/4494/
+    ## --------------------------------------------------------------------------------------------
+    ## 
+    ##  this dataset path is: c:\tmp\data/data.aad.gov.au/eds/file/4494
+    ##  building file list ... done.
+    ##  downloading file 1 of 1: https://data.aad.gov.au/eds/file/4494/ ...  done.
+    ##   decompressing: c:\tmp\data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
+    ## 
+    ## Mon Sep 17 09:27:45 2018 dataset synchronization complete: George V bathymetry
+
+Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned `status` object:
 
 ``` r
-bb_data_source_dir(cf)
-## [1] "c:/tmp/data/data.aad.gov.au/eds/file/4494"
-```
-
-The contents of that directory:
-
-``` r
-list.files(bb_data_source_dir(cf), recursive = TRUE, full.names = TRUE)
-## [1] "c:/tmp/data/data.aad.gov.au/eds/file/4494/download.zip"    
-## [2] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem1000m_v3.nc"
-## [3] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem100m_v3.nc" 
-## [4] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem250m_v3.nc" 
-## [5] "c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem500m_v3.nc"
+myfiles <- status$files[[1]]
+myfiles
+## # A tibble: 5 x 3
+##   url                                   
+##   <chr>                                 
+## 1 https://data.aad.gov.au/eds/file/4494/
+## 2 <NA>                                  
+## 3 <NA>                                  
+## 4 <NA>                                  
+## 5 <NA>                                  
+##   file                                                           
+##   <chr>                                                          
+## 1 "c:\\tmp\\data\\data.aad.gov.au\\eds\\file\\4494\\download.zip"
+## 2 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem1000m_v3.nc     
+## 3 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem100m_v3.nc      
+## 4 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem250m_v3.nc      
+## 5 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem500m_v3.nc      
+##   note        
+##   <chr>       
+## 1 downloaded  
+## 2 decompressed
+## 3 decompressed
+## 4 decompressed
+## 5 decompressed
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
 
 ``` r
 library(raster)
-## Warning: package 'raster' was built under R version 3.4.2
-## Warning: package 'sp' was built under R version 3.4.4
-x <- raster(file.path(bb_data_source_dir(cf), "gvdem500m_v3.nc"))
+x <- raster(myfiles$file[grepl("gvdem500m_v3", myfiles$file)])
 plot(x)
 ```
 
@@ -206,6 +216,26 @@ Approximate size: 0.1 GB
 
 Documentation link: <https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html>
 
+### Data group: Biology
+
+#### SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution
+
+The zooplankton & micronekton biomass distributions are outputs of the SEAPODYM Low and Mid-Trophic Levels (LMTL) model (Lehodey et al., 1998; 2010; 2015). SEAPODYM-LMTL model simulates the spatial and temporal dynamics of six micronekton and one zooplankton functional groups between the sea surface and ~1000m. The model is driven by ocean temperature, horizontal currents, primary production and euphotic depth. Primary production can be outputs from biogeochemical models or derived from ocean color satellite data using empirical optical models (e.g., Behrenfeld and Falkowski 1997).
+
+Authentication note: Requires registration, see <http://www.mesopp.eu/data/registration/>
+
+Approximate size: not specified
+
+Documentation link: <http://www.mesopp.eu/catalogue/seapodym-zooplankton-micronekton-weekly-potential-and-biomass-distribution-2016/#dataset>
+
+#### Southern Ocean Continuous Plankton Recorder
+
+Continuous Plankton Recorder (CPR) surveys from the Southern Ocean. Zooplankton species, numbers and abundance data are recorded on a continuous basis while vessels are in transit
+
+Approximate size: 0.1 GB
+
+Documentation link: <https://data.aad.gov.au/metadata/records/AADC-00099>
+
 ### Data group: Meteorological
 
 #### Antarctic Mesoscale Prediction System grib files
@@ -297,6 +327,14 @@ Seasonal remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial re
 Approximate size: 0.5 GB
 
 Documentation link: <http://oceancolor.gsfc.nasa.gov/>
+
+#### Southern Ocean summer chlorophyll-a climatology (Johnson)
+
+Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)
+
+Approximate size: 0.05 GB
+
+Documentation link: <https://doi.org/doi:10.4225/15/5906b48f70bf9>
 
 ### Data group: Oceanographic
 
@@ -621,6 +659,14 @@ The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation 
 Approximate size: 5.3 GB
 
 Documentation link: <http://nsidc.org/data/nsidc-0082>
+
+#### Reference Elevation Model of Antarctica mosaic tiles
+
+The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution. REMA is constructed from hundreds of thousands of individual stereoscopic Digital Elevation Models (DEM) extracted from pairs of submeter (0.32 to 0.5 m) resolution DigitalGlobe satellite imagery. Version 1 of REMA includes approximately 98% of the contiguous continental landmass extending to maximum of roughly 88 degrees S. Output DEM raster files are being made available as both 'strip' files as they are output directly from SETSM that preserve the original source material temporal resolution, as well as mosaic tiles that are compiled from multiple strips that have been co-registered, blended, and feathered to reduce edge-matching artifacts.
+
+Approximate size: 1.2 GB
+
+Documentation link: <https://www.pgc.umn.edu/data/rema/>
 
 #### RTOPO-1 Antarctic ice shelf topography
 
