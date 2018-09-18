@@ -1,6 +1,6 @@
 ---
 title: "Data for Southern Ocean species distribution modelling"
-author: "Guillaumot C"
+author: "Guillaumot C, Raymond Ben"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -8,76 +8,424 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
+## Modelling Species Distribution in the Southern Ocean
+Species Distribution Modelling is a correlative approach that helps assess the relationship between species distribution records and their surrounding environmental conditions. Studying the distribution of benthic species in the Southern Ocean constitutes an interesting approach to interpolate the little amount of information we have in this broad scale and poorly accessible area. We provide here a set of environmental descriptors suitable for the modelling work. The present vignette describes the procedure to select and download them.
 
-# Environmental descriptors list
- Environmental descriptors dataset (58 layers).
- All environmental descriptors are set at a 0.1° grid-cell resolution, on the Southern Ocean extent (80°S,45°S; -180,180°). Provided as a netCDF file format. Sources and details are available in the attached metadata file. 
+## Environmental descriptors list
+The present dataset is composed of 58 environmental descriptors, set at a 0.1° grid-cell resolution, on the Southern Ocean extent (80°S,45°S; -180,180°). Layers are provided as a netCDF file format.
  
-   * **1/ depth** Bathymetry of the region (in meters)
-   * **2/ geomorphology** Seafloor geomorphic feature dataset, 27 categories
-   * **3/ sediments** Sediment features, 14 categories
-   * **4/ slope** Seafloor slope, derived from bathymetry layer (in degrees) 
-   * **5/ roughness** Seafloor roughness, derived from bathymetry layer (unitless)
-   * **6/ mixed_layer_depth** Summer mixed layer depth climatology from ARGOS data (in kilometers)
-   * **7/ seasurface_current_speed** Current speed near the surface (2.5m depth); derived from the CAISOM model, based on ROMS
-   * **8/ seafloor_current_speed** Current speed near the sea floor; derived from the CAISOM model, based on ROMS
-   * **9/ distance_antarctica** Distance to the nearest part of Antarctic continent (in kilometers)
-   * **10/ distance_canyon** Distance to the axis of the nearest canyon (in kilometers)
-   * **11/ distance_max_ice_edge** Mean maximum winter sea ice extent derived from daily estimates of sea ice concentration (in kilometers)
-   * **12/ distance_shelf** Distance to nearest area of sea floor of depth 500m or less (in kilometers)
-   * **13/ ice_cover_max** Ice concentration fraction, maximum on 1957-2017 time period (unitless)  
-   * **14/ ice_cover_mean** Ice concentration fraction, mean on 1957-2017 time period (unitless) 
-   * **15/ ice_cover_min** Ice concentration fraction, minimum on 1957-2017 time period (unitless) 
-   * **16/ ice_cover_range** Ice concentration fraction, difference maximum-minimum on 1957-2017 time period (unitless) 
-   * **17/ ice_thickness_max** Ice thickness, maximum on 1957-2017 time period (in meters)
-   * **18/ ice_thickness_mean** Ice thickness, mean on 1957-2017 time period (in meters) 
-   * **19/ ice_thickness_min** Ice thickness, minimum on 1957-2017 time period (in meters) 
-   * **20/ ice_thickness_range** Ice thickness, difference maximum-minimum on 1957-2017 time period (in meters) 
-   * **21/ chla_ampli_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Amplitude of pixel values (difference between maximal and minimal values encountered by each pixel during all months of the period 2005-2012) (in mg.m-3) 
-   * **22/ chla_max_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Maximal value encountered by each pixel during all months of the period 2005-2012 (in mg.m-3) 
-   * **23/ chla_mean_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Mean value of each pixel during all months of the period 2005-2012 (in mg.m-3)
-   * **24/ chla_min_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Minimal value encountered by each pixel during all months of the period 2005-2012 (in mg.m-3) 
-   * **25/ chla_sd_alltime_2005_2012** Chlorophyll a concentrations obtained from MODIS satellite images. Standard deviation value of each pixel during all months of the period 2005-2012 (in mg.m-3) 
-   * **26/ POC_2005_2012_ampli** Particulate organic carbon; model Lutz et al. (2007) [10]. Amplitude value (difference maximal and minimal values, see previous layers) of all average seasonal layers of 2005-2012 (in gC.m-2.d-1) 
-   * **27/ POC_2005_2012_max** Particulate organic carbon; model Lutz et al. (2007) [10]. Maximal value encountered on each pixel among all seasonal layers of 2005-2012 (in gC.m-2.d-1) 
-   * **28/ POC_2005_2012_mean** Particulate organic carbon; model Lutz et al. (2007) [10]. Mean of all seasonal layers of 2005-2012 (in gC.m-2.d-1)
-   * **29/ POC_2005_2012_min** Particulate organic carbon; model Lutz et al. (2007) [10]. Minimal value encountered on each pixel among all seasonal layers of 2005-2012 (in gC.m-2.d-1) 
-   * **30/ POC_2005_2012_sd** Particulate organic carbon; model Lutz et al. (2007) [10]. Standard deviation all seasonal layers of 2005-2012 (in gC.m-2.d-1) 
-   * **31/ seafloor_oxy_19552012_ampli** Amplitude (difference max/ min) value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in mL.L-1) 
-   * **32/ seafloor_oxy_19552012_max** Maximum value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in mL.L-1)
-   * **33/ seafloor_oxy_19552012_mean** Mean seafloor temperature over 2005-2012 (average of all monthly layers) (in mL.L-1) 
-   * **34/ seafloor_oxy_19552012_min** Minimum value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in mL.L-1) 
-   * **35/ seafloor_oxy_19552012_sd** Standard deviation seafloor temperature over 2005-2012 (of all monthly layers) (in mL.L-1) 
-   * **36/ seafloor_sali_2005_2012_ampli** Amplitude (difference max/ min) value encountered for each pixel on all month layers of seafloor salinity over 2005-2012 (in PSS) 
-   * **37/ seafloor_sali_2005_2012_max** Maximum value encountered for each pixel on all month layers of seafloor salinity over 2005-2012 (in PSS) 
-   * **38/ seafloor_sali_2005_2012_mean** Mean seafloor salinity over 2005-2012 (average of all monthly layers) (in PSS)
-   * **39/ seafloor_sali_2005_2012_min** Minimum value encountered for each pixel on all month layers of seafloor salinity over 2005-2012 (in PSS)
-   * **40/ seafloor_sali_2005_2012_sd** Standard deviation seafloor salinity over 2005-2012 (of all monthly layers) (in PSS) 
-   * **41/ seafloor_temp_2005_2012_ampli** Amplitude (difference max/min) value encountered for each pixel on all month layers of seafloor temperature over 2005-2012 (in °C) 
-   * **42/ seafloor_temp_2005_2012_max** Maximum value encountered for each pixel on all monthly layers of seafloor temperature over 2005-2012 (in °C) 
-   * **43/ seafloor_temp_2005_2012_mean** Mean seafloor temperature over 2005-2012 (average of all monthly layers) (in °C) 
-   * **44/ seafloor_temp_2005_2012_min** Minimum value encountered for each pixel on all monthly layers of seafloor temperature over 2005-2012 (in °C) 
-   * **45/ seafloor_temp_2005_2012_sd** Standard deviation seafloor temperature over 2005-2012 (of all monthly layers) (in °C)
-   * **46/ extreme_event_max_chl_2005_2012_ampli** Amplitude value (Maximum-Minimum) of the number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **47/ extreme_event_max_chl_2005_2012_max** Maximum number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **48/ extreme_event_max_chl_2005_2012_mean** Mean of the number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **49/ extreme_event_max_chl_2005_2012_min** Minimum number of extreme events (maximal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **50/ extreme_event_min_chl_2005_2012_ampli** Amplitude value (Maximum-Minimum) of the number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **51/ extreme_event_min_chl_2005_2012_max** Maximum number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **52/ extreme_event_min_chl_2005_2012_mean** Mean of the number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **53/ extreme_event_min_chl_2005_2012_min** Minimum number of extreme events (minimal chlorophyll a concentrations) recorded between 2005 and 2012 
-   * **54/ extreme_event_min_oxy_1955_2012_nb** Number of extreme events (minimal seafloor oxygen concentration records) that happened between January and December of the year  
-   * **55/ nb_extreme_event_max_sali_2005_2012_nb** Number of extreme events (maximal seafloor salinity records) that happened between January and December of the year  
-   * **56/ nb_extreme_event_min_sali_2005_2012_nb** Number of extreme events (minimal seafloor salinity records) that happened between January and December of the year  
-   * **57/ extreme_event_max_temp_2005_2012_nb** Number of extreme events (maximal seafloor temperature records) that happened between January and December of the year 
-   * **58/ extreme_event_min_temp_2005_2012_nb** Number of extreme events (minimal seafloor temperature records) that happened between January and December of the year  
+   * **1/ depth**
+    <br/> Description: Bathymetry. Dowloaded from GEBCO 2014 (0.0083 degrees = 30sec                    arcmin resolution) and set at resolution 0.1 degrees. Then completed with the                 bathymetry layer manually corrected and provided in Fabri-Ruiz et al. (2017)
+    <br/> Value range: -8038.722 - 0
+    <br/> Units: m
+    <br/> Source: This study. Derived from GEBCO
+    <br/> URL: https://www.gebco.net/data_and_products/gridded_bathymetry_data/
+    <br/> Citation: Fabri-Ruiz S, Saucede T, Danis B and David B (2017). Southern Ocean                 Echinoids database_An updated version of Antarctic, Sub-Antarctic and cold                    temperate echinoid database. ZooKeys, (697), 1.
+
+   * **2/ geomorphology** 
+    <br/> Description: Last update on biodiversity.aq portal. Derived from O'Brien et al.               (2009) seafloor geomorphic feature dataset. Mapping based on GEBCO contours, ETOPO2,           seismic lines).
+    <br/> Value range: 27 categories
+    <br/> Units: categorical
+    <br/> Source: This study. Derived from Australian Antarctic Data Centre
+    <br/> URL: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+    <br/> Citation: O'Brien, P.E., Post, A.L., and Romeyn, R. (2009) Antarctic-wide                     geomorphology as an aid to habitat mapping and locating vulnerable marine                     ecosystems. CCAMLR VME Workshop 2009. Document WS-VME-09/10
+
+   * **3/ sediments** 
+    <br/> Description: Sediment features
+    <br/> Value range: 14 categories
+    <br/> Units: categorical
+    <br/> Source: Griffiths 2014 (unpublished)
+    <br/> URL: http://share.biodiversity.aq/GIS/antarctic/
+
+   * **4/ slope**
+    <br/>Description: Seafloor slope derived from bathymetry with the terrain function of              raster R package. Computation according to Horn (1981), ie option neighbor=8. The             computation was done on the GEBCO bathymetry layer (0.0083 degrees resolution) and            the resolution was then changed to 0.1 degrees. Unit set at degrees.
+     <br/>Value range: 0.000252378 - 16.94809
+     <br/>Units: degrees
+     <br/>Source: This study. Derived from GEBCO
+     <br/>URL: https://www.gebco.net/data_and_products/gridded_bathymetry_data/
+     <br/>Citation: Horn, B.K.P., 1981. Hill shading and the reflectance map. Proceedings of            the IEEE 69:14-47
+
+   * **5/ roughness** 
+    <br/> Description: Seafloor roughness derived from bathymetry with the terrain function of           raster R package. Roughness is the difference between the maximum and the minimum             value of a cell and its 8 surrounding cells. The computation was done on the GEBCO            bathymetry layer (0.0083 degrees resolution) and the resolution was then changed to           0.1 degrees.
+     <br/>Value range: 0 - 5171.278
+     <br/>Units: unitless
+     <br/>Source: This study. Derived from GEBCO
+     <br/>URL: https://www.gebco.net/data_and_products/gridded_bathymetry_data/
+
+   * **6/ mixed_layer_depth** 
+     <br/>Description: Summer mixed layer depth climatology from ARGOS data. Regridded from             2-degree grid using nearest neighbour interpolation
+     <br/>Value range: 13.79615 - 461.5424
+     <br/>Units: m
+     <br/>Source: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+
+   * **7/ seasurface_current_speed** 
+     <br/>Description: Current speed near the surface (2.5m depth), derived from the CAISOM             model (Galton-Fenzi et al. 2012, based on ROMS model)
+     <br/>Value range: 1.50E-04 - 1.7
+     <br/>Units: m/s
+     <br/>Source: This study. Derived from Australia Antarctic Data Centre
+     <br/>URL: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+     <br/>Citation: see Galton-Fenzi BK, Hunter JR, Coleman R, Marsland SJ, Warner RC (2012)            Modeling the basal melting and marine ice accretion of the Amery Ice Shelf. Journal           of Geophysical Research: Oceans, 117, C09031.http://dx.doi.org/10.1029/2012jc008214,
+          
+   * **8/ seafloor_current_speed** 
+    <br/> Description: Current speed near the sea floor, derived from the CAISOM model                  (Galton-Fenzi et al. 2012, based on ROMS)
+     <br/>Value range: 3.40E-04 - 0.53
+     <br/>Units: m/s
+     <br/>Source: This study. Derived from Australia Antarctic Data Centre
+     <br/>URL: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+     <br/>Citation: see Galton-Fenzi BK, Hunter JR, Coleman R, Marsland SJ, Warner RC (2012)            Modeling the basal melting and marine ice accretion of the Amery Ice Shelf. Journal           of Geophysical Research: Oceans, 117, C09031.http://dx.doi.org/10.1029/2012jc008214,
+
+   * **9/ distance_antarctica** 
+     <br/>Description: Distance to the nearest part of the Antarctic continent
+     <br/>Value range: 0 - 3445
+     <br/>Units: km
+     <br/>Source: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+     
+   * **10/ distance_canyon** 
+      <br/>Description: Distance to the axis of the nearest canyon
+      <br/>Value range: 0 - 3117
+      <br/>Units: km
+      <br/>Source: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+
+   * **11/ distance_max_ice_edge** 
+      <br/>Description: Distance to the mean maximum winter sea ice extent (derived from daily            estimates of sea ice concentration)
+      <br/>Value range: -2614.008 - 2314.433
+      <br/>Units: km
+      <br/>Source: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+
+   * **12/ distance_shelf** 
+      <br/>Description: Distance to nearest area of seafloor of depth 500m or shallower
+      <br/>Value range: -1296 - 1750
+      <br/>Units: km
+      <br/>Source: https://data.aad.gov.au/metadata/records/Polar_Environmental_Data
+      
+   * **13/ ice_cover_max** 
+      <br/>Description: Ice concentration fraction, maximum on [1957-2017] time period
+      <br/>Value range: 0 - 1
+      <br/>Units: unitless
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284, see also       https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **14/ ice_cover_mean** 
+      <br/>Description: Ice concentration fraction, mean on [1957-2017] time period
+      <br/>Value range: 0 - 0.9708595
+      <br/>Units: unitless
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284 , see also   https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **15/ ice_cover_min** 
+     <br/> Description: Ice concentration fraction, minimum on [1957-2017] time period
+      <br/>Value range: 0 - 0.8536261
+      <br/>Units: unitless
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284 , see also https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **16/ ice_cover_range** 
+      <br/>Description: Ice concentration fraction, difference maximum-minimum on [1957-2017]            time period
+      <br/>Value range: 0 - 1
+      <br/>Units: unitless
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284 , see also  https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **17/ ice_thickness_max** 
+      <br/>Description: Ice thickness, maximum on [1957-2017] time period
+      <br/>Value range: 0 - 3.471811
+      <br/>Units: m
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284 , see also https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **18/ ice_thickness_mean** 
+     <br/> Description: Ice thickness, mean on [1957-2017] time period
+      <br/>Value range: 0 - 1.614133
+      <br/>Units: m
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284 , see also      https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **19/ ice_thickness_min** 
+      <br/>Description: Ice thickness, minimum on [1957-2017] time period
+      <br/>Value range: 0 - 0.7602701
+      <br/>Units: m
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284 , see also https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **20/ ice_thickness_range** 
+      <br/>Description: Ice thickness, difference maximum-minimim on [1957-2017] time period
+      <br/>Value range: 0 - 3.471811
+      <br/>Units: m
+      <br/>Source: BioOracle accessed 24/04/2018, see Assis et al. (2018)
+      <br/>URL: http://www.bio-oracle.org/
+      <br/>Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O             (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling.             Global Ecology and Biogeography, 27(3), 277-284 , see also  https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis
+
+   * **21/ chla_ampli_alltime_2005_2012** 
+      <br/>Description: Chlorophyll-a concentrations obtained from MODIS satellite data.                 Amplitude of pixel values (difference betwenn maximal and minimal value encountered            by each pixel during all months of the period [2005-2012])
+      <br/>Value range: 0 - 77.15122
+      <br/>Units: mg/m^3
+      <br/>Source: https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/
+      <br/>URL: https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php
+   
+   * **22/ chla_max_alltime_2005_2012** 
+      <br/>Description: Chlorophyll-a concentrations obtained from MODIS satellite data.                 Maximal value encountered by each pixel during all months of the period [2005-2012]
+      <br/>Value range: 0 - 77.28562
+      <br/>Units: mg/m^3
+      <br/>Source: https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/
+      <br/>URL: https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php
+
+   * **23/ chla_mean_alltime_2005_2012** 
+      <br/>Description: Chlorophyll-a concentrations obtained from MODIS satellite data. Mean            value of each pixel during all months of the period [2005-2012]
+      <br/>Value range: 0 - 30.42691
+      <br/>Units: mg/m^3
+      <br/>Source: https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/
+      <br/>URL: https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php
+
+   * **24/ chla_min_alltime_2005_2012** 
+      <br/>Description: Chlorophyll-a concentrations obtained from MODIS satellite data.                 Minimal value encountered by each pixel during all months of the period [2005-2012]
+      <br/>Value range: 0 - 29.02929
+      <br/>Units: mg/m^3
+      <br/>Source: https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/
+      <br/>URL: https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php
+
+   * **25/ chla_sd_alltime_2005_2012** 
+      <br/>Description: Chlorophyll-a concentrations obtained from MODIS satellite data.                 Standard deviation value of each pixel during all months of the period [2005-2012]
+      <br/>Value range: 0 - 27.9877
+      <br/>Units: mg/m^3
+      <br/>Source: https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/
+      <br/>URL: https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php
+
+   * **26/ POC_2005_2012_ampli** 
+      <br/>Description: Particulate organic carbon, model Lutz et al. (2007). Amplitude value            (difference maximal and minimal value, see previous layers) all seasonal layers               [2005-2012]
+      <br/>Value range: 0 - 1.31761
+      <br/>Units: g/m^2/d
+      <br/>Source: This study. Following Lutz et al. (2007)
+      <br/>URL: https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers
+      <br/>Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms            of net primary production and particulate organic carbon flux to depth describe the            efficiency of biological pump in the global ocean. Journal of Geophysical Research:            Oceans, 112(C10).
+
+   * **27/ POC_2005_2012_max** 
+      <br/>Description: Particulate organic carbon, model Lutz et al. (2007). Maximal value              encountered on each pixel among all seasonal layers [2005-2012]
+      <br/>Value range: 0.00332562 - 1.376601
+      <br/>Units: g/m^2/d
+      <br/>Source: This study. Following Lutz et al. (2007)
+      <br/>URL: https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers
+      <br/>Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms            of net primary production and particulate organic carbon flux to depth describe the            efficiency of biological pump in the global ocean. Journal of Geophysical Research:            Oceans, 112(C10).
+
+   * **28/ POC_2005_2012_mean** 
+      <br/>Description: Particulate organic carbon, model Lutz et al. (2007). Mean all                   seasonal layers [2005-2012]
+      <br/>Value range: 0.003184335 - 0.5031364
+      <br/>Units: g/m^2/d
+      <br/>Source: This study. Following Lutz et al. (2007)
+      <br/>URL: https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers
+      <br/>Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms            of net primary production and particulate organic carbon flux to depth describe the            efficiency of biological pump in the global ocean. Journal of Geophysical Research:            Oceans, 112(C10).
+
+   * **29/ POC_2005_2012_min** 
+      <br/>Description: Particulate organic carbon, model Lutz et al. (2007). Minimal value              encountered on each pixel among all seasonal layers [2005-2012]
+      <br/>Value range: 0.003116508 - 0.1313119
+      <br/>Units: g/m^2/d
+      <br/>Source: This study. Following Lutz et al. (2007)
+      <br/>URL: https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers
+      <br/>Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms            of net primary production and particulate organic carbon flux to depth describe the            efficiency of biological pump in the global ocean. Journal of Geophysical Research:            Oceans, 112(C10).
+
+   * **30/ POC_2005_2012_sd** 
+      <br/>Description: Particulate organic carbon, model Lutz et al. (2007). Standard                   deviation all seasonal layers [2005-2012]
+      <br/>Value range: 3.85E-08 - 0.4417001
+      <br/>Units: g/m^2/d
+      <br/>Source: This study. Following Lutz et al. (2007)
+      <br/>URL: https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers
+      <br/>Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms            of net primary production and particulate organic carbon flux to depth describe the            efficiency of biological pump in the global ocean. Journal of Geophysical Research:            Oceans, 112(C10).
+
+   * **31/ seafloor_oxy_19552012_ampli**
+      <br/>Description: Amplitude (difference maximum-minimum) value encountered for each                pixel on all month layers of seafloor oxygen concentration over [1955-2012],                  modified from WOCE
+      <br/>Value range: 0.001755714 - 5.285187
+      <br/>Units: mL/L
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **32/ seafloor_oxy_19552012_max** 
+      <br/>Description: Maximum value encountered for each pixel on all month layers of oxygen            concentration over [1955-2012], modified from WOCE
+      <br/>Value range: 3.059685 - 11.52433
+      <br/>Units: mL/L
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **33/ seafloor_oxy_19552012_mean** 
+      <br/>Description: Mean seafloor oxygen concentration over [1955-2012] (average of all              monthly layers), modified from WOCE
+      <br/>Value range: 2.836582 - 8.858084
+      <br/>Units: mL/L
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **34/ seafloor_oxy_19552012_min** 
+      <br/>Description: Minimum value encountered for each pixel on all month layers of                  seafloor oxygen concentration over [1955-2012], modified from WOCE
+      <br/>Value range: 0.4315577 - 8.350794
+      <br/>Units: mL/L
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **35/ seafloor_oxy_19552012_sd** 
+      <br/>Description: Standard deviation seafloor oxygen concentration over [1955-2012] (of            all monthly layers), modified from WOCE
+      <br/>Value range: 0.000427063 - 1.588707
+      <br/>Units: mL/L
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **36/ seafloor_sali_2005_2012_ampli** 
+      <br/>Description: Amplitude (difference maximum-minimum) value encountered for each                pixel on all month layers of seafloor salinity over [2005-2012], modified from WOCE
+      <br/>Value range: 0.000801086 - 4.249901
+      <br/>Units: PSU
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **37/ seafloor_sali_2005_2012_max** 
+      <br/>Description: Maximum value encountered for each pixel on all month layers of                  seafloor salinity over [2005-2012], modified from WOCE
+      <br/>Value range: 32.90105 - 35.3997
+      <br/>Units: PSU
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **38/ seafloor_sali_2005_2012_mean** 
+      <br/>Description: Mean seafloor salinity over [2005-2012] (average of all monthly                  layers), modified from WOCE
+      <br/>Value range: 32.51107 - 35.03207
+      <br/>Units: PSU
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **39/ seafloor_sali_2005_2012_min** 
+      <br/>Description: Minimum value encountered for each pixel on all month layers of                  seafloor salinity over [2005-2012], modified from WOCE
+      <br/>Value range: 29.8904 - 34.97735
+      <br/>Units: PSU
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **40/ seafloor_sali_2005_2012_sd** 
+      <br/>Description: Standard deviation seafloor salinity over [2005-2012] (of all monthly            layers), modified from WOCE
+      <br/>Value range: 0.000251834 - 1.36245
+      <br/>Units: PSU
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **41/ seafloor_temp_2005_2012_ampli** 
+      <br/>Description: Amplitude (difference maximum-minimum) value encountered for each                pixel on all month layers of seafloor temperature over [2005-2012], modified from             WOCE
+      <br/>Value range: 0.0086 - 8.625669
+      <br/>Units: degrees C
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **42/ seafloor_temp_2005_2012_max** 
+      <br/>Description: Maximum value encountered for each pixel on all month layers of                  seafloor temperature over [2005-2012], modified from WOCE
+      <br/>Value range: -2.021455 - 15.93171
+      <br/>Units: degrees C
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **43/ seafloor_temp_2005_2012_mean** 
+      <br/>Description: Mean seafloor temperature over [2005-2012] (average of all monthly               layers), modified from WOCE
+      <br/>Value range: -2.085796 - 13.23161
+      <br/>Units: degrees C
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **44/ seafloor_temp_2005_2012_min** 
+       <br/>Description: Minimum value encountered for each pixel on all month layers of                  seafloor temperature over [2005-2012], modified from WOCE
+       <br/>Value range: -2.1 - 11.6431
+       <br/>Units: degrees C
+       <br/>Source: Derived from World Ocean Circulation Experiment 2013
+       <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **45/ seafloor_temp_2005_2012_sd** 
+      <br/>Description: Standard deviation seafloor temperature over [2005-2012] (of all                 monthly layers), modified from WOCE
+      <br/>Value range: 0.002843571 - 2.877084
+      <br/>Units: degrees C
+      <br/>Source: Derived from World Ocean Circulation Experiment 2013
+      <br/>URL: https://www.nodc.noaa.gov/OC5/woa13/woa13data.html
+
+   * **46/ extreme_event_max_chl_2005_2012_ampli** 
+      <br/>Description: Amplitude (difference maximum-minimum) number of the number of extreme            events calculated between 2005 and 2012
+      <br/>Value range: integer values 0 - 3
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+
+   * **47/ extreme_event_max_chl_2005_2012_max** 
+      <br/>Description: Maximum number of extreme events calculated between 2005 and 2012
+      <br/>Value range: integer values 0 - 5
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+
+   * **48/ extreme_event_max_chl_2005_2012_mean** 
+      <br/>Description: Mean of the number of extreme events calculated between 2005 and 2012
+      <br/>Value range: 0 - 3.875
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+
+   * **49/ extreme_event_max_chl_2005_2012_min**
+      <br/>Description: Minimum number of extreme events calculated between 2005 and 2012
+      <br/>Value range: integer values 0 - 5
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+
+   * **50/ extreme_event_min_chl_2005_2012_ampli** 
+      <br/>Description: Amplitude (difference maximum-minimum) number of the number of extreme            events calculated between 2005 and 2012
+      <br/>Value range: integer values 0 - 9
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+
+   * **51/ extreme_event_min_chl_2005_2012_max** 
+      <br/>Description: Maximum number of extreme events calculated between 2005 and 2012 
+      <br/>Value range: integer values 0 - 11 
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+      
+   * **52/ extreme_event_min_chl_2005_2012_mean** 
+      <br/>Description: Mean of the number of extreme events calculated between 2005 and                 2012 
+      <br/>Value range: integer values 0 - 11
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+      
+   * **53/ extreme_event_min_chl_2005_2012_min** 
+      <br/>Description: Minimum number of extreme events calculated between 2005 and 2012 
+      <br/>Value range: integer values 0 - 11
+      <br/>Units: unitless
+      <br/>Source: derived from chlorophyll-a concentration layers
+      
+   * **54/ extreme_event_min_oxy_1955_2012_nb** 
+      <br/>Description: Amplitude (difference maximum-minimum) number of the number of extreme            events calculated between 2005 and 2012
+      <br/>Value range: integer values 0 - 9
+      <br/>Units: unitless
+      <br/>Source: derived from oxygen concentration layers
+      
+   * **55/ nb_extreme_event_max_sali_2005_2012_nb** 
+      <br/>Description: Number of extreme events (minimal seafloor oxygen concentration                  records) that happened between January and December of the year 
+      <br/>Value range: integer values 0 - 12
+      <br/>Units: unitless
+      <br/>Source: derived from salinity concentration layers
+      
+   * **56/ nb_extreme_event_min_sali_2005_2012_nb** 
+      <br/>Description: Number of extreme events (maximal seafloor salinity records) that                happened between January and December of the year 
+      <br/>Value range: integer values 0 - 12
+      <br/>Units: unitless
+      <br/>Source: derived from salinity concentration layers
+      
+   * **57/ extreme_event_max_temp_2005_2012_nb** 
+         <br/>Description: Number of extreme events (maximal seafloor temperature records)                  that happened between January and December of the year
+      <br/>Value range: integer values 0 - 12
+      <br/>Units: unitless
+      <br/>Source: derived from temperature concentration layers
+      
+   * **58/ extreme_event_min_temp_2005_2012_nb** 
+      <br/>Description: Number of extreme events (minimal seafloor temperature records)                  that happened between January and December of the year 
+      <br/>Value range: integer values 0 - 12
+      <br/>Units: unitless
+      <br/>Source: derived from temperature concentration layers
+      
 
 The full metadata file, giving details on each of the data sources, is available from https://data.aad.gov.au/metadata/records/environmental_layers.
 
-
-# How to download the data 
+## How to download the data 
 The first steps to download the data are to define the directory in which the data will be stored. In this example, we use a temporary folder. 
-```{r}
+```{r,eval=FALSE}
 library(blueant)
 my_data_directory <- tempdir()
 
@@ -90,32 +438,27 @@ config
 ```
 
 Now we can ask `blueant` to fetch and unpack the data:
-```{r}
+```{r, eval=F}
 status <- bb_sync(config, verbose = TRUE)
 ```
 
 The `verbose = TRUE` argument helps to display the progress output. Once completed, the `status` object provides some information about the files that were downloaded. In particular, the downloaded netCDF files can be listed with:
 
-```{r}
+```{r, eval=F}
 nc_files <- Filter(function(z) grepl("\\.nc$", z), status$files[[1]]$file)
 head(basename(nc_files))
 ```
 
 And then you can open your data with the *raster* package 
 
-```{r}
+```{r, eval=F}
 library(raster)
-loaded_stack <- stack(nc_files)
+## Select the layers you want to keep according to the name provided in the previous list  
+depth <- raster("nc_files$depth") ### I don't know at all if it is appropriated ! 
 
 ## have a look at a part of the rasterStack (five first layers)
-plot(subset(loaded_stack, c(1:5)))
+plot(depth)
 
-## list of descriptors 
-names(loaded_stack)
-
-## you can drop a part of the environmental descriptors using the dropLayer function.
-## The numbers provided in the description part correspond to the layer's order in the provided stack. 
-final_stack_for_my_SDM <- dropLayer(loaded_stack, c(1,4,8,12:16)) ## removes layers 1,4,8,12,13,14,15 and 16
 ```
 
 You can also consult the [blueant vignette](https://australianantarcticdivision.github.io/blueant/articles/blueant.html) for further information.
