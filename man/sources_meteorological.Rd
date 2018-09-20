@@ -2,7 +2,7 @@
 % Please edit documentation in R/sources_meteorological.R
 \name{sources_meteorological}
 \alias{sources_meteorological}
-\title{Reanalysis data sources}
+\title{Meteorological data sources}
 \usage{
 sources_meteorological(name, formats, time_resolutions, ...)
 }
@@ -39,5 +39,5 @@ cf <- bb_config("/my/file/root") \%>\%
 See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
 }
 \seealso{
-\code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
+\code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 }
