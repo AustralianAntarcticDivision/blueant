@@ -36,18 +36,17 @@ sources_meteorological <- function(name,formats,time_resolutions, ...) {
     out <- tibble()
     if (is.null(name) || any(name %in% tolower(c("Antarctic Mesoscale Prediction System grib files","AMPS_grib")))) {
         out <- rbind(out,
-                     bb_source(
-                         name="Antarctic Mesoscale Prediction System grib files",
-                         id="AMPS_grib",
-                         description="The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time numerical weather prediction capability that provides support for the United States Antarctic Program, Antarctic science, and international Antarctic efforts.",
-                         doc_url="http://www2.mmm.ucar.edu/rt/amps/",
-                         citation="See http://www2.mmm.ucar.edu/rt/amps/",
-                         license="Please cite",
-                         comment="d1,d2 files for hours 000-027 only. Note that this web site provides only the last few days of files.",
-                         method=list("bb_handler_amps"),
-                         postprocess=NULL,
-                         collection_size=NA, ## depends on how long the sync has been running, since only the last few days worth are exposed at any one time
-                         data_group="Meteorological"))
+                     bb_source(name = "Antarctic Mesoscale Prediction System grib files",
+                               id = "AMPS_grib",
+                               description = "The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time numerical weather prediction capability that provides support for the United States Antarctic Program, Antarctic science, and international Antarctic efforts.",
+                               doc_url = "http://www2.mmm.ucar.edu/rt/amps/",
+                               citation = "See http://www2.mmm.ucar.edu/rt/amps/",
+                               license = "Please cite",
+                               comment = "d1,d2 files for hours 000-027 only. Note that this web site provides only the last few days of files.",
+                               source_url = "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/",
+                               method = list("bb_handler_rget", level = 2, accept_follow = "[[:digit:]]+/?$", accept_download = "\\.txt$|d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$"),
+                               collection_size = NA, ## depends on how long the sync has been running, since only the last few days worth are exposed at any one time
+                               data_group = "Meteorological"))
     }
     out
 }
