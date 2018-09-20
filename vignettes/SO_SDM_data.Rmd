@@ -8,8 +8,9 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
+
 ## Modelling Species Distribution in the Southern Ocean
-Species Distribution Modelling is a correlative approach that helps assess the relationship between species distribution records and their surrounding environmental conditions. Studying the distribution of benthic species in the Southern Ocean constitutes an interesting approach to interpolate the little amount of information we have in this broad scale and poorly accessible area. We provide here a set of environmental descriptors suitable for the modelling work. The present vignette describes the procedure to select and download them.
+Species Distribution Modelling is a correlative approach that helps assess the relationship between species occurrence records and their surrounding environmental conditions. Studying the distribution of benthic species in the Southern Ocean constitutes an interesting approach to interpolate the little amount of information we have in this broad scale and poorly accessible area. We provide here a set of environmental descriptors suitable for the modelling work. The present vignette describes the procedure to select and download them.
 
 ## Environmental descriptors list
 The present dataset is composed of 58 environmental descriptors, set at a 0.1° grid-cell resolution, on the Southern Ocean extent (80°S,45°S; -180,180°). Layers are provided as a netCDF file format.
@@ -425,7 +426,7 @@ The full metadata file, giving details on each of the data sources, is available
 
 ## How to download the data 
 The first steps to download the data are to define the directory in which the data will be stored. In this example, we use a temporary folder. 
-```{r,eval=FALSE}
+```{r}
 library(blueant)
 my_data_directory <- tempdir()
 
@@ -438,27 +439,34 @@ config
 ```
 
 Now we can ask `blueant` to fetch and unpack the data:
-```{r, eval=F}
+```{r}
 status <- bb_sync(config, verbose = TRUE)
 ```
 
 The `verbose = TRUE` argument helps to display the progress output. Once completed, the `status` object provides some information about the files that were downloaded. In particular, the downloaded netCDF files can be listed with:
 
-```{r, eval=F}
+```{r}
 nc_files <- Filter(function(z) grepl("\\.nc$", z), status$files[[1]]$file)
 head(basename(nc_files))
 ```
 
 And then you can open your data with the *raster* package 
 
-```{r, eval=F}
+```{r}
 library(raster)
-## Select the layers you want to keep according to the name provided in the previous list  
-depth <- raster("nc_files$depth") ### I don't know at all if it is appropriated ! 
 
-## have a look at a part of the rasterStack (five first layers)
-plot(depth)
+## create a raster stack of all layers
+x <- stack(nc_files)
 
+## the layers in this object
+names(x)
+
+## select the layers you want according to the layer names
+subset(x, c("depth", "slope", "POC_2005_2012_mean"))
+
+## or subset by layer number
+## e.g. plot the first four layers
+plot(subset(x, 1:4))
 ```
 
 You can also consult the [blueant vignette](https://australianantarcticdivision.github.io/blueant/articles/blueant.html) for further information.
