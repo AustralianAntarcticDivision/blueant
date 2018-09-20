@@ -8,6 +8,7 @@ Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c
 Description: A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.
 URL: https://github.com/AustralianAntarcticDivision/blueant
 BugReports: https://github.com/AustralianAntarcticDivision/blueant/issues
+Encoding: UTF-8
 License: MIT + file LICENSE
 Depends:
     bowerbird,
@@ -26,6 +27,7 @@ LazyLoad: yes
 RoxygenNote: 6.1.0
 Suggests:
     knitr,
+    ncdf4,
     raster,
     testthat,
     covr
