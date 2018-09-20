@@ -426,7 +426,7 @@ The full metadata file, giving details on each of the data sources, is available
 
 ## How to download the data 
 The first steps to download the data are to define the directory in which the data will be stored. In this example, we use a temporary folder. 
-```{r}
+```{r message = FALSE, warning = FALSE}
 library(blueant)
 my_data_directory <- tempdir()
 
@@ -447,12 +447,14 @@ The `verbose = TRUE` argument helps to display the progress output. Once complet
 
 ```{r}
 nc_files <- Filter(function(z) grepl("\\.nc$", z), status$files[[1]]$file)
+
+## the first few files
 head(basename(nc_files))
 ```
 
 And then you can open your data with the *raster* package 
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 library(raster)
 
 ## create a raster stack of all layers
