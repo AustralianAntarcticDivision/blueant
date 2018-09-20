@@ -20,6 +20,8 @@ dlcheck <- function(file_url, ...) {
 
 test_that("source nsidc0051 still works under ftp (may be moved to https)",{
     skip_on_cran()
+    skip_on_travis() ## this randomly fails for no good reason on travis and appveyor, so just run locally
+    skip_on_appveyor()
     fnm <- dlcheck("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0051_gsfc_nasateam_seaice/final-gsfc/south/daily/1978/nt_19781231_n07_v1.1_s.bin")
     expect_true(file.exists(fnm))
     fi <- file.info(fnm)
@@ -28,6 +30,8 @@ test_that("source nsidc0051 still works under ftp (may be moved to https)",{
 
 test_that("source nsidc0081 still works under ftp (may be moved to https)",{
     skip_on_cran()
+    skip_on_travis() ## this randomly fails for no good reason on travis and appveyor, so just run locally
+    skip_on_appveyor()
     target_file <- format(Sys.Date()-10,"nt_%Y%m%d_f18_nrt_s.bin")
     fnm <- dlcheck(paste0("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south/",target_file))
     expect_true(file.exists(fnm))
