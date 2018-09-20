@@ -46,7 +46,7 @@ status <- bb_sync(cf, verbose = TRUE)
 ```
 
     ## 
-    ## Mon Sep 17 09:27:39 2018
+    ## Thu Sep 20 02:26:15 2018
     ## Synchronizing dataset: George V bathymetry
     ## Source URL https://data.aad.gov.au/eds/file/4494/
     ## --------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ status <- bb_sync(cf, verbose = TRUE)
     ##  downloading file 1 of 1: https://data.aad.gov.au/eds/file/4494/ ...  done.
     ##   decompressing: c:\tmp\data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
     ## 
-    ## Mon Sep 17 09:27:45 2018 dataset synchronization complete: George V bathymetry
+    ## Thu Sep 20 02:26:27 2018 dataset synchronization complete: George V bathymetry
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned `status` object:
 
@@ -64,27 +64,13 @@ Congratulations! You now have your own local copy of this data set. The files in
 myfiles <- status$files[[1]]
 myfiles
 ## # A tibble: 5 x 3
-##   url                                   
-##   <chr>                                 
-## 1 https://data.aad.gov.au/eds/file/4494/
-## 2 <NA>                                  
-## 3 <NA>                                  
-## 4 <NA>                                  
-## 5 <NA>                                  
-##   file                                                           
-##   <chr>                                                          
-## 1 "c:\\tmp\\data\\data.aad.gov.au\\eds\\file\\4494\\download.zip"
-## 2 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem1000m_v3.nc     
-## 3 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem100m_v3.nc      
-## 4 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem250m_v3.nc      
-## 5 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem500m_v3.nc      
-##   note        
-##   <chr>       
-## 1 downloaded  
-## 2 decompressed
-## 3 decompressed
-## 4 decompressed
-## 5 decompressed
+##   url                      file                                   note    
+##   <chr>                    <chr>                                  <chr>   
+## 1 https://data.aad.gov.au~ "c:\\tmp\\data\\data.aad.gov.au\\eds\~ downloa~
+## 2 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
+## 3 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
+## 4 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
+## 5 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
@@ -245,6 +231,16 @@ The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time
 Approximate size: not specified
 
 Documentation link: <http://www2.mmm.ucar.edu/rt/amps/>
+
+### Data group: Modelling
+
+#### Southern Ocean marine environmental data
+
+A collection of gridded marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data.
+
+Approximate size: 0.1 GB
+
+Documentation link: <https://doi.org/10.26179/5b8f30e30d4f3>
 
 ### Data group: Ocean colour
 

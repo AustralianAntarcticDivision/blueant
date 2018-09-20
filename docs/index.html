@@ -10,8 +10,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Antarctic and Southern Ocean environmental data sources">
-<meta property="og:description" content="Tools to get and maintain a data repository from third-party data
-    providers.">
+<meta property="og:description" content="A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -43,6 +42,18 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/SO_SDM_data.html">Data for Southern Ocean species distribution modelling</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -101,7 +112,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <p>Once the configuration has been defined and the data source added to it, we can run the sync process. We set <code>verbose = TRUE</code> here so that we see additional progress output:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">status &lt;-<span class="st"> </span><span class="kw">bb_sync</span>(cf, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
-## Mon Sep 17 00:45:06 2018
+## Thu Sep 20 02:26:36 2018
 ## Synchronizing dataset: George V bathymetry
 ## Source URL https://data.aad.gov.au/eds/file/4494/
 ## --------------------------------------------------------------------------------------------
@@ -111,7 +122,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 ##  downloading file 1 of 1: https://data.aad.gov.au/eds/file/4494/ ...  done.
 ##   decompressing: c:\tmp\data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
 ## 
-## Mon Sep 17 00:45:13 2018 dataset synchronization complete: George V bathymetry</code></pre>
+## Thu Sep 20 02:26:52 2018 dataset synchronization complete: George V bathymetry</code></pre>
 <p>Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned <code>status</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myfiles &lt;-<span class="st"> </span>status<span class="op">$</span>files[[<span class="dv">1</span>]]
 myfiles
@@ -125,8 +136,6 @@ myfiles
 ## 5 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~</code></pre></div>
 <p>The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including <a href="https://github.com/AustralianAntarcticDivision/raadtools">RAADTools</a> and <a href="https://cran.r-project.org/package=raster">raster</a>. In this case the data files are netcdf, which can be read by <code>raster</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-## Warning: package 'raster' was built under R version 3.4.2
-## Warning: package 'sp' was built under R version 3.4.4
 x &lt;-<span class="st"> </span><span class="kw">raster</span>(myfiles<span class="op">$</span>file[<span class="kw">grepl</span>(<span class="st">"gvdem500m_v3"</span>, myfiles<span class="op">$</span>file)])
 <span class="kw">plot</span>(x)</code></pre></div>
 <p><img src="articles/README-rasterplot-1.png" width="672"></p>
@@ -261,6 +270,17 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <p>The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time numerical weather prediction capability that provides support for the United States Antarctic Program, Antarctic science, and international Antarctic efforts.</p>
 <p>Approximate size: not specified</p>
 <p>Documentation link: <a href="http://www2.mmm.ucar.edu/rt/amps/" class="uri">http://www2.mmm.ucar.edu/rt/amps/</a></p>
+</div>
+</div>
+<div id="data-group-modelling" class="section level3">
+<h3 class="hasAnchor">
+<a href="#data-group-modelling" class="anchor"></a>Data group: Modelling</h3>
+<div id="southern-ocean-marine-environmental-data" class="section level4">
+<h4 class="hasAnchor">
+<a href="#southern-ocean-marine-environmental-data" class="anchor"></a>Southern Ocean marine environmental data</h4>
+<p>A collection of gridded marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data.</p>
+<p>Approximate size: 0.1 GB</p>
+<p>Documentation link: <a href="https://doi.org/10.26179/5b8f30e30d4f3" class="uri">https://doi.org/10.26179/5b8f30e30d4f3</a></p>
 </div>
 </div>
 <div id="data-group-ocean-colour" class="section level3">
@@ -687,6 +707,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <ul class="list-unstyled">
 <li>Ben Raymond <br><small class="roles"> Author, maintainer </small> </li>
 <li>Michael Sumner <br><small class="roles"> Author </small> </li>
+<li>Charlène Guillaumot <br><small class="roles"> Author </small> </li>
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
@@ -701,7 +722,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 
 
       <footer><div class="copyright">
-  <p>Developed by Ben Raymond, Michael Sumner.</p>
+  <p>Developed by Ben Raymond, Michael Sumner, Charlène Guillaumot.</p>
 </div>
 
 <div class="pkgdown">

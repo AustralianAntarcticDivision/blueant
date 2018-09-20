@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Topographical data sources — sources_topography â€¢ blueant</title>
+<title>Data sources intended for species distribution modelling and similar tasks — sources_sdm â€¢ blueant</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -27,9 +27,9 @@
 <script src="../pkgdown.js"></script>
   
   
-<meta property="og:title" content="Topographical data sources — sources_topography" />
+<meta property="og:title" content="Data sources intended for species distribution modelling and similar tasks — sources_sdm" />
 
-<meta property="og:description" content="Data sources providing topographical data." />
+<meta property="og:description" content="Data sources providing environmental and similar gridded data, suitable for species distribution modelling, regionalisation analyses, and similar tasks." />
 <meta name="twitter:card" content="summary" />
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -101,14 +101,14 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Topographical data sources</h1>
+    <h1>Data sources intended for species distribution modelling and similar tasks</h1>
     </div>
 
     
-    <p>Data sources providing topographical data.</p>
+    <p>Data sources providing environmental and similar gridded data, suitable for species distribution modelling, regionalisation analyses, and similar tasks.</p>
     
 
-    <pre class="usage"><span class='fu'>sources_topography</span>(<span class='no'>name</span>, <span class='no'>formats</span>, <span class='no'>time_resolutions</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>sources_sdm</span>(<span class='no'>name</span>, <span class='no'>formats</span>, <span class='no'>time_resolutions</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -138,23 +138,7 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <ul>
-<li><p>"Smith and Sandwell bathymetry": Global seafloor topography from satellite altimetry and ship depth soundings</p></li>
-<li><p>"ETOPO1 bathymetry": ETOPO1 is a 1 arc-minute global relief model of Earth's surface that integrates land topography and ocean bathymetry</p></li>
-<li><p>"ETOPO2 bathymetry": 2-Minute Gridded Global Relief Data (ETOPO2v2c)</p></li>
-<li><p>"Bedmap2": Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S</p></li>
-<li><p>"Kerguelen Plateau bathymetric grid 2010": digital elevation model (DEM) for the Kerguelen Plateau region</p></li>
-<li><p>"George V bathymetry": Digital Elevation Models (DEMs) of varying resolutions for the George V and Terre Adelie continental margin, derived by incorporating all available singlebeam and multibeam point depth data</p></li>
-<li><p>"Geoscience Australia multibeam bathymetric grids of the Macquarie Ridge": This is a compilation of all the processed multibeam bathymetry data that are publicly available in Geoscience Australia's data holding for the Macquarie Ridge</p></li>
-<li><p>"IBCSO bathymetry": The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 is a digital bathymetric model portraying the seafloor of the circum-Antarctic waters south of 60S. IBCSO Version 1.0 has been compiled from all available bathymetric data collectively gathered by more than 30 institutions from 15 countries, including multibeam and single-beam echo soundings, digitized depths from nautical charts, regional bathymetric gridded compilations, and predicted bathymetry</p></li>
-<li><p>"IBCSO chart for printing": The IBCSO Poster, 2013, is a polar stereographic view of the Southern Ocean displaying bathymetric contours south of 60S at a scale of 1:7,000,000</p></li>
-<li><p>"RTOPO-1 Antarctic ice shelf topography": a consistent dataset of Antarctic ice sheet topography, cavity geometry, and global bathymetry</p></li>
-<li><p>"Radarsat Antarctic digital elevation model V2": The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation model (DEM) combines topographic data from a variety of sources to provide consistent coverage of all of Antarctica. Version 2 improves upon the original version by incorporating new topographic data, error corrections, extended coverage, and other modifications</p></li>
-<li><p>"New Zealand Regional Bathymetry 2016": The NZ 250m gridded bathymetric data set and imagery, Mitchell et al. 2012, released 2016</p></li>
-<li><p>"Cryosat-2 digital elevation model": a digital elevation model of Antarctica derived from 6 years of continuous CryoSat-2 measurements</p></li>
-<li><p>"Natural Earth 10m physical vector data": Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales</p></li>
-<li><p>"GSHHG coastline data": a Global Self-consistent, Hierarchical, High-resolution Geography Database</p></li>
-<li><p>"Shuttle Radar Topography Mission elevation data SRTMGL1 V3": Global 1-arc-second topographic data generated from NASA's Shuttle Radar Topography Mission. Version 3.0 (aka SRTM Plus or Void Filled) removes all of the void areas by incorporating data from other sources such as the ASTER GDEM</p></li>
-<li><p>"Reference Elevation Model of Antarctica mosaic tiles": The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution (and reduced-resolution, resampled versions). Accepts a single <code>spatial_resolution</code> value of "1km", "200m" [default], "100m", "8m"</p></li>
+<li><p>"Southern Ocean marine environmental data": a collection of gridded marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data. See the vignette for more information: <code><a href='https://cran.rstudio.com/web/packages/blueant/vignettes/SO_SDM_data.html'>vignette("SO_SDM_data", package = "blueant")</a></code></p></li>
 </ul>
     <p>The returned tibble contains more information about each source.</p>
     
@@ -164,14 +148,22 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='sources_altimetry.html'>sources_altimetry</a></code>, <code><a href='sources_biological.html'>sources_biological</a></code>, <code><a href='sources_meteorological.html'>sources_meteorological</a></code>, <code><a href='sources_ocean_colour.html'>sources_ocean_colour</a></code>, <code><a href='sources_oceanographic.html'>sources_oceanographic</a></code>, <code><a href='sources_reanalysis.html'>sources_reanalysis</a></code>, <code><a href='sources_sdm.html'>sources_sdm</a></code>, <code><a href='sources_seaice.html'>sources_seaice</a></code>, <code><a href='sources_sst.html'>sources_sst</a></code></p>
+    <p><code><a href='sources_altimetry.html'>sources_altimetry</a></code>, <code><a href='sources_biological.html'>sources_biological</a></code>, <code><a href='sources_meteorological.html'>sources_meteorological</a></code>, <code><a href='sources_ocean_colour.html'>sources_ocean_colour</a></code>, <code><a href='sources_oceanographic.html'>sources_oceanographic</a></code>, <code><a href='sources_reanalysis.html'>sources_reanalysis</a></code>, <code><a href='sources_seaice.html'>sources_seaice</a></code>, <code><a href='sources_sst.html'>sources_sst</a></code>, <code><a href='sources_topography.html'>sources_topography</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'>## define a configuration and add the Smith and Sandwell bathymetry</span>
-<span class='no'>cf</span> <span class='kw'>&lt;-</span> <span class='fu'>bb_config</span>(<span class='st'>"/my/file/root"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>bb_add</span>(<span class='fu'>sources_topography</span>(<span class='st'>"Smith and Sandwell bathymetry"</span>))
+<span class='co'>## define a configuration, storing data in a temporary directory</span>
+<span class='no'>cf</span> <span class='kw'>&lt;-</span> <span class='fu'>bb_config</span>(<span class='kw'>local_file_root</span> <span class='kw'>=</span> <span class='fu'>tempdir</span>())
+
+<span class='co'>## add the marine environmental data layers</span>
+<span class='no'>cf</span> <span class='kw'>&lt;-</span> <span class='no'>cf</span> <span class='kw'>%&gt;%</span> <span class='fu'>bb_add</span>(<span class='fu'>sources_sdm</span>(<span class='st'>"Southern Ocean marine environmental data"</span>))
+
+<span class='co'>## sync it (get the data)</span>
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='fu'>bb_sync</span>(<span class='no'>cf</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='co'>## see the vignette for more information on this data source:</span>
+<span class='fu'>vignette</span>(<span class='st'>"SO_SDM_data"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"blueant"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
