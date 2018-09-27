@@ -354,21 +354,21 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                "8m" = {
                    csize = 1500
                    pp <- list("bb_unzip", "bb_untar")
-                   src_url <- c("http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/8m/", "http://data.pgc.umn.edu/elev/dem/setsm/REMA/indexes/")
+                   src_url <- c("ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/8m/", "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/indexes/")
                },
                "100m" = {
                    csize <- 0.4
-                   src_url <- "http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/100m/"
+                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/100m/"
                    pp <- NULL
                },
                "200m" = {
                    csize <- 1.2
-                   src_url <- "http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/" ##"ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/"
+                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/" ##"ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/"
                    pp <- NULL
                },
                "1km" = {
                    csize = 0.15
-                   src_url <- "http://data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/1km/"
+                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/1km/"
                    pp <- NULL
                },
                stop("unexpected spatial_resolution: ", spatial_resolution))
