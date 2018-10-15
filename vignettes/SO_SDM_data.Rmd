@@ -13,7 +13,7 @@ vignette: >
 Species Distribution Modelling is a correlative approach that helps assess the relationship between species occurrence records and their surrounding environmental conditions. Studying the distribution of benthic species in the Southern Ocean constitutes an interesting approach to interpolate the little amount of information we have in this broad scale and poorly accessible area. We provide here a set of environmental descriptors suitable for the modelling work. The present vignette describes the procedure to select and download them.
 
 ## Environmental descriptors list
-The present dataset is composed of 58 environmental descriptors, set at a 0.1° grid-cell resolution, on the Southern Ocean extent (80°S,45°S; -180,180°). Layers are provided as a netCDF file format.
+The present dataset is composed of 58 environmental descriptors, set at a 0.1 degree grid-cell resolution, on the Southern Ocean extent (80 to 45 degrees S, -180 to 180 degrees longitude). Layers are provided as a netCDF file format.
  
    * **1/ depth**
     <br/> Description: Bathymetry. Dowloaded from GEBCO 2014 (0.0083 degrees = 30sec                    arcmin resolution) and set at resolution 0.1 degrees. Then completed with the                 bathymetry layer manually corrected and provided in Fabri-Ruiz et al. (2017)
