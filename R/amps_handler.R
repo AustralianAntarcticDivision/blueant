@@ -65,7 +65,7 @@ bb_handler_amps_inner <- function(config, verbose = FALSE, local_dir_only = FALS
             bb_data_sources(dummy) <- temp
             ## pass to the rget handler
             ## we could do it directly here with GET calls, but simpler to use the rget handler functionality
-            this <- bb_handler_rget(dummy, verbose = verbose, level = 0, accept_download = "\\.(txt|grb)$", ...)
+            this <- bb_handler_rget(dummy, verbose = verbose, level = 0, accept_download = "\\.(txt|grb)$", use_url_directory = FALSE, ...)
             all_ok <- all_ok && this$ok
             if (nrow(this$files[[1]])>0) downloads <- rbind(downloads, this$files[[1]])
             if (nzchar(this$message)) msg <- c(msg, this$message)
