@@ -43,8 +43,7 @@ sources_meteorological <- function(name,formats,time_resolutions, ...) {
                                citation = "See http://www2.mmm.ucar.edu/rt/amps/",
                                license = "Please cite",
                                comment = "d1,d2 files for hours 000-027 only. Note that this web site provides only the last few days of files.",
-                               ##source_url = "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/",
-                               ##method = list("bb_handler_rget", level = 2, accept_follow = "[[:digit:]]+/?$", accept_download = "\\.txt$|d[12]_f(000|003|006|009|012|015|018|021|024|027)\\.grb$"),
+                               source_url = "http://www2.mmm.ucar.edu/rt/amps/wrf_grib/",
                                method = list("bb_handler_amps"),
                                collection_size = NA, ## depends on how long the sync has been running, since only the last few days worth are exposed at any one time
                                data_group = "Meteorological"))
