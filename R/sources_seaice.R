@@ -264,7 +264,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          method = list("bb_handler_rget", level = 5, accept_download = "Antarctic3125/asi.*\\.(hdf|png|tif)"),
                          postprocess = NULL,
                          access_function = "raadtools::readice",
-                         collection_size = 150,
+                         collection_size = 100,
                          data_group = "Sea ice"))
     }
 
