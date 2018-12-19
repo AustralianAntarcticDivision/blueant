@@ -73,7 +73,6 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          source_url = "ftp://nrt.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046/dataset-duacs-nrt-global-merged-allsat-phy-l4/",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
                          method = list("bb_handler_rget", level = 4),
-                         postprocess = list("bb_gunzip"),
                          authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",
