@@ -12,7 +12,7 @@
 #' @importFrom stats na.omit
 #' @importFrom stringr str_match str_trim
 #' @importFrom tibble tibble
-#' @importFrom utils unzip
+#' @importFrom utils read.table unzip
 #' @importFrom xml2 url_absolute
 NULL
 
