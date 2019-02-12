@@ -34,10 +34,11 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     assert_that(is.flag(verbose),!is.na(verbose))
     assert_that(is.flag(local_dir_only),!is.na(local_dir_only))
 
+    force_use_wget <- TRUE
+    get_fun <- if (force_use_wget) bb_handler_wget else bb_handler_rget
+
     if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE))
 
-cat("V:", verbose, "\n")
-verbose <- TRUE
     ## first get the index file
     dummy <- config
     temp <- bb_data_sources(dummy)
@@ -46,50 +47,58 @@ verbose <- TRUE
     temp$method <- list(list("bb_handler_rget", level = 0))
     bb_data_sources(dummy) <- temp
     if (verbose) cat(sprintf("Downloading profile index file\n"))
-    this <- bb_handler_rget(dummy, verbose = verbose, level = 0)
+    this <- get_fun(dummy, verbose = verbose, level = 0)
     if (!this$ok) stop("error retrieving profile index file")
     ## annoyingly, the header in this csv file is corrupted on the USGODAE GDAC site, but not on ifremer
     ## GRrrrrrrr
     ##idx <- read.csv(gzfile(file.path(bb_settings(config)$local_file_root, this$files[[1]]$file)), stringsAsFactors = FALSE, comment.char = "#")
-    temp_hdr <- readLines(gzfile(file.path(bb_settings(config)$local_file_root, this$files[[1]]$file)), 20)
+    local_index_file <- file.path(bb_data_source_dir(config), "argo_merge-profile_index.txt.gz")
+    temp_hdr <- readLines(gzfile(local_index_file), 20)
     skip_count <- sum(grepl("^#", temp_hdr)) + 1 ## skip comment lines plus one to skip the actual header
-    idx <- read.table(gzfile(file.path(bb_settings(config)$local_file_root, this$files[[1]]$file)), sep = ",", header = FALSE, skip = skip_count, stringsAsFactors = FALSE, comment.char = "#")
+    idx <- read.table(gzfile(local_index_file), sep = ",", header = FALSE, skip = skip_count, stringsAsFactors = FALSE, comment.char = "#")
     ## expect 10 cols
     if (ncol(idx) == 10) {
         colnames(idx) <- c("file", "date", "latitude", "longitude", "ocean", "profiler_type", "institution", "parameters", "parameter_data_mode", "date_update")
     } else {
         stop("failure reading index file")
     }
-##cat(str(idx))
-    cat("Profiles: ", nrow(idx), "\n")
+    if (verbose) cat("Total number of profiles in index: ", nrow(idx), "\n")
+    idx0 <- idx
     ## apply filters
     parms <- bb_data_sources(config)$method[[1]][-1]
-##cat(str(parms))
     if ("institutions" %in% names(parms) && !is.null(parms$institutions)) {
-##cat(str(parms$institutions))
         idx <- idx[idx$institution %in% parms$institutions, ]
+        if (verbose) cat("Number of profiles after applying institution filter: ", nrow(idx), "\n")
     }
-    cat("With institution filter, matching: ", nrow(idx), "\n")
     if ("parameters" %in% names(parms) && !is.null(parms$parameters)) {
         idx_parms <- idx$parameters
         pidx <- vapply(seq_len(nrow(idx)), function(z) any(strsplit(idx_parms[[z]], " ")[[1]] %in% parms$parameters), FUN.VALUE = TRUE, USE.NAMES = FALSE)
         idx <- idx[pidx, ]
+        if (verbose) cat("Number of profiles after applying parameter filter: ", nrow(idx), "\n")
     }
-    cat("With parameter filter, matching: ", nrow(idx), "\n")
     if ("latitude_filter" %in% names(parms) && !is.null(parms$latitude_filter)) {
         idx <- idx[parms$latitude_filter(idx$latitude), ]
+        if (verbose) cat("Number of profiles after applying latitude filter: ", nrow(idx), "\n")
     }
-    cat("With latitude filter, matching: ", nrow(idx), "\n")
     if ("longitude_filter" %in% names(parms) && !is.null(parms$longitude_filter)) {
         idx <- idx[parms$longitude_filter(idx$longitude), ]
+        if (verbose) cat("Number of profiles after applying longitude filter: ", nrow(idx), "\n")
     }
-    cat("With longitude filter, matching: ", nrow(idx), "\n")
+    if (verbose) cat("Number of profiles to retrieve: ", nrow(idx), "\n")
 
     ## now, this lists multiple profiles within individual folders
-    idx$url <- vapply(strsplit(idx$file, "/"), function(z) if (length(z) > 1 && !any(is.na(z[1:2]))) paste(z[1:2], collapse = "/") else NA_character_, FUN.VALUE = "", USE.NAMES = FALSE)
+    ## pull out the folder name
+    idx$url <- str_match(idx$file, "^([^/]+/[^/]+)/.+")[, 2]
+    idx0$url <- str_match(idx0$file, "^([^/]+/[^/]+)/.+")[, 2]
+
  ##   cat(str(idx))
     ## if were to just get entire folders, rather than bother selecting individual profiles within folders, how many unique folders do we need to get?
     uurl <- na.omit(unique(idx$url))
+
+    ## if we did that, how many unnecessary files would we be downloading?
+    unn <- idx0$url %in% uurl & !idx0$file %in% idx$file
+    ## if this is not too many unnecessary files, we can request by folder rather than file - this would probably be faster
+    ## TODO, perhaps?
 
     ## for each one:
     ## * get files in [source_url]/dac/[provider]/[float]/profiles/
@@ -105,7 +114,7 @@ verbose <- TRUE
             temp$method <- list(list("bb_handler_rget", level = 1))
             bb_data_sources(dummy) <- temp
             ##        cat(str(dummy))
-            this_status <- bb_handler_rget(dummy, verbose = verbose)
+            this_status <- get_fun(dummy, verbose = verbose)
             status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$msg))
         }
     }
@@ -118,7 +127,7 @@ verbose <- TRUE
             temp$method <- list(list("bb_handler_rget", level = 1))
             bb_data_sources(dummy) <- temp
             ##        cat(str(dummy))
-            this_status <- bb_handler_rget(dummy, verbose = verbose)
+            this_status <- get_fun(dummy, verbose = verbose)
             status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$msg))
         }
     }
