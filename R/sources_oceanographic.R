@@ -139,5 +139,43 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          collection_size = NA, ## unknown yet
                          data_group = "Oceanographic"))
     }
+
+    if (is.null(name) || any(name %in% tolower(c("Argo profile data (USGODAE)", "10.17882/42182 profile")))) {
+        if ("institutions" %in% names(dots)) {
+            institutions <- dots[["institutions"]]
+        } else {
+            institutions <- NULL
+        }
+        if ("parameters" %in% names(dots)) {
+            parameters <- dots[["parameters"]]
+        } else {
+            parameters <- NULL
+        }
+        if ("latitude_filter" %in% names(dots)) {
+            latitude_filter <- dots[["latitude_filter"]]
+        } else {
+            latitude_filter <- function(z) rep(TRUE, length(z))
+        }
+        if ("longitude_filter" %in% names(dots)) {
+            longitude_filter <- dots[["longitude_filter"]]
+        } else {
+            longitude_filter <- function(z) rep(TRUE, length(z))
+        }
+        out <- rbind(out,
+                     bb_source(
+                         name = "Argo profile data (USGODAE)",
+                         id = "10.17882/42182 profile",
+                         description = "Argo profile data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin.",
+                         doc_url = "http://www.argodatamgt.org/Documentation",
+                         citation = "To properly acknowledge Argo data usage, please use the following sentence: \"These data were collected and made freely available by the International Argo Program and the national programs that contribute to it (http://www.argo.ucsd.edu, http://argo.jcommops.org). The Argo Program is part of the Global Ocean Observing System. http://doi.org/10.17882/42182\"",
+                         license = "Please cite",
+                         source_url = "https://www.usgodae.org/ftp/outgoing/argo/",
+                         ##source_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
+                         method = list("bb_handler_argo", institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
+                         postprocess = NULL,
+                         collection_size = NA, ## unknown yet
+                         data_group = "Oceanographic"))
+    }
+
     out
 }
