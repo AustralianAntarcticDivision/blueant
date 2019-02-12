@@ -86,7 +86,7 @@ verbose <- TRUE
     cat("With longitude filter, matching: ", nrow(idx), "\n")
 
     ## now, this lists multiple profiles within individual folders
-    idx$url <- vapply(strsplit(idx$file, "/"), function(z) if (is.na(z)) NA_character_ else paste(z[1:2], collapse = "/"), FUN.VALUE = "", USE.NAMES = FALSE)
+    idx$url <- vapply(strsplit(idx$file, "/"), function(z) if (length(z) > 1 && !any(is.na(z[1:2]))) paste(z[1:2], collapse = "/") else NA_character_, FUN.VALUE = "", USE.NAMES = FALSE)
  ##   cat(str(idx))
     ## if were to just get entire folders, rather than bother selecting individual profiles within folders, how many unique folders do we need to get?
     uurl <- na.omit(unique(idx$url))
