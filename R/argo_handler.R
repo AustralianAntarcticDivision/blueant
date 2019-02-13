@@ -39,7 +39,17 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
 
     if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE))
 
-    ## first get the index file
+    ## first get the greylist and index files
+    ## greylist file - we don't do anything with it, but it's there for the user if they care to look at it
+    dummy <- config
+    temp <- bb_data_sources(dummy)
+    source_url_no_trailing_sep <- sub("/+$", "", temp$source_url[[1]])
+    temp$source_url <- file.path(source_url_no_trailing_sep, "ar_greylist.txt")
+    temp$method <- list(list("bb_handler_rget", level = 0))
+    bb_data_sources(dummy) <- temp
+    if (verbose) cat(sprintf("Downloading profile greylist file\n"))
+    this <- get_fun(dummy, verbose = verbose, level = 0)
+    ## index file
     dummy <- config
     temp <- bb_data_sources(dummy)
     source_url_no_trailing_sep <- sub("/+$", "", temp$source_url[[1]])
