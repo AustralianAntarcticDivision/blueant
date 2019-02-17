@@ -165,12 +165,12 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                      bb_source(
                          name = "Argo profile data (USGODAE)",
                          id = "10.17882/42182 profile",
-                         description = "Argo profile data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin.",
+                         description = "Argo profile data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment).",
                          doc_url = "http://www.argodatamgt.org/Documentation",
                          citation = "To properly acknowledge Argo data usage, please use the following sentence: \"These data were collected and made freely available by the International Argo Program and the national programs that contribute to it (http://www.argo.ucsd.edu, http://argo.jcommops.org). The Argo Program is part of the Global Ocean Observing System. http://doi.org/10.17882/42182\"",
                          license = "Please cite",
                          source_url = "https://www.usgodae.org/ftp/outgoing/argo/",
-                         ##source_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
+                         ## can also use this, but is slower: source_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
                          method = list("bb_handler_argo", institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
                          postprocess = NULL,
                          collection_size = NA, ## unknown yet

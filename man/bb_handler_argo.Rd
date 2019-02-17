@@ -2,7 +2,7 @@
 % Please edit documentation in R/argo_handler.R
 \name{bb_handler_argo}
 \alias{bb_handler_argo}
-\title{Handler for Argo data sources}
+\title{Handler for Argo profile data sources}
 \usage{
 bb_handler_argo(...)
 }
@@ -13,8 +13,8 @@ bb_handler_argo(...)
 TRUE on success
 }
 \description{
-This is a handler function to be used with Argo data. Tested with the ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+This is a handler function to be used with Argo data. Tested with the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment) and Ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
 }
 \references{
-https://wwz.ifremer.fr/en/Research-Technology/Scientific-departments/Department-of-Marine-and-Digital-Infrastructures/The-French-ARGO-Data-Centre
+<https://wwz.ifremer.fr/en/Research-Technology/Scientific-departments/Department-of-Marine-and-Digital-Infrastructures/The-French-ARGO-Data-Centre>, <http://www.argodatamgt.org/Documentation>
 }

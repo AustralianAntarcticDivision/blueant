@@ -1,8 +1,8 @@
-#' Handler for Argo data sources
+#' Handler for Argo profile data sources
 #'
-#' This is a handler function to be used with Argo data. Tested with the ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+#' This is a handler function to be used with Argo data. Tested with the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment) and Ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
 #'
-#' @references https://wwz.ifremer.fr/en/Research-Technology/Scientific-departments/Department-of-Marine-and-Digital-Infrastructures/The-French-ARGO-Data-Centre
+#' @references <https://wwz.ifremer.fr/en/Research-Technology/Scientific-departments/Department-of-Marine-and-Digital-Infrastructures/The-French-ARGO-Data-Centre>, <http://www.argodatamgt.org/Documentation>
 #' @param ... : parameters passed to \code{\link{bb_rget}}
 #'
 #' @return TRUE on success
@@ -19,7 +19,7 @@ bb_handler_argo <- function(...) {
 # @return TRUE on success or the directory name if local_dir_only is TRUE
 bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALSE, ...) {
 
-    ## ARGO from ifremer, see https://github.com/AustralianAntarcticDivision/blueant/issues/13
+    ## ARGO from ifremer, see notes at https://github.com/AustralianAntarcticDivision/blueant/issues/13
     ## * get file list in an `argo_handler`   "ftp.ifremer.fr/ifremer/argo/argo_merge-profile_index.txt.gz" - ar_greylist.txt are marked as "problems"
     ## * get the index file for processing by raadfiles
     ## * apply filters "aoml", "bodc", "coriolis", "csio", "csiro", "incois" (codes "AO", "BO", "IF", "HZ", "CS", "IN")
@@ -34,7 +34,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     assert_that(is.flag(verbose),!is.na(verbose))
     assert_that(is.flag(local_dir_only),!is.na(local_dir_only))
 
-    force_use_wget <- TRUE
+    force_use_wget <- FALSE
     get_fun <- if (force_use_wget) bb_handler_wget else bb_handler_rget
 
     if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE))
@@ -101,7 +101,6 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     idx$url <- str_match(idx$file, "^([^/]+/[^/]+)/.+")[, 2]
     idx0$url <- str_match(idx0$file, "^([^/]+/[^/]+)/.+")[, 2]
 
- ##   cat(str(idx))
     ## if were to just get entire folders, rather than bother selecting individual profiles within folders, how many unique folders do we need to get?
     uurl <- na.omit(unique(idx$url))
 
