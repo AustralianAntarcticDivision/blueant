@@ -38,7 +38,8 @@ Build up a configuration by first defining global options such as the destinatio
 
 ```{r include = FALSE}
 ## code not shown in the README: (1) use load_all() instead of library() for convenience, (2) use anonymous "temporary" dir, and (3) hide the progress bar
-library(blueant) ##devtools::load_all()
+##library(blueant)
+devtools::load_all()
 my_data_dir <- "c:/tmp/data" ##tempdir()#file.path(dirname(tempdir()), "RtmpjAqcVC")
 if (!dir.exists(my_data_dir)) dir.create(my_data_dir)
 if (dir.exists(file.path(my_data_dir, "data.aad.gov.au/eds/file/4494"))) unlink(file.path(my_data_dir, "data.aad.gov.au/eds/file/4494"), recursive = TRUE)

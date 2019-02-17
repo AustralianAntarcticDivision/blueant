@@ -46,7 +46,7 @@ status <- bb_sync(cf, verbose = TRUE)
 ```
 
     ## 
-    ## Thu Sep 20 02:26:15 2018
+    ## Mon Feb 18 09:14:58 2019
     ## Synchronizing dataset: George V bathymetry
     ## Source URL https://data.aad.gov.au/eds/file/4494/
     ## --------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ status <- bb_sync(cf, verbose = TRUE)
     ##  downloading file 1 of 1: https://data.aad.gov.au/eds/file/4494/ ...  done.
     ##   decompressing: c:\tmp\data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
     ## 
-    ## Thu Sep 20 02:26:27 2018 dataset synchronization complete: George V bathymetry
+    ## Mon Feb 18 09:15:17 2019 dataset synchronization complete: George V bathymetry
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned `status` object:
 
@@ -64,13 +64,27 @@ Congratulations! You now have your own local copy of this data set. The files in
 myfiles <- status$files[[1]]
 myfiles
 ## # A tibble: 5 x 3
-##   url                      file                                   note    
-##   <chr>                    <chr>                                  <chr>   
-## 1 https://data.aad.gov.au~ "c:\\tmp\\data\\data.aad.gov.au\\eds\~ downloa~
-## 2 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
-## 3 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
-## 4 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
-## 5 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
+##   url                                   
+##   <chr>                                 
+## 1 https://data.aad.gov.au/eds/file/4494/
+## 2 <NA>                                  
+## 3 <NA>                                  
+## 4 <NA>                                  
+## 5 <NA>                                  
+##   file                                                           
+##   <chr>                                                          
+## 1 "c:\\tmp\\data\\data.aad.gov.au\\eds\\file\\4494\\download.zip"
+## 2 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem1000m_v3.nc     
+## 3 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem100m_v3.nc      
+## 4 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem250m_v3.nc      
+## 5 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem500m_v3.nc      
+##   note        
+##   <chr>       
+## 1 downloaded  
+## 2 decompressed
+## 3 decompressed
+## 4 decompressed
+## 5 decompressed
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
@@ -201,6 +215,26 @@ Authentication note: AVISO login required, see <https://www.aviso.altimetry.fr/e
 Approximate size: 0.1 GB
 
 Documentation link: <https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html>
+
+#### Delayed-time finite size Lyapunov exponents
+
+The maps of Backward-in-time, Finite-Size Lyapunov Exponents (FSLEs) and Orientations of associated eigenvectors are computed over 21-year altimetry period and over global ocean within the SALP/Cnes project in collaboration with CLS, LOcean and CTOH. These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
+
+Authentication note: AVISO login required, see <https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html>
+
+Approximate size: 1200 GB
+
+Documentation link: <https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html>
+
+#### Near-real-time finite size Lyapunov exponents
+
+The maps of Backward-in-time, Finite-Size Lyapunov Exponents (FSLEs) and Orientations of associated eigenvectors are computed over 21-year altimetry period and over global ocean within the SALP/Cnes project in collaboration with CLS, LOcean and CTOH. These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
+
+Authentication note: AVISO login required, see <https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html>
+
+Approximate size: 100 GB
+
+Documentation link: <https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html>
 
 ### Data group: Biology
 
@@ -342,6 +376,14 @@ Approximate size: not specified
 
 Documentation link: <http://www.argodatamgt.org/Documentation>
 
+#### Argo profile data (USGODAE)
+
+Argo profile data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment).
+
+Approximate size: not specified
+
+Documentation link: <http://www.argodatamgt.org/Documentation>
+
 #### CSIRO Atlas of Regional Seas 2009
 
 CARS is a digital climatology, or atlas of seasonal ocean water properties.
@@ -404,9 +446,9 @@ Documentation link: <http://icdc.zmaw.de/1/daten/cryosphere/seaiceconcentration-
 
 #### Artist AMSR2 near-real-time 3.125km sea ice concentration
 
-Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution in selected regions (from 24-July-2012 to present) and full Antarctic coverage (from 1-Jan-2016 to present).
+Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution (full Antarctic coverage).
 
-Approximate size: 150 GB
+Approximate size: 100 GB
 
 Documentation link: <https://seaice.uni-bremen.de/sea-ice-concentration/>
 
