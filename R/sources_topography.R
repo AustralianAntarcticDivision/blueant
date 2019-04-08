@@ -125,7 +125,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          name = "Bedmap2",
                          id = "Bedmap2",
                          description = "Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S.",
-                         doc_url = "http://www.antarctica.ac.uk/bas_research/our_research/az/bedmap2/",
+                         doc_url = "https://www.bas.ac.uk/project/bedmap-2/",
                          citation = "Fretwell et al. (2013) Bedmap2: improved ice bed, surface and thickness datasets for Antarctica. The Cryosphere 7:375-393. doi:10.5194/tc-7-375-2013",
                          license = "Please cite",
                          source_url = "https://secure.antarctica.ac.uk/data/bedmap2/",
