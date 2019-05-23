@@ -82,6 +82,22 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group = "Topography"))
     }
 
+    if (is.null(name) || any(name %in% tolower(c("GEBCO 2019 bathymetry", "GEBCO_2019")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "GEBCO 2019 bathymetry",
+                         id = "GEBCO_2019",
+                         description = "The GEBCO_2019 Grid is the latest global bathymetric product released by the General Bathymetric Chart of the Oceans (GEBCO). The GEBCO_2019 product provides global coverage, spanning 89d 59' 52.5\"N, 179d 59' 52.5\"W to 89d 59' 52.5\"S, 179d 59' 52.5\"E on a 15 arc-second grid. It consists of 86400 rows x 43200 columns, giving 3,732,480,000 data points. The data values are pixel-centre registered i.e. they refer to elevations at the centre of grid cells.",
+                         doc_url = "https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_2019/gebco_2019_info.html",
+                         citation = "GEBCO Compilation Group (2019) GEBCO 2019 Grid. doi:10.5285/836f016a-33be-6ddc-e053-6c86abc0788e",
+                         license = "CC-BY",
+                         source_url = c("https://www.bodc.ac.uk/data/open_download/gebco/GEBCO_15SEC/zip/"),
+                         method = list("bb_handler_rget", force_local_filename = "gebco_2019.zip"),
+                         postprocess = list(function(...) tryCatch(bb_unzip(...), warning = function(w) warning("unzip failed, you might try unzipping manually with a utility that can handle large files (e.g. 7z on Linux systems). The failure message was: ", conditionMessage(w)))),
+                         collection_size = 13,
+                         data_group = "Topography"))
+    }
+
     if (is.null(name) || any(name %in% tolower(c("ETOPO1 bathymetry", "10.7289/V5C8276M")))) {
         out <- rbind(out,
                      bb_source(
@@ -142,16 +158,34 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          name = "Kerguelen Plateau bathymetric grid 2010",
                          id = "gcat_71552",
                          description = "This data replaces the digital elevation model (DEM) for the Kerguelen Plateau region produced in 2005 (Sexton 2005). The revised grid has been gridded at a grid pixel resolution of 0.001-arc degree (about 100 m). The new grid utilised the latest data sourced from ship-based multibeam and singlebeam echosounder surveys, and satellite remotely-sensed data. Report Reference: Beaman, R.J. and O'Brien, P.E., 2011. Kerguelen Plateau bathymetric grid, November 2010. Geoscience Australia, Record, 2011/22, 18 pages.",
-                         doc_url = "http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_71552",
+                         doc_url = "http://pid.geoscience.gov.au/dataset/ga/71670",
                          citation = "Beaman, R.J. & O'Brien, P., 2011. Kerguelen Plateau Bathymetric Grid, November 2010. Record  2011/022. Geoscience Australia, Canberra",
+                         comment = "Please note: this data file is no longer available. See the \"Kerguelen Plateau bathymetric grid 2019\" data source",
                          source_url = "http://ftt.jcu.edu.au/deepreef/kergdem/gmt/kerg_dem_gmt.zip",
                          license = "CC-BY",
-                         ##method = list("bb_handler_wget"), ## --recursive --no-parent
                          method = list("bb_handler_rget"),
                          postprocess = list("bb_unzip"),
                          collection_size = 0.7,
                          data_group = "Topography"))
     }
+
+    ## nope, this doesn't work because it's a dynamic catalog page that can't be scraped
+    ## the xml version https://ecat.ga.gov.au/geonetwork/srv/api/records/a05f7893-007f-7506-e044-00144fdd4fa6/formatters/xml has full links, but not in html tags so won't work with wget/rget
+    ##if (is.null(name) || any(name %in% tolower(c("Kerguelen Plateau bathymetric grid V2", "gcat_71552_V2")))) {
+    ##    out <- rbind(out,
+    ##                 bb_source(
+    ##                     name = "Revision of the Kerguelen Plateau bathymetric grid",
+    ##                     id = "gcat_71552",
+    ##                     description = "The existing regional bathymetric grid of the Kerguelen Plateau, south-west Indian Ocean, was updated using new singlebeam echosounder data from commercial fishing and research voyages, and some new multibeam swath bathymetry data. Source bathymetry data varies from International Hydrographic Organisation (IHO) S44 Order 1a to 2. The source data were subjected to area-based editing to remove data spikes, then combined with the previous Sexton (2005) grid to produce a new grid with a resolution of 0.001-arcdegree. Satellite-derived datasets were used to provide island topography and to fill in areas of no data. The new grid improves the resolution of morphological features observed in earlier grids, including submarine volcanic hills on the top of the Kerguelen Plateau and a complex of submarine channels draining the southern flank of the bank on which Heard Island sits",
+    ##                     doc_url = "http://pid.geoscience.gov.au/dataset/ga/71552",
+    ##                     citation = "Beaman RJ, O'Brien PE (2011) Kerguelen Plateau Bathymetric Grid, November 2010. Record 2011/22, Geoscience Australia, Canberra, Australia, pp. 18",
+    ##                     source_url = "",
+    ##                     license = "CC-BY with additional restrictions. See the \"additional metadata\" link at http://pid.geoscience.gov.au/dataset/ga/71552",
+    ##                     method = list("bb_handler_rget"),
+    ##                     postprocess = list("bb_unzip"),
+    ##                     collection_size = 0.7,
+    ##                     data_group = "Topography"))
+    ##}
 
     if (is.null(name) || any(name %in% tolower(c("George V bathymetry", "GVdem_2008")))) {
         out <- rbind(out,
