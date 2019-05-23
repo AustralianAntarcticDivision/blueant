@@ -46,7 +46,7 @@ status <- bb_sync(cf, verbose = TRUE)
 ```
 
     ## 
-    ## Mon Feb 18 09:14:58 2019
+    ## Thu May 23 03:19:49 2019
     ## Synchronizing dataset: George V bathymetry
     ## Source URL https://data.aad.gov.au/eds/file/4494/
     ## --------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ status <- bb_sync(cf, verbose = TRUE)
     ##  downloading file 1 of 1: https://data.aad.gov.au/eds/file/4494/ ...  done.
     ##   decompressing: c:\tmp\data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
     ## 
-    ## Mon Feb 18 09:15:17 2019 dataset synchronization complete: George V bathymetry
+    ## Thu May 23 03:20:23 2019 dataset synchronization complete: George V bathymetry
 
 Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned `status` object:
 
@@ -64,27 +64,13 @@ Congratulations! You now have your own local copy of this data set. The files in
 myfiles <- status$files[[1]]
 myfiles
 ## # A tibble: 5 x 3
-##   url                                   
-##   <chr>                                 
-## 1 https://data.aad.gov.au/eds/file/4494/
-## 2 <NA>                                  
-## 3 <NA>                                  
-## 4 <NA>                                  
-## 5 <NA>                                  
-##   file                                                           
-##   <chr>                                                          
-## 1 "c:\\tmp\\data\\data.aad.gov.au\\eds\\file\\4494\\download.zip"
-## 2 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem1000m_v3.nc     
-## 3 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem100m_v3.nc      
-## 4 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem250m_v3.nc      
-## 5 c:/tmp/data/data.aad.gov.au/eds/file/4494/gvdem500m_v3.nc      
-##   note        
-##   <chr>       
-## 1 downloaded  
-## 2 decompressed
-## 3 decompressed
-## 4 decompressed
-## 5 decompressed
+##   url                      file                                   note     
+##   <chr>                    <chr>                                  <chr>    
+## 1 https://data.aad.gov.au~ "c:\\tmp\\data\\data.aad.gov.au\\eds\~ download~
+## 2 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~
+## 3 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~
+## 4 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~
+## 5 <NA>                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~
 ```
 
 The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including [RAADTools](https://github.com/AustralianAntarcticDivision/raadtools) and [raster](https://cran.r-project.org/package=raster). In this case the data files are netcdf, which can be read by `raster`:
@@ -600,7 +586,7 @@ Bedmap2 is a suite of gridded products describing surface elevation, ice-thickne
 
 Approximate size: 3.3 GB
 
-Documentation link: <http://www.antarctica.ac.uk/bas_research/our_research/az/bedmap2/>
+Documentation link: <https://www.bas.ac.uk/project/bedmap-2/>
 
 #### Cryosat-2 digital elevation model
 
@@ -625,6 +611,14 @@ Documentation link: <http://www.ngdc.noaa.gov/mgg/global/global.html>
 Approximate size: 0.3 GB
 
 Documentation link: <http://www.ngdc.noaa.gov/mgg/global/etopo2.html>
+
+#### GEBCO 2019 bathymetry
+
+The GEBCO\_2019 Grid is the latest global bathymetric product released by the General Bathymetric Chart of the Oceans (GEBCO). The GEBCO\_2019 product provides global coverage, spanning 89d 59' 52.5"N, 179d 59' 52.5"W to 89d 59' 52.5"S, 179d 59' 52.5"E on a 15 arc-second grid. It consists of 86400 rows x 43200 columns, giving 3,732,480,000 data points. The data values are pixel-centre registered i.e. they refer to elevations at the centre of grid cells.
+
+Approximate size: 13 GB
+
+Documentation link: <https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_2019/gebco_2019_info.html>
 
 #### George V bathymetry
 
@@ -672,7 +666,7 @@ This data replaces the digital elevation model (DEM) for the Kerguelen Plateau r
 
 Approximate size: 0.7 GB
 
-Documentation link: <http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_71552>
+Documentation link: <http://pid.geoscience.gov.au/dataset/ga/71670>
 
 #### Natural Earth 10m physical vector data
 

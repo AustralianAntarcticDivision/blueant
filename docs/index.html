@@ -112,7 +112,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <p>Once the configuration has been defined and the data source added to it, we can run the sync process. We set <code>verbose = TRUE</code> here so that we see additional progress output:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">status &lt;-<span class="st"> </span><span class="kw">bb_sync</span>(cf, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
-## Thu Sep 20 02:26:36 2018
+## Thu May 23 03:20:40 2019
 ## Synchronizing dataset: George V bathymetry
 ## Source URL https://data.aad.gov.au/eds/file/4494/
 ## --------------------------------------------------------------------------------------------
@@ -122,18 +122,18 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 ##  downloading file 1 of 1: https://data.aad.gov.au/eds/file/4494/ ...  done.
 ##   decompressing: c:\tmp\data/data.aad.gov.au/eds/file/4494/download.zip ... extracting 4 files into c:/tmp/data/data.aad.gov.au/eds/file/4494 ... done.
 ## 
-## Thu Sep 20 02:26:52 2018 dataset synchronization complete: George V bathymetry</code></pre>
+## Thu May 23 03:21:19 2019 dataset synchronization complete: George V bathymetry</code></pre>
 <p>Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned <code>status</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myfiles &lt;-<span class="st"> </span>status<span class="op">$</span>files[[<span class="dv">1</span>]]
 myfiles
 ## # A tibble: 5 x 3
-##   url                      file                                   note    
-##   &lt;chr&gt;                    &lt;chr&gt;                                  &lt;chr&gt;   
-## 1 https://data.aad.gov.au~ "c:\\tmp\\data\\data.aad.gov.au\\eds\~ downloa~
-## 2 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
-## 3 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
-## 4 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~
-## 5 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompr~</code></pre></div>
+##   url                      file                                   note     
+##   &lt;chr&gt;                    &lt;chr&gt;                                  &lt;chr&gt;    
+## 1 https://data.aad.gov.au~ "c:\\tmp\\data\\data.aad.gov.au\\eds\~ download~
+## 2 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~
+## 3 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~
+## 4 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~
+## 5 &lt;NA&gt;                     c:/tmp/data/data.aad.gov.au/eds/file/~ decompre~</code></pre></div>
 <p>The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including <a href="https://github.com/AustralianAntarcticDivision/raadtools">RAADTools</a> and <a href="https://cran.r-project.org/package=raster">raster</a>. In this case the data files are netcdf, which can be read by <code>raster</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 x &lt;-<span class="st"> </span><span class="kw">raster</span>(myfiles<span class="op">$</span>file[<span class="kw">grepl</span>(<span class="st">"gvdem500m_v3"</span>, myfiles<span class="op">$</span>file)])
@@ -240,6 +240,22 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <p>Authentication note: AVISO login required, see <a href="https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html" class="uri">https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html</a></p>
 <p>Approximate size: 0.1 GB</p>
 <p>Documentation link: <a href="https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html" class="uri">https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html</a></p>
+</div>
+<div id="delayed-time-finite-size-lyapunov-exponents" class="section level4">
+<h4 class="hasAnchor">
+<a href="#delayed-time-finite-size-lyapunov-exponents" class="anchor"></a>Delayed-time finite size Lyapunov exponents</h4>
+<p>The maps of Backward-in-time, Finite-Size Lyapunov Exponents (FSLEs) and Orientations of associated eigenvectors are computed over 21-year altimetry period and over global ocean within the SALP/Cnes project in collaboration with CLS, LOcean and CTOH. These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.</p>
+<p>Authentication note: AVISO login required, see <a href="https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html" class="uri">https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html</a></p>
+<p>Approximate size: 1200 GB</p>
+<p>Documentation link: <a href="https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html" class="uri">https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html</a></p>
+</div>
+<div id="near-real-time-finite-size-lyapunov-exponents" class="section level4">
+<h4 class="hasAnchor">
+<a href="#near-real-time-finite-size-lyapunov-exponents" class="anchor"></a>Near-real-time finite size Lyapunov exponents</h4>
+<p>The maps of Backward-in-time, Finite-Size Lyapunov Exponents (FSLEs) and Orientations of associated eigenvectors are computed over 21-year altimetry period and over global ocean within the SALP/Cnes project in collaboration with CLS, LOcean and CTOH. These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.</p>
+<p>Authentication note: AVISO login required, see <a href="https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html" class="uri">https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html</a></p>
+<p>Approximate size: 100 GB</p>
+<p>Documentation link: <a href="https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html" class="uri">https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html</a></p>
 </div>
 </div>
 <div id="data-group-biology" class="section level3">
@@ -374,6 +390,13 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <p>Approximate size: not specified</p>
 <p>Documentation link: <a href="http://www.argodatamgt.org/Documentation" class="uri">http://www.argodatamgt.org/Documentation</a></p>
 </div>
+<div id="argo-profile-data-usgodae" class="section level4">
+<h4 class="hasAnchor">
+<a href="#argo-profile-data-usgodae" class="anchor"></a>Argo profile data (USGODAE)</h4>
+<p>Argo profile data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment).</p>
+<p>Approximate size: not specified</p>
+<p>Documentation link: <a href="http://www.argodatamgt.org/Documentation" class="uri">http://www.argodatamgt.org/Documentation</a></p>
+</div>
 <div id="csiro-atlas-of-regional-seas-2009" class="section level4">
 <h4 class="hasAnchor">
 <a href="#csiro-atlas-of-regional-seas-2009" class="anchor"></a>CSIRO Atlas of Regional Seas 2009</h4>
@@ -434,8 +457,8 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <div id="artist-amsr2-near-real-time-3-125km-sea-ice-concentration" class="section level4">
 <h4 class="hasAnchor">
 <a href="#artist-amsr2-near-real-time-3-125km-sea-ice-concentration" class="anchor"></a>Artist AMSR2 near-real-time 3.125km sea ice concentration</h4>
-<p>Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution in selected regions (from 24-July-2012 to present) and full Antarctic coverage (from 1-Jan-2016 to present).</p>
-<p>Approximate size: 150 GB</p>
+<p>Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution (full Antarctic coverage).</p>
+<p>Approximate size: 100 GB</p>
 <p>Documentation link: <a href="https://seaice.uni-bremen.de/sea-ice-concentration/" class="uri">https://seaice.uni-bremen.de/sea-ice-concentration/</a></p>
 </div>
 <div id="artist-amsr2-near-real-time-sea-ice-concentration" class="section level4">
@@ -571,7 +594,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <a href="#bedmap2" class="anchor"></a>Bedmap2</h4>
 <p>Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S.</p>
 <p>Approximate size: 3.3 GB</p>
-<p>Documentation link: <a href="http://www.antarctica.ac.uk/bas_research/our_research/az/bedmap2/" class="uri">http://www.antarctica.ac.uk/bas_research/our_research/az/bedmap2/</a></p>
+<p>Documentation link: <a href="https://www.bas.ac.uk/project/bedmap-2/" class="uri">https://www.bas.ac.uk/project/bedmap-2/</a></p>
 </div>
 <div id="cryosat-2-digital-elevation-model" class="section level4">
 <h4 class="hasAnchor">
@@ -593,6 +616,13 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <p>2-Minute Gridded Global Relief Data (ETOPO2v2c)</p>
 <p>Approximate size: 0.3 GB</p>
 <p>Documentation link: <a href="http://www.ngdc.noaa.gov/mgg/global/etopo2.html" class="uri">http://www.ngdc.noaa.gov/mgg/global/etopo2.html</a></p>
+</div>
+<div id="gebco-2019-bathymetry" class="section level4">
+<h4 class="hasAnchor">
+<a href="#gebco-2019-bathymetry" class="anchor"></a>GEBCO 2019 bathymetry</h4>
+<p>The GEBCO_2019 Grid is the latest global bathymetric product released by the General Bathymetric Chart of the Oceans (GEBCO). The GEBCO_2019 product provides global coverage, spanning 89d 59’ 52.5“N, 179d 59’ 52.5”W to 89d 59’ 52.5“S, 179d 59’ 52.5”E on a 15 arc-second grid. It consists of 86400 rows x 43200 columns, giving 3,732,480,000 data points. The data values are pixel-centre registered i.e. they refer to elevations at the centre of grid cells.</p>
+<p>Approximate size: 13 GB</p>
+<p>Documentation link: <a href="https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_2019/gebco_2019_info.html" class="uri">https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_2019/gebco_2019_info.html</a></p>
 </div>
 <div id="george-v-bathymetry" class="section level4">
 <h4 class="hasAnchor">
@@ -634,7 +664,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <a href="#kerguelen-plateau-bathymetric-grid-2010" class="anchor"></a>Kerguelen Plateau bathymetric grid 2010</h4>
 <p>This data replaces the digital elevation model (DEM) for the Kerguelen Plateau region produced in 2005 (Sexton 2005). The revised grid has been gridded at a grid pixel resolution of 0.001-arc degree (about 100 m). The new grid utilised the latest data sourced from ship-based multibeam and singlebeam echosounder surveys, and satellite remotely-sensed data. Report Reference: Beaman, R.J. and O’Brien, P.E., 2011. Kerguelen Plateau bathymetric grid, November 2010. Geoscience Australia, Record, 2011/22, 18 pages.</p>
 <p>Approximate size: 0.7 GB</p>
-<p>Documentation link: <a href="http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_71552" class="uri">http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_71552</a></p>
+<p>Documentation link: <a href="http://pid.geoscience.gov.au/dataset/ga/71670" class="uri">http://pid.geoscience.gov.au/dataset/ga/71670</a></p>
 </div>
 <div id="natural-earth-10m-physical-vector-data" class="section level4">
 <h4 class="hasAnchor">
@@ -707,7 +737,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 <ul class="list-unstyled">
 <li>Ben Raymond <br><small class="roles"> Author, maintainer </small> </li>
 <li>Michael Sumner <br><small class="roles"> Author </small> </li>
-<li>Charlène Guillaumot <br><small class="roles"> Author </small> </li>
+<li>Charlene Guillaumot <br><small class="roles"> Author </small> </li>
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
@@ -722,7 +752,7 @@ cf &lt;-<span class="st"> </span>cf <span class="op">%&gt;%</span><span class="s
 
 
       <footer><div class="copyright">
-  <p>Developed by Ben Raymond, Michael Sumner, Charlène Guillaumot.</p>
+  <p>Developed by Ben Raymond, Michael Sumner, Charlene Guillaumot.</p>
 </div>
 
 <div class="pkgdown">
