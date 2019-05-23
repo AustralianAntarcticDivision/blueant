@@ -93,7 +93,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          license = "CC-BY",
                          source_url = c("https://www.bodc.ac.uk/data/open_download/gebco/GEBCO_15SEC/zip/"),
                          method = list("bb_handler_rget", force_local_filename = "gebco_2019.zip"),
-                         postprocess = list(function(...) tryCatch(bb_unzip(...), warning = function(w) warning("unzip failed, you might try unzipping manually with a utility that can handle large files (e.g. 7z on Linux systems). The failure message was: ", conditionMessage(w)))),
+                         postprocess = list(function(...) tryCatch(bowerbird::bb_unzip(...), warning = function(w) warning("unzip failed, you might try unzipping manually with a utility that can handle large files (e.g. 7z on Linux systems). The failure message was: ", conditionMessage(w)))),
                          collection_size = 13,
                          data_group = "Topography"))
     }
