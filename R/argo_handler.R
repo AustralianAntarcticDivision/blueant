@@ -24,7 +24,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     ## * get the index file for processing by raadfiles
     ## * apply filters "aoml", "bodc", "coriolis", "csio", "csiro", "incois" (codes "AO", "BO", "IF", "HZ", "CS", "IN")
     ## * apply filter latitude < -40
-    ## * apply filter anything with parameter including "CHLA"
+    ## * apply filter anything with parameter including "CHLA" (current parameter set is BBP470, BBP532, BBP700, BISULFIDE, CDOM, CHLA, CNDC, CP660, DOWN_IRRADIANCE380, DOWN_IRRADIANCE412, DOWN_IRRADIANCE443, DOWN_IRRADIANCE490, DOWN_IRRADIANCE555, DOWNWELLING_PAR, DOXY, NITRATE, PH_IN_SITU_TOTAL, PRES, PSAL, TEMP, TURBIDITY, UP_RADIANCE412, UP_RADIANCE443, UP_RADIANCE490, UP_RADIANCE555)
     ## * want all dates, all longitudes, all institutions, all profile types
     ## * get files in ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/profiles/
     ## * and get file in ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/[float]_meta.nc
