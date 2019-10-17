@@ -327,14 +327,12 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          name = "MODIS Composite Based Maps of East Antarctic Fast Ice Coverage",
                          id = "10.4225/15/5667AC726B224", ##modis_20day_fast_ice
                          description = "Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31",
-                         doc_url = "https://data.aad.gov.au/metadata/records/modis_20day_fast_ice",
+                         doc_url = "https://doi.org/10.4225/15/5667AC726B224",
                          citation = "Fraser, AD, RA Massom, KJ Michael, BK Galton-Fenzi, and JL Lieser (2012) East Antarctic landfast sea ice distribution and variability, 2000-08. Journal of Climate, 25(4):1137-1156",
-                         source_url = "https://data.aad.gov.au/eds/file/3656/", ## migrate to https://data.aad.gov.au/eds/3403/download if we prefer that form
                          license = "CC-BY",
-                         ##method=list("bb_handler_aadc"),
-                         method = list("bb_handler_rget", force_local_filename = "download.zip", no_check_certificate = TRUE),
-                         comment = "server certificate is valid but not recognized as such by some systems (e.g. Ubuntu)",
-                         postprocess = list("bb_unzip"),
+                         method = list("bb_handler_aws_s3", bucket = "public", base_url = "aad.gov.au", region = "services", prefix = "datasets/science/modis_20day_fast_ice", use_https = FALSE, accept_download_extra = "(img|png)$"),
+                         comment = "Unusual spec of region and base_url is a workaround for an aws.s3 issue, see https://github.com/cloudyr/aws.s3/issues/318",
+                         postprocess = NULL,
                          collection_size = 0.4,
                          data_group = "Sea ice"))
     }

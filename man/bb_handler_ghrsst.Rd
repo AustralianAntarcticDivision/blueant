@@ -13,8 +13,8 @@ bb_handler_ghrsst(...)
 TRUE on success
 }
 \description{
-This is a handler function to be used with GHRSST data from podaac-ftp.jpl.nasa.gov. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+This is a handler function to be used with GHRSST data from ftp.nodc.noaa.gov. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
 }
 \references{
-https://podaac.jpl.nasa.gov/Multi-scale_Ultra-high_Resolution_MUR-SST
+https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1
 }

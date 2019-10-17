@@ -61,10 +61,9 @@ sources_biological <- function(name, formats, time_resolutions, ...) {
                              paste0("Hosie, G. (1999, updated 2018) Southern Ocean Continuous Zooplankton Records Australian Antarctic Data Centre - doi:", doi)
                          }, error = function(e) "See https://data.aad.gov.au/metadata/records/AADC-00099 for current citation"),
                          license = "CC-BY",
-                         source_url = "https://data.aad.gov.au/eds/4672/download",
-                         method = list("bb_handler_rget", force_local_filename = "download.zip", no_check_certificate = TRUE),
-                         comment = "server certificate is valid but not recognized as such by some systems (e.g. Ubuntu)",
-                         postprocess = list("bb_unzip"),
+                         method = list("bb_handler_aws_s3", bucket = "public", base_url = "aad.gov.au", region = "services", prefix = "datasets/science/AADC-00099", use_https = FALSE),
+                         comment = "Unusual spec of region and base_url is a workaround for an aws.s3 issue, see https://github.com/cloudyr/aws.s3/issues/318",
+                         postprocess = NULL,
                          collection_size = 0.1,
                          data_group = "Biology"))
     }
