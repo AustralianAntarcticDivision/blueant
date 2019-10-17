@@ -3,7 +3,7 @@ test_that("SO-CPR source works", {
     src <- sources("Southern Ocean Continuous Plankton Recorder")
     temp_root <- tempdir()
     cf <- bb_add(bb_config(local_file_root = temp_root), src)
-    expect_true(grepl("services.aad.gov.au/public/datasets/science/AADC-00099$", bb_data_source_dir(cf)))
+    expect_true(grepl("services.aad.gov.au/public/datasets/science/AADC-00099/?$", bb_data_source_dir(cf)))
     status <- bb_sync(cf, confirm_downloads_larger_than = NULL)
     expect_equal(nrow(status$files[[1]]), 1)
     expect_true(file.exists(status$files[[1]]$file))
