@@ -27,6 +27,7 @@ Data sources providing oceanographic data.
   \item "World Ocean Atlas 2009": World Ocean Atlas 2009 is included here for convenience but has been superseded by the World Ocean Atlas 2013 V2
   \item "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
   \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
+  \item "Argo profile data": Argo profile data, by default from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). The DAC can be changed by specifying a \code{dac_url} parameter (see example below). Also see \code{\link{bb_handler_argo}} for a description of the other parameters that this source accepts.
 }
 
 The returned tibble contains more information about each source.
@@ -48,8 +49,16 @@ src <- sources_oceanographic("Argo ocean basin data (USGODAE)",
 ## Argo data, all ocean basins and for 2017 and 2018 only
 src <- sources_oceanographic("Argo ocean basin data (USGODAE)",
   region=c("pacific", "indian", "atlantic"), years=c(2017, 2018))
-}
 
+## Argo merge profile data, from the French GDAC (ftp://ftp.ifremer.fr/ifremer/argo/)
+## Only download profiles from institutions "CS" or "IN", south of 30S,
+##  with parameter "NITRATE" or "CHLA"
+src <- sources_oceanographic("Argo profile data", profile_type = "merge",
+                             dac_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
+                             institutions = c("CS", "IN"),
+                             latitude_filter = function(z) z < -30,
+                             parameters = c("CHLA", "NITRATE"))
+}
 }
 \references{
 See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources

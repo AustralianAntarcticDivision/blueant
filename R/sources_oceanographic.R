@@ -7,6 +7,7 @@
 #'   \item "World Ocean Atlas 2009": World Ocean Atlas 2009 is included here for convenience but has been superseded by the World Ocean Atlas 2013 V2
 #'   \item "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
 #'   \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
+#'   \item "Argo profile data": Argo profile data, by default from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). The DAC can be changed by specifying a \code{dac_url} parameter (see example below). Also see \code{\link{bb_handler_argo}} for a description of the other parameters that this source accepts.
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -39,8 +40,17 @@
 #' ## Argo data, all ocean basins and for 2017 and 2018 only
 #' src <- sources_oceanographic("Argo ocean basin data (USGODAE)",
 #'   region=c("pacific", "indian", "atlantic"), years=c(2017, 2018))
-#' }
 #'
+#' ## Argo merge profile data, from the French GDAC (ftp://ftp.ifremer.fr/ifremer/argo/)
+#' ## Only download profiles from institutions "CS" or "IN", south of 30S,
+#' ##  with parameter "NITRATE" or "CHLA"
+#' src <- sources_oceanographic("Argo profile data", profile_type = "merge",
+#'                              dac_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
+#'                              institutions = c("CS", "IN"),
+#'                              latitude_filter = function(z) z < -30,
+#'                              parameters = c("CHLA", "NITRATE"))
+#' }
+
 #' @export
 sources_oceanographic <- function(name,formats,time_resolutions, ...) {
     if (!missing(name) && !is.null(name)) {
@@ -140,7 +150,61 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          data_group = "Oceanographic"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Argo profile data (USGODAE)", "10.17882/42182 profile")))) {
+    ## general Argo profile source, that accepts dac_url parameter but defaults to the USGODAE DAC
+    if (is.null(name) || any(name %in% tolower(c("Argo profile data", "10.17882/42182 profile")))) {
+        if ("profile_type" %in% names(dots)) {
+            profile_type <- dots[["profile_type"]]
+        } else {
+            profile_type <- "merge"
+        }
+        if ("dac_url" %in% names(dots)) {
+            dac_url <- dots[["dac_url"]]
+        } else {
+            dac_url <- "https://www.usgodae.org/ftp/outgoing/argo/"
+            ## can also use this, but is slower: dac_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
+        }
+        if ("institutions" %in% names(dots)) {
+            institutions <- dots[["institutions"]]
+        } else {
+            institutions <- NULL
+        }
+        if ("parameters" %in% names(dots)) {
+            parameters <- dots[["parameters"]]
+        } else {
+            parameters <- NULL
+        }
+        if ("latitude_filter" %in% names(dots)) {
+            latitude_filter <- dots[["latitude_filter"]]
+        } else {
+            latitude_filter <- function(z) rep(TRUE, length(z))
+        }
+        if ("longitude_filter" %in% names(dots)) {
+            longitude_filter <- dots[["longitude_filter"]]
+        } else {
+            longitude_filter <- function(z) rep(TRUE, length(z))
+        }
+        out <- rbind(out,
+                     bb_source(
+                         name = "Argo profile data",
+                         id = "10.17882/42182 profile",
+                         description = paste0("Argo profile data from ", dac_url, "."),
+                         doc_url = "http://www.argodatamgt.org/Documentation",
+                         citation = "To properly acknowledge Argo data usage, please use the following sentence: \"These data were collected and made freely available by the International Argo Program and the national programs that contribute to it (http://www.argo.ucsd.edu, http://argo.jcommops.org). The Argo Program is part of the Global Ocean Observing System. http://doi.org/10.17882/42182\"",
+                         license = "Please cite",
+                         source_url = dac_url,
+                         method = list("bb_handler_argo", profile_type = profile_type, institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
+                         postprocess = NULL,
+                         collection_size = NA, ## unknown yet
+                         data_group = "Oceanographic"))
+    }
+
+    ## for backwards-compatibility, a source with "USGODAE" in the name, that does not accept a dac_url parameter
+    if (is.null(name) || any(name %in% tolower(c("Argo profile data (USGODAE)")))) {
+        if ("profile_type" %in% names(dots)) {
+            profile_type <- dots[["profile_type"]]
+        } else {
+            profile_type <- "merge"
+        }
         if ("institutions" %in% names(dots)) {
             institutions <- dots[["institutions"]]
         } else {
@@ -171,7 +235,7 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          license = "Please cite",
                          source_url = "https://www.usgodae.org/ftp/outgoing/argo/",
                          ## can also use this, but is slower: source_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
-                         method = list("bb_handler_argo", institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
+                         method = list("bb_handler_argo", profile_type = profile_type, institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
                          postprocess = NULL,
                          collection_size = NA, ## unknown yet
                          data_group = "Oceanographic"))

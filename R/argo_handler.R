@@ -2,6 +2,17 @@
 #'
 #' This is a handler function to be used with Argo data. Tested with the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment) and Ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
 #'
+#' This handler can take several \code{method} arguments as specified in the \code{\link[bowerbird]{bb_source}} constructor:
+#' \itemize{
+#'   \item profile_type string: either "merge" [default] or "synthetic" (currently only available from certain DACs)
+#'   \item institutions character: vector of institution codes. Only profiles from these institutions will be downloaded (current institution codes are "AO", "BO", "IF", "HZ", "CS", "IN")
+#'   \item parameters character: vector of parameter codes. Only profiles with one or more of these parameters will be downloaded (current parameter set is "BBP470", "BBP532", "BBP700", "BISULFIDE", "CDOM", "CHLA", "CNDC", "CP660", "DOWN_IRRADIANCE380", "DOWN_IRRADIANCE412", "DOWN_IRRADIANCE443", "DOWN_IRRADIANCE490", "DOWN_IRRADIANCE555", "DOWNWELLING_PAR", "DOXY", "NITRATE", "PH_IN_SITU_TOTAL", "PRES", "PSAL", "TEMP", "TURBIDITY", "UP_RADIANCE412", "UP_RADIANCE443", "UP_RADIANCE490", "UP_RADIANCE555")
+#'   \item latitude_filter function: this function is applied to each profile's \code{latitude} value; only profiles for which this function returns \code{TRUE} will be downloaded
+#'   \item longitude_filter function: as for \code{latitude_filter}, but applied to longitude
+#' }
+#'
+#' See \code{\link{sources_oceanographic}} for more details and examples.
+#'
 #' @references <https://wwz.ifremer.fr/en/Research-Technology/Scientific-departments/Department-of-Marine-and-Digital-Infrastructures/The-French-ARGO-Data-Centre>, <http://www.argodatamgt.org/Documentation>
 #' @param ... : parameters passed to \code{\link{bb_rget}}
 #'
@@ -39,43 +50,27 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
 
     if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE))
 
+    parms <- bb_data_sources(config)$method[[1]][-1]
+    source_url_no_trailing_sep <- sub("/+$", "", bb_data_sources(config)$source_url[[1]])
+
     ## first get the greylist and index files
     ## greylist file - we don't do anything with it, but it's there for the user if they care to look at it
-    dummy <- config
-    temp <- bb_data_sources(dummy)
-    source_url_no_trailing_sep <- sub("/+$", "", temp$source_url[[1]])
-    temp$source_url <- file.path(source_url_no_trailing_sep, "ar_greylist.txt")
-    temp$method <- list(list("bb_handler_rget", level = 0))
-    bb_data_sources(dummy) <- temp
-    if (verbose) cat(sprintf("Downloading profile greylist file\n"))
-    this <- get_fun(dummy, verbose = verbose, level = 0)
+    greylist_file <- argo_get_index_file(config, index_type = "greylist", get_fun = get_fun, stop_on_failure = FALSE, verbose = verbose)
     ## index file
-    dummy <- config
-    temp <- bb_data_sources(dummy)
-    source_url_no_trailing_sep <- sub("/+$", "", temp$source_url[[1]])
-    temp$source_url <- file.path(source_url_no_trailing_sep, "argo_merge-profile_index.txt.gz")
-    temp$method <- list(list("bb_handler_rget", level = 0))
-    bb_data_sources(dummy) <- temp
-    if (verbose) cat(sprintf("Downloading profile index file\n"))
-    this <- get_fun(dummy, verbose = verbose, level = 0)
-    if (!this$ok) stop("error retrieving profile index file")
-    ## annoyingly, the header in this csv file is corrupted on the USGODAE GDAC site, but not on ifremer
-    ## GRrrrrrrr
-    ##idx <- read.csv(gzfile(file.path(bb_settings(config)$local_file_root, this$files[[1]]$file)), stringsAsFactors = FALSE, comment.char = "#")
-    local_index_file <- file.path(bb_data_source_dir(config), "argo_merge-profile_index.txt.gz")
-    temp_hdr <- readLines(gzfile(local_index_file), 20)
-    skip_count <- sum(grepl("^#", temp_hdr)) + 1 ## skip comment lines plus one to skip the actual header
-    idx <- read.table(gzfile(local_index_file), sep = ",", header = FALSE, skip = skip_count, stringsAsFactors = FALSE, comment.char = "#")
-    ## expect 10 cols
-    if (ncol(idx) == 10) {
-        colnames(idx) <- c("file", "date", "latitude", "longitude", "ocean", "profiler_type", "institution", "parameters", "parameter_data_mode", "date_update")
+    if ("profile_type" %in% names(parms) && !is.null(parms$profile_type)) {
+        profile_type <- match.arg(tolower(parms$profile_type), c("merge", "synthetic"))
     } else {
-        stop("failure reading index file")
+        profile_type <- "merge"
     }
+    dummy <- config
+    temp <- bb_settings(config)
+    temp$dry_run <- FALSE ## must download index file
+    bb_settings(dummy) <- temp
+    idxfile <- argo_get_index_file(dummy, index_type = profile_type, get_fun = get_fun, verbose = verbose)
+    idx <- argo_parse_index_file(idxfile, verbose = verbose)
     if (verbose) cat("Total number of profiles in index: ", nrow(idx), "\n")
     idx0 <- idx
     ## apply filters
-    parms <- bb_data_sources(config)$method[[1]][-1]
     if ("institutions" %in% names(parms) && !is.null(parms$institutions)) {
         idx <- idx[idx$institution %in% parms$institutions, ]
         if (verbose) cat("Number of profiles after applying institution filter: ", nrow(idx), "\n")
@@ -142,3 +137,42 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     }
     status
 }
+
+
+## retrieve an index file and return its local path
+argo_get_index_file <- function(config, index_type = "merge", get_fun = bb_handler_rget, stop_on_failure = TRUE, verbose = FALSE) {
+    index_type <- match.arg(tolower(index_type), c("merge", "synthetic", "greylist"))
+    dummy <- config
+    temp <- bb_data_sources(dummy)
+    source_url_no_trailing_sep <- sub("/+$", "", temp$source_url[[1]])
+    if (index_type == "greylist") {
+        fname <- "ar_greylist.txt"
+    } else {
+        fname <- paste0("argo_", index_type, "-profile_index.txt.gz")
+    }
+    temp$source_url <- file.path(source_url_no_trailing_sep, fname)
+    temp$method <- list(list("bb_handler_rget", level = 0))
+    bb_data_sources(dummy) <- temp
+    if (verbose) cat("Downloading profile", index_type, "index file\n")
+    this <- get_fun(dummy, verbose = verbose, level = 0)
+    if (!this$ok) stop("error retrieving profile ", index_type, " index file")
+    file.path(bb_data_source_dir(config), fname)
+}
+
+argo_parse_index_file <- function(local_index_file, verbose = FALSE) {
+    ## annoyingly, the header in this csv file is corrupted on the USGODAE GDAC site, but not on ifremer
+    ## GRrrrrrrr
+    ##idx <- read.csv(gzfile(file.path(bb_settings(config)$local_file_root, this$files[[1]]$file)), stringsAsFactors = FALSE, comment.char = "#")
+    con <- if (grepl("gz$", local_index_file, ignore.case = TRUE)) gzfile(local_index_file) else local_index_file
+    temp_hdr <- readLines(con, 20)
+    skip_count <- sum(grepl("^#", temp_hdr)) + 1 ## skip comment lines plus one to skip the actual header
+        idx <- read.table(con, sep = ",", header = FALSE, skip = skip_count, stringsAsFactors = FALSE, comment.char = "#")
+    ## expect 10 cols
+    if (ncol(idx) == 10) {
+        colnames(idx) <- c("file", "date", "latitude", "longitude", "ocean", "profiler_type", "institution", "parameters", "parameter_data_mode", "date_update")
+    } else {
+        stop("failure reading index file")
+    }
+    idx
+}
+
