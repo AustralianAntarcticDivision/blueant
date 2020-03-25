@@ -3,11 +3,7 @@
 \docType{package}
 \name{blueant}
 \alias{blueant}
-\alias{blueant-package}
-\title{\pkg{bowerbird}}
+\title{\pkg{blueant}}
 \description{
-\pkg{bowerbird}
-}
-\references{
-\url{http://data.aad.gov.au}
+A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.
 }

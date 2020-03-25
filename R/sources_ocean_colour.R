@@ -202,20 +202,14 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
 
     if (is.null(name) || any(name %in% tolower(c("Southern Ocean summer chlorophyll-a climatology (Johnson)","10.4225/15/5906b48f70bf9")))) {
         out <- rbind(out,
-                     bb_source(
-                         name = "Southern Ocean summer chlorophyll-a climatology (Johnson)",
-                         id = "10.4225/15/5906b48f70bf9",
-                         description = "Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)",
-                         doc_url = "https://doi.org/10.4225/15/5906b48f70bf9",
-                         source_url = "https://data.aad.gov.au/eds/4423/download",
-                         citation = "Johnson, R., Sumner, M., Raymond, B. (2017, updated 2017) Southern Ocean summer chlorophyll-a climatology Australian Antarctic Data Centre - doi:10.4225/15/5906b48f70bf9",
-                         license = "CC-BY",
-                         method = list("bb_handler_aws_s3", bucket = "public", base_url = "aad.gov.au", region = "services", prefix = "datasets/science/AAS_4343_so_chlorophyll", use_https = FALSE),
-                         comment = "Unusual spec of region and base_url is a workaround for an aws.s3 issue, see https://github.com/cloudyr/aws.s3/issues/318",
-                         postprocess = NULL,
-                         collection_size = 0.05,
-                         data_group="Ocean colour",
-                         access_function = "raster::raster"))
+                     bb_aadc_s3_source_gen(metadata_id = "AAS_4343_so_chlorophyll",
+                                           name = "Southern Ocean summer chlorophyll-a climatology (Johnson)",
+                                           doi = "10.4225/15/5906b48f70bf9",
+                                           description = "Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)",
+                                           citation = "Johnson R, Sumner M, Raymond B (2017) Southern Ocean summer chlorophyll-a climatology Australian Antarctic Data Centre - doi:10.4225/15/5906b48f70bf9",
+                                           collection_size = 0.05,
+                                           data_group = "Ocean colour",
+                                           access_function = "raster::raster"))
     }
 
     out

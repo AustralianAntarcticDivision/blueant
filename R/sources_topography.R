@@ -189,6 +189,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
 
     if (is.null(name) || any(name %in% tolower(c("George V bathymetry", "GVdem_2008")))) {
         out <- rbind(out,
+                     ## this could also be done via the aadc_aws_s3_handler
                      bb_source(
                          name = "George V bathymetry",
                          id = "GVdem_2008",
@@ -196,7 +197,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          doc_url = "https://data.aad.gov.au/metadata/records/GVdem_2008",
                          citation = "Beaman, Robin (2009, updated 2015) A bathymetric Digital Elevation Model (DEM) of the George V and Terre Adelie continental shelf and margin Australian Antarctic Data Centre - CAASM Metadata (https://data.aad.gov.au/aadc/metadata/metadata_redirect.cfm?md=/AMD/AU/GVdem_2008)",
                          license = "CC-BY",
-                         source_url = c("http://services.aad.gov.au/public/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc", "http://services.aad.gov.au/public/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc", "http://services.aad.gov.au/public/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc", "http://services.aad.gov.au/public/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc"),
+                         source_url = c("http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc"),
                          method = list("bb_handler_rget"),
                          postprocess = NULL,
                          collection_size = 0.15,
