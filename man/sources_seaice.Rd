@@ -46,10 +46,10 @@ cf <- bb_config("/my/file/root") \%>\%
   bb_add(sources_seaice("Artist AMSR-E sea ice concentration",formats="geotiff"))
 
 ## the NSIDC SMMR-SSM/I Nasateam sea ice concentration, but only
-##    southern hemisphere, daily data from 2013
+##    southern hemisphere, monthly data from 2013
 cf <- bb_config("/my/file/root") \%>\%
   bb_add(sources_seaice("NSIDC SMMR-SSM/I Nasateam sea ice concentration",
-                         time_resolutions = "day", hemisphere = "south", years = "2013"))
+                         time_resolutions = "month", hemisphere = "south", years = 2013))
 }
 }
 \references{
