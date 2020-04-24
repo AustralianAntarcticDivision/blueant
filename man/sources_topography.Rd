@@ -24,6 +24,8 @@ Data sources providing topographical data.
 \details{
 \itemize{
   \item "Smith and Sandwell bathymetry": Global seafloor topography from satellite altimetry and ship depth soundings
+  \item "GEBCO 2014 bathymetry": Global bathymetric grid at 30 arc-second intervals
+  \item "GEBCO 2019 bathymetry": Global bathymetric grid at 15 arc-second intervals
   \item "ETOPO1 bathymetry": ETOPO1 is a 1 arc-minute global relief model of Earth's surface that integrates land topography and ocean bathymetry
   \item "ETOPO2 bathymetry": 2-Minute Gridded Global Relief Data (ETOPO2v2c)
   \item "Bedmap2": Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S

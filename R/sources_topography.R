@@ -4,6 +4,8 @@
 #'
 #' \itemize{
 #'   \item "Smith and Sandwell bathymetry": Global seafloor topography from satellite altimetry and ship depth soundings
+#'   \item "GEBCO 2014 bathymetry": Global bathymetric grid at 30 arc-second intervals
+#'   \item "GEBCO 2019 bathymetry": Global bathymetric grid at 15 arc-second intervals
 #'   \item "ETOPO1 bathymetry": ETOPO1 is a 1 arc-minute global relief model of Earth's surface that integrates land topography and ocean bathymetry
 #'   \item "ETOPO2 bathymetry": 2-Minute Gridded Global Relief Data (ETOPO2v2c)
 #'   \item "Bedmap2": Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S
@@ -95,6 +97,34 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          method = list("bb_handler_rget", force_local_filename = "gebco_2019.zip"),
                          postprocess = list(function(...) warning("bowerbird cannot currently unzip GEBCO 2019 file. You will need to unzip manually with a utility that can handle large files (e.g. 7z on Linux systems)")),
                          collection_size = 13,
+                         data_group = "Topography"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("GEBCO 2014 bathymetry", "GEBCO_2014")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "GEBCO 2014 bathymetry",
+                         id = "GEBCO_2014",
+                         description = "A global grid at 30 arc-second intervals. Originally published in 2014, last updated in April 2015. The data set is largely based on a database of ship-track soundings with interpolation between soundings guided by satellite-derived gravity data. Where they improve on this model, data sets generated from other methods are included. The grid is accompanied by a Source Identifier Grid (SID). This indicates if the corresponding cells in the GEBCO_2014 Grid are based on soundings, pre-generated grids or interpolation.",
+                         doc_url = "https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2014",
+                         citation = "The GEBCO_2014 Grid, version 20150318, http://www.gebco.net",
+                         license = "CC-BY",
+                         source_url = c("https://www.bodc.ac.uk/data/open_download/gebco/GEBCO_30SEC/zip/"),
+                         method = list("bb_handler_rget", force_local_filename = "gebco_2014.zip"),
+                         postprocess = list("bb_unzip"),
+                         collection_size = 1.2,
+                         data_group = "Topography"),
+                     bb_source(
+                         name = "GEBCO 2014 bathymetry SID",
+                         id = "GEBCO_2014_SID",
+                         description = "A global grid at 30 arc-second intervals. Originally published in 2014, last updated in April 2015. The data set is largely based on a database of ship-track soundings with interpolation between soundings guided by satellite-derived gravity data. Where they improve on this model, data sets generated from other methods are included. The grid is accompanied by a Source Identifier Grid (SID). This indicates if the corresponding cells in the GEBCO_2014 Grid are based on soundings, pre-generated grids or interpolation.",
+                         doc_url = "https://www.gebco.net/data_and_products/historical_data_sets/#gebco_2014",
+                         citation = "The GEBCO_2014 Grid, version 20150318, http://www.gebco.net",
+                         license = "CC-BY",
+                         source_url = c("https://www.bodc.ac.uk/data/open_download/gebco/GEBCO_SID/zip/"),
+                         method = list("bb_handler_rget", force_local_filename = "gebco_2014_SID.zip"),
+                         postprocess = list("bb_unzip"),
+                         collection_size = 0.1,
                          data_group = "Topography"))
     }
 
