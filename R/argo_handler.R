@@ -107,6 +107,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     ## for each one:
     ## * get files in [source_url]/dac/[provider]/[float]/profiles/
     ## * and get file in ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/[float]_meta.nc
+    ## * and for synthetic profiles, get ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/[float]_Sprof.nc
     ## each meta file
     status <- list(ok = TRUE, files = list(NULL), msg = "")
     for (thisurl in uurl) {
@@ -117,9 +118,17 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
             temp$source_url <- file.path(source_url_no_trailing_sep, "dac", thisurl, paste0(this_float, "_meta.nc"))
             temp$method <- list(list("bb_handler_rget", level = 1))
             bb_data_sources(dummy) <- temp
-            ##        cat(str(dummy))
             this_status <- get_fun(dummy, verbose = verbose)
-            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$msg))
+            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
+            ## Sprof file
+            if (profile_type == "synthetic") {
+                temp$source_url <- file.path(source_url_no_trailing_sep, "dac", thisurl, paste0(this_float, "_Sprof.nc"))
+                temp$method <- list(list("bb_handler_rget", level = 1))
+                bb_data_sources(dummy) <- temp
+                this_status <- get_fun(dummy, verbose = verbose)
+                ## not all profiles have this Sprof file, so don't change the 'ok' value on failure (??)
+                status <- tibble(ok = status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
+            }
         }
     }
     ## and each profile file
