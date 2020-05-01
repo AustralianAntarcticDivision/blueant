@@ -56,9 +56,11 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="S*L3m_MO_CHL_chlor_a_9km.nc"),
+                         ## method=list("bb_handler_oceandata",search="S*L3m_MO_CHL_chlor_a_9km.nc"),
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/SeaWiFS/Mapped/Monthly/9km/chlor_a/", search_method = "scrape"),
                          postprocess=NULL,
                          collection_size=7.2,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -71,9 +73,11 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="A*L3m_DAY_CHL_chlor_a_4km.nc"),
+                         ##method=list("bb_handler_oceandata",search="A*L3m_DAY_CHL_chlor_a_4km.nc"),
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Daily/4km/chlor_a/", search_method = "scrape"),
                          postprocess=NULL,
                          collection_size=40,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -86,9 +90,11 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="A*L3m_MO_CHL_chlor_a_9km.nc"),
+                         ##method=list("bb_handler_oceandata",search="A*L3m_MO_CHL_chlor_a_9km.nc"),
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/", search_method = "scrape"),
                          postprocess=NULL,
                          collection_size=8,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -101,9 +107,11 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="V2016*L3m_DAY_NPP_CHL_chlor_a_4km.nc"),
+                         ##method=list("bb_handler_oceandata",search="V2016*L3m_DAY_NPP_CHL_chlor_a_4km.nc"),
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/VIIRS-SNPP/Mapped/Daily/4km/chlor_a/", search_method = "scrape"),
                          postprocess=NULL,
-                         collection_size=1,
+                         collection_size=50,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -116,9 +124,11 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="V*L3m_MO_SNPP_CHL_chlor_a_9km.nc"),
+                         ##method=list("bb_handler_oceandata",search="V*L3m_MO_SNPP_CHL_chlor_a_9km.nc"),
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/VIIRS-SNPP/Mapped/Daily/4km/chlor_a/", search_method = "scrape"),
                          postprocess=NULL,
                          collection_size=1,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -131,9 +141,11 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="V*L3m_SN*_SNPP_CHL_chlor_a_9km.nc"),
+                         ##method=list("bb_handler_oceandata",search="V*L3m_SN*_SNPP_CHL_chlor_a_9km.nc"),
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/VIIRS-SNPP/Mapped/Seasonal/9km/chlor_a/", search_method = "scrape"),
                          postprocess=NULL,
                          collection_size=0.5,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -146,10 +158,13 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="V*L3b_DAY_SNPP_RRS.nc"),
+                         ##method=list("bb_handler_oceandata",search="V*L3b_DAY_SNPP_RRS.nc"),
+                         ## scrape method will be super slow because of recursion
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/VIIRS-SNPP/L3BIN/", search_method = "scrape", accept_download = "/getfile/.*RRS\\.nc"),
                          postprocess=NULL,
                          access_function="roc::readL3",
                          collection_size=180,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -162,10 +177,13 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="A*L3b_DAY_RRS.nc"),
+                         ##method=list("bb_handler_oceandata",search="A*L3b_DAY_RRS.nc"),
+                         ## scrape method will be super slow because of recursion
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/L3BIN/", search_method = "scrape", accept_download = "/getfile/.*RRS\\.nc"),
                          postprocess=NULL,
                          access_function="roc::readL3",
                          collection_size=800,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -178,10 +196,13 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="S*L3b_DAY_RRS.nc"),
+                         ##method=list("bb_handler_oceandata",search="S*L3b_DAY_RRS.nc"),
+                         ## scrape method will be super slow because of recursion
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/SeaWiFS/L3BIN/", search_method = "scrape", accept_download = "/getfile/.*RRS\\.nc"),
                          postprocess=NULL,
                          access_function="roc::readL3",
                          collection_size=130,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
@@ -194,9 +215,11 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url="http://oceancolor.gsfc.nasa.gov/",
                          citation="See https://oceancolor.gsfc.nasa.gov/citations",
                          license="Please cite",
-                         method=list("bb_handler_oceandata",search="V*L3m_R32_SNPP_CHL_chlor_a_9km.nc"),
+                         ##method=list("bb_handler_oceandata",search="V*L3m_R32_SNPP_CHL_chlor_a_9km.nc"),
+                         method=list("bb_handler_oceandata", search = "https://oceandata.sci.gsfc.nasa.gov/VIIRS-SNPP/Mapped/Rolling_32_Day/9km/chlor_a/", search_method = "scrape"),
                          postprocess=NULL,
                          collection_size=4,
+                         user = "", password = "", warn_empty_auth = FALSE,
                          data_group="Ocean colour"))
     }
 
