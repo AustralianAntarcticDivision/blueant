@@ -32,7 +32,7 @@ test_that("source nsidc0081 still works under ftp (may be moved to https)",{
     skip_on_cran()
     skip_on_travis() ## this randomly fails for no good reason on travis and appveyor, so just run locally
     skip_on_appveyor()
-    target_file <- format(Sys.Date()-10,"nt_%Y%m%d_f18_nrt_s.bin")
+    target_file <- format(Sys.Date()-60,"nt_%Y%m%d_f18_nrt_s.bin")
     fnm <- dlcheck(paste0("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/south/",target_file))
     expect_true(file.exists(fnm))
     fi <- file.info(fnm)
