@@ -61,6 +61,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          postprocess=NULL,
                          collection_size=7.2,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -78,6 +79,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          postprocess=NULL,
                          collection_size=40,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -95,6 +97,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          postprocess=NULL,
                          collection_size=8,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -112,6 +115,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          postprocess=NULL,
                          collection_size=50,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -129,6 +133,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          postprocess=NULL,
                          collection_size=1,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -146,6 +151,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          postprocess=NULL,
                          collection_size=0.5,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -165,6 +171,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          access_function="roc::readL3",
                          collection_size=180,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -184,6 +191,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          access_function="roc::readL3",
                          collection_size=800,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -203,6 +211,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          access_function="roc::readL3",
                          collection_size=130,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
@@ -220,6 +229,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          postprocess=NULL,
                          collection_size=4,
                          user = "", password = "", warn_empty_auth = FALSE,
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
                          data_group="Ocean colour"))
     }
 
