@@ -1,5 +1,5 @@
 get_aadc_md <- function(metadata_id) {
-    get_aadc_json(paste0("https://data.aad.gov.au/metadata/records/", metadata_id, "?format=json"))
+    get_json(paste0("https://data.aad.gov.au/metadata/records/", metadata_id, "?format=json"))
 }
 
 get_aadc_doi <- function(metadata_id) {
@@ -7,7 +7,7 @@ get_aadc_doi <- function(metadata_id) {
     tryCatch(sub("^doi:", "", md$data$data_set_citation$dataset_doi), error = function(e) NULL)
 }
 
-get_aadc_json <- function(url) {
+get_json <- function(url) {
     out <- curl::curl_fetch_memory(url, handle = curl::new_handle(ssl_verifypeer = 0L))
     jsonlite::fromJSON(rawToChar(out$content))
 }
@@ -57,7 +57,7 @@ bb_aadc_source <- function(metadata_id) {
     doi <- tryCatch(sub("^doi:", "", md$data$data_set_citation$dataset_doi), error = function(e) NULL)
     ## get collection size from the S3 API
     csize <- tryCatch({
-        s3x <- get_aadc_json(paste0("https://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id, "/?export=json"))
+        s3x <- get_json(paste0("https://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id, "/?export=json"))
         sz <- sum(s3x$size, na.rm = TRUE)/1024^3 ## in GB
         if (!is.na(sz)) ceiling(sz*10)/10 else NULL
     }, error = function(e) NULL)
@@ -68,7 +68,7 @@ bb_aadc_source <- function(metadata_id) {
               citation = md$data$citation,
               license = "CC-BY",
               method = list("bb_handler_aws_s3", bucket = "datasets", base_url = "services.aad.gov.au", region = "public", prefix = paste0("science/", metadata_id), use_https = FALSE),
-              comment = "Unusual spec of region and base_url is a workaround for an aws.s3 issue, see https://github.com/cloudyr/aws.s3/issues/318",
+              comment = "Source definition created by bb_aadc_source",
               postprocess = NULL,
               collection_size = csize)
 }
@@ -86,7 +86,6 @@ bb_aadc_s3_source_gen <- function(metadata_id, name = NULL, id = NULL, doi = NUL
               citation = if (!is.null(citation)) citation else "See documentation URL",
               license = "CC-BY",
               method = c(list("bb_handler_aws_s3", bucket = "datasets", base_url = "services.aad.gov.au", region = "public", prefix = paste0("science/", metadata_id), use_https = FALSE), method_args),
-              comment = "Unusual spec of region and base_url is a workaround for an aws.s3 issue, see https://github.com/cloudyr/aws.s3/issues/318",
               postprocess = NULL,
               collection_size = collection_size,
               data_group = data_group,
