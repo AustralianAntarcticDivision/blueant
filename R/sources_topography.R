@@ -73,10 +73,8 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          description = "Global seafloor topography from satellite altimetry and ship depth soundings",
                          doc_url = "http://topex.ucsd.edu/WWW_html/mar_topo.html",
                          citation = "Smith, W. H. F., and D. T. Sandwell, Global seafloor topography from satellite altimetry and ship depth soundings, Science, v. 277, p. 1957-1962, 26 Sept., 1997",
-                         ##source_url = "ftp://topex.ucsd.edu/pub/global_topo_1min/*",
                          source_url = "ftp://topex.ucsd.edu/pub/global_topo_1min/",
                          license = "See ftp://topex.ucsd.edu/pub/global_topo_1min/COPYRIGHT.txt",
-                         ##method = list("bb_handler_wget"), ## --recursive  --level=1 --no-parent
                          method = list("bb_handler_rget", level = 1, accept_download_extra = "img$"),
                          postprocess = NULL,
                          access_function = "raadtools::readbathy",
@@ -138,7 +136,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Amante, C. and B.W. Eakins, 2009. ETOPO1 1 Arc-Minute Global Relief Model: Procedures, Data Sources and Analysis. NOAA Technical Memorandum NESDIS NGDC-24. National Geophysical Data Center, NOAA. doi:10.7289/V5C8276M [access date]",
                          license = "Please cite",
                          source_url = "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/ice_surface/grid_registered/netcdf/",
-                         ##method = list("bb_handler_wget", level=3, accept="*gdal*,*.txt", robots_off=TRUE), ## --recursive --no-parent
                          method = list("bb_handler_rget", level = 1, reject_download = "gmt4"),
                          postprocess = list("bb_gunzip"),
                          access_function = "raadtools::readtopo",
@@ -155,8 +152,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          doc_url = "http://www.ngdc.noaa.gov/mgg/global/etopo2.html",
                          citation = "",
                          license = "Not given",
-##                         source_url = c("https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2/ETOPO2v2-2006/ETOPO2v2c/netCDF/ETOPO2v2c_f4_netCDF.zip", "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2/ETOPO2v2-2006/ETOPO2v2c/ETOPO2v2c_ReadMe.txt"),
-                         ##method = list("bb_handler_wget", robots_off=TRUE), ## --recursive --level=1 --no-parent
                          source_url = "https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO2/ETOPO2v2-2006/ETOPO2v2c/",
                          method = list("bb_handler_rget", level = 2, accept_follow = "netCDF"),
                          postprocess = list("bb_unzip"),
@@ -175,7 +170,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Fretwell et al. (2013) Bedmap2: improved ice bed, surface and thickness datasets for Antarctica. The Cryosphere 7:375-393. doi:10.5194/tc-7-375-2013",
                          license = "Please cite",
                          source_url = "https://secure.antarctica.ac.uk/data/bedmap2/",
-                         ##method = list("bb_handler_wget",robots_off=TRUE,accept="*bin.zip,*tiff.zip,*.txt,*.rtf",no_check_certificate=TRUE), ## --recursive --no-parent
                          method = list("bb_handler_rget", reject_download = "gdb|ascii", accept_download = "\\.(rtf|zip|txt)$", level = 1),
                          postprocess=list("bb_unzip"),
                          collection_size=3.3,
@@ -244,7 +238,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Spinoccia, M., 2012. XYZ multibeam bathymetric grids of the Macquarie Ridge. Geoscience Australia, Canberra.",
                          source_url = "http://www.ga.gov.au/corporate_data/73697/Macquarie_ESRI_Raster.zip",
                          license = "CC-BY 4.0",
-                         ##method = list("bb_handler_wget",accept="zip"), ## --recursive --level=1 --no-parent
                          method = list("bb_handler_rget"),
                          postprocess = list("bb_unzip"),
                          collection_size = 0.4,
@@ -261,7 +254,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Arndt, J.E., H. W. Schenke, M. Jakobsson, F. Nitsche, G. Buys, B. Goleby, M. Rebesco, F. Bohoyo, J.K. Hong, J. Black, R. Greku, G. Udintsev, F. Barrios, W. Reynoso-Peralta, T. Morishita, R. Wigley, The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 - A new bathymetric compilation covering circum-Antarctic waters, 2013, Geophysical Research Letters, Vol. 40, p. 3111-3117, doi: 10.1002/grl.50413",
                          license = "CC-BY",
                          source_url = c("http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_bed_PS71_500m_grd.zip", "http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_is_PS71_500m_grd.zip", "http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_sid_PS71_500m_grd.zip", "http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_is_PS71_500m_tif.zip", "http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_background_hq.zip"),
-                         ##method=list("bb_handler_wget"), ## --recursive --level=1 --no-parent
                          method = list("bb_handler_rget"),
                          postprocess = list("bb_unzip"),
                          collection_size = 4.3,
@@ -278,7 +270,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Arndt, J.E., H. W. Schenke, M. Jakobsson, F. Nitsche, G. Buys, B. Goleby, M. Rebesco, F. Bohoyo, J.K. Hong, J. Black, R. Greku, G. Udintsev, F. Barrios, W. Reynoso-Peralta, T. Morishita, R. Wigley, The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 - A new bathymetric compilation covering circum-Antarctic waters, 2013, Geophysical Research Letters, Vol. 40, p. 3111-3117, doi: 10.1002/grl.50413",
                          license = "CC-BY",
                          source_url = "http://hs.pangaea.de/Maps/bathy/IBCSO_v1/IBCSO_v1_digital_chart_pdfA.pdf",
-                         ##method = list("bb_handler_wget"), ## --recursive --level=1 --no-parent
                          method = list("bb_handler_rget"),
                          postprocess = NULL,
                          collection_size = 0.2,
@@ -295,7 +286,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Timmermann, Ralph; Le Brocq, Anne M; Deen, Tara J; Domack, Eugene W; Dutrieux, Pierre; Galton-Fenzi, Ben; Hellmer, Hartmut H; Humbert, Angelika; Jansen, Daniela; Jenkins, Adrian; Lambrecht, Astrid; Makinson, Keith; Niederjasper, Fred; Nitsche, Frank-Oliver; N\uf8st, Ole Anders; Smedsrud, Lars Henrik; Smith, Walter (2010): A consistent dataset of Antarctic ice sheet topography, cavity geometry, and global bathymetry. Earth System Science Data, 2(2), 261-273, doi:10.5194/essd-2-261-2010",
                          license = "CC-BY",
                          source_url = c("http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105b_data.nc", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105b_aux.nc", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105b_50S.nc", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105_coast.asc", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105_gl.asc", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105_bathy.jpg", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105_draft.jpg", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105_height.jpg", "http://store.pangaea.de/Publications/TimmermannR_et_al_2010/RTopo105_famask.jpg"),
-                         ##method = list("bb_handler_wget"), ## --recursive --level=1 --no-parent
                          method = list("bb_handler_rget", accept_download = "(jpg|nc|asc)$"),
                          postprocess = NULL,
                          collection_size = 4.1,
@@ -311,9 +301,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          doc_url = "http://nsidc.org/data/nsidc-0082",
                          citation = "Liu, H., K. Jezek, B. Li, and Z. Zhao. 2001. Radarsat Antarctic Mapping Project Digital Elevation Model Version 2. [indicate subset used]. Boulder, Colorado USA: National Snow and Ice Data Center. http://dx.doi.org/10.5067/PXKC81A7WAXD",
                          license = "Please cite",
-                         ##source_url = "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/*",
                          source_url = "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/",
-                         ##method = list("bb_handler_wget",level=3,reject="*.txt.gz"),
                          method = list("bb_handler_rget", level = 3, accept_download_extra = "\\.hdr$", reject_download = "\\.txt\\.gz$"),
                          postprocess = list("bb_gunzip"),
                          collection_size = 5.3,
@@ -330,7 +318,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Mitchell, J.S., Mackay, K.A., Neil, H.L., Mackay, E.J., Pallentin, A., Notman P., 2012. Undersea New Zealand, 1:5,000,000. NIWA Chart, Miscellaneous Series No. 92",
                          source_url = "ftp://ftp.niwa.co.nz/bathymetry/NZBathy_DTM_2016_binary_grid.zip",
                          license = "NIWA Open Data Licence BY-NN-NC-SA version 1, see https://www.niwa.co.nz/environmental-information/licences/niwa-open-data-licence-by-nn-nc-sa-version-1",
-                         ##method = list("bb_handler_wget"), ##--recursive --level=1 --no-parent
                          method = list("bb_handler_rget"),
                          postprocess = list("bb_unzip"),
                          collection_size = 1.3,
@@ -347,7 +334,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Slater T, Shepherd A, McMillan M, Muir A, Gilbert L, Hogg AE, Konrad H, Parrinello T (2017) A new Digital Elevation Model of Antarctica derived from CryoSat-2 altimetry. The Cryosphere Discussions. https://doi.org/10.5194/tc-2017-223",
                          license = "Please cite",
                          source_url = "https://earth.esa.int/documents/10174/3082676/Antarctica-DEM-CryoSat",
-                         ##method = list("bb_handler_wget",extra_flags=c("--content-disposition")),
                          method = list("bb_handler_rget", force_local_filename = "download.zip"),
                          postprocess = list(list("bb_unzip"), list("bb_cleanup", recursive = TRUE, all_files = TRUE, pattern = "^\\._")),
                          collection_size = 0.2,
@@ -364,7 +350,6 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "No permission is needed to use Natural Earth. Crediting the authors is unnecessary. However, if you wish to cite the map data, simply use one of the following. Short text: Made with Natural Earth. Long text: Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
                          license = "PD-CC",
                          source_url = "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/10m_physical.zip",
-                         ##method = list("bb_handler_wget"), ## --recursive --level=1 --no-parent
                          method = list("bb_handler_rget"),
                          postprocess = list("bb_unzip"),
                          collection_size = 0.2,
@@ -379,11 +364,9 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          description = "A Global Self-consistent, Hierarchical, High-resolution Geography Database",
                          doc_url = "http://www.soest.hawaii.edu/pwessel/gshhg",
                          citation = "Wessel, P., and W. H. F. Smith, A Global Self-consistent, Hierarchical, High-resolution Shoreline Database, J. Geophys. Res., 101, 8741-8743, 1996",
-                         ##source_url = "ftp://ftp.soest.hawaii.edu/gshhg/*",
                          source_url = "ftp://ftp.soest.hawaii.edu/gshhg/",
                          license = "LGPL",
-                         ##method = list("bb_handler_wget",accept="*bin*.zip,README.TXT"), ## --recursive --level=1
-                         method = list("bb_handler_rget", level = 1, accept_download = "README|bin.*\\.zip$"),
+                         method = list("bb_handler_rget", level = 1, accept_download = "README|bin.*\\.zip$|\\.nc$"),
                          postprocess = list("bb_unzip"),
                          collection_size = 0.6,
                          data_group = "Topography"))
