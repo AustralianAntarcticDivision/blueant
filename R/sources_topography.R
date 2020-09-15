@@ -76,7 +76,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          citation = "Smith, W. H. F., and D. T. Sandwell, Global seafloor topography from satellite altimetry and ship depth soundings, Science, v. 277, p. 1957-1962, 26 Sept., 1997",
                          source_url = "ftp://topex.ucsd.edu/pub/global_topo_1min/",
                          license = "See ftp://topex.ucsd.edu/pub/global_topo_1min/COPYRIGHT.txt",
-                         method = list("bb_handler_rget", level = 1, accept_download_extra = "img$"),
+                         method = list("bb_handler_rget", level = 1, accept_download_extra = "(img|ers)$"),
                          postprocess = NULL,
                          access_function = "raadtools::readbathy",
                          collection_size = 1.4,
