@@ -22,6 +22,7 @@
 #'   \item "GSHHG coastline data": a Global Self-consistent, Hierarchical, High-resolution Geography Database
 #'   \item "Shuttle Radar Topography Mission elevation data SRTMGL1 V3": Global 1-arc-second topographic data generated from NASA's Shuttle Radar Topography Mission. Version 3.0 (aka SRTM Plus or Void Filled) removes all of the void areas by incorporating data from other sources such as the ASTER GDEM
 #'   \item "Reference Elevation Model of Antarctica mosaic tiles": The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution (and reduced-resolution, resampled versions). Accepts a single \code{spatial_resolution} value of "1km", "200m" [default], "100m", "8m"
+#'   \item "EGM2008 GIS Data": Global 2.5 Minute Geoid Undulations
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -433,5 +434,22 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          collection_size = csize,
                          data_group = "Topography"))
     }
+
+    if (is.null(name) || any(name %in% tolower(c("EGM2008 GIS Data", "EGM2008")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "EGM2008 Global 2.5 Minute Geoid Undulations",
+                         id = "EGM2008",
+                         description = "Each zip file contains an ESRI GRID raster data set of 2.5-minute geoid undulation values covering a 45 x 45 degree area. Each raster file has a 2.5-minute cell size and is a subset of the global 2.5 x 2.5-minute grid of pre-computed geoid undulation point values found on the EGM2008-WGS 84 Version web page. This ESRI GRID format represents a continuous surface of geoid undulation values where each 2.5-minute raster cell derives its value from the original pre-computed geoid undulation point value located at the SW corner of each cell.",
+                         doc_url = "https://earth-info.nga.mil/GandG/wgs84/gravitymod/egm2008/egm08_gis.html",
+                         source_url = "https://earth-info.nga.mil/GandG/wgs84/gravitymod/egm2008/egm08_gis.html",
+                         citation = "Pavlis NK, Holmes SA, Kenyon SC, Factor JK (2012) The development and evaluation of the Earth Gravitational Model 2008 (EGM2008). Journal of Geophysical Research: Solid Earth 117(B4)",
+                         license = "Please cite",
+                         method = list("bb_handler_rget", level = 1, accept_download = "GIS/world_geoid/.*\\.zip", link_css = "area"),
+                         postprocess = list("bb_unzip"),
+                         ##collection_size = csize,
+                         data_group = "Topography"))
+    }
+
     out
 }
