@@ -57,7 +57,7 @@ bb_aadc_source <- function(metadata_id) {
     doi <- tryCatch(sub("^doi:", "", md$data$data_set_citation$dataset_doi), error = function(e) NULL)
     ## get collection size from the S3 API
     csize <- tryCatch({
-        s3x <- get_json(paste0("https://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id, "/?export=json"))
+        s3x <- get_json(paste0("https://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id)) ## , "/?export=json")) ## query parm no longer needed?
         sz <- sum(s3x$size, na.rm = TRUE)/1024^3 ## in GB
         if (!is.na(sz)) ceiling(sz*10)/10 else NULL
     }, error = function(e) NULL)
