@@ -14,7 +14,7 @@
 #'   \item "CERSAT SSM/I sea ice concentration": Passive microwave sea ice concentration data at 12.5km resolution, 3-Dec-1991 to present
 #'   \item "CERSAT SSM/I sea ice concentration supporting files": Grids for the CERSAT SSM/I sea ice concentration data
 #'   \item "MODIS Composite Based Maps of East Antarctic Fast Ice Coverage": Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31
-#'   \item "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product
+#'   \item "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a \code{formats} paramater of (one of) "filled" or "vector"
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -173,18 +173,17 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("Artist AMSR-E sea ice concentration", "AMSR-E_ASI_s6250")))) {
-        if (!is.null(formats)) {
-            chk <- !formats %in% c("geotiff", "hdf")
+        myformats <- formats
+        if (!is.null(myformats)) {
+            chk <- !myformats %in% c("geotiff", "hdf")
             if (any(chk)) stop("only 'geotiff' or 'hdf' formats are supported for the 'Artist AMSR-E sea ice concentration' source")
         } else {
             ## default to both hdf and geotiff
-            formats <- c("hdf", "geotiff")
+            myformats <- c("hdf", "geotiff")
         }
         src_url <- character()
-        ##if ("geotiff" %in% formats) src_url <- c(src_url,"ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/geotiff/s6250/*")
-        ##if ("hdf" %in% formats) src_url <- c(src_url,"ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/hdf/s6250/*")
-        if ("geotiff" %in% formats) src_url <- c(src_url, "ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/geotiff/s6250/")
-        if ("hdf" %in% formats) src_url <- c(src_url, "ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/hdf/s6250/")
+        if ("geotiff" %in% myformats) src_url <- c(src_url, "ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/geotiff/s6250/")
+        if ("hdf" %in% myformats) src_url <- c(src_url, "ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/hdf/s6250/")
         if (length(src_url)<1) {
             ## this should never happen, but something has gone wrong
             stop("error with 'Artist AMSR-E sea ice concentration' source - please notify the maintainers")
@@ -326,17 +325,23 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("National Ice Center Antarctic daily sea ice charts", "NIC_daily_charts_antarctic")))) {
+        myformats <- formats
+        if (!is.null(myformats)) {
+            chk <- myformats %in% c("filled", "vector") && length(myformats) == 1
+            if (!isTRUE(chk)) stop("formats must be one of 'filled' or 'vector'")
+        } else {
+            myformats <- "filled"
+        }
         out <- rbind(out,
                      bb_source(
                          name = "National Ice Center Antarctic daily sea ice charts",
                          id = "NIC_daily_charts_antarctic",
                          description = "The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product.",
-                         doc_url = "http://www.natice.noaa.gov/Main_Products.htm",
+                         doc_url = "https://usicecenter.gov/Products/AntarcHome",
                          citation = "Not known",
-                         source_url = paste0("https://www.natice.noaa.gov/pub/special/kml_archive/antarctic/", 2010:as.numeric(format(Sys.Date(), "%Y")), "/"),
+                         source_url = "https://usicecenter.gov/File/",
                          license = "Not known",
-                         ##method = list("bb_handler_wget", accept="*.kmz"),
-                         method = list("bb_handler_rget", level = 1, no_check_certificate = TRUE),##accept="*.kmz"),
+                         method = list("bb_handler_usnic", chart_type = myformats),
                          data_group = "Sea ice"))
     }
     out
