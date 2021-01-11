@@ -14,7 +14,7 @@
 #'   \item "CERSAT SSM/I sea ice concentration": Passive microwave sea ice concentration data at 12.5km resolution, 3-Dec-1991 to present
 #'   \item "CERSAT SSM/I sea ice concentration supporting files": Grids for the CERSAT SSM/I sea ice concentration data
 #'   \item "MODIS Composite Based Maps of East Antarctic Fast Ice Coverage": Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31
-#'   \item "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a \code{formats} paramater of (one of) "filled" or "vector"
+#'   \item "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a \code{formats} parameter which can be one of "filled" or "vector". Accepts a \code{years} parameter to restrict the data to certain years
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -325,12 +325,17 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("National Ice Center Antarctic daily sea ice charts", "NIC_daily_charts_antarctic")))) {
+        warning("The data download for the NIC sea ice charts does not currently seem to be returning valid Last-Modified times, which means that we can't skip unchanged files. Even if you set clobber=1 (only download if the remote file is newer than the local copy), it may download every single file anyway. You might wish to use clobber=0 (do not overwrite existing files)")
         myformats <- formats
         if (!is.null(myformats)) {
             chk <- myformats %in% c("filled", "vector") && length(myformats) == 1
             if (!isTRUE(chk)) stop("formats must be one of 'filled' or 'vector'")
         } else {
             myformats <- "filled"
+        }
+        years <- ss_args$years
+        if (!is.null(years)) {
+            assert_that(is.numeric(years), noNA(years))
         }
         out <- rbind(out,
                      bb_source(
@@ -341,7 +346,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          citation = "Not known",
                          source_url = "https://usicecenter.gov/File/",
                          license = "Not known",
-                         method = list("bb_handler_usnic", chart_type = myformats),
+                         method = list("bb_handler_usnic", chart_type = myformats, years = years),
                          data_group = "Sea ice"))
     }
     out

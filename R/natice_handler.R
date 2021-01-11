@@ -2,7 +2,7 @@
 #'
 #' This is a handler function to be used with US National Ice Center charts from https://usicecenter.gov/Products/AntarcHome. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
 #'
-#' Note that the USNIC server does not support timestamp operations on requests, so it is not possible to download only files that have changed since last downloaded. Bowerbird configurations with \code{clobber = 1} (download if modified) will be treated as \code{clobber = 0} (don't download if file already exists).
+#' Note that the USNIC server does not support timestamp operations on requests, so it is not possible to download only files that have changed since last downloaded. Bowerbird configurations with \code{clobber = 1} (download if modified) are likely to download all files, even if those files exist locally and have not changed since last download. Consider using \code{clobber = 0} (don't download if file already exists).
 #'
 #' This handler can take a \code{method} argument as specified in the \code{\link[bowerbird]{bb_source}} constructor:
 #' \itemize{
@@ -32,7 +32,7 @@ bb_handler_usnic_inner <- function(config, verbose = FALSE, local_dir_only = FAL
     if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE, ...))
 
     parms <- bb_data_sources(config)$method[[1]][-1]
-    if ("chart_type" %in% names(parms) && !is.null(parms$chart_type)) {
+    if (!is.null(parms$chart_type)) {
         chart_type <- match.arg(tolower(parms$chart_type), c("filled", "vector"))
     } else {
         chart_type <- "filled"
@@ -48,10 +48,12 @@ bb_handler_usnic_inner <- function(config, verbose = FALSE, local_dir_only = FAL
         query_format <- "special/kml_archive/antarctic_line/%Y&fName=antarctic_line_%Y%j.kmz"
     }
 
-    ##data_start_date <- Sys.Date() - 5L ## TESTING
     dates <- seq(data_start_date, Sys.Date(), by = "day")
 
-    links <- paste0(base_url, gsub("/", "%2F", format(dates, query_format)))
+    if (!is.null(parms$years)) {
+        dates <- dates[format(dates, "%Y") %in% parms$years]
+    }
+
     target_dir <- sub("[\\/]$", "", bb_data_source_dir(config))
     if (!dir.exists(target_dir)) {
         ok <- dir.create(target_dir, recursive = TRUE)
@@ -66,18 +68,23 @@ bb_handler_usnic_inner <- function(config, verbose = FALSE, local_dir_only = FAL
     settings <- bowerbird:::save_current_settings()
     on.exit({ bowerbird:::restore_settings(settings) })
     setwd(target_dir)
-    for (thislink in links) {
-        ## loop through files to download
+    for (di in seq_along(dates)) {
+        thisdate <- dates[di]
+        ## loop through dates to download
+        thislink <- paste0(base_url, gsub("/", "%2F", format(thisdate, query_format)))
         dummy <- config
         temp <- bb_data_sources(dummy)
         temp$source_url[[1]] <- thislink
         bb_data_sources(dummy) <- temp
-        ## USNIC server can't handle timestamped requests and won't give last-modified time in HEAD request
-        if (dummy$settings$clobber == 1) dummy$settings$clobber <- 0L
         ## pass to the rget handler
         ## we could do it directly here with GET calls, but simpler to use the rget handler functionality
         fname <- sub(".*fName=", "", thislink)
         this <- bb_handler_rget(dummy, verbose = verbose, level = 0, use_url_directory = FALSE, force_local_filename = fname)
+        ## we will fail for very recent days, because the data doesn't exist yet
+        if (!this$ok && abs(as.numeric(thisdate - Sys.Date())) < 5) {
+            ## ignore errors for recent days
+            this$ok <- TRUE
+        }
         all_ok <- all_ok && this$ok
         if (nrow(this$files[[1]])>0) downloads <- rbind(downloads, this$files[[1]])
         if (nzchar(this$message)) msg <- c(msg, this$message)
