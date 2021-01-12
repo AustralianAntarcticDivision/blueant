@@ -3,7 +3,8 @@
 #' Data sources providing SST data.
 #'
 #' \itemize{
-#'   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present
+#'   \item "NOAA OI 1/4 Degree Daily SST AVHRR v2": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020 (superseded by v2.1, below)
+#'   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present (this is v2.1 of the daily OI SST product)
 #'   \item "NOAA OI SST V2": Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
 #'   \item "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
 #'   \item "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
@@ -49,11 +50,26 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          name = "NOAA OI 1/4 Degree Daily SST AVHRR",
                          id = "10.7289/V5SQ8XB5",
                          description = "Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present",
-                         doc_url = "http://www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NCDC/Geoportal/iso/xml/C00844.xml&view=getDataView&header=none",
-                         citation = "Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
-                         source_url = "https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/access/avhrr-only/",
+                         doc_url = "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00844/html",
+                         citation = "Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2.1. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
+                         source_url = "https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/",
                          license = "Please cite",
-                         ##method=list("bb_handler_wget",level=2,accept="nc"), ##--recursive --no-parent --follow-ftp
+                         method = list("bb_handler_rget", level = 2),
+                         postprocess = NULL,
+                         access_function = "raadtools::readsst",
+                         collection_size = 140,
+                         data_group = "Sea surface temperature"))
+    }
+    if (is.null(name) || any(name %in% tolower(c("NOAA OI 1/4 Degree Daily SST AVHRR v2","10.7289/V5SQ8XB5v2")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "NOAA OI 1/4 Degree Daily SST AVHRR v2",
+                         id = "10.7289/V5SQ8XB5",
+                         description = "Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020",
+                         doc_url = "https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc:C00844/html",
+                         citation = "Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
+                         source_url = "https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2/access/avhrr-only/",
+                         license = "Please cite",
                          method = list("bb_handler_rget", level = 2),
                          postprocess = NULL,
                          access_function = "raadtools::readsst",
