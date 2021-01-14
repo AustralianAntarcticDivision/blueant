@@ -166,7 +166,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          citation = "Cite as: US NASA; Jet Propulsion Laboratory; Physical Oceanography Distributed Active Archive Center (JPL PO.DAAC) (2002). GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis (v4.1) (GDS versions 1 and 2). National Oceanographic Data Center, NOAA. Dataset. [access date]",
                          ## old source was via ftp
                          ##source_url = "ftp://ftp.nodc.noaa.gov/pub/data.nodc/ghrsst/GDS2/L4/GLOB/JPL/MUR/v4.1/",
-                         source_url = "https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2021/",
+                         source_url = "https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",
                          license = "Please cite",
                          comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2021/",
                          ##method = list("bb_handler_ghrsst", level = 4), ## can just use rget now
