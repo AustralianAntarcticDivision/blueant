@@ -29,7 +29,7 @@ Data sources providing topographical data.
   \item "ETOPO1 bathymetry": ETOPO1 is a 1 arc-minute global relief model of Earth's surface that integrates land topography and ocean bathymetry
   \item "ETOPO2 bathymetry": 2-Minute Gridded Global Relief Data (ETOPO2v2c)
   \item "Bedmap2": Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S
-  \item "Kerguelen Plateau bathymetric grid 2010": digital elevation model (DEM) for the Kerguelen Plateau region
+  \item "Revision of the Kerguelen Plateau bathymetric grid": digital elevation model (DEM) for the Kerguelen Plateau region
   \item "George V bathymetry": Digital Elevation Models (DEMs) of varying resolutions for the George V and Terre Adelie continental margin, derived by incorporating all available singlebeam and multibeam point depth data
   \item "Geoscience Australia multibeam bathymetric grids of the Macquarie Ridge": This is a compilation of all the processed multibeam bathymetry data that are publicly available in Geoscience Australia's data holding for the Macquarie Ridge
   \item "IBCSO bathymetry": The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 is a digital bathymetric model portraying the seafloor of the circum-Antarctic waters south of 60S. IBCSO Version 1.0 has been compiled from all available bathymetric data collectively gathered by more than 30 institutions from 15 countries, including multibeam and single-beam echo soundings, digitized depths from nautical charts, regional bathymetric gridded compilations, and predicted bathymetry

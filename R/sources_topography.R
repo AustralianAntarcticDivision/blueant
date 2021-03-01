@@ -9,7 +9,7 @@
 #'   \item "ETOPO1 bathymetry": ETOPO1 is a 1 arc-minute global relief model of Earth's surface that integrates land topography and ocean bathymetry
 #'   \item "ETOPO2 bathymetry": 2-Minute Gridded Global Relief Data (ETOPO2v2c)
 #'   \item "Bedmap2": Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S
-#'   \item "Kerguelen Plateau bathymetric grid 2010": digital elevation model (DEM) for the Kerguelen Plateau region
+#'   \item "Revision of the Kerguelen Plateau bathymetric grid": digital elevation model (DEM) for the Kerguelen Plateau region
 #'   \item "George V bathymetry": Digital Elevation Models (DEMs) of varying resolutions for the George V and Terre Adelie continental margin, derived by incorporating all available singlebeam and multibeam point depth data
 #'   \item "Geoscience Australia multibeam bathymetric grids of the Macquarie Ridge": This is a compilation of all the processed multibeam bathymetry data that are publicly available in Geoscience Australia's data holding for the Macquarie Ridge
 #'   \item "IBCSO bathymetry": The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 is a digital bathymetric model portraying the seafloor of the circum-Antarctic waters south of 60S. IBCSO Version 1.0 has been compiled from all available bathymetric data collectively gathered by more than 30 institutions from 15 countries, including multibeam and single-beam echo soundings, digitized depths from nautical charts, regional bathymetric gridded compilations, and predicted bathymetry
@@ -185,7 +185,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          description = "This data replaces the digital elevation model (DEM) for the Kerguelen Plateau region produced in 2005 (Sexton 2005). The revised grid has been gridded at a grid pixel resolution of 0.001-arc degree (about 100 m). The new grid utilised the latest data sourced from ship-based multibeam and singlebeam echosounder surveys, and satellite remotely-sensed data. Report Reference: Beaman, R.J. and O'Brien, P.E., 2011. Kerguelen Plateau bathymetric grid, November 2010. Geoscience Australia, Record, 2011/22, 18 pages.",
                          doc_url = "http://pid.geoscience.gov.au/dataset/ga/71670",
                          citation = "Beaman, R.J. & O'Brien, P., 2011. Kerguelen Plateau Bathymetric Grid, November 2010. Record  2011/022. Geoscience Australia, Canberra",
-                         comment = "Please note: this data file is no longer available. See the \"Kerguelen Plateau bathymetric grid 2019\" data source",
+                         comment = "Please note: this data file is no longer available. See the \"Revision of the Kerguelen Plateau bathymetric grid\" data source",
                          source_url = "http://ftt.jcu.edu.au/deepreef/kergdem/gmt/kerg_dem_gmt.zip",
                          license = "CC-BY",
                          method = list("bb_handler_rget"),
@@ -194,23 +194,22 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group = "Topography"))
     }
 
-    ## nope, this doesn't work because it's a dynamic catalog page that can't be scraped
-    ## the xml version https://ecat.ga.gov.au/geonetwork/srv/api/records/a05f7893-007f-7506-e044-00144fdd4fa6/formatters/xml has full links, but not in html tags so won't work with wget/rget
-    ##if (is.null(name) || any(name %in% tolower(c("Kerguelen Plateau bathymetric grid V2", "gcat_71552_V2")))) {
-    ##    out <- rbind(out,
-    ##                 bb_source(
-    ##                     name = "Revision of the Kerguelen Plateau bathymetric grid",
-    ##                     id = "gcat_71552",
-    ##                     description = "The existing regional bathymetric grid of the Kerguelen Plateau, south-west Indian Ocean, was updated using new singlebeam echosounder data from commercial fishing and research voyages, and some new multibeam swath bathymetry data. Source bathymetry data varies from International Hydrographic Organisation (IHO) S44 Order 1a to 2. The source data were subjected to area-based editing to remove data spikes, then combined with the previous Sexton (2005) grid to produce a new grid with a resolution of 0.001-arcdegree. Satellite-derived datasets were used to provide island topography and to fill in areas of no data. The new grid improves the resolution of morphological features observed in earlier grids, including submarine volcanic hills on the top of the Kerguelen Plateau and a complex of submarine channels draining the southern flank of the bank on which Heard Island sits",
-    ##                     doc_url = "http://pid.geoscience.gov.au/dataset/ga/71552",
-    ##                     citation = "Beaman RJ, O'Brien PE (2011) Kerguelen Plateau Bathymetric Grid, November 2010. Record 2011/22, Geoscience Australia, Canberra, Australia, pp. 18",
-    ##                     source_url = "",
-    ##                     license = "CC-BY with additional restrictions. See the \"additional metadata\" link at http://pid.geoscience.gov.au/dataset/ga/71552",
-    ##                     method = list("bb_handler_rget"),
-    ##                     postprocess = list("bb_unzip"),
-    ##                     collection_size = 0.7,
-    ##                     data_group = "Topography"))
-    ##}
+    if (is.null(name) || any(name %in% tolower(c("Revision of the Kerguelen Plateau bathymetric grid", "gcat_71552_rev")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Revision of the Kerguelen Plateau bathymetric grid",
+                         id = "gcat_71552_rev",
+                         description = "The existing regional bathymetric grid of the Kerguelen Plateau, south-west Indian Ocean, was updated using new singlebeam echosounder data from commercial fishing and research voyages, and some new multibeam swath bathymetry data. Source bathymetry data varies from International Hydrographic Organisation (IHO) S44 Order 1a to 2. The source data were subjected to area-based editing to remove data spikes, then combined with the previous Sexton (2005) grid to produce a new grid with a resolution of 0.001-arcdegree. Satellite-derived datasets were used to provide island topography and to fill in areas of no data. The new grid improves the resolution of morphological features observed in earlier grids, including submarine volcanic hills on the top of the Kerguelen Plateau and a complex of submarine channels draining the southern flank of the bank on which Heard Island sits",
+                         comment = "Note that this is a revision of the \"Kerguelen Plateau bathymetric grid 2010\" data source, which is no longer available",
+                         doc_url = "http://pid.geoscience.gov.au/dataset/ga/71552",
+                         citation = "Beaman RJ (2019) Revision of the Kerguelen Plateau bathymetric grid. Geoscience Australia, Canberra. http://pid.geoscience.gov.au/dataset/ga/71552",
+                         source_url = c("https://d28rz98at9flks.cloudfront.net/71552/kerg100_28mar.zip", "https://d28rz98at9flks.cloudfront.net/71552/Data_sources_kerg_dem.xlsx", "https://d28rz98at9flks.cloudfront.net/71552/Metadata_kerg_dem_V2.pdf"),
+                         license = "CC-BY with additional restrictions. See the \"additional metadata\" link at http://pid.geoscience.gov.au/dataset/ga/71552",
+                         method = list("bb_handler_rget", accept_download_extra = "\\.xlsx$"),
+                         postprocess = list("bb_unzip"),
+                         collection_size = 0.7,
+                         data_group = "Topography"))
+    }
 
     if (is.null(name) || any(name %in% tolower(c("George V bathymetry", "GVdem_2008")))) {
         out <- rbind(out,
