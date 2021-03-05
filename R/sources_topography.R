@@ -203,7 +203,10 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          comment = "Note that this is a revision of the \"Kerguelen Plateau bathymetric grid 2010\" data source, which is no longer available",
                          doc_url = "http://pid.geoscience.gov.au/dataset/ga/71552",
                          citation = "Beaman RJ (2019) Revision of the Kerguelen Plateau bathymetric grid. Geoscience Australia, Canberra. http://pid.geoscience.gov.au/dataset/ga/71552",
-                         source_url = c("https://d28rz98at9flks.cloudfront.net/71552/kerg100_28mar.zip", "https://d28rz98at9flks.cloudfront.net/71552/Data_sources_kerg_dem.xlsx", "https://d28rz98at9flks.cloudfront.net/71552/Metadata_kerg_dem_V2.pdf"),
+                         source_url = c("https://d28rz98at9flks.cloudfront.net/71552/kerg100_28mar.zip", ## actual data
+                                        "https://d28rz98at9flks.cloudfront.net/71552/Data_sources_kerg_dem.xlsx", ## sources
+                                        "https://d28rz98at9flks.cloudfront.net/71552/coverage.zip", ## coverage shapefile
+                                        "https://d28rz98at9flks.cloudfront.net/71552/Metadata_kerg_dem_V2.pdf"), ## metadata
                          license = "CC-BY with additional restrictions. See the \"additional metadata\" link at http://pid.geoscience.gov.au/dataset/ga/71552",
                          method = list("bb_handler_rget", accept_download_extra = "\\.xlsx$"),
                          postprocess = list("bb_unzip"),
