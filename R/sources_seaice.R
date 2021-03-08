@@ -13,6 +13,7 @@
 #'   \item "Artist AMSR2 supporting files": Grids and landmasks for Artist AMSR2 passive microwave sea ice data
 #'   \item "CERSAT SSM/I sea ice concentration": Passive microwave sea ice concentration data at 12.5km resolution, 3-Dec-1991 to present
 #'   \item "CERSAT SSM/I sea ice concentration supporting files": Grids for the CERSAT SSM/I sea ice concentration data
+#'   \item "Sea ice lead climatologies": Long-term relative sea ice lead frequencies for the Arctic (November - April 2002/03 - 2018/19) and Antarctic (April - September 2003 - 2019) derived from Moderate-Resolution Imaging Spectroradiometer (MODIS) imagery
 #'   \item "MODIS Composite Based Maps of East Antarctic Fast Ice Coverage": Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31
 #'   \item "Circum-Antarctic landfast sea ice extent": maps of Antarctic landfast sea ice, derived from NASA MODIS imagery. There are 24 maps per year, spanning the 18 year period from March 2000 to Feb 2018
 #'   \item "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a \code{formats} parameter which can be one of "filled" or "vector". Accepts a \code{years} parameter to restrict the data to certain years
@@ -335,7 +336,22 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          collection_size = 8.0,
                          data_group = "Sea ice"))
     }
-    
+
+    if (is.null(name) || any(name %in% tolower(c("Sea ice lead climatologies", "10.1594/PANGAEA.917588")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Sea ice lead climatologies",
+                         id = "10.1594/PANGAEA.917588",
+                         description = "Long-term relative sea ice lead frequencies for the Arctic (November - April 2002/03 - 2018/19) and Antarctic (April - September 2003 - 2019). Ice surface temperature data (MYD/MOD29 col. 6) from the Moderate-Resolution Imaging Spectroradiometer are used to derive daily observations of sea ice leads in both polar regions. Sea ice leads are defined as significant local surface temperature anomalies and they are automatically identified during a two-stage process, including 1) the tile-based retrieval of potential sea ice leads and 2) the identification of cloud artefacts using fuzzy logic (see Reiser et al., 2020 for further details). Subsequently, all daily sea ice lead maps are combined to long-term averages showing the climatological distribution of leads in the Arctic and Antarctic. The dataset represents an update for the Arctic (Willmes & Heinemann, 2016) and is the first for the Antarctic. These maps reveal that multiple distinct features with increased lead frequencies are present that are related to bathymetric structures, e.g. the continental shelf break or ridges and troughs.",
+                         doc_url = "https://doi.pangaea.de/10.1594/PANGAEA.917588",
+                         citation = "Reiser F, Willmes S, Heinemann G (2020) Daily sea ice lead data for Arctic and Antarctic. PANGAEA, https://doi.org/10.1594/PANGAEA.917588",
+                         source_url = "https://doi.pangaea.de/10.1594/PANGAEA.917588?format=html#download",
+                         license = "CC-BY-4.0",
+                         method = list("bb_handler_rget", level = 1, accept_download = "\\.nc$"),
+                         ##collection_size = 0.01,
+                         data_group = "Sea ice"))
+    }
+
     if (is.null(name) || any(name %in% tolower(c("National Ice Center Antarctic daily sea ice charts", "NIC_daily_charts_antarctic")))) {
         warning("The data download for the NIC sea ice charts does not currently seem to be returning valid Last-Modified times, which means that we can't skip unchanged files. Even if you set clobber=1 (only download if the remote file is newer than the local copy), it may download every single file anyway. You might wish to use clobber=0 (do not overwrite existing files)")
         myformats <- formats
