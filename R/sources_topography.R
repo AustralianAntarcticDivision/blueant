@@ -394,7 +394,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group="Topography",warn_empty_auth=FALSE))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Reference Elevation Model of Antarctica","REMA_R1_mosaic")))) {
+    if (is.null(name) || any(name %in% tolower(c("Reference Elevation Model of Antarctica","REMA_R1.1_mosaic")))) {
         spatial_resolution <- ss_args$spatial_resolution
         if (is.null(spatial_resolution)) spatial_resolution <- "200m"
         assert_that(is.string(spatial_resolution))
@@ -403,28 +403,28 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                "8m" = {
                    csize = 1500
                    pp <- list("bb_unzip", "bb_untar")
-                   src_url <- c("ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/8m/", "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/indexes/")
+                   src_url <- c("ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.1/8m/", "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/indexes/")
                },
                "100m" = {
                    csize <- 0.4
-                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/100m/"
+                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.1/100m/"
                    pp <- NULL
                },
                "200m" = {
                    csize <- 1.2
-                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/" ##"ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/"
+                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.1/200m/" ##"ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/200m/"
                    pp <- NULL
                },
                "1km" = {
                    csize = 0.15
-                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.0/1km/"
+                   src_url <- "ftp://ftp.data.pgc.umn.edu/elev/dem/setsm/REMA/mosaic/v1.1/1km/"
                    pp <- NULL
                },
                stop("unexpected spatial_resolution: ", spatial_resolution))
         out <- rbind(out,
                      bb_source(
                          name = "Reference Elevation Model of Antarctica mosaic tiles",
-                         id = "REMA_R1_mosaic",
+                         id = "REMA_R1.1_mosaic",
                          description = "The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution. REMA is constructed from hundreds of thousands of individual stereoscopic Digital Elevation Models (DEM) extracted from pairs of submeter (0.32 to 0.5 m) resolution DigitalGlobe satellite imagery. Version 1 of REMA includes approximately 98% of the contiguous continental landmass extending to maximum of roughly 88 degrees S. Output DEM raster files are being made available as both 'strip' files as they are output directly from SETSM that preserve the original source material temporal resolution, as well as mosaic tiles that are compiled from multiple strips that have been co-registered, blended, and feathered to reduce edge-matching artifacts.",
                          doc_url = "https://www.pgc.umn.edu/data/rema/",
                          comment = "Note that the 100m version only provides coverage of the Antarctic Peninsula region",
