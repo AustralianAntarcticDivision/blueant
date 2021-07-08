@@ -22,7 +22,8 @@
 #'   \item "GSHHG coastline data": a Global Self-consistent, Hierarchical, High-resolution Geography Database
 #'   \item "Shuttle Radar Topography Mission elevation data SRTMGL1 V3": Global 1-arc-second topographic data generated from NASA's Shuttle Radar Topography Mission. Version 3.0 (aka SRTM Plus or Void Filled) removes all of the void areas by incorporating data from other sources such as the ASTER GDEM
 #'   \item "Reference Elevation Model of Antarctica mosaic tiles": The Reference Elevation Model of Antarctica (REMA) is a high resolution, time-stamped digital surface model of Antarctica at 8-meter spatial resolution (and reduced-resolution, resampled versions). Accepts a single \code{spatial_resolution} value of "1km", "200m" [default], "100m", "8m"
-#'   \item "EGM2008 GIS Data": Global 2.5 Minute Geoid Undulations
+#'   \item "EGM2008 GIS Data": Global 2.5 Minute Geoid Undulations.
+#'   \item "AAS_4116_Coastal_Complexity": This dataset provides a characterisation of Antarctic coastal complexity. At each point, a complexity metric is calculated at length scales from 1 to 256 km, giving a multiscale estimate of the magnitude and direction of undulation or complexity at each point location along the entire coastline.
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -451,6 +452,18 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          postprocess = list("bb_unzip"),
                          ##collection_size = csize,
                          data_group = "Topography"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("AAS_4116_Coastal_Complexity", "10.26179/5d1af0ba45c03")))) {
+        src <- bb_aadc_s3_source_gen(metadata_id = "AAS_4116_Coastal_Complexity",
+                         name = "AAS_4116_Coastal_Complexity",
+                         doi = "10.26179/5d1af0ba45c03",
+                         description = "The Antarctic outer coastal margin is the key interface between the marine and terrestrial environments. Its physical configuration (including both length scale of variation and orientation/aspect) has direct bearing on several closely associated cryospheric, biological, oceanographical and ecological processes. This dataset provides a characterisation of Antarctic coastal complexity. At each point, a complexity metric is calculated at length scales from 1 to 256 km, giving a multiscale estimate of the magnitude and direction of undulation or complexity at each point location along the entire coastline.",
+                         citation = "Porter-Smith R, McKinlay J, Fraser AD, Massom R (2019) Coastal complexity of the Antarctic continent, Ver. 1, Australian Antarctic Data Centre - doi:10.26179/5d1af0ba45c03",
+                         collection_size = 0.05,
+                         data_group = "Topography")
+        src$method[[1]]$accept_download <- "README|LICENSE|Antarctic"
+        out <- rbind(out, src)
     }
 
     out
