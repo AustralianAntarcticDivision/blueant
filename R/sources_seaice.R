@@ -348,7 +348,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          source_url = "https://doi.pangaea.de/10.1594/PANGAEA.917588?format=html#download",
                          license = "CC-BY-4.0",
                          method = list("bb_handler_rget", level = 1, accept_download = "\\.nc$"),
-                         ##collection_size = 0.01,
+                         collection_size = 0.25,
                          data_group = "Sea ice"))
     }
 

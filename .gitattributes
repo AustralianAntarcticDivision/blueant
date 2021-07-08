@@ -1,0 +1,4 @@
+# enforce CRLF line endings
+*.csv text eol=crlf
+*.R text eol=crlf
+*.Rmd text eol=crlf

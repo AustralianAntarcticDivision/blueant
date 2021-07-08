@@ -8,6 +8,7 @@
 #'   \item "CNES-CLS2013 Mean Dynamic Topography": CNES-CLS2013 Mean dynamic topography over the 1993-2012 period of the sea surface height above geoid. The MDT_CNES-CLS13 is an estimate of the ocean MDT for the 1993-2012 period. Since April 2014 (Duacs 2014, v15.0 version), the Ssalto/Duacs (M)SLA products are computed relative to 1993-2012 period that is consistent with this new MDT CNES-CLS13. Based on 2 years of GOCE data, 7 years of GRACE data, and 20 years of altimetry and in-situ data (hydrologic and drifters data)
 #'   \item "Near-real-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
 #'   \item "Delayed-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
+#'   \item "WAVERYS Global Ocean Waves Reanalysis": global wave reanalysis describing past sea states since years 1993.
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -49,7 +50,7 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          name = "CMEMS global gridded SSH reprocessed (1993-ongoing)",
                          id = "SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047",
                          description = "For the Global Ocean - Multimission altimeter satellite gridded sea surface heights and derived variables computed with respect to a twenty-year mean. Previously distributed by Aviso+, no change in the scientific content. All the missions are homogenized with respect to a reference mission which is currently OSTM/Jason-2.\nVARIABLES\n- sea_surface_height_above_sea_level (SSH)\n- surface_geostrophic_eastward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)\n- surface_geostrophic_northward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)\n- sea_surface_height_above_geoid (SSH)\n- surface_geostrophic_eastward_sea_water_velocity (UVG)\n- surface_geostrophic_northward_sea_water_velocity (UVG)",
-                         doc_url = "http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&view=details&product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047",
+                         doc_url = "https://resources.marine.copernicus.eu/?option=com_csw&view=details&product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047",
                          citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information\"",
                          source_url = "ftp://my.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047/dataset-duacs-rep-global-merged-allsat-phy-l4/",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
@@ -143,5 +144,25 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          collection_size = 1200,
                          data_group = "Altimetry", warn_empty_auth = FALSE))
     }
+
+    if (is.null(name) || any(name %in% tolower(c("WAVERYS Global Ocean Waves Reanalysis", "GLOBAL_REANALYSIS_WAV_001_032", "WAVERYS")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "WAVERYS Global Ocean Waves Reanalysis",
+                         id = "GLOBAL_REANALYSIS_WAV_001_032",
+                         description = "GLOBAL_REANALYSIS_WAV_001_032 for the global wave reanalysis describing past sea states since years 1993. This product also bears the name of WAVERYS within the GLO-HR MFC, for correspondence to other global multi-year products like GLORYS, BIORYS, etc. The core of WAVERYS is based on the MFWAM model, a third generation wave model that calculates the wave spectrum, i.e. the distribution of sea state energy in frequency and direction on a 1/5-degree irregular grid. Average wave quantities derived from this wave spectrum, such as the SWH (significant wave height) or the average wave period, are delivered on a regular 1/5-degree grid with a 3h time step. The wave spectrum is discretized into 30 frequencies obtained from a geometric sequence of first member 0.035 Hz and a reason 7.5. WAVERYS takes into account oceanic currents from the GLORYS12 physical ocean reanalysis and assimilates significant wave height observed from historical altimetry missions and directional wave spectra from Sentinel 1 SAR from 2017 onwards.",
+                         doc_url = "https://resources.marine.copernicus.eu/?option=com_csw&view=details&product_id=GLOBAL_REANALYSIS_WAV_001_032",
+                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information\"",
+                         source_url = "ftp://my.cmems-du.eu/Core/GLOBAL_REANALYSIS_WAV_001_032/global-reanalysis-wav-001-032/",
+                         license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
+                         method = list("bb_handler_rget", level = 3),
+                         authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
+                         user = "",
+                         password = "",
+                         ##access_function = "",
+                         collection_size = 1100,
+                         data_group = "Altimetry", warn_empty_auth = FALSE))
+    }
+
     out
 }
