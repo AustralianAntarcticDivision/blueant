@@ -1,6 +1,10 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/AustralianAntarcticDivision/blueant.svg?branch=master)](https://travis-ci.org/AustralianAntarcticDivision/blueant) [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/5idrimyx0uuv6liu?svg=true)](https://ci.appveyor.com/project/raymondben/blueant) [![codecov](https://codecov.io/gh/AustralianAntarcticDivision/blueant/branch/master/graph/badge.svg)](https://codecov.io/gh/AustralianAntarcticDivision/blueant) <!-- [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) --> [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/blueant)](http://cran.r-project.org/web/packages/blueant) <!-- ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/blueant) -->
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/AustralianAntarcticDivision/blueant/workflows/R-CMD-check/badge.svg)](https://github.com/AustralianAntarcticDivision/blueant/actions)
+[![Codecov test coverage](https://codecov.io/gh/AustralianAntarcticDivision/blueant/branch/master/graph/badge.svg)](https://codecov.io/gh/AustralianAntarcticDivision/blueant?branch=master)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+<!-- badges: end -->
 
 Blueant
 =======
