@@ -5,12 +5,12 @@ test_that("predefined sources work", {
     expect_s3_class(src,"data.frame")
     expect_equal(nrow(src),1)
 
-    src_all <- sources()
+    expect_warning(src_all <- sources())
     expect_gt(nrow(src_all),0)
 })
 
 test_that("sources with authentication have an authentication_note entry", {
-    src <- sources()
+    expect_warning(src <- sources())
     na_or_empty <- function(z) is.na(z) | !nzchar(z)
     idx <- (!is.na(src$user) | !is.na(src$password)) & na_or_empty(src$authentication_note)
     expect_false(any(idx),sprintf("%d data sources with non-NA authentication but no authentication_note entry",sum(idx)))
