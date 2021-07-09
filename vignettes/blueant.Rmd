@@ -132,7 +132,7 @@ These are the data source definitions that are provided as part of the blueant p
 
 ```{r echo=FALSE,message=FALSE,warning=FALSE,results="asis"}
 library(blueant)
-cf <- bb_config("/your/data/root/") %>% bb_add(sources())
+cf <- bb_config("/your/data/root/") %>% bb_add(suppressWarnings(sources()))
 sf <- bb_summary(cf,format="rmd",inc_license=FALSE,inc_access_function=FALSE,inc_path=FALSE)
 stxt <- readLines(sf)
 stxt <- stxt[(grep("Last updated:",stxt)+1):length(stxt)]
