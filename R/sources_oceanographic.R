@@ -8,6 +8,7 @@
 #'   \item "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
 #'   \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
 #'   \item "Argo profile data": Argo profile data, by default from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). The DAC can be changed by specifying a \code{dac_url} parameter (see example below). Also see \code{\link{bb_handler_argo}} for a description of the other parameters that this source accepts.
+#'   \item "Effects of Sound on the Marine Environment": ESME uses publically available environmental data sources that provide detailed information about the ocean: (1) Bottom Sediment Type (BST) v 2.0, (2) Digital Bathymetry Database (DBDB) v 5.4, (3) Generalized Digital Environment Model (GDEM) v 3.0, (4) Surface Marine Gridded Climatology (SMGC) v 2.0"
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -238,6 +239,22 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          method = list("bb_handler_argo", profile_type = profile_type, institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
                          postprocess = NULL,
                          collection_size = NA, ## unknown yet
+                         data_group = "Oceanographic"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Effects of Sound on the Marine Environment", "ESME")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Effects of Sound on the Marine Environment",
+                         id = "ESME",
+                         description = "ESME uses publically available environmental data sources that provide detailed information about the ocean, in the form of four primary databases supplied by the Oceanographic and Atmospheric Master Library (OAML). (1) Bottom Sediment Type (BST) v 2.0 : This database provides information on the type of sediment on the ocean bottom, which affects its acoustic reflectivity. Available data resolutions: 2 min, 0.1 min. (2) Digital Bathymetry Database (DBDB) v 5.4 : This database provides information on the depth of the water column. Available data resolutions: 2 min, 1 min, .5 min, .1 min, 0.05 min. (3) Generalized Digital Environment Model (GDEM) v 3.0 : This database provides water temperature and water salinity data for a selected month or months of time, which is used to calculate the changes in the speed of sound in water. Available data resolution: 15 min. (4) Surface Marine Gridded Climatology (SMGC) v 2.0 : This database provides wind speed data for a selected month or months. Wind speed, and consequently surface roughness and wave height, affect the surface's acoustic reflectivity. Available data resolution: 60 min.",
+                         doc_url = "https://esme.bu.edu/index.shtml",
+                         citation = "Not given",
+                         license = "Not specified",
+                         source_url = "https://esme.bu.edu/download/index.shtml",
+                         method = list("bb_handler_rget", level = 1, accept_download = "data/.*\\.zip", no_parent = FALSE),
+                         postprocess = list("bb_unzip"),
+                         ##collection_size = 57,
                          data_group = "Oceanographic"))
     }
 
