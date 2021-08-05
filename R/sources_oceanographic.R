@@ -254,7 +254,8 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          source_url = "https://esme.bu.edu/download/index.shtml",
                          method = list("bb_handler_rget", level = 1, accept_download = "data/.*\\.zip", no_parent = FALSE),
                          postprocess = list("bb_unzip"),
-                         ##collection_size = 57,
+                         comment = "Postprocessing (unzipping) of the SMGC data is quite slow due to the large number of files (> 190k)",
+                         collection_size = 5,
                          data_group = "Oceanographic"))
     }
 
