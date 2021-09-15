@@ -17,6 +17,7 @@
 #'   \item "MODIS Composite Based Maps of East Antarctic Fast Ice Coverage": Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31
 #'   \item "Circum-Antarctic landfast sea ice extent": maps of Antarctic landfast sea ice, derived from NASA MODIS imagery. There are 24 maps per year, spanning the 18 year period from March 2000 to Feb 2018
 #'   \item "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a \code{formats} parameter which can be one of "filled" or "vector". Accepts a \code{years} parameter to restrict the data to certain years
+#'   \item "Polarview Sentinel-1 imagery": Sentinel-1 imagery from polarview.aq. Accepts an \code{acquisition_date} parameter (default is the last four days including today), a \code{formats} parameter (one or both of "jpg", "geotiff", default is both), and a \code{polygon} parameter, which is a polygon within which to search - either a WKT polygon string in EPSG:3031 projection, or an object of class \code{sfc_POLYGON}, which will be converted to a WKT string internally
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -377,5 +378,27 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          method = list("bb_handler_usnic", chart_type = myformats, years = years),
                          data_group = "Sea ice"))
     }
+
+    if (is.null(name) || any(name %in% tolower(c("Polarview Sentinel-1 imagery", "polarview:vw_last200s1subsets")))) {
+        myformats <- formats
+        if (!is.null(myformats)) {
+            chk <- !myformats %in% c("geotiff", "jpg")
+            if (any(chk)) stop("only 'geotiff' or 'jpg' formats are supported for the 'Polarview Sentinel-1 imagery' source")
+        } else {
+            ## default to both jpg and geotiff
+            myformats <- c("jpg", "geotiff")
+        }
+
+        out <- rbind(out, bb_source("Polarview Sentinel-1 imagery",
+                                    id = "polarview:vw_last200s1subsets",
+                                    description = "Sentinel-1 imagery from polarview.aq",
+                                    doc_url = "https://www.polarview.aq/",
+                                    citation = "See https://www.polarview.aq/",
+                                    license = "Please cite",
+                                    method = list("bb_handler_polarview", acquisition_date = ss_args$acquisition_date, formats = myformats, polygon = ss_args$polygon),
+                                    comment = "Collection size unknown",
+                                    data_group = "Sea ice"))
+    }
+
     out
 }
