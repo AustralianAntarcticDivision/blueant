@@ -31,6 +31,7 @@ Suggests:
     knitr,
     ncdf4,
     raster,
+    sf,
     testthat,
     covr
 Remotes: ropensci/bowerbird

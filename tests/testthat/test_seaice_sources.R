@@ -54,3 +54,26 @@ test_that("seaice AMSR format options work",{
     expect_true(any(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE)))
     expect_true(any(grepl("/hdf/",src$source_url[[1]],fixed=TRUE)))
 })
+
+test_that("polarview search works", {
+    ## polygon as sfc
+    target_sector <- data.frame(lon = c(30, seq(30, 150, length.out = 10), 150, 30),
+                                lat = c(-77, rep(-50, 10), -77, -77))
+    target_sector <- sf::st_sfc(sf::st_polygon(list(as.matrix(target_sector))), crs = "+proj=longlat")
+    res1 <- bb_polarview_search(Sys.Date() - 3L, formats = "geotiff", polygon = target_sector)
+    ## polygon as string
+    res2 <- bb_polarview_search(Sys.Date() - 3L, formats = "geotiff", polygon = "POLYGON ((709163.9 1228308, 2262269 3918365, 3104926 3291029, 3780196 2486274, 4251675 1547483, 4493944 525266.8, 4493944 -525266.8, 4251675 -1547483, 3780196 -2486274, 3104926 -3291029, 2262269 -3918365, 709163.9 -1228308, 709163.9 1228308))")
+    if (length(res1) > 0) {
+        expect_equal(res1, res2)
+        expect_true(all(grepl("tif\\.tar\\.gz$", res1)))
+    } else {
+        warning("no results for bb_polarview_search")
+    }
+    res3 <- bb_polarview_search(Sys.Date() - 3L, formats = c("jpg", "geotiff"))
+    if (length(res3) > 0) {
+        expect_true(all(grepl("(tif\\.tar\\.gz|jpg)$", res3)))
+        if (length(res1) > 0) {
+            expect_true(length(res3) >= length(res1))
+        }
+    }
+})

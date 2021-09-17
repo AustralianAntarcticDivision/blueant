@@ -1,23 +1,24 @@
 #' Search the PolarView catalogue
 #'
-#' @references 
-#' @param acquisition_date: 
-#' @param formats: 
-#' @param polygon: 
-#' @param verbose: 
+#' This function is used by \code{\link{bb_handler_polarview}}. Users probably won't need to use it directly.
 #'
-#' @return 
+#' @references <https://www.polarview.aq>
+#' @param acquisition_date Date: the allowable image acquisition dates
+#' @param formats character: one or more of "jpg" (jpg preview images) "jp2" or "geotiff". Note that the geotiffs are much larger than the jpg previews
+#' @param polygon string or sfc_POLYGON: either an \code{sfc_POLYGON} or a string giving a polygon in WKT format and EPSG:3031 projection. Only images intersecting this polygon will be returned
+#' @param verbose logical: if \code{TRUE}, show additional progress output
 #'
-#' @seealso \code{\link{}}
-#'
-#' @examples
+#' @return A character vector of image URLs
 #'
 #' @export
-bb_polarview_search <- function(acquisition_date = Sys.Date() + -14:0, formats = c("jpg", "tif"), polygon = NULL, verbose = FALSE) {
+bb_polarview_search <- function(acquisition_date = Sys.Date() + -14:0, formats = c("jpg", "geotiff"), polygon = NULL, verbose = FALSE) {
     if (!is.null(polygon)) {
-        if (inherits(polygon, "sfc_POLYGON")) polygon <- st_as_text(st_transform(polygon, "epsg:3031"))
+        if (inherits(polygon, "sfc_POLYGON")) polygon <- sf::st_as_text(sf::st_transform(polygon, "epsg:3031"))
         assert_that(is.string(polygon))
     }
+    assert_that(is.character(formats))
+    formats <- tolower(formats)
+    if (!all(formats %in% c("jpg", "jp2", "geotiff", "tif"))) stop("formats must be one or more of 'jpg', 'jp2', 'geotiff'") ## silently accept "tif" for backwards-compatibility
     ## base URLs
     geo_url <- "https://geos.polarview.aq/geoserver/polarview/ows"
     jpg_url <- "https://www.polarview.aq/images/106_S1jpgsmall"
@@ -38,12 +39,9 @@ bb_polarview_search <- function(acquisition_date = Sys.Date() + -14:0, formats =
             if (verbose) cat(sprintf("%d images\n", nrow(this)))
             this <- sub("\\.tif", "", this$filename, ignore.case = TRUE)
             ## list of URLs for each desired format
-            if ("jpg" %in% formats)
-                out <- c(out, file.path(jpg_url, acq_ym, paste0(this, ".jpg")))
-            if ("tif" %in% formats)
-                out <- c(out, file.path(tif_url, paste0(this, ".tif.tar.gz")))
-            if ("jp2" %in% formats)
-                out <- c(out, file.path(jp2_url, acq_ym, paste0(this, ".16bit.jp2")))
+            if ("jpg" %in% formats) out <- c(out, file.path(jpg_url, acq_ym, paste0(this, ".jpg")))
+            if (any(c("geotiff", "tif") %in% formats)) out <- c(out, file.path(tif_url, paste0(this, ".tif.tar.gz")))
+            if ("jp2" %in% formats) out <- c(out, file.path(jp2_url, acq_ym, paste0(this, ".16bit.jp2")))
         } else {
             if (verbose) cat("no images\n")
         }
