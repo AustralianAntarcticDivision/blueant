@@ -10,7 +10,7 @@ bb_handler_polarview(...)
 \item{...}{: parameters passed to \code{\link{bb_rget}}}
 }
 \value{
-TRUE on success
+\code{TRUE} on success
 }
 \description{
 This is a handler function to be used with Sentinel-1 data from https://polarview.aq. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
