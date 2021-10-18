@@ -6,6 +6,7 @@
 #'   \item "CMEMS global gridded SSH reprocessed (1993-ongoing)": Global Ocean - Multimission altimeter satellite gridded sea surface heights and derived variables computed with respect to a twenty-year mean. All the missions are homogenized with respect to a reference mission which is currently OSTM/Jason-2
 #'   \item "CMEMS global gridded SSH near-real-time": near-real-time version of 'CMEMS global gridded SSH reprocessed (1993-ongoing)'
 #'   \item "CNES-CLS2013 Mean Dynamic Topography": CNES-CLS2013 Mean dynamic topography over the 1993-2012 period of the sea surface height above geoid. The MDT_CNES-CLS13 is an estimate of the ocean MDT for the 1993-2012 period. Since April 2014 (Duacs 2014, v15.0 version), the Ssalto/Duacs (M)SLA products are computed relative to 1993-2012 period that is consistent with this new MDT CNES-CLS13. Based on 2 years of GOCE data, 7 years of GRACE data, and 20 years of altimetry and in-situ data (hydrologic and drifters data)
+#'   \item "Gridded Sea Level Heights and geostrophic currents - Antarctic Ocean": Experimental Ssalto/Duacs gridded multimission altimeter products dedicated to Antarctic Ocean
 #'   \item "Near-real-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
 #'   \item "Delayed-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
 #'   \item "WAVERYS Global Ocean Waves Reanalysis": global wave reanalysis describing past sea states since years 1993.
@@ -161,6 +162,25 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          password = "",
                          ##access_function = "",
                          collection_size = 1100,
+                         data_group = "Altimetry", warn_empty_auth = FALSE))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Gridded Sea Level Heights and geostrophic currents - Antarctic Ocean", "SLA Ant")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Gridded Sea Level Heights and geostrophic currents - Antarctic Ocean",
+                         id = "SLA Ant",
+                         description = "Experimental Ssalto/Duacs gridded multimission altimeter products dedicated to Antarctic Ocean. This dataset is one of the experimental products which are available on the SSALTO/DUACS experimental products. Multimission sea level heights computed with respect to a twenty-year mean and associated geostrophic current anomalies. The formal error is also included.",
+                         doc_url = "https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/regional/antarctic-ocean-gridded-sea-level-heights.html",
+                         citation = "Auger M, Prandi P, Sall\ue9e J-B (in preparation) Southern Ocean Sea Level Anomaly in the Sea-Ice Covered Sector From Multimission Satellite Observations, Nature Scientific Data\nand\nAuger M, Prandi P (2019) Sea Level Anomaly from a Multi-Altimeter Combination in the Ice-Covered Southern Ocean. OSTST 2019",
+                         source_url = "ftp://ftp-access.aviso.altimetry.fr/duacs-experimental/dt-phy-grids/altimetry_antarctic/",
+                         license = "See https://www.aviso.altimetry.fr/fileadmin/documents/data/License_Aviso.pdf",
+                         method = list("bb_handler_rget", level = 2),
+                         authentication_note = "AVISO login required, see https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html",
+                         user = "",
+                         password = "",
+                         access_function = "raster",
+                         collection_size = 4.5,
                          data_group = "Altimetry", warn_empty_auth = FALSE))
     }
 
