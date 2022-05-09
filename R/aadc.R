@@ -33,16 +33,17 @@ bb_aadc_s3_source_gen <- function(metadata_id, name = NULL, id = NULL, doi = NUL
     if (grepl("^http", metadata_id)) metadata_id <- basename(metadata_id)
     murl <- paste0("https://data.aad.gov.au/metadata/records/", metadata_id)
     pretty_name <- gsub("[[:punct:]_]+", " ", metadata_id)
-    bb_source(name = if (!is.null(name)) name else pretty_name,
-              id = if (!is.null(id)) id else if (length(doi) > 0) doi else metadata_id,
-              description = description,
-              doc_url = paste0("https://doi.org/", doi),
-              citation = if (!is.null(citation)) citation else "See documentation URL",
-              license = "CC-BY",
-              method = c(list("bb_handler_aws_s3", bucket = "datasets", base_url = "services.aad.gov.au", region = "public", prefix = paste0("science/", metadata_id), use_https = FALSE, bucketlist_json = paste0("http://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id, "/")), method_args),
-              ## bucketlist_json is a workaround for AADC servers not supporting the usual aws.s3::get_bucket method              postprocess = NULL,
-              collection_size = collection_size,
-              data_group = data_group,
-              if (!is.null(access_function)) access_function = access_function)
+    rgs <- list(name = if (!is.null(name)) name else pretty_name,
+                id = if (!is.null(id)) id else if (length(doi) > 0) doi else metadata_id,
+                description = description,
+                doc_url = paste0("https://doi.org/", doi),
+                citation = if (!is.null(citation)) citation else "See documentation URL",
+                license = "CC-BY",
+                method = c(list("bb_handler_aws_s3", bucket = "datasets", base_url = "services.aad.gov.au", region = "public", prefix = paste0("science/", metadata_id), use_https = FALSE, bucketlist_json = paste0("http://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id, "/")), method_args),
+                ## bucketlist_json is a workaround for AADC servers not supporting the usual aws.s3::get_bucket method              postprocess = NULL,
+                collection_size = collection_size,
+                data_group = data_group)
+    if (!is.null(access_function)) rgs$access_function <- access_function
+    do.call(bb_source, rgs)
 }
 
