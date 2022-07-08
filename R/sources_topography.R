@@ -385,10 +385,10 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          id = "NZBathy_DTM_2016_binary_grid",
                          description = "The NZ 250m gridded bathymetric data set and imagery, Mitchell et al. 2012, released 2016.",
                          doc_url = "https://www.niwa.co.nz/our-science/oceans/bathymetry/further-information",
-                         citation = "Mitchell, J.S., Mackay, K.A., Neil, H.L., Mackay, E.J., Pallentin, A., Notman P., 2012. Undersea New Zealand, 1:5,000,000. NIWA Chart, Miscellaneous Series No. 92",
-                         source_url = "ftp://ftp.niwa.co.nz/bathymetry/NZBathy_DTM_2016_binary_grid.zip",
+                         citation = "Mitchell JS, Mackay KA, Neil HL, Mackay EJ, Pallentin A, Notman P (2012) Undersea New Zealand, 1:5,000,000. NIWA Chart, Miscellaneous Series No. 92",
+                         source_url = "https://gis.niwa.co.nz/portal/sharing/rest/content/items/d2d2644698e5427da5d0e5c4b79f73ba/data",
                          license = "NIWA Open Data Licence BY-NN-NC-SA version 1, see https://www.niwa.co.nz/environmental-information/licences/niwa-open-data-licence-by-nn-nc-sa-version-1",
-                         method = list("bb_handler_rget"),
+                         method = list("bb_handler_rget", force_local_filename = "nzbathy_2016.zip"),
                          postprocess = list("bb_unzip"),
                          collection_size = 1.3,
                          data_group = "Topography"))
