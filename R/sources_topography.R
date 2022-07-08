@@ -403,10 +403,9 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          doc_url = "https://doi.org/10.5194/tc-2017-223",
                          citation = "Slater T, Shepherd A, McMillan M, Muir A, Gilbert L, Hogg AE, Konrad H, Parrinello T (2017) A new Digital Elevation Model of Antarctica derived from CryoSat-2 altimetry. The Cryosphere Discussions. https://doi.org/10.5194/tc-2017-223",
                          license = "Please cite",
-                         source_url = "https://earth.esa.int/documents/10174/3082676/Antarctica-DEM-CryoSat",
-                         method = list("bb_handler_rget", force_local_filename = "download.zip"),
-                         postprocess = list(list("bb_unzip"), list("bb_cleanup", recursive = TRUE, all_files = TRUE, pattern = "^\\._")),
-                         collection_size = 0.2,
+                         source_url = "http://www.cpom.ucl.ac.uk/csopr/icesheets3/dems.php",
+                         method = list("bb_handler_rget", level = 1, accept_download = "Antarctica_Cryosat2_1km_DEM"),
+                         collection_size = 2,
                          data_group = "Topography"))
     }
 
