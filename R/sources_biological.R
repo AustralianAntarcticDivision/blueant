@@ -8,6 +8,7 @@
 #'   \item "SCAR RAATD model outputs": Single-species habitat importance maps for 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins
 #'   \item "SCAR RAATD data filtered": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'filtered' version of the data files
 #'   \item "SCAR RAATD data standardised": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'standardized' version of the data files
+#'   \item "Myctobase": A circumpolar database of Southern Ocean mesopelagic fish surveys, including occurrence and abundance information, as well as trait-based information of individuals including standard length, weight and life stage
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -98,6 +99,14 @@ sources_biological <- function(name, formats, time_resolutions, ...) {
                                            citation = "Ropert-Coudert Y, Van de Putte AP, Reisinger RR, et al. (2020) The Retrospective Analysis of Antarctic Tracking Data Project. Nature Scientific Data. doi:10.1038/s41597-020-0406-x. Data from doi:10.4225/15/5afcb927e8162",
                                            collection_size = 0.3,
                                            data_group = "Biology"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Myctobase", "10.5281/zenodo.5590999")))) {
+        ## that DOI is the master one, which will point to the latest version of the data set
+        ## but we have to provide a record ID to the API. 6809070 is the latest version at the time of writing, but using `use_latest = TRUE` means that it will resolve to the latest version (with a different record ID) if there is a more recent one
+        src <- bb_zenodo_source(6809070, use_latest = TRUE)
+        src$data_group <- "Biology"
+        out <- rbind(out, src)
     }
 
     if (is.null(name) || any(name %in% tolower(c("SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution","SEAPODYM_ZM_weekly")))) {
