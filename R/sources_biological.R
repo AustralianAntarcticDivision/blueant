@@ -30,16 +30,19 @@
 #' cf <- bb_config(my_data_dir)
 #'
 #' ## our data source to download
-#' src <- sources_biological("Southern Ocean Continuous Plankton Recorder")
-#' ## or, equivalently just
-#' src <- sources("Southern Ocean Continuous Plankton Recorder")
+#' src <- sources("Myctobase")
 #'
 #' ## add to our config
 #' cf <- bb_add(cf, src)
 #'
-#' ## sync it
-#' \dontrun{
-#' bb_sync(cf)
+#' ## and sync it
+#' if (interactive()) {
+#'   status <- bb_sync(cf)
+#' }
+#'
+#' ## or equivalently
+#' if (interactive()) {
+#'   status <- bb_get(sources("Myctobase"), local_file_root = my_data_dir)
 #' }
 #'
 #' @export
