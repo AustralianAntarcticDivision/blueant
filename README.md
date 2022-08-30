@@ -24,8 +24,7 @@ system, and to keep that data collection up to date.
 ## Installing
 
 ``` r
-options()
-# Download and install blueant in R
+## Download and install blueant in R
 install.packages("blueant", repos = c(SCAR = "https://scar.r-universe.dev",
                                       CRAN = "https://cloud.r-project.org"))
 
@@ -76,18 +75,18 @@ status <- bb_sync(cf, verbose = TRUE)
 ```
 
     ## 
-    ## Wed Aug 31 09:03:23 2022
+    ## Wed Aug 31 09:31:14 2022
     ## Synchronizing dataset: George V bathymetry
-    ## Source URL c("https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc", "https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc", "https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc", "https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc")
+    ## Source URL c("http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc")
     ## --------------------------------------------------------------------------------------------
     ## 
     ##  this dataset path is: /tmp/data/public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf
-    ##  downloading file 1 of 4: https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc ...  done.
-    ##  downloading file 2 of 4: https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc ...  done.
-    ##  downloading file 3 of 4: https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc ...  done.
-    ##  downloading file 4 of 4: https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc ...  done.
+    ##  downloading file 1 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc ...  done.
+    ##  downloading file 2 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc ...  done.
+    ##  downloading file 3 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc ...  done.
+    ##  downloading file 4 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc ...  done.
     ## 
-    ## Wed Aug 31 09:04:41 2022 dataset synchronization complete: George V bathymetry
+    ## Wed Aug 31 09:32:03 2022 dataset synchronization complete: George V bathymetry
 
 Congratulations\! You now have your own local copy of this data set. The
 files in this data set have been stored in a data-source-specific
@@ -100,10 +99,10 @@ myfiles
 ## # A tibble: 4 × 3
 ##   url                                                                           
 ##   <chr>                                                                         
-## 1 https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem10…
-## 2 https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem25…
-## 3 https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem50…
-## 4 https://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem10…
+## 1 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100…
+## 2 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250…
+## 3 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500…
+## 4 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100…
 ##   file                                                                          
 ##   <chr>                                                                         
 ## 1 /tmp/data/public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem…

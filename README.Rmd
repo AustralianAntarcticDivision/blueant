@@ -22,8 +22,7 @@ Blueant provides a set of data source configurations to use with the [bowerbird]
 ## Installing
 
 ```{r eval=FALSE}
-options()
-# Download and install blueant in R
+## Download and install blueant in R
 install.packages("blueant", repos = c(SCAR = "https://scar.r-universe.dev",
                                       CRAN = "https://cloud.r-project.org"))
 
