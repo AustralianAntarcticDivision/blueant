@@ -137,7 +137,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          doc_url = "http://oceancolor.gsfc.nasa.gov/",
                          citation = "See https://oceancolor.gsfc.nasa.gov/citations",
                          license = "Please cite",
-                         method = list("bb_handler_oceandata", search = "T*L3m_MO_SST_sst_9km.nc", sensor = "terra", dtype = "L3m"),
+                         method = list("bb_handler_oceandata", search = "TERRA_MODIS*L3m.MO.SST.sst.9km.nc", sensor = "terra", dtype = "L3m"),
                          postprocess = NULL,
                          collection_size = 7,
                          data_group = "Sea surface temperature"))
@@ -151,7 +151,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          doc_url = "http://oceancolor.gsfc.nasa.gov/",
                          citation = "See https://oceancolor.gsfc.nasa.gov/citations",
                          license = "Please cite",
-                         method = list("bb_handler_oceandata", search="A*L3m_MO_SST_sst_9km.nc", sensor = "aqua", dtype = "L3m"),
+                         method = list("bb_handler_oceandata", search="AQUA_MODIS*L3m.MO.SST.sst.9km.nc", sensor = "aqua", dtype = "L3m"),
                          postprocess = NULL,
                          collection_size = 7,
                          data_group = "Sea surface temperature"))
