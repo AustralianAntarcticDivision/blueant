@@ -8,6 +8,7 @@ bb_polarview_search(
   acquisition_date = Sys.Date() + -14:0,
   formats = c("jpg", "geotiff"),
   polygon = NULL,
+  max_results = 200L,
   verbose = FALSE
 )
 }
@@ -17,6 +18,8 @@ bb_polarview_search(
 \item{formats}{character: one or more of "jpg" (jpg preview images) "jp2" or "geotiff". Note that the geotiffs are much larger than the jpg previews}
 
 \item{polygon}{string or sfc_POLYGON: either an \code{sfc_POLYGON} or a string giving a polygon in WKT format and EPSG:3031 projection. Only images intersecting this polygon will be returned}
+
+\item{max_results}{integer: maximum number of results to return}
 
 \item{verbose}{logical: if \code{TRUE}, show additional progress output}
 }

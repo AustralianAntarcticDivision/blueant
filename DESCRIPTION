@@ -26,7 +26,7 @@ Imports:
     tibble,
     xml2
 LazyLoad: yes
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 Suggests:
     knitr,
     ncdf4,
