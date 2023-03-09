@@ -20,10 +20,9 @@ bb_handler_polarview <- function(...) {
 bb_handler_polarview_inner <- function(config, verbose = FALSE, local_dir_only = FALSE, ...) {
     assert_that(is(config, "bb_config"))
     assert_that(nrow(bb_data_sources(config)) == 1)
-    assert_that(is.flag(verbose), !is.na(verbose))
-    assert_that(is.flag(local_dir_only), !is.na(local_dir_only))
+    verbose <- isTRUE(verbose)
 
-    if (local_dir_only) {
+    if (isTRUE(local_dir_only)) {
         temp <- bb_data_sources(config)
         temp$source_url[[1]] <- "https://www.polarview.aq/images" ## the source_url values are populated dynamically, but they (currently) all start with this. If we don't hard-code this, then we'd have to run the catalogue search (bb_polarview_search, below) which might not actually return any images from which to extract the path
         bb_data_sources(config) <- temp
