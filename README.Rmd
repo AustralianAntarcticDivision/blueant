@@ -5,11 +5,8 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r echo = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  ##comment = "#>",
-  fig.path = "vignettes/README-"
-)
+knitr::opts_chunk$set(collapse = TRUE, fig.path = "man/figures/README-")
+
 ```
 
 <!-- badges: start -->
@@ -25,8 +22,14 @@ Blueant provides a set of data source configurations to use with the [bowerbird]
 ## Installing
 
 ```{r eval=FALSE}
-install.packages("remotes")
-remotes::install_github("AustralianAntarcticDivision/blueant", build_vignettes = TRUE)
+## Download and install blueant in R
+install.packages("blueant", repos = c(SCAR = "https://scar.r-universe.dev",
+                                      CRAN = "https://cloud.r-project.org"))
+
+## or
+## install.packages("remotes") ## if needed
+remotes::install_github("AustralianAntarcticDivision/blueant")
+
 ```
 
 ## Usage overview
@@ -39,8 +42,8 @@ Build up a configuration by first defining global options such as the destinatio
 ## code not shown in the README: (1) use load_all() instead of library() for convenience, (2) use anonymous "temporary" dir, and (3) hide the progress bar
 ##library(blueant)
 devtools::load_all()
-my_data_dir <- "c:/tmp/data" ##tempdir()#file.path(dirname(tempdir()), "RtmpjAqcVC")
-if (!dir.exists(my_data_dir)) dir.create(my_data_dir)
+my_data_dir <- "/tmp/data"
+if (!dir.exists(my_data_dir)) dir.create(my_data_dir, recursive = TRUE)
 if (dir.exists(file.path(my_data_dir, "data.aad.gov.au/eds/file/4494"))) unlink(file.path(my_data_dir, "data.aad.gov.au/eds/file/4494"), recursive = TRUE)
 cf <- bb_config(local_file_root = my_data_dir)
 mysrc <- sources("George V bathymetry") %>% bb_modify_source(method = list(show_progress = FALSE))

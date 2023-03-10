@@ -28,6 +28,7 @@ Data sources providing selected Southern Ocean biological data sets. Please note
   \item "SCAR RAATD model outputs": Single-species habitat importance maps for 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins
   \item "SCAR RAATD data filtered": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'filtered' version of the data files
   \item "SCAR RAATD data standardised": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'standardized' version of the data files
+  \item "Myctobase": A circumpolar database of Southern Ocean mesopelagic fish surveys, including occurrence and abundance information, as well as trait-based information of individuals including standard length, weight and life stage
 }
 
 The returned tibble contains more information about each source.
@@ -38,16 +39,19 @@ my_data_dir <- tempdir()
 cf <- bb_config(my_data_dir)
 
 ## our data source to download
-src <- sources_biological("Southern Ocean Continuous Plankton Recorder")
-## or, equivalently just
-src <- sources("Southern Ocean Continuous Plankton Recorder")
+src <- sources("Myctobase")
 
 ## add to our config
 cf <- bb_add(cf, src)
 
-## sync it
-\dontrun{
-bb_sync(cf)
+## and sync it
+if (interactive()) {
+  status <- bb_sync(cf)
+}
+
+## or equivalently
+if (interactive()) {
+  status <- bb_get(sources("Myctobase"), local_file_root = my_data_dir)
 }
 
 }

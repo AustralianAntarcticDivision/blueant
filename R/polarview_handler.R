@@ -43,7 +43,7 @@ bb_handler_polarview_inner <- function(config, verbose = FALSE, local_dir_only =
         temp <- bb_data_sources(config)
         temp$source_url <- list(pv_urls)
         bb_data_sources(config) <- temp
-        do.call(bb_handler_rget, Filter(length, c(list(config, verbose = verbose, accept_download = adl, rget_parms))))
+        do.call(bb_handler_rget, Filter(length, c(list(config, verbose = verbose, accept_download = adl), rget_parms)))
     } else {
         ## iterate one by one
         all_ok <- TRUE
@@ -53,7 +53,7 @@ bb_handler_polarview_inner <- function(config, verbose = FALSE, local_dir_only =
             temp <- bb_data_sources(config)
             temp$source_url <- thisurl
             bb_data_sources(config) <- temp
-            this <- do.call(bb_handler_rget, Filter(length, c(list(config, verbose = verbose, accept_download = adl, rget_parms))))
+            this <- do.call(bb_handler_rget, Filter(length, c(list(config, verbose = verbose, accept_download = adl), rget_parms)))
             all_ok <- all_ok && this$ok
             if (nrow(this$files[[1]])>0) downloads <- rbind(downloads, this$files[[1]])
             if (nzchar(this$message)) msg <- c(msg, this$message)
