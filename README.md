@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/AustralianAntarcticDivision/blueant/workflows/R-CMD-check/badge.svg)](https://github.com/AustralianAntarcticDivision/blueant/actions)
+[![R-CMD-check](https://github.com/AustralianAntarcticDivision/blueant/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AustralianAntarcticDivision/blueant/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/AustralianAntarcticDivision/blueant/branch/master/graph/badge.svg)](https://codecov.io/gh/AustralianAntarcticDivision/blueant?branch=master)
 [![Project Status: Active - The project has reached a stable, usable
