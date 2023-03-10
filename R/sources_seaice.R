@@ -170,7 +170,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration", "10.5067/U8C09DWVX9LM")))) {
-        stop("source 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' is no longer available, use 'Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2' instead")
+        warning("source 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' is no longer available, use 'Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2' instead")
     }
 
     if (is.null(name) || any(name %in% tolower(c("Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2", "10.5067/YTTHO2FJQ97K")))) {
