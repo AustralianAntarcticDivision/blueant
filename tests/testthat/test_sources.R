@@ -82,6 +82,6 @@ test_that("selection by name or ID works",{
 })
 
 test_that("multiple selections work",{
-    temp1 <- sources(c("CNES-CLS2013 MDT","NIC_daily_charts_antarctic"))
-    expect_true(setequal(temp1$name,c("National Ice Center Antarctic daily sea ice charts","CNES-CLS2013 Mean Dynamic Topography")))
+    temp1 <- sources(c("CNES-CLS2013 MDT", "nsidc_seaice_grids"))
+    expect_true(setequal(temp1$name, c("NSIDC passive microwave supporting files", "CNES-CLS2013 Mean Dynamic Topography")))
 })
