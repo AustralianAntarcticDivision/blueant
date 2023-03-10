@@ -14,33 +14,17 @@ bb_handler_aadc <- function(...) {
 }
 
 ## not exported, for internal use
+get_json <- function(url) {
+    out <- curl::curl_fetch_memory(url, handle = curl::new_handle(ssl_verifypeer = 0L))
+    jsonlite::fromJSON(rawToChar(out$content))
+}
 get_aadc_md <- function(metadata_id) {
     get_json(paste0("https://data.aad.gov.au/metadata/records/", metadata_id, "?format=json"))
 }
 
 get_aadc_doi <- function(metadata_id) {
     md <- get_aadc_md(metadata_id)
-    murl <- paste0("https://data.aad.gov.au/metadata/records/", metadata_id)
-    doi <- tryCatch(sub("^doi:", "", md$data$data_set_citation$dataset_doi), error = function(e) NULL)
-    ## get collection size from the S3 API
-    postproc <- list()
-    csize <- tryCatch({
-        s3x <- get_json(paste0("https://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id)) ## , "/?export=json")) ## query parm no longer needed?
-        if (any(grepl("\\.zip$", s3x$name, ignore.case = TRUE))) postproc <- c(postproc, list("unzip"))
-        if (any(grepl("\\.gz$", s3x$name, ignore.case = TRUE))) postproc <- c(postproc, list("gunzip"))
-        sz <- sum(s3x$size, na.rm = TRUE)/1024^3 ## in GB
-        if (!is.na(sz)) ceiling(sz*10)/10 else NULL
-    }, error = function(e) NULL)
-    bb_source(name = md$data$entry_title,
-              id = if (length(doi) > 0) doi else metadata_id,
-              description = md$data$summary$abstract,
-              doc_url = if (length(doi) > 0) paste0("https://doi.org/", doi) else murl,
-              citation = md$data$citation,
-              license = "CC-BY",
-              method = list("bb_handler_aws_s3", bucket = "datasets", base_url = "public.services.aad.gov.au", region = "", prefix = paste0("science/", metadata_id), use_https = FALSE),
-              comment = "Source definition created by bb_aadc_source",
-              postprocess = postproc,
-              collection_size = csize)
+    tryCatch(sub("^doi:", "", md$data$data_set_citation$dataset_doi), error = function(e) NULL)
 }
 
 bb_aadc_s3_source_gen <- function(metadata_id, name = NULL, id = NULL, doi = NULL, description, citation, method_args = list(), collection_size = NULL, data_group = NULL, access_function = NULL) {
