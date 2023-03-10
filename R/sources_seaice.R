@@ -170,21 +170,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration", "10.5067/U8C09DWVX9LM")))) {
-        out <- rbind(out,
-                     bb_source(
-                         name = "NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration",
-                         id = "10.5067/U8C09DWVX9LM",
-                         description = "Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. For older, quality-controlled data see the \"NSIDC SMMR-SSM/I Nasateam sea ice concentration\" source",
-                         doc_url = "http://nsidc.org/data/nsidc-0081.html",
-                         citation = "Maslanik, J. and J. Stroeve. 1999, updated daily. Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations. [indicate subset used]. Boulder, Colorado USA: NASA National Snow and Ice Data Center Distributed Active Archive Center. http://dx.doi.org/10.5067/U8C09DWVX9LM",
-                         source_url = "ftp://sidads.colorado.edu/pub/DATASETS/nsidc0081_nrt_nasateam_seaice/",
-                         comment = "This data source may migrate to https access in the future, requiring an Earthdata login",
-                         license = "Please cite, see https://nsidc.org/about/data-use-and-copyright",
-                         method = list("bb_handler_rget", reject_follow = "/browse", level = 3),
-                         postprocess = NULL,
-                         access_function = "raadtools::readice",
-                         collection_size = 0.6,
-                         data_group = "Sea ice"))
+        stop("source 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' is no longer available, use 'Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2' instead")
     }
 
     if (is.null(name) || any(name %in% tolower(c("Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2", "10.5067/YTTHO2FJQ97K")))) {
