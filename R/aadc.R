@@ -70,7 +70,7 @@ bb_aadc_source <- function(metadata_id) {
               doc_url = if (length(doi) > 0) paste0("https://doi.org/", doi) else murl,
               citation = md$data$citation,
               license = "CC-BY",
-              method = list("bb_handler_aws_s3", bucket = "datasets", base_url = "services.aad.gov.au", region = "public", prefix = paste0("science/", metadata_id), use_https = FALSE),
+              method = list("bb_handler_aws_s3", bucket = "datasets", base_url = "public.services.aad.gov.au", region = "", prefix = paste0("science/", metadata_id), use_https = FALSE),
               comment = "Source definition created by bb_aadc_source",
               postprocess = postproc,
               collection_size = csize)
@@ -88,7 +88,7 @@ bb_aadc_s3_source_gen <- function(metadata_id, name = NULL, id = NULL, doi = NUL
               doc_url = paste0("https://doi.org/", doi),
               citation = if (!is.null(citation)) citation else "See documentation URL",
               license = "CC-BY",
-              method = c(list("bb_handler_aws_s3", bucket = "datasets", base_url = "services.aad.gov.au", region = "public", prefix = paste0("science/", metadata_id), use_https = FALSE), method_args),
+              method = c(list("bb_handler_aws_s3", bucket = "datasets", base_url = "public.services.aad.gov.au", region = "", prefix = paste0("science/", metadata_id), use_https = FALSE), method_args),
               postprocess = NULL,
               collection_size = collection_size,
               data_group = data_group,
