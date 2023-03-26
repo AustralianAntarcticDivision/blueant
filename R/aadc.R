@@ -38,11 +38,10 @@ bb_aadc_s3_source_gen <- function(metadata_id, name = NULL, id = NULL, doi = NUL
                 doc_url = paste0("https://doi.org/", doi),
                 citation = if (!is.null(citation)) citation else "See documentation URL",
                 license = "CC-BY",
-                method = c(list("bb_handler_aws_s3", bucket = "datasets", base_url = "public.services.aad.gov.au", region = "", prefix = paste0("science/", metadata_id), use_https = FALSE, bucketlist_json = paste0("http://data.aad.gov.au/s3/api/bucket/datasets/science/", metadata_id, "/")), method_args),
-                ## bucketlist_json is a workaround for AADC servers not supporting the usual aws.s3::get_bucket method              postprocess = NULL,
+                method = c(list("bb_handler_aws_s3", bucket = "datasets", base_url = "public.services.aad.gov.au", region = "", prefix = paste0("science/", metadata_id), use_https = FALSE, bucket_browser_url = "http://data.aad.gov.au/s3/api/bucket"), method_args),
+                ## bucket_browser_url is a workaround for AADC servers not supporting the usual aws.s3::get_bucket method
                 collection_size = collection_size,
                 data_group = data_group)
     if (!is.null(access_function)) rgs$access_function <- access_function
     do.call(bb_source, rgs)
 }
-
