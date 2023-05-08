@@ -46,6 +46,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     assert_that(is.flag(local_dir_only),!is.na(local_dir_only))
 
     force_use_wget <- FALSE
+    no_check_cert <- TRUE ## currently the usgodae certficate is valid for usgodae.org but invalid for www.usgodae.org, so skip the certificate check at least temporarily
     get_fun <- if (force_use_wget) bb_handler_wget else bb_handler_rget
 
     if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE))
@@ -55,7 +56,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
 
     ## first get the greylist and index files
     ## greylist file - we don't do anything with it, but it's there for the user if they care to look at it
-    greylist_file <- argo_get_index_file(config, index_type = "greylist", get_fun = get_fun, stop_on_failure = FALSE, verbose = verbose)
+    greylist_file <- argo_get_index_file(config, index_type = "greylist", get_fun = get_fun, stop_on_failure = FALSE, no_check_cert = no_check_cert, verbose = verbose)
     ## index file
     if ("profile_type" %in% names(parms) && !is.null(parms$profile_type)) {
         profile_type <- match.arg(tolower(parms$profile_type), c("merge", "synthetic"))
@@ -66,7 +67,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     temp <- bb_settings(config)
     temp$dry_run <- FALSE ## must download index file
     bb_settings(dummy) <- temp
-    idxfile <- argo_get_index_file(dummy, index_type = profile_type, get_fun = get_fun, verbose = verbose)
+    idxfile <- argo_get_index_file(dummy, index_type = profile_type, get_fun = get_fun, no_check_cert = no_check_cert, verbose = verbose)
     idx <- argo_parse_index_file(idxfile, verbose = verbose)
     if (verbose) cat("Total number of profiles in index: ", nrow(idx), "\n")
     idx0 <- idx
@@ -116,16 +117,16 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
         this_float <- strsplit(thisurl, "/")[[1]][2]
         if (!is.null(this_float) && !is.na(this_float)) {
             temp$source_url <- file.path(source_url_no_trailing_sep, "dac", thisurl, paste0(this_float, "_meta.nc"))
-            temp$method <- list(list("bb_handler_rget", level = 1))
+            temp$method <- list(list("bb_handler_rget", level = 1, no_check_certificate = no_check_cert))
             bb_data_sources(dummy) <- temp
-            this_status <- get_fun(dummy, verbose = verbose)
+            this_status <- get_fun(dummy, verbose = verbose, no_check_certificate = no_check_cert)
             status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
             ## Sprof file
             if (profile_type == "synthetic") {
                 temp$source_url <- file.path(source_url_no_trailing_sep, "dac", thisurl, paste0(this_float, "_Sprof.nc"))
-                temp$method <- list(list("bb_handler_rget", level = 1))
+                temp$method <- list(list("bb_handler_rget", level = 1, no_check_certificate = no_check_cert))
                 bb_data_sources(dummy) <- temp
-                this_status <- get_fun(dummy, verbose = verbose)
+                this_status <- get_fun(dummy, verbose = verbose, no_check_certificate = no_check_cert)
                 ## not all profiles have this Sprof file, so don't change the 'ok' value on failure (??)
                 status <- tibble(ok = status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
             }
@@ -137,10 +138,10 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
             dummy <- config
             temp <- bb_data_sources(dummy)
             temp$source_url <- file.path(source_url_no_trailing_sep, "dac", thisurl)
-            temp$method <- list(list("bb_handler_rget", level = 1))
+            temp$method <- list(list("bb_handler_rget", level = 1, no_check_certificate = no_check_cert))
             bb_data_sources(dummy) <- temp
             ##        cat(str(dummy))
-            this_status <- get_fun(dummy, verbose = verbose)
+            this_status <- get_fun(dummy, verbose = verbose, no_check_certificate = no_check_cert)
             status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$msg))
         }
     }
@@ -149,7 +150,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
 
 
 ## retrieve an index file and return its local path
-argo_get_index_file <- function(config, index_type = "merge", get_fun = bb_handler_rget, stop_on_failure = TRUE, verbose = FALSE) {
+argo_get_index_file <- function(config, index_type = "merge", get_fun = bb_handler_rget, stop_on_failure = TRUE, no_check_cert = FALSE, verbose = FALSE) {
     index_type <- match.arg(tolower(index_type), c("merge", "synthetic", "greylist"))
     dummy <- config
     temp <- bb_data_sources(dummy)
@@ -160,10 +161,10 @@ argo_get_index_file <- function(config, index_type = "merge", get_fun = bb_handl
         fname <- paste0("argo_", index_type, "-profile_index.txt.gz")
     }
     temp$source_url <- file.path(source_url_no_trailing_sep, fname)
-    temp$method <- list(list("bb_handler_rget", level = 0))
+    temp$method <- list(list("bb_handler_rget", level = 0, no_check_certificate = no_check_cert))
     bb_data_sources(dummy) <- temp
     if (verbose) cat("Downloading profile", index_type, "index file\n")
-    this <- get_fun(dummy, verbose = verbose, level = 0)
+    this <- get_fun(dummy, verbose = verbose, level = 0, no_check_certificate = no_check_cert)
     if (!this$ok) stop("error retrieving profile ", index_type, " index file")
     file.path(bb_data_source_dir(config), fname)
 }
