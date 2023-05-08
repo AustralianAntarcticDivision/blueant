@@ -9,7 +9,7 @@
 #' @importFrom httr GET http_error http_status with_config write_disk
 #' @importFrom magrittr %>%
 #' @importFrom methods is
-#' @importFrom rvest html_session jump_to html_attr html_nodes
+#' @importFrom rvest session session_jump_to html_attr html_nodes
 #' @importFrom stats na.omit
 #' @importFrom stringr str_match str_trim
 #' @importFrom tibble tibble

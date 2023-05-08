@@ -31,7 +31,7 @@ bb_handler_amps_inner <- function(config, verbose = FALSE, local_dir_only = FALS
 
     if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE, ...))
 
-    x <- html_session(bb_data_sources(config)$source_url[[1]])
+    x <- session(bb_data_sources(config)$source_url[[1]])
     n <- html_attr(html_nodes(x, "a"), "href")
     idx <- grep("^[[:digit:]]+/?$", n, ignore.case = TRUE) ## links that are all digits
     ## which files to accept
@@ -50,7 +50,7 @@ bb_handler_amps_inner <- function(config, verbose = FALSE, local_dir_only = FALS
                 stop(sprintf("Could not create target directory %s: aborting.\n", target_dir))
             }
         }
-        x2 <- jump_to(x, n[i])
+        x2 <- session_jump_to(x, n[i])
         files <- html_attr(Filter(accept, html_nodes(x2, "a")), "href")
         ## change into target directory, with no recursive fetch, to allow --timestamping on retrievals
         settings <- bowerbird:::save_current_settings()

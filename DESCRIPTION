@@ -20,7 +20,7 @@ Imports:
     jsonlite,
     magrittr,
     methods,
-    rvest,
+    rvest (>= 1.0.0),
     stringr,
     tibble,
     xml2
