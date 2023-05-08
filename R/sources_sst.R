@@ -157,6 +157,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          data_group = "Sea surface temperature"))
     }
     if (is.null(name) || any(name %in% tolower(c("GHRSST Level 4 MUR Global Foundation SST v4.1", "GHRSST-MUR-SST_v4.1")))) {
+        stop("8-May-2023: the GHRSST source has been disabled temporarily - the provider details have changed, but a misconfiguration on the server currently prevents us from using it")
         out <- rbind(out,
                      bb_source(
                          name = "GHRSST Level 4 MUR Global Foundation SST v4.1",
@@ -164,12 +165,15 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          description = "A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) at the JPL Physical Oceanography DAAC using wavelets as basis functions in an optimal interpolation approach on a global 0.011 degree grid. The version 4 Multiscale Ultrahigh Resolution (MUR) L4 analysis is based upon nighttime GHRSST L2P skin and subskin SST observations from several instruments including the NASA Advanced Microwave Scanning Radiometer-EOS (AMSRE), the Moderate Resolution Imaging Spectroradiometer (MODIS) on the NASA Aqua and Terra platforms, the US Navy microwave WindSat radiometer and in situ SST observations from the NOAA iQuam project. The ice concentration data are from the archives at the EUMETSAT Ocean and Sea Ice Satellite Application Facility (OSI SAF) High Latitude Processing Center and are also used for an improved SST parameterization for the high-latitudes. This data set is funded by the NASA MEaSUREs program (http://earthdata.nasa.gov/our-community/community-data-system-programs/measures-projects), and created by a team led by Dr. Toshio Chin from JPL.",
                          doc_url = "https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1",
                          citation = "Cite as: US NASA; Jet Propulsion Laboratory; Physical Oceanography Distributed Active Archive Center (JPL PO.DAAC) (2002). GHRSST Level 4 MUR Global Foundation Sea Surface Temperature Analysis (v4.1) (GDS versions 1 and 2). National Oceanographic Data Center, NOAA. Dataset. [access date]",
-                         source_url = "https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/",
+                         source_url = "https://cmr.earthdata.nasa.gov/virtual-directory/collections/C1996881146-POCLOUD/temporal",
                          license = "Please cite",
-                         comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. https://podaac-opendap.jpl.nasa.gov/opendap/allData/ghrsst/data/GDS2/L4/GLOB/JPL/MUR/v4.1/2021/",
-                         method = list("bb_handler_rget", level = 3, accept_follow = "contents\\.html$", accept_download_extra = "md5$"),
+                         comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. https://cmr.earthdata.nasa.gov/virtual-directory/collections/C1996881146-POCLOUD/temporal/2023. Note that you will also need to modify the method `accept_follow` parameter in this case",
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the PODAAC application (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
+                         method = list("bb_handler_earthdata", level = 3, accept_follow = "/virtual-directory/collections/C1996881146-POCLOUD/temporal/"),
+                         user = "",
+                         password = "",
                          collection_size = 2000,
-                         data_group = "Sea surface temperature"))
+                         data_group = "Sea surface temperature", warn_empty_auth = FALSE))
     }
     out
 }
