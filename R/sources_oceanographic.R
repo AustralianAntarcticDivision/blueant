@@ -6,6 +6,7 @@
 #'   \item "CSIRO Atlas of Regional Seas 2009": CARS is a digital climatology, or atlas of seasonal ocean water properties
 #'   \item "World Ocean Atlas 2009": World Ocean Atlas 2009 is included here for convenience but has been superseded by the World Ocean Atlas 2013 V2
 #'   \item "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
+#'   \item "World Ocean Atlas 2018": The World Ocean Atlas (WOA) is a collection of objectively analyzed, quality controlled temperature, salinity, oxygen, phosphate, silicate, and nitrate means based on profile data from the World Ocean Database (WOD). It can be used to create boundary and/or initial conditions for a variety of ocean models, verify numerical simulations of the ocean, and corroborate satellite data
 #'   \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
 #'   \item "Argo profile data": Argo profile data, by default from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). The DAC can be changed by specifying a \code{dac_url} parameter (see example below). Also see \code{\link{bb_handler_argo}} for a description of the other parameters that this source accepts.
 #'   \item "Effects of Sound on the Marine Environment": ESME uses publically available environmental data sources that provide detailed information about the ocean: (1) Bottom Sediment Type (BST) v 2.0, (2) Digital Bathymetry Database (DBDB) v 5.4, (3) Generalized Digital Environment Model (GDEM) v 3.0, (4) Surface Marine Gridded Climatology (SMGC) v 2.0"
@@ -116,6 +117,22 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          data_group = "Oceanographic"))
     }
 
+    if (is.null(name) || any(name %in% tolower(c("World Ocean Atlas 2018", "WOA18")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "World Ocean Atlas 2018",
+                         id = "WOA18",
+                         description = "The World Ocean Atlas (WOA) is a collection of objectively analyzed, quality controlled temperature, salinity, oxygen, phosphate, silicate, and nitrate means based on profile data from the World Ocean Database (WOD). It can be used to create boundary and/or initial conditions for a variety of ocean models, verify numerical simulations of the ocean, and corroborate satellite data.",
+                         doc_url = "https://www.ncei.noaa.gov/products/world-ocean-atlas",
+                         citation = "Boyer, Tim P.; Garcia, Hernan E.; Locarnini, Ricardo A.; Zweng, Melissa M.; Mishonov, Alexey V.; Reagan, James R.; Weathers, Katharine A.; Baranova, Olga K.; Seidov, Dan; Smolyar, Igor V. (2018). World Ocean Atlas 2018. [indicate subset used]. NOAA National Centers for Environmental Information. Dataset. https://www.ncei.noaa.gov/archive/accession/NCEI-WOA18. Accessed [date].",
+                         license = "Please cite",
+                         source_url = "https://www.ncei.noaa.gov/data/oceans/woa/WOA18/DATA/",
+                         method = list("bb_handler_rget", level = 6, reject_follow = "/(ascii|csv|shape|5564|6574|7584|8594|95A4|A5B2|A5B7)/"),
+                         comment = "Only the long-term (not per-decade) netcdf files are retrieved here: adjust the method reject_download parameter if you want ascii, csv, or shapefiles, or per-decade files.",
+                         postprocess = NULL,
+                         collection_size = NA,
+                         data_group = "Oceanographic"))
+    }
 
     if (is.null(name) || any(name %in% tolower(c("Argo ocean basin data (USGODAE)", "10.17882/42182")))) {
         if ("region" %in% names(dots)) {
