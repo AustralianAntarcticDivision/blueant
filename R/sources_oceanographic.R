@@ -149,7 +149,7 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
             years <- ""
         }
         ## all source_url combinations of region and years
-        temp <- paste0(apply(expand.grid(paste0("http://www.usgodae.org/ftp/outgoing/argo/geo/", region, "_ocean"), years), 1, paste0, collapse = "/"), "/")
+        temp <- paste0(apply(expand.grid(paste0("https://usgodae.org/ftp/outgoing/argo/geo/", region, "_ocean"), years), 1, paste0, collapse = "/"), "/")
         temp <- sub("/+$", "/", temp) ## remove any double trailing slashes
         out <- rbind(out,
                      bb_source(
@@ -178,7 +178,7 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
         if ("dac_url" %in% names(dots)) {
             dac_url <- dots[["dac_url"]]
         } else {
-            dac_url <- "https://www.usgodae.org/ftp/outgoing/argo/"
+            dac_url <- "https://usgodae.org/ftp/outgoing/argo/"
             ## can also use this, but is slower: dac_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
         }
         if ("institutions" %in% names(dots)) {
@@ -251,7 +251,7 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          doc_url = "http://www.argodatamgt.org/Documentation",
                          citation = "To properly acknowledge Argo data usage, please use the following sentence: \"These data were collected and made freely available by the International Argo Program and the national programs that contribute to it (http://www.argo.ucsd.edu, http://argo.jcommops.org). The Argo Program is part of the Global Ocean Observing System. http://doi.org/10.17882/42182\"",
                          license = "Please cite",
-                         source_url = "https://www.usgodae.org/ftp/outgoing/argo/",
+                         source_url = "https://usgodae.org/ftp/outgoing/argo/",
                          ## can also use this, but is slower: source_url = "ftp://ftp.ifremer.fr/ifremer/argo/",
                          method = list("bb_handler_argo", profile_type = profile_type, institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
                          postprocess = NULL,
