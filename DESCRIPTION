@@ -18,6 +18,7 @@ Imports:
     curl,
     httr,
     jsonlite,
+    lubridate,
     magrittr,
     methods,
     rvest (>= 1.0.0),

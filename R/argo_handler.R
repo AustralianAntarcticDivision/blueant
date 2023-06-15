@@ -49,7 +49,8 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     no_check_cert <- TRUE ## currently the usgodae certficate is valid for usgodae.org but invalid for www.usgodae.org, so skip the certificate check at least temporarily
     get_fun <- if (force_use_wget) bb_handler_wget else bb_handler_rget
 
-    if (local_dir_only) return(bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE))
+    local_dir <- bb_handler_rget(config, verbose = verbose, local_dir_only = TRUE)
+    if (local_dir_only) return(local_dir)
 
     parms <- bb_data_sources(config)$method[[1]][-1]
     source_url_no_trailing_sep <- sub("/+$", "", bb_data_sources(config)$source_url[[1]])
@@ -61,7 +62,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     if ("profile_type" %in% names(parms) && !is.null(parms$profile_type)) {
         profile_type <- match.arg(tolower(parms$profile_type), c("merge", "synthetic"))
     } else {
-        profile_type <- "merge"
+        profile_type <- "synthetic" ## merge profiles no longer exist 2023-06-15, default to synthetic
     }
     dummy <- config
     temp <- bb_settings(config)
@@ -70,7 +71,6 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     idxfile <- argo_get_index_file(dummy, index_type = profile_type, get_fun = get_fun, no_check_cert = no_check_cert, verbose = verbose)
     idx <- argo_parse_index_file(idxfile, verbose = verbose)
     if (verbose) cat("Total number of profiles in index: ", nrow(idx), "\n")
-    idx0 <- idx
     ## apply filters
     if ("institutions" %in% names(parms) && !is.null(parms$institutions)) {
         idx <- idx[idx$institution %in% parms$institutions, ]
@@ -83,32 +83,42 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
         if (verbose) cat("Number of profiles after applying parameter filter: ", nrow(idx), "\n")
     }
     if ("latitude_filter" %in% names(parms) && !is.null(parms$latitude_filter)) {
-        idx <- idx[parms$latitude_filter(idx$latitude), ]
+        idx <- idx[which(parms$latitude_filter(idx$latitude)), ]
         if (verbose) cat("Number of profiles after applying latitude filter: ", nrow(idx), "\n")
     }
     if ("longitude_filter" %in% names(parms) && !is.null(parms$longitude_filter)) {
-        idx <- idx[parms$longitude_filter(idx$longitude), ]
+        idx <- idx[which(parms$longitude_filter(idx$longitude)), ]
         if (verbose) cat("Number of profiles after applying longitude filter: ", nrow(idx), "\n")
     }
-    if (verbose) cat("Number of profiles to retrieve: ", nrow(idx), "\n")
+    idx <- idx[!is.na(idx$file), ] ## should not be needed tho
+    if (verbose) cat("Number of profiles to potentially retrieve: ", nrow(idx), "\n")
 
-    ## now, this lists multiple profiles within individual folders
+    ## do some extra work so that we don't even attempt to re-download unnecessary files, otherwise the total run time can be very long
+    ## for each [provider]/[float]:
+    ## * unless we are unconditionallty clobbering, check whether we need to get any of the files in [provider]/[float]/profiles/ (are any of them newer than their local copy, or the local copy does not exist)
+    ## * if we do, or if we are clobbering:
+    ## *   get files in [source_url]/dac/[provider]/[float]/profiles/
+    ## *   and get file in ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/[float]_meta.nc
+    ## *   and for synthetic profiles, get ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/[float]_Sprof.nc
+    clb <- bb_settings(config)$clobber
+    if (is.null(clb) || !clb %in% 0:2) clb <- 1L ## only newer files by default
+    all_local_files <- if (clb < 2) fs::dir_info(local_dir, recurse = TRUE, type = c("file", "symlink")) else tibble(path = character(), modification = as.POSIXct(character())) ## this is slow but we only do it once
+    all_local_files$basename <- fs::path_file(all_local_files$path)
+    idx$basename <- fs::path_file(idx$file)
+    if (clb < 2) {
+        ## for each row in the index file, check if the remote file is newer than its local copy, or the local copy does not exist
+        ## merge df of remote files with df of local files
+        idxm <- merge(idx, all_local_files[, c("basename", "modification_time")], by = "basename", all.x = TRUE)
+        idxm$modification_time <- lubridate::with_tz(idxm$modification_time, tzone = "GMT")
+        idxm$need_to_get <- is.na(idxm$modification_time) ## local file does not exist
+        if (clb > 0) idxm$need_to_get <- idxm$need_to_get | (!is.na(idxm$modification_time) & idxm$modification_time < idxm$date_update)
+        idx <- idxm[which(idxm$need_to_get), ]
+    }
+    if (verbose) cat("After checking modification dates, number of profiles to retrieve: ", nrow(idx), "\n")
+
     ## pull out the folder name
     idx$url <- str_match(idx$file, "^([^/]+/[^/]+)/.+")[, 2]
-    idx0$url <- str_match(idx0$file, "^([^/]+/[^/]+)/.+")[, 2]
-
-    ## if were to just get entire folders, rather than bother selecting individual profiles within folders, how many unique folders do we need to get?
     uurl <- na.omit(unique(idx$url))
-
-    ## if we did that, how many unnecessary files would we be downloading?
-    unn <- idx0$url %in% uurl & !idx0$file %in% idx$file
-    ## if this is not too many unnecessary files, we can request by folder rather than file - this would probably be faster
-    ## TODO, perhaps?
-
-    ## for each one:
-    ## * get files in [source_url]/dac/[provider]/[float]/profiles/
-    ## * and get file in ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/[float]_meta.nc
-    ## * and for synthetic profiles, get ftp.ifremer.fr/argo/ifremer/argo/dac/[provider]/[float]/[float]_Sprof.nc
     ## each meta file
     status <- list(ok = TRUE, files = list(NULL), msg = "")
     for (thisurl in uurl) {
@@ -166,7 +176,7 @@ argo_get_index_file <- function(config, index_type = "merge", get_fun = bb_handl
     if (verbose) cat("Downloading profile", index_type, "index file\n")
     this <- get_fun(dummy, verbose = verbose, level = 0, no_check_certificate = no_check_cert)
     if (!this$ok) stop("error retrieving profile ", index_type, " index file")
-    file.path(bb_data_source_dir(config), fname)
+    file.path(sub("/+$", "", bb_data_source_dir(config)), fname)
 }
 
 argo_parse_index_file <- function(local_index_file, verbose = FALSE) {
@@ -183,6 +193,8 @@ argo_parse_index_file <- function(local_index_file, verbose = FALSE) {
     } else {
         stop("failure reading index file")
     }
+    ## date_update is yyyymmddhhmmss 20220702081221
+    idx$date_update <- lubridate::ymd_hms(idx$date_update, tz = "GMT")
     idx
 }
 
