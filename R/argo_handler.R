@@ -106,6 +106,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     all_local_files$basename <- fs::path_file(all_local_files$path)
     idx$basename <- fs::path_file(idx$file)
     if (clb < 2) {
+        if (verbose) cat("Pre-checking modification times of files ... ")
         ## for each row in the index file, check if the remote file is newer than its local copy, or the local copy does not exist
         ## merge df of remote files with df of local files
         idxm <- merge(idx, all_local_files[, c("basename", "modification_time")], by = "basename", all.x = TRUE)
@@ -113,9 +114,10 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
         idxm$need_to_get <- is.na(idxm$modification_time) ## local file does not exist
         if (clb > 0) idxm$need_to_get <- idxm$need_to_get | (!is.na(idxm$modification_time) & idxm$modification_time < idxm$date_update)
         idx <- idxm[which(idxm$need_to_get), ]
+        if (verbose) cat("done.\nNumber of profiles to retrieve: ", nrow(idx), "\n")
+    } else {
+        if (verbose) cat("Not pre-checking modification times. Number of profiles to retrieve: ", nrow(idx), "\n")
     }
-    if (verbose) cat("After checking modification dates, number of profiles to retrieve: ", nrow(idx), "\n")
-
     ## pull out the folder name
     idx$url <- str_match(idx$file, "^([^/]+/[^/]+)/.+")[, 2]
     uurl <- na.omit(unique(idx$url))
@@ -152,7 +154,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
             bb_data_sources(dummy) <- temp
             ##        cat(str(dummy))
             this_status <- get_fun(dummy, verbose = verbose, no_check_certificate = no_check_cert)
-            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$msg))
+            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
         }
     }
     status
