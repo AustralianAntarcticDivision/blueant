@@ -9,6 +9,7 @@
 #'   \item "World Ocean Atlas 2018": The World Ocean Atlas (WOA) is a collection of objectively analyzed, quality controlled temperature, salinity, oxygen, phosphate, silicate, and nitrate means based on profile data from the World Ocean Database (WOD). It can be used to create boundary and/or initial conditions for a variety of ocean models, verify numerical simulations of the ocean, and corroborate satellite data
 #'   \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
 #'   \item "Argo profile data": Argo profile data, by default from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). The DAC can be changed by specifying a \code{dac_url} parameter (see example below). Also see \code{\link{bb_handler_argo}} for a description of the other parameters that this source accepts.
+#'   \item "Roemmich-Gilson Argo Climatology": A basic description of the modern upper ocean based entirely on Argo data is available here, to provide a baseline for comparison with past datasets and with ongoing Argo data, to test the adequacy of Argo sampling of large-scale variability, and to examine the consistency of the Argo dataset with related ocean observations from other programs
 #'   \item "Effects of Sound on the Marine Environment": ESME uses publically available environmental data sources that provide detailed information about the ocean: (1) Bottom Sediment Type (BST) v 2.0, (2) Digital Bathymetry Database (DBDB) v 5.4, (3) Generalized Digital Environment Model (GDEM) v 3.0, (4) Surface Marine Gridded Climatology (SMGC) v 2.0"
 #' }
 #'
@@ -256,6 +257,22 @@ sources_oceanographic <- function(name,formats,time_resolutions, ...) {
                          method = list("bb_handler_argo", profile_type = profile_type, institutions = institutions, parameters = parameters, latitude_filter = latitude_filter, longitude_filter = longitude_filter),
                          postprocess = NULL,
                          collection_size = NA, ## unknown yet
+                         data_group = "Oceanographic"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Roemmich-Gilson Argo Climatology", "RG_Argo")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Roemmich-Gilson Argo Climatology",
+                         id = "RG_Argo",
+                         description = "The Argo Program has achieved 15 years of global coverage, growing from a very sparse global array of 1000 profiling floats in 2004 to more than 3000 instruments from late 2007 to the present. A basic description of the modern upper ocean based entirely on Argo data is available here, to provide a baseline for comparison with past datasets and with ongoing Argo data, to test the adequacy of Argo sampling of large-scale variability, and to examine the consistency of the Argo dataset with related ocean observations from other programs. This new version of the Roemmich-Gilson Argo Climatology extends the analysis of Argo-only derived temperature and salinity fields through 2018. Several marginal seas and the Artic Ocean have been added. The analysis method is similar to what was descibed in the Progress In Oceanography Roemmich and Gilson paper (2009). The only modification has been to scale the zonal equatorial correlation of the optimal estimation step, by 8 times, versus 4 times as in the 2009 paper. The additional Argo data utilized in the analysis results in a longer monthly record as well as better estimates of the mean and variability fields. Monthly updates are available in between major biennial re-analyses.",
+                         doc_url = "https://sio-argo.ucsd.edu/RG_Climatology.html",
+                         citation = "How to acknowledge use of the climatology: Roemmich D, Gilson J (2009) The 2004-2008 mean and annual cycle of temperature, salinity, and steric height in the global ocean from the Argo Program. Progress in Oceanography 82:81-100. If using this product in a publication, please remember to acknowledge Argo data with the following statement and the Argo DOI. \"These data were collected and made freely available by the International Argo Program and the national programs that contribute to it. (http://www.argo.ucsd.edu, http://argo.jcommops.org). The Argo Program is part of the Global Ocean Observing System.\"",
+                         license = "Please cite",
+                         source_url = "https://sio-argo.ucsd.edu/RG_Climatology.html",
+                         method = list("bb_handler_rget", level = 1, accept_download = "RG_ArgoClim_.*_2019.nc.gz", no_parent = FALSE),
+                         postprocess = list("bb_gunzip"),
+                         collection_size = 3,
                          data_group = "Oceanographic"))
     }
 
