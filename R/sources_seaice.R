@@ -374,26 +374,16 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("MODIS Composite Based Maps of East Antarctic Fast Ice Coverage", "10.4225/15/5667AC726B224")))) {
-        out <- rbind(out,
-                     bb_aadc_s3_source_gen(metadata_id = "modis_20day_fast_ice",
-                         name = "MODIS Composite Based Maps of East Antarctic Fast Ice Coverage",
-                         doi = "10.4225/15/5667AC726B224",
-                         description = "Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31",
-                         citation = "Fraser, AD, RA Massom, KJ Michael, BK Galton-Fenzi, and JL Lieser (2012) East Antarctic landfast sea ice distribution and variability, 2000-08. Journal of Climate, 25(4):1137-1156",
-                         method_args = list(accept_download_extra = "(img|png)$"),
-                         collection_size = 0.4,
-                         data_group = "Sea ice"))
+        this <- bb_aadc_source("modis_20day_fast_ice", data_group = "Sea ice")
+        this$name <- "MODIS Composite Based Maps of East Antarctic Fast Ice Coverage" ## backwards compat
+        this$method[[1]]$accept_download_extra <- "(img|png)$"
+        out <- rbind(out, this)
     }
 
     if (is.null(name) || any(name %in% tolower(c("Circum-Antarctic landfast sea ice extent", "10.26179/5d267d1ceb60c")))) {
-        out <- rbind(out,
-                     bb_aadc_s3_source_gen(metadata_id = "AAS_4116_Fraser_fastice_circumantarctic",
-                         name = "Circum-Antarctic landfast sea ice extent, 2000-2018 - version 2.2",
-                         doi = "10.26179/5d267d1ceb60c",
-                         description = "This dataset (provided as a series of CF-compatible netcdf file) consists of 432 consecutive maps of Antarctic landfast sea ice, derived from NASA MODIS imagery. There are 24 maps per year, spanning the 18 year period from March 2000 to Feb 2018. The data are provided in a polar stereographic projection with a latitude of true scale at 70 S (i.e., to maintain compatibility with the NSIDC polar stereographic projection).",
-                         citation = "Fraser AD, Massom R (2020) Circum-Antarctic landfast sea ice extent, 2000-2018, Ver. 2.2, Australian Antarctic Data Centre. doi:10.26179/5d267d1ceb60c",
-                         collection_size = 8.0,
-                         data_group = "Sea ice"))
+        this <- bb_aadc_source("AAS_4116_Fraser_fastice_circumantarctic", data_group = "Sea ice")
+        this$name <- "Circum-Antarctic landfast sea ice extent, 2000-2018 - version 2.2" ## backwards compat
+        out <- rbind(out, this)
     }
 
     if (is.null(name) || any(name %in% tolower(c("Sea ice lead climatologies", "10.1594/PANGAEA.917588")))) {

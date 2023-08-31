@@ -1,7 +1,7 @@
 Package: blueant
 Type: Package
 Title: Antarctic and Southern Ocean Environmental Data Sources
-Version: 0.9.1
+Version: 0.10.0
 Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut","cre")),
              person("Michael", "Sumner", role = "aut"),
              person("Charlene", "Guillaumot", role = "aut"))
@@ -11,14 +11,12 @@ BugReports: https://github.com/AustralianAntarcticDivision/blueant/issues
 Encoding: UTF-8
 License: MIT + file LICENSE
 Depends:
-    bowerbird (>= 0.12.5),
+    bowerbird (>= 0.13.0),
     R (>= 3.3.0)
 Imports:
     assertthat,
-    curl,
     fs,
     httr,
-    jsonlite,
     lubridate,
     magrittr,
     methods,

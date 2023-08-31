@@ -48,15 +48,9 @@ sources_sdm <- function(name, formats, time_resolutions, ...) {
     }
     out <- tibble()
     if (is.null(name) || any(name %in% tolower(c("Southern Ocean marine environmental data", "10.26179/5b8f30e30d4f3")))) {
-            out <- rbind(out,
-                         bb_aadc_s3_source_gen(metadata_id = "environmental_layers",
-                                               name = "Southern Ocean marine environmental data",
-                                               doi = "10.26179/5b8f30e30d4f3",
-                                               description = "A collection of gridded marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data.",
-                                               citation = "Guillaumot C, Raymond B, Danis B (2018) Marine environmental data layers for Southern Ocean species distribution modelling. Australian Antarctic Data Centre - doi:10.26179/5b8f30e30d4f3",
-                                               collection_size = 0.1,
-                                               access_function = "raster::stack",
-                                               data_group = "Modelling"))
+        this <- bb_aadc_source(metadata_id = "environmental_layers", access_function = "raster::stack", data_group = "Modelling")
+        this$name <- "Southern Ocean marine environmental data" ## backwards compat
+        out <- rbind(out, this)
     }
     out
 }

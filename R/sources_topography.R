@@ -266,20 +266,9 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("George V bathymetry", "GVdem_2008")))) {
-        out <- rbind(out,
-                     ## this could also be done via the aadc_aws_s3_handler
-                     bb_source(
-                         name = "George V bathymetry",
-                         id = "GVdem_2008",
-                         description = "This dataset comprises Digital Elevation Models (DEMs) of varying resolutions for the George V and Terre Adelie continental margin, derived by incorporating all available singlebeam and multibeam point depth data.",
-                         doc_url = "https://data.aad.gov.au/metadata/records/GVdem_2008",
-                         citation = "Beaman, Robin (2009, updated 2015) A bathymetric Digital Elevation Model (DEM) of the George V and Terre Adelie continental shelf and margin Australian Antarctic Data Centre - CAASM Metadata (https://data.aad.gov.au/aadc/metadata/metadata_redirect.cfm?md=/AMD/AU/GVdem_2008)",
-                         license = "CC-BY",
-                         source_url = c("http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc"),
-                         method = list("bb_handler_rget"),
-                         postprocess = NULL,
-                         collection_size = 0.15,
-                         data_group = "Topography"))
+        this <- bb_aadc_source("GVdem_2008", eds_id = 4147, id_is_metadata_id = TRUE, data_group = "Topography")
+        this$name <- "George V bathymetry" ## backwards compat
+        out <- rbind(out, this)
     }
 
     if (is.null(name) || any(name %in% tolower(c("Geoscience Australia multibeam bathymetric grids of the Macquarie Ridge", "10.4225/25/53D9B12E0F96E")))) {
@@ -520,15 +509,10 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("AAS_4116_Coastal_Complexity", "10.26179/5d1af0ba45c03")))) {
-        src <- bb_aadc_s3_source_gen(metadata_id = "AAS_4116_Coastal_Complexity",
-                         name = "AAS_4116_Coastal_Complexity",
-                         doi = "10.26179/5d1af0ba45c03",
-                         description = "The Antarctic outer coastal margin is the key interface between the marine and terrestrial environments. Its physical configuration (including both length scale of variation and orientation/aspect) has direct bearing on several closely associated cryospheric, biological, oceanographical and ecological processes. This dataset provides a characterisation of Antarctic coastal complexity. At each point, a complexity metric is calculated at length scales from 1 to 256 km, giving a multiscale estimate of the magnitude and direction of undulation or complexity at each point location along the entire coastline.",
-                         citation = "Porter-Smith R, McKinlay J, Fraser AD, Massom R (2019) Coastal complexity of the Antarctic continent, Ver. 1, Australian Antarctic Data Centre - doi:10.26179/5d1af0ba45c03",
-                         collection_size = 0.05,
-                         data_group = "Topography")
-        src$method[[1]]$accept_download <- "README|LICENSE|Antarctic"
-        out <- rbind(out, src)
+        this <- bb_aadc_source("AAS_4116_Coastal_Complexity", data_group = "Topography")
+        this$name <- "AAS_4116_Coastal_Complexity" ## backwards compat
+        this$method[[1]]$accept_download <- "README|LICENSE|Antarctic"
+        out <- rbind(out, this)
     }
 
     out

@@ -221,15 +221,9 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("Southern Ocean summer chlorophyll-a climatology (Johnson)","10.4225/15/5906b48f70bf9")))) {
-        out <- rbind(out,
-                     bb_aadc_s3_source_gen(metadata_id = "AAS_4343_so_chlorophyll",
-                                           name = "Southern Ocean summer chlorophyll-a climatology (Johnson)",
-                                           doi = "10.4225/15/5906b48f70bf9",
-                                           description = "Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)",
-                                           citation = "Johnson R, Sumner M, Raymond B (2017) Southern Ocean summer chlorophyll-a climatology Australian Antarctic Data Centre - doi:10.4225/15/5906b48f70bf9",
-                                           collection_size = 0.05,
-                                           data_group = "Ocean colour",
-                                           access_function = "raster::raster"))
+        this <- bb_aadc_source("AAS_4343_so_chlorophyll", data_group = "Ocean colour", access_function = "raster::raster")
+        this$name <- "Southern Ocean summer chlorophyll-a climatology (Johnson)" ## backwards compat
+        out <- rbind(out, this)
     }
 
     out
