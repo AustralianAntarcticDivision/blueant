@@ -20,18 +20,8 @@ dlcheck <- function(file_url, ...) {
 
 test_that("seaice AMSR format options work",{
     src <- sources_seaice("AMSR-E_ASI_s6250")
-    expect_equal(nrow(src),1)
-    expect_true(any(grepl("/hdf/",src$source_url[[1]],fixed=TRUE)),any(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE))) ## defaults to both formats
-    expect_error(sources_seaice("AMSR-E_ASI_s6250",formats="bananas"))
-    src <- sources_seaice("AMSR-E_ASI_s6250",formats="geotiff")
-    expect_equal(nrow(src),1)
-    expect_true(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE))
-    expect_false(grepl("/hdf/",src$source_url[[1]],fixed=TRUE))
-    src <- sources_seaice("AMSR-E_ASI_s6250",formats=c("hdf","geotiff"))
-    expect_equal(nrow(src),1)
-    expect_equal(length(src$source_url[[1]]),2)
-    expect_true(any(grepl("/geotiff/",src$source_url[[1]],fixed=TRUE)))
-    expect_true(any(grepl("/hdf/",src$source_url[[1]],fixed=TRUE)))
+    expect_equal(nrow(src), 1)
+    expect_equal(length(src$source_url[[1]]), 1)
 })
 
 test_that("polarview search works", {

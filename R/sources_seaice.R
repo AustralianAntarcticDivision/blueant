@@ -8,8 +8,7 @@
 #'   \item "Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2". An updated version of 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration'. Available only in netcdf format. Accepts \code{hemisphere} values of "south", "north", "both". Accepts \code{time_resolution} values of "day" or "month". Accepts \code{years} parameter as a vector of years.
 #'   \item "NSIDC passive microwave supporting files": Grids and other support files for NSIDC passive microwave sea ice data
 #'   \item "Nimbus Ice Edge Points from Nimbus Visible Imagery": This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery
-#'   \item "Artist AMSR-E sea ice concentration": Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011. Accepts formats "geotiff" and/or "hdf"
-#'   \item "Artist AMSR-E supporting files": Grids and other support files for Artist AMSR-E passive microwave sea ice data
+#'   \item "Artist AMSR-E sea ice concentration": Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011. Previously accepted formats "geotiff" and/or "hdf", but these are now ignored (the only file format available now is netcdf)
 #'   \item "Artist AMSR2 near-real-time sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present
 #'   \item "Artist AMSR2 near-real-time 3.125km sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution, from 24-July-2012 to present
 #'   \item "Artist AMSR2 supporting files": Grids and landmasks for Artist AMSR2 passive microwave sea ice data
@@ -236,52 +235,25 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     if (is.null(name) || any(name %in% tolower(c("Artist AMSR-E sea ice concentration", "AMSR-E_ASI_s6250")))) {
         myformats <- formats
         if (!is.null(myformats)) {
-            chk <- !myformats %in% c("geotiff", "hdf")
-            if (any(chk)) stop("only 'geotiff' or 'hdf' formats are supported for the 'Artist AMSR-E sea ice concentration' source")
-        } else {
-            ## default to both hdf and geotiff
-            myformats <- c("hdf", "geotiff")
+            warning("The 'Artist AMSR-E sea ice concentration' source no longer supports the 'formats' parameter, ignoring")
         }
-        src_url <- character()
-        if ("geotiff" %in% myformats) src_url <- c(src_url, "ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/geotiff/s6250/")
-        if ("hdf" %in% myformats) src_url <- c(src_url, "ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/no_landmask/hdf/s6250/")
-        if (length(src_url)<1) {
-            ## this should never happen, but something has gone wrong
-            stop("error with 'Artist AMSR-E sea ice concentration' source - please notify the maintainers")
-        }
-        out <- rbind(out,
-                     bb_source(
-                         name = "Artist AMSR-E sea ice concentration",
-                         id = "AMSR-E_ASI_s6250",
-                         description = "Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011.",
-                         doc_url = "https://icdc.cen.uni-hamburg.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html",
-                         citation = "Include the acknowledgement: \"ASI Algorithm AMSR-E sea ice concentration were obtained for [PERIOD] from the Integrated Climate Date Center (ICDC, http://icdc.zmaw,de/), University of Hamburg, Hamburg, Germany.\" Also please cite: Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
-                         source_url = src_url,
-                         license = "Please cite",
-                         ##method = list("bb_handler_wget",level=4), ##--recursive --follow-ftp
-                         method = list("bb_handler_rget", level = 4),
-                         postprocess = list("bb_gunzip"), ## nb only needed for hdfs
-                         access_function = "raadtools::readice",
-                         collection_size = 25,
-                         data_group = "Sea ice"))
+        out <- rbind(out, bb_source(name = "Artist AMSR-E sea ice concentration",
+                                    id = "AMSR-E_ASI_s6250",
+                                    description = "Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011. Advanced Microwave Scanning Radiometer aboard EOS (AMSR-E) data have been used to produce a finer resolved sea-ice concentration data set gridded onto a polar-stereographic grid true at 70 degrees with 6.25 km grid resolution. The sea-ice concentration data available here have been computed by applying the ARTIST Sea Ice (ASI) algorithm to brightness temperatures measured with the 89 GHz AMSR-E channels. These channels have a considereably finer spatial resolution than the commonly used lower frequency channels.",
+                                    doc_url = "https://www.cen.uni-hamburg.de/en/icdc/data/cryosphere/seaiceconcentration-asi-amsre.html",
+                                    citation = "Please cite: Spreen G, Kaleschke L, Heygster G (2008) Sea ice remote sensing using AMSR-E 89 GHz channels. J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384, and Kaleschke L et al. (2001) SSM/I sea ice remote sensing for meoscale ocean-atmosphere interaction analysis. Canad. J. Rem. Sens., 27, 526-537. Please include the acknowledgement: \"Thanks to ICDC, CEN, University of Hamburg for data support.\"",
+                                    source_url = "ftp://ftp-icdc.cen.uni-hamburg.de/asi_amsre_iceconc/",
+                                    license = "Please cite",
+                                    method = list("bb_handler_rget", level = 2),
+                                    postprocess = NULL,
+                                    access_function = "raadtools::readice",
+                                    collection_size = 25,
+                                    data_group = "Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Artist AMSR-E supporting files", "AMSR-E_ASI_grids")))) {
-        out <- rbind(out,
-                     bb_source(
-                         name = "Artist AMSR-E supporting files",
-                         id = "AMSR-E_ASI_grids",
-                         description = "Grids and other support files for Artist AMSR-E passive microwave sea ice data.",
-                         doc_url = "http://icdc.zmaw.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html",
-                         citation = "See the citation details of the particular sea ice dataset used",
-                         source_url = c("ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/Landmasks/", "ftp://ftp-projects.cen.uni-hamburg.de/seaice/AMSR-E_ASI_IceConc/LonLatGrids/"),
-                         license = "Please cite",
-                         ##method = list("bb_handler_wget",level=2), ## --recursive --follow-ftp
-                         method = list("bb_handler_rget", level = 2),
-                         postprocess = NULL,
-                         access_function = "raadtools::readice",
-                         collection_size = 0.01,
-                         data_group = "Sea ice"))
+    if (any(name %in% tolower(c("Artist AMSR-E supporting files", "AMSR-E_ASI_grids")))) {
+        ## only throw error if this source was specifically requested. If `name` was NULL, just ignore this one
+        stop("Artist AMSR-E supporting files are no longer available")
     }
 
     if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration", "AMSR2_ASI_s6250")))) {
