@@ -157,7 +157,6 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          data_group = "Sea surface temperature"))
     }
     if (is.null(name) || any(name %in% tolower(c("GHRSST Level 4 MUR Global Foundation SST v4.1", "GHRSST-MUR-SST_v4.1")))) {
-        warning("8-May-2023: the GHRSST source may not work correctly - the provider details have changed, and a misconfiguration on the server is causing intermittent problems")
         out <- rbind(out,
                      bb_source(
                          name = "GHRSST Level 4 MUR Global Foundation SST v4.1",

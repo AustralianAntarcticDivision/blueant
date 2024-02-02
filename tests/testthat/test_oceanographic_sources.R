@@ -24,7 +24,7 @@ test_that("Argo ocean basin data source works",{
     skip("skipping Argo data source test temporarily")
     ## is timing out
     src <- sources("10.17882/42182", region = "indian", years = 1999)
-    cf <- bb_add(bb_config("c:/temp/data/bbtest"), src)
+    cf <- bb_add(bb_config(local_file_root = tempdir()), src)
     res <- bb_sync(cf, dry_run = TRUE)
     expect_equal(nrow(res$files[[1]]), 30)
 })
