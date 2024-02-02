@@ -45,17 +45,16 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
         name <- NULL
     }
     out <- tibble()
-    if (is.null(name) || any(name %in% tolower(c("CMEMS global gridded SSH reprocessed (1993-ongoing)", "SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047")))) {
+    if (is.null(name) || any(name %in% tolower(c("CMEMS global gridded SSH reprocessed (1993-ongoing)", "SEALEVEL_GLO_PHY_L4_MY_008_047", "10.48670/moi-00148")))) {
         out <- rbind(out,
                      bb_source(
                          name = "CMEMS global gridded SSH reprocessed (1993-ongoing)",
-                         id = "SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047",
+                         id = "SEALEVEL_GLO_PHY_L4_MY_008_047",
                          description = "For the Global Ocean - Multimission altimeter satellite gridded sea surface heights and derived variables computed with respect to a twenty-year mean. Previously distributed by Aviso+, no change in the scientific content. All the missions are homogenized with respect to a reference mission which is currently OSTM/Jason-2.\nVARIABLES\n- sea_surface_height_above_sea_level (SSH)\n- surface_geostrophic_eastward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)\n- surface_geostrophic_northward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)\n- sea_surface_height_above_geoid (SSH)\n- surface_geostrophic_eastward_sea_water_velocity (UVG)\n- surface_geostrophic_northward_sea_water_velocity (UVG)",
-                         doc_url = "https://resources.marine.copernicus.eu/?option=com_csw&view=details&product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047",
-                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information\"",
-                         source_url = "ftp://my.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047/dataset-duacs-rep-global-merged-allsat-phy-l4/",
+                         doc_url = "https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_MY_008_047/description",
+                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00148\"",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
-                         method = list("bb_handler_rget", level = 3),
+                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_L4_MY_008_047"),
                          authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",
@@ -64,17 +63,16 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          data_group = "Altimetry", warn_empty_auth = FALSE))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("CMEMS global gridded SSH near-real-time", "SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046")))) {
+    if (is.null(name) || any(name %in% tolower(c("CMEMS global gridded SSH near-real-time", "SEALEVEL_GLO_PHY_L4_NRT_008_046", "10.48670/moi-00149")))) {
         out <- rbind(out,
                      bb_source(
                          name = "CMEMS global gridded SSH near-real-time",
-                         id = "SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046",
-                         description = "For the Global Ocean - Multimission altimeter satellite gridded sea surface heights and derived variables computed with respect to a twenty-year mean. Previously distributed by Aviso+, no change in the scientific content. All the missions are homogenized with respect to a reference mission which is currently Jason-3. The acquisition of various altimeter data is a few days at most.\nVARIABLES\n- sea_surface_height_above_sea_level (SSH)\n- surface_geostrophic_eastward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)\n- surface_geostrophic_northward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)\n- sea_surface_height_above_geoid (SSH)\n- surface_geostrophic_eastward_sea_water_velocity (UVG)\n- surface_geostrophic_northward_sea_water_velocity (UVG)",
-                         doc_url = "http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&view=details&product_id=SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046",
-                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information\"",
-                         source_url = "ftp://nrt.cmems-du.eu/Core/SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046/dataset-duacs-nrt-global-merged-allsat-phy-l4/",
+                         id = "SEALEVEL_GLO_PHY_L4_NRT_008_046",
+                         description = "Altimeter satellite gridded Sea Level Anomalies (SLA) computed with respect to a twenty-year [1993, 2012] mean. The SLA is estimated by Optimal Interpolation, merging the L3 along-track measurement from the different altimeter missions available. Part of the processing is fitted to the Global ocean. (see QUID document or http://duacs.cls.fr pages for processing details). The product gives additional variables (i.e. Absolute Dynamic Topography and geostrophic currents (absolute and anomalies)). It serves in delayed-time applications. This product is processed by the DUACS multimission altimeter data processing system.",
+                         doc_url = "https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_NRT_008_046/description",
+                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149\"",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
-                         method = list("bb_handler_rget", level = 4),
+                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_L4_NRT_008_046"),
                          authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",
@@ -83,20 +81,17 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          data_group = "Altimetry", warn_empty_auth = FALSE))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("CNES-CLS2013 Mean Dynamic Topography", "CNES-CLS2013 MDT")))) {
+    if (is.null(name) || any(name %in% tolower(c("Global Ocean Mean Dynamic Topography", "SEALEVEL_GLO_PHY_MDT_008_063", "10.48670/moi-00150")))) {
         out <- rbind(out,
                      bb_source(
-                         name = "CNES-CLS2013 Mean Dynamic Topography",
-                         id = "CNES-CLS2013 MDT",
-                         description = "CNES-CLS2013 Mean dynamic topography over the 1993-2012 period of the sea surface height above geoid. The MDT_CNES-CLS13 is an estimate of the ocean MDT for the 1993-2012 period. Since April 2014 (Duacs 2014, v15.0 version), the Ssalto/Duacs (M)SLA products are computed relative to 1993-2012 period that is consistent with this new MDT CNES-CLS13. Based on 2 years of GOCE data, 7 years of GRACE data, and 20 years of altimetry and in-situ data (hydrologic and drifters data).",
-                         doc_url = "https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html",
-                         citation = "Rio, M-H, P. Schaeffer, G. Moreaux, J-M Lemoine, E. Bronner (2009) : A new Mean Dynamic Topography computed over the global ocean from GRACE data, altimetry and in-situ measurements . Poster communication at OceanObs09 symposium, 21-25 September 2009, Venice.",
-                         source_url = "ftp://ftp-access.aviso.altimetry.fr/auxiliary/mdt/mdt_cnes_cls2013_global/",
-                         license = "See https://www.aviso.altimetry.fr/fileadmin/documents/data/License_Aviso.pdf",
-                         ##method = list("bb_handler_wget"), ## --recursive --level=1 --no-parent
-                         method = list("bb_handler_rget", level = 1),
-                         postprocess = list("bb_gunzip"),
-                         authentication_note = "AVISO login required, see https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html",
+                         name = "Global Ocean Mean Dynamic Topography",
+                         id = "SEALEVEL_GLO_PHY_MDT_008_063",
+                         description = "Mean Dynamic Topography that combines the global CNES-CLS-2022 MDT, the Black Sea CMEMS2020 MDT and the Med Sea CMEMS2020 MDT. It is an estimate of the mean over the 1993-2012 period of the sea surface height above geoid. This is consistent with the reference time period also used in the DUACS products.",
+                         doc_url = "https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_MDT_008_063/description",
+                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00150\"",
+                         license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
+                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_MDT_008_063", ctype = "file"),
+                         authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",
                          access_function = "raster",
@@ -146,17 +141,16 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          data_group = "Altimetry", warn_empty_auth = FALSE))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("WAVERYS Global Ocean Waves Reanalysis", "GLOBAL_REANALYSIS_WAV_001_032", "WAVERYS")))) {
+    if (is.null(name) || any(name %in% tolower(c("WAVERYS Global Ocean Waves Reanalysis", "GLOBAL_MULTIYEAR_WAV_001_032", "WAVERYS", "10.48670/moi-00022")))) {
         out <- rbind(out,
                      bb_source(
                          name = "WAVERYS Global Ocean Waves Reanalysis",
-                         id = "GLOBAL_REANALYSIS_WAV_001_032",
-                         description = "GLOBAL_REANALYSIS_WAV_001_032 for the global wave reanalysis describing past sea states since years 1993. This product also bears the name of WAVERYS within the GLO-HR MFC, for correspondence to other global multi-year products like GLORYS, BIORYS, etc. The core of WAVERYS is based on the MFWAM model, a third generation wave model that calculates the wave spectrum, i.e. the distribution of sea state energy in frequency and direction on a 1/5-degree irregular grid. Average wave quantities derived from this wave spectrum, such as the SWH (significant wave height) or the average wave period, are delivered on a regular 1/5-degree grid with a 3h time step. The wave spectrum is discretized into 30 frequencies obtained from a geometric sequence of first member 0.035 Hz and a reason 7.5. WAVERYS takes into account oceanic currents from the GLORYS12 physical ocean reanalysis and assimilates significant wave height observed from historical altimetry missions and directional wave spectra from Sentinel 1 SAR from 2017 onwards.",
-                         doc_url = "https://resources.marine.copernicus.eu/?option=com_csw&view=details&product_id=GLOBAL_REANALYSIS_WAV_001_032",
-                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information\"",
-                         source_url = "ftp://my.cmems-du.eu/Core/GLOBAL_REANALYSIS_WAV_001_032/global-reanalysis-wav-001-032/",
+                         id = "GLOBAL_MULTIYEAR_WAV_001_032",
+                         description = "Global wave reanalysis describing past sea states since years 1993. This product also bears the name of WAVERYS within the GLO-HR MFC. for correspondence to other global multi-year products like GLORYS. BIORYS. etc. The core of WAVERYS is based on the MFWAM model. a third generation wave model that calculates the wave spectrum. i.e. the distribution of sea state energy in frequency and direction on a 1/5 degree irregular grid. Average wave quantities derived from this wave spectrum. such as the SWH (significant wave height) or the average wave period. are delivered on a regular 1/5 degree grid with a 3h time step. The wave spectrum is discretized into 30 frequencies obtained from a geometric sequence of first member 0.035 Hz and a reason 7.5. WAVERYS takes into account oceanic currents from the GLORYS12 physical ocean reanalysis and assimilates significant wave height observed from historical altimetry missions and directional wave spectra from Sentinel 1 SAR from 2017 onwards.",
+                         doc_url = "https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_WAV_001_032/description",
+                         citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00022",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
-                         method = list("bb_handler_rget", level = 3),
+                         method = list("bb_handler_copernicus", product = "GLOBAL_MULTIYEAR_WAV_001_032"),
                          authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",
@@ -171,8 +165,8 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          name = "Gridded Sea Level Heights and geostrophic currents - Antarctic Ocean",
                          id = "SLA Ant",
                          description = "Experimental Ssalto/Duacs gridded multimission altimeter products dedicated to Antarctic Ocean. This dataset is one of the experimental products which are available on the SSALTO/DUACS experimental products. Multimission sea level heights computed with respect to a twenty-year mean and associated geostrophic current anomalies. The formal error is also included.",
-                         doc_url = "https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/regional/antarctic-ocean-gridded-sea-level-heights.html",
-                         citation = "Auger M, Prandi P, Sall\ue9e J-B (in preparation) Southern Ocean Sea Level Anomaly in the Sea-Ice Covered Sector From Multimission Satellite Observations, Nature Scientific Data\nand\nAuger M, Prandi P (2019) Sea Level Anomaly from a Multi-Altimeter Combination in the Ice-Covered Southern Ocean. OSTST 2019",
+                         doc_url = "https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/regional/antarctic-sea-level-heights.html",
+                         citation = "Auger M, Prandi P, Sall\ue9e JB (2022) Southern Ocean sea level anomaly in the sea ice-covered sector from multimission satellite observations. Sci Data 9:70. 10.1038/s41597-022-01166-z\nand\nAuger M, Prandi P (2019) Sea Level Anomaly from a Multi-Altimeter Combination in the Ice-Covered Southern Ocean. OSTST 2019",
                          source_url = "ftp://ftp-access.aviso.altimetry.fr/duacs-experimental/dt-phy-grids/altimetry_antarctic/",
                          license = "See https://www.aviso.altimetry.fr/fileadmin/documents/data/License_Aviso.pdf",
                          method = list("bb_handler_rget", level = 2),
