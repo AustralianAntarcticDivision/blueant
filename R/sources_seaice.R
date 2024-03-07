@@ -2,10 +2,8 @@
 #'
 #' Data sources providing (primarily satellite-derived) sea ice data:
 #' \itemize{
-#'   \item "NSIDC SMMR-SSM/I Nasateam sea ice concentration": Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to near-present. Data undergo a quality checking process and are updated annually. More recent data are available via the 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration' source. Accepts \code{hemisphere} values of "south", "north", "both". Accepts \code{time_resolution} values of "day" or "month". Accepts \code{years} parameter as a vector of years.
-#'   \item "NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration": Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. For older, quality-controlled data see the 'NSIDC SMMR-SSM/I Nasateam sea ice concentration' source
-#'   \item "Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2". An updated version of 'NSIDC SMMR-SSM/I Nasateam sea ice concentration'. Available only in netcdf format. Accepts \code{hemisphere} values of "south", "north", "both".
-#'   \item "Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2". An updated version of 'NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration'. Available only in netcdf format. Accepts \code{hemisphere} values of "south", "north", "both". Accepts \code{time_resolution} values of "day" or "month". Accepts \code{years} parameter as a vector of years.
+#'   \item "Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2". Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to near-present. Data undergo a quality checking process and are updated annually. Available only in netcdf format. Accepts \code{hemisphere} values of "south", "north", "both". More recent data are available via the 'Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2' source
+#'   \item "Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2". Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. Available only in netcdf format. Accepts \code{hemisphere} values of "south", "north", "both". Accepts \code{time_resolution} values of "day" or "month". Accepts \code{years} parameter as a vector of years.
 #'   \item "NSIDC passive microwave supporting files": Grids and other support files for NSIDC passive microwave sea ice data
 #'   \item "Nimbus Ice Edge Points from Nimbus Visible Imagery": This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery
 #'   \item "Artist AMSR-E sea ice concentration": Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011. Previously accepted formats "geotiff" and/or "hdf", but these are now ignored (the only file format available now is netcdf)
@@ -74,50 +72,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     hemisphere <- match.arg(tolower(hemisphere), c("south", "north", "both"))
     out <- tibble()
     if (is.null(name) || any(name %in% tolower(c("NSIDC SMMR-SSM/I Nasateam sea ice concentration", "10.5067/8GQ8LZQVL0VL")))) {
-        warning("The data download for the 'NSIDC SMMR-SSM/I Nasateam sea ice concentration' does not currently seem to be returning valid Last-Modified times, which means that we can't skip unchanged files. Even if you set clobber=1 (only download if the remote file is newer than the local copy), it may download every single file anyway. You might wish to use clobber=0 (do not overwrite existing files)")
-        if (!is.null(time_resolutions)) {
-            chk <- !time_resolutions %in% c("day","month")
-            if (any(chk)) stop("unrecognized time_resolutions value for the 'NSIDC SMMR-SSM/I Nasateam sea ice concentration' source, expecting 'day' and/or 'month'")
-        } else {
-            ## default to both
-            time_resolutions <- c("day", "month")
-        }
-        ## source-specific parms
-        years <- ss_args$years
-        if (!is.null(years)) {
-            assert_that(is.numeric(years), noNA(years))
-        }
-        ## given hemisphere, time_resolutions, and years, construct appropriate source def
-        ## URLs will be of the form
-        ## https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0051.001/YYYY.MM.DD/nt_19860113_n07_v1.1_[s|n].bin (for daily)
-        ## https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0051.001/YYYY.MM.DD/nt_198601_n07_v1.1_[s|n].bin (for monthly)
-        reject_download <- "\\.png$" ## reject these always
-        h <- switch(hemisphere, south = "s", north = "n", both = "[sn]")
-        monthly_accept_follow <- if (!"day" %in% time_resolutions) "\\.01/" else character() ## only the first of the month for monthly
-        yre <- if (!is.null(years)) paste0("/(", paste(years, collapse = "|"), ")\\.") else character()
-        accept_follow <- paste0(yre, ".+", monthly_accept_follow)
-        accept_download <- paste0(h, "\\.bin$")
-        if (!"day" %in% time_resolutions) {
-            ## monthly files only have YYYYMM, no DD
-            accept_download <- paste0("_[[:digit:]]{6}_.+", accept_download)
-        }
-        out <- rbind(out,
-                     bb_source(
-                         name = "NSIDC SMMR-SSM/I Nasateam sea ice concentration",
-                         id = "10.5067/8GQ8LZQVL0VL",
-                         description = "Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to present. Data undergo a quality checking process and are updated annually. More recent data if required are available via the \"NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration\" source.",
-                         doc_url = "http://nsidc.org/data/nsidc-0051.html",
-                         source_url = "https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0051.001/",
-                         citation = "Cavalieri, D. J., C. L. Parkinson, P. Gloersen, and H. Zwally. 1996, updated yearly. Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data. [indicate subset used]. Boulder, Colorado USA: NASA National Snow and Ice Data Center Distributed Active Archive Center. http://dx.doi.org/10.5067/8GQ8LZQVL0VL",
-                         license = "Please cite, see https://nsidc.org/about/data-use-and-copyright",
-                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method = list("bb_handler_earthdata", relative = TRUE, accept_follow = accept_follow, accept_download = accept_download, reject_download = reject_download, level = 2),
-                         user = "",
-                         password = "",
-                         postprocess = NULL,
-                         access_function = "raadtools::readice",
-                         collection_size = 10,
-                         data_group = "Sea ice", warn_empty_auth = FALSE))
+        warning("source 'NSIDC SMMR-SSM/I Nasateam sea ice concentration' is no longer available, use 'Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2' instead")
     }
 
     if (is.null(name) || any(name %in% tolower(c("Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2", "10.5067/MPYG15WAA4WX")))) {
