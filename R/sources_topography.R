@@ -437,11 +437,11 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          id="10.5067/measures/srtm/srtmgl1.003",
                          description="Global 1-arc-second topographic data generated from NASA's Shuttle Radar Topography Mission. Version 3.0 (aka SRTM Plus or Void Filled) removes all of the void areas by incorporating data from other sources such as the ASTER GDEM.",
                          doc_url="https://lpdaac.usgs.gov/dataset_discovery/measures/measures_products_table/srtmgl1_v003",
-                         source_url="https://e4ftl01.cr.usgs.gov/SRTM/SRTMGL1.003/2000.02.11/",
+                         source_url="https://e4ftl01.cr.usgs.gov/MEASURES/SRTMGL1.003/2000.02.11/",
                          citation="NASA JPL. (2013). NASA Shuttle Radar Topography Mission Global 1 arc second [Data set]. NASA LP DAAC. https://doi.org/10.5067/measures/srtm/srtmgl1.003",
                          license="Please cite, see https://lpdaac.usgs.gov/node/51",
                          authentication_note="Requires Earthdata login, see https://urs.earthdata.nasa.gov/",
-                         method=list("bb_handler_earthdata"), ## --recursive --level=1 --no-parent
+                         method=list("bb_handler_earthdata", level = 2, accept_follow = "/SRTMGL1.003/2000.02.11/", no_parent = FALSE, accept_download = "(zip|jpg|xml)$"),
                          user="",
                          password="",
                          postprocess=list("bb_unzip"),
