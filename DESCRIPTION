@@ -1,8 +1,8 @@
 Package: blueant
 Type: Package
 Title: Antarctic and Southern Ocean Environmental Data Sources
-Version: 0.11.0
-Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut","cre")),
+Version: 0.12.0
+Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
              person("Michael", "Sumner", role = "aut"),
              person("Charlene", "Guillaumot", role = "aut"))
 Description: A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.
