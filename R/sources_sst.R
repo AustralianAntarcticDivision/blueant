@@ -168,7 +168,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          license = "Please cite",
                          comment = "Note: this collection is large! You may wish to specify one or more source_url values with only particular years, e.g. https://cmr.earthdata.nasa.gov/virtual-directory/collections/C1996881146-POCLOUD/temporal/2023. Note that you will also need to modify the method `accept_follow` parameter in this case",
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the PODAAC application (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method = list("bb_handler_earthdata", level = 3, accept_follow = "/virtual-directory/collections/C1996881146-POCLOUD/temporal/"),
+                         method = list("bb_handler_earthdata", level = 3, accept_follow = "/virtual-directory/collections/C1996881146-POCLOUD/temporal/", allow_unrestricted_auth = TRUE),
                          user = "",
                          password = "",
                          collection_size = 2000,

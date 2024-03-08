@@ -114,7 +114,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          citation = "DiGirolamo NE, Parkinson CL, Cavalieri DJ, Gloersen P, Zwally HJ (2022, updated yearly). Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2. [Indicate subset used]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/MPYG15WAA4WX. [Date Accessed].",
                          license = "As a condition of using these data, you must include a citation.",
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method = list("bb_handler_earthdata", relative = TRUE, accept_follow = accept_follow, accept_download = accept_download, reject_download = reject_download, level = 2),
+                         method = list("bb_handler_earthdata", relative = TRUE, accept_follow = accept_follow, accept_download = accept_download, reject_download = reject_download, level = 2, allow_unrestricted_auth = TRUE),
                          user = "",
                          password = "",
                          postprocess = NULL,
@@ -142,7 +142,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          source_url = "https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0081.002/",
                          license = "As a condition of using these data, you must include a citation.",
                          postprocess = NULL,
-                         method = list("bb_handler_earthdata", relative = TRUE, accept_download = accept_download, reject_download = reject_download, level = 2),
+                         method = list("bb_handler_earthdata", relative = TRUE, accept_download = accept_download, reject_download = reject_download, level = 2, allow_unrestricted_auth = TRUE),
                          user = "",
                          password = "",
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
@@ -179,7 +179,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          source_url = "https://n5eil01u.ecs.nsidc.org/NIMBUS/NmIcEdg2.001/",
                          license = "Please cite, see https://nsidc.org/about/data-use-and-copyright",
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method = list("bb_handler_earthdata", level = 2, relative = TRUE),##,"--accept-regex=/NmIcEdg2.001/"), ##--recursive --no-parent
+                         method = list("bb_handler_earthdata", level = 2, relative = TRUE, allow_unrestricted_auth = TRUE),##,"--accept-regex=/NmIcEdg2.001/"), ##--recursive --no-parent
                          user = "",
                          password = "",
                          postprocess = NULL,
