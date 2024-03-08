@@ -28,7 +28,8 @@ test_that("polarview search works", {
     ## polygon as sfc
     target_sector <- data.frame(lon = c(30, seq(30, 150, length.out = 10), 150, 30),
                                 lat = c(-77, rep(-50, 10), -77, -77))
-    target_sector <- sf::st_sfc(sf::st_polygon(list(as.matrix(target_sector))), crs = "+proj=longlat")
+    target_sector <- sf::st_sfc(sf::st_polygon(list(as.matrix(target_sector))), crs = "EPSG:4326")
+
     res1 <- bb_polarview_search(Sys.Date() - 3L, formats = "geotiff", polygon = target_sector)
     ## polygon as string
     res2 <- bb_polarview_search(Sys.Date() - 3L, formats = "geotiff", polygon = "POLYGON ((709163.9 1228308, 2262269 3918365, 3104926 3291029, 3780196 2486274, 4251675 1547483, 4493944 525266.8, 4493944 -525266.8, 4251675 -1547483, 3780196 -2486274, 3104926 -3291029, 2262269 -3918365, 709163.9 -1228308, 709163.9 1228308))")

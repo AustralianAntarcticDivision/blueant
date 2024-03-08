@@ -14,7 +14,7 @@
 #' @export
 bb_polarview_search <- function(acquisition_date = Sys.Date() + -14:0, formats = c("jpg", "geotiff"), polygon = NULL, max_results = 200L, verbose = FALSE) {
     if (!is.null(polygon)) {
-        if (inherits(polygon, "sfc_POLYGON")) polygon <- sf::st_as_text(sf::st_transform(polygon, "epsg:3031"))
+        if (inherits(polygon, "sfc_POLYGON")) polygon <- sf::st_as_text(sf::st_transform(polygon, "EPSG:3031"))
         assert_that(is.string(polygon))
     }
     assert_that(is.character(formats))
