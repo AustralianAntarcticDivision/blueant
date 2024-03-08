@@ -15,5 +15,4 @@
 #' @importFrom tibble tibble
 #' @importFrom utils packageVersion read.csv read.table unzip
 #' @importFrom xml2 url_absolute
-NULL
-
+"_PACKAGE"

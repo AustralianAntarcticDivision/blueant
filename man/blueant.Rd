@@ -2,8 +2,27 @@
 % Please edit documentation in R/blueant.R
 \docType{package}
 \name{blueant}
+\alias{blueant-package}
 \alias{blueant}
 \title{\pkg{blueant}}
 \description{
 A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/AustralianAntarcticDivision/blueant}
+  \item Report bugs at \url{https://github.com/AustralianAntarcticDivision/blueant/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Ben Raymond \email{ben.raymond@aad.gov.au}
+
+Authors:
+\itemize{
+  \item Michael Sumner
+  \item Charlene Guillaumot
+}
+
 }
