@@ -57,7 +57,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          method = list("bb_handler_rget", level = 2),
                          postprocess = NULL,
                          access_function = "raadtools::readsst",
-                         collection_size = 140,
+                         collection_size = 25,
                          data_group = "Sea surface temperature"))
     }
     if (is.null(name) || any(name %in% tolower(c("NOAA OI 1/4 Degree Daily SST AVHRR v2","10.7289/V5SQ8XB5v2")))) {
