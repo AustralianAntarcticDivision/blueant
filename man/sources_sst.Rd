@@ -31,6 +31,7 @@ Data sources providing SST data.
   \item "Oceandata MODIS Terra Level-3 mapped monthly 9km SST": Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution
   \item "Oceandata MODIS Aqua Level-3 mapped monthly 9km SST": Monthly remote-sensing SST from the MODIS Aqua satellite at 9km spatial resolution
   \item "GHRSST Level 4 MUR Global Foundation SST v4.1": A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) on a global 0.011 degree grid
+  \item "CMEMS Global Ocean OSTIA Sea Surface Temperature and Sea Ice Analysis": for the global ocean,  the OSTIA global foundation Sea Surface Temperature product provides daily gap-free maps of: Foundation Sea Surface Temperature at 0.05 degree horizontal grid resolution, using in-situ and satellite data from both infrared and microwave radiometers
 }
 
 The returned tibble contains more information about each source.
