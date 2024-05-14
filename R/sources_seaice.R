@@ -17,6 +17,7 @@
 #'   \item "Circum-Antarctic landfast sea ice extent": maps of Antarctic landfast sea ice, derived from NASA MODIS imagery. There are 24 maps per year, spanning the 18 year period from March 2000 to Feb 2018
 #'   \item "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a \code{formats} parameter which can be one of "filled" or "vector". Accepts a \code{years} parameter to restrict the data to certain years
 #'   \item "Polarview Sentinel-1 imagery": Sentinel-1 imagery from polarview.aq. Accepts an \code{acquisition_date} parameter (default is the last four days including today), a \code{formats} parameter (one or both of "jpg", "geotiff", default is both), and a \code{polygon} parameter, which is a polygon within which to search - either a WKT polygon string in EPSG:3031 projection, or an object of class \code{sfc_POLYGON}, which will be converted to a WKT string internally
+#'   \item "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4": daily and monthly gridded estimates of sea ice freeboard, derived from along-track freeboard estimates in the ATLAS/ICESat-2 L3A Sea Ice Freeboard product (ATL10)
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -373,6 +374,26 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                                     method = list("bb_handler_polarview", acquisition_date = ss_args$acquisition_date, formats = myformats, polygon = ss_args$polygon),
                                     comment = "Collection size unknown",
                                     data_group = "Sea ice"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4", "10.5067/ATLAS/ATL20.004", "ATL20")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4",
+                         id = "10.5067/ATLAS/ATL20.004",
+                         description = "ATL20 contains daily and monthly gridded estimates of sea ice freeboard, derived from along-track freeboard estimates in the ATLAS/ICESat-2 L3A Sea Ice Freeboard product (ATL10). Data are gridded at 25 km using the SSM/I Polar Stereographic Projection.",
+                         doc_url = "https://nsidc.org/data/atl20/versions/4",
+                         citation = "Petty AA, Kwok R, Bagnardi M, Ivanoff A, Kurtz N, Lee J, Wimert J, Hancock D (2023) ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4 [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/ATLAS/ATL20.004",
+                         source_url = "https://n5eil01u.ecs.nsidc.org/ATLAS/ATL20.004/",
+                         license = "As a condition of using these data, you must cite the use of this data set",
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
+                         method = list("bb_handler_earthdata", level = 2, relative = TRUE, allow_unrestricted_auth = TRUE, accept_download_extra = "ATL20\\-02.*\\.h5$"),
+                         comment = "Only southern hemisphere files will be downloaded (\"ATL20-02*.h5\" files). For northern hemisphere, adjust the accept_download_extra to include \"ATL20-01*.h5\" files",
+                         user = "",
+                         password = "",
+                         postprocess = NULL,
+                         collection_size = 0.2,
+                         data_group = "Sea ice", warn_empty_auth = FALSE))
     }
 
     out
