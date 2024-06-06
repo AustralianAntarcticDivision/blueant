@@ -181,7 +181,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                      bb_source(
                          name = "CMEMS Global Ocean OSTIA Sea Surface Temperature and Sea Ice Analysis",
                          id = "SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001",
-                         description = "For the Global Ocean- the OSTIA global foundation Sea Surface Temperature product provides daily gap-free maps of: Foundation Sea Surface Temperature at 0.05° x 0.05° horizontal grid resolution, using in-situ and satellite data from both infrared and microwave radiometers.",
+                         description = "For the Global Ocean- the OSTIA global foundation Sea Surface Temperature product provides daily gap-free maps of: Foundation Sea Surface Temperature at 0.05 degree x 0.05 degree horizontal grid resolution, using in-situ and satellite data from both infrared and microwave radiometers.",
                          doc_url = "https://data.marine.copernicus.eu/product/SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001/description",
                          citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00165\"",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
