@@ -20,6 +20,7 @@
 #'   \item "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4": daily and monthly gridded estimates of sea ice freeboard, derived from along-track freeboard estimates in the ATLAS/ICESat-2 L3A Sea Ice Freeboard product (ATL10)
 #'   \item "NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4": a Climate Data Record of sea ice concentration from passive microwave data. The CDR algorithm output is a rule-based combination of ice concentration estimates from two well-established algorithms: the NASA Team (NT) algorithm (Cavalieri et al. 1984) and NASA Bootstrap (BT) algorithm (Comiso 1986). The CDR is a consistent, daily and monthly time series of sea ice concentrations from 25 October 1978 through the most recent processing
 #'   \item "Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2": a near-real-time Climate Data Record (CDR) of sea ice concentration from passive microwave data. The Near-real-time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration (NRT CDR) data set is the near-real-time version of the final NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration. The NRT CDR is designed to fill the temporal gap between updates of the final CDR, occurring every three to six months, and to provide the most recent data
+#'   \item "OSI SAF Global Low Resolution Sea Ice Drift": ice motion vectors with a time span of 48 hours are estimated by an advanced cross-correlation method (the Continuous MCC, CMCC) on pairs of satellite images. The merged (multi-sensor) dataset is provided here
 #' }
 #'
 #' The returned tibble contains more information about each source.
@@ -428,6 +429,21 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          comment = "Only southern hemisphere files will be downloaded. For northern hemisphere, adjust the source_urls",
                          collection_size = 0.1,
                          data_group = "Sea ice"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("OSI SAF Global Low Resolution Sea Ice Drift", "10.15770/EUM_SAF_OSI_NRT_2007")))) {
+        out <- rbind(out,
+                     bb_source(name = "OSI SAF Global Low Resolution Sea Ice Drift",
+                               id = "10.15770/EUM_SAF_OSI_NRT_2007",
+                               description = "Ice motion vectors with a time span of 48 hours are estimated by an advanced cross-correlation method (the Continuous MCC, CMCC) on pairs of satellite images. The merged (multi-sensor) dataset is provided here.",
+                               doc_url = "https://osi-saf.eumetsat.int/products/osi-405-c",
+                               source_url = "https://thredds.met.no/thredds/catalog/osisaf/met.no/ice/drift_lr/merged/catalog.html",
+                               citation = "OSI SAF Global Low Resolution Sea Ice Drift, OSI-405-c, doi: 10.15770/EUM_SAF_OSI_NRT_2007. EUMETSAT Ocean and Sea Ice Satellite Application Facility",
+                               license = "Please cite",
+                               method = list("bb_handler_rget", no_parent_download = FALSE, level = 4, accept_download = ".*fileServer.*_sh_.*\\.nc$", accept_follow = "catalog\\.html"),
+                               comment = "Only southern hemisphere files will be downloaded. For northern hemisphere, adjust the `accept_download` parameter",
+                               collection_size = 4,
+                               data_group = "Sea ice"))
     }
 
     out
