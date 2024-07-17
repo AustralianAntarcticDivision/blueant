@@ -430,6 +430,36 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group = "Topography"))
     }
 
+    if (is.null(name) || any(name %in% tolower(c("Antarctic Digital Database high resolution polygons v7.9", "add_coastline_high_res_polygon_v7_9", "10.5285/9b4fab56-4999-4fe1-b17f-1466e41151c4")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Antarctic Digital Database high resolution polygons v7.9",
+                         id = "10.5285/9b4fab56-4999-4fe1-b17f-1466e41151c4",
+                         description = "Coastline for Antarctica created from various mapping and remote sensing sources, provided as polygons with 'land', 'ice shelf', 'ice tongue' or 'rumple' attribute. Covering all land and ice shelves south of 60S. Suitable for topographic mapping and analysis. High resolution versions of ADD data are suitable for scales larger than 1:1,000,000. The largest suitable scale is changeable and dependent on the region",
+                         doc_url = "https://www.bas.ac.uk/project/add/",
+                         citation = "Gerrish L, Ireland L, Fretwell P, Cooper P (2024) High resolution vector polygons of the Antarctic coastline (7.9) [Data set]. UK Polar Data Centre, Natural Environment Research Council, UK Research & Innovation. 10.5285/9b4fab56-4999-4fe1-b17f-1466e41151c4",
+                         source_url = "https://data.bas.ac.uk/download/c274ee44-ead8-4ee1-8f05-3f93b73f57af",
+                         license = "CC-BY 4.0",
+                         method = list("bb_handler_rget", force_local_filename = "add_coastline_high_res_polygon_v7_9.gpkg"),
+                         collection_size = 0.2,
+                         data_group = "Topography"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Antarctic Digital Database medium resolution polygons v7.9", "add_coastline_medium_res_polygon_v7_9", "10.5285/aaec1295-b0a8-4c49-a751-d964c326ce8d")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Antarctic Digital Database medium resolution polygons v7.9",
+                         id = "10.5285/aaec1295-b0a8-4c49-a751-d964c326ce8d",
+                         description = "",
+                         doc_url = "https://www.bas.ac.uk/project/add/",
+                         citation = "Gerrish L, Ireland L, Fretwell P, Cooper P (2024) Medium resolution vector polygons of the Antarctic coastline (7.9) [Data set]. UK Polar Data Centre, Natural Environment Research Council, UK Research & Innovation. 10.5285/aaec1295-b0a8-4c49-a751-d964c326ce8d",
+                         source_url = "https://data.bas.ac.uk/download/51e7374c-4b45-46c8-bcd3-9aa9595f3884",
+                         license = "CC-BY 4.0",
+                         method = list("bb_handler_rget", force_local_filename = "add_coastline_medium_res_polygon_v7_9.gpkg"),
+                         collection_size = 0.05,
+                         data_group = "Topography"))
+    }
+
     if (is.null(name) || any(name %in% tolower(c("Shuttle Radar Topography Mission elevation data SRTMGL1 V3","10.5067/measures/srtm/srtmgl1.003")))) {
         out <- rbind(out,
                      bb_source(
