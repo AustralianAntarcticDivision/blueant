@@ -161,7 +161,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          name = "NSIDC passive microwave supporting files",
                          id = "nsidc_seaice_grids",
                          description = "Grids and other support files for NSIDC passive microwave sea ice data.",
-                         doc_url = "http://nsidc.org/data/nsidc-0051.html",
+                         doc_url = "https://nsidc.org/data/nsidc-0051/versions/2",
                          citation = "See the citation details of the particular sea ice dataset used",
                          source_url = "ftp://sidads.colorado.edu/pub/DATASETS/seaice/polar-stereo/tools/",
                          license = "Please cite, see https://nsidc.org/about/data-use-and-copyright",

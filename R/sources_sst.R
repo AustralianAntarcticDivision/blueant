@@ -103,10 +103,8 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          description="A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods",
                          doc_url="http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.ersst.html",
                          citation="NOAA_ERSST_V3 data provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, from their web site at http://www.esrl.noaa.gov/psd/",
-                         ##source_url="ftp://ftp.cdc.noaa.gov/Datasets/noaa.ersst/*",
                          source_url="ftp://ftp.cdc.noaa.gov/Datasets/noaa.ersst/",
                          license="Please cite",
-                         ##method=list("bb_handler_wget"), ## "--recursive","--level=1","--no-parent"
                          method=list("bb_handler_rget", level = 1),
                          postprocess=NULL,
                          collection_size=0.3,
@@ -121,8 +119,7 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          doc_url = "https://www.ncdc.noaa.gov/data-access/marineocean-data/extended-reconstructed-sea-surface-temperature-ersst-v5",
                          citation = "Huang B, Thorne PW, Banzon VF, Boyer T, Chepurin G, Lawrimore JH, Menne MJ, Smith TM, Vose RS, Zhang H-M (2017) NOAA Extended Reconstructed Sea Surface Temperature (ERSST), Version 5. [indicate subset used]. NOAA National Centers for Environmental Information. doi:10.7289/V5T72FNM [access date].",
                          comment = "Publications using this dataset should also reference the following journal article: Huang, B., Peter W. Thorne, Viva F. Banzon, Tim Boyer, Gennady Chepurin, Jay H. Lawrimore, Matthew J. Menne, Thomas M. Smith, Russell S. Vose, and Huai-Min Zhang, 2017: Extended Reconstructed Sea Surface Temperature version 5 (ERSSTv5), Upgrades, validations, and intercomparisons. J. Climate, https://doi.org/10.1175/JCLI-D-16-0836.1. In review.",
-                         ##source_url = "ftp://ftp.ncdc.noaa.gov/pub/data/cmb/ersst/v5/netcdf/", ## also https://www1.ncdc.same
-                         source_url = "https://www1.ncdc.noaa.gov/pub/data/cmb/ersst/v5/netcdf/",
+                         source_url = "https://downloads.psl.noaa.gov/Datasets/noaa.ersst.v5/",
                          license = "Please cite",
                          method = list("bb_handler_rget", level = 1),
                          postprocess = NULL,
