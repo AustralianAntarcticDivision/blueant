@@ -20,8 +20,7 @@ dlcheck <- function(file_url, ...) {
 
 test_that("source nsidc0082 still works under ftp (may be moved to https)",{
     skip_on_cran()
-    skip_on_travis() ## this randomly fails for no good reason on travis and appveyor, so just run locally
-    skip_on_appveyor()
+    skip_on_os("mac") ## this fails with an unhelpful permissions error on github actions/mac
     fnm <- dlcheck("ftp://sidads.colorado.edu/pub/DATASETS/nsidc0082_radarsat_dem_v02/200M/BINARY/ramp200dem_osu_v2.hdr", accept_download = "hdr$")
     expect_true(file.exists(fnm))
     fi <- file.info(fnm)
