@@ -3,9 +3,10 @@
 #' Data sources providing SST data.
 #'
 #' \itemize{
-#'   \item "NOAA OI 1/4 Degree Daily SST AVHRR v2": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020 (superseded by v2.1, below)
 #'   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present (this is v2.1 of the daily OI SST product)
-#'   \item "NOAA OI SST V2": Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
+#'   \item "NOAA OI 1/4 Degree Daily SST AVHRR v2": Superseded by v2.1, above. Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020
+#'   \item "NOAA OI SST V2 High Resolution": Weekly and monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
+#'   \item "NOAA OI SST V2": Superseded by NOAA OI SST V2 High Resolution, above. Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
 #'   \item "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
 #'   \item "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
 #'   \item "Oceandata MODIS Terra Level-3 mapped monthly 9km SST": Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution
@@ -46,6 +47,8 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
     out <- tibble()
 
     if (is.null(name) || any(name %in% tolower(c("NOAA OI 1/4 Degree Daily SST AVHRR","10.7289/V5SQ8XB5")))) {
+        ## notes: files initially appear as e.g. "oisst-avhrr-v02r01.20230127_preliminary.nc" but then are replaced by e.g. "oisst-avhrr-v02r01.20230127.nc"
+        ## TODO clean up unneeded preliminary files in postprocess function?
         out <- rbind(out,
                      bb_source(
                          name = "NOAA OI 1/4 Degree Daily SST AVHRR",
@@ -77,6 +80,23 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          collection_size = 140,
                          data_group = "Sea surface temperature"))
     }
+    if (is.null(name) || any(name %in% tolower(c("NOAA OI SST V2 High Resolution", "oisst.v2.highres")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "NOAA OI SST V2 High Resolution",
+                         id = "oisst.v2.highres",
+                         description = "Weekly and monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis",
+                         doc_url = "https://psl.noaa.gov/data/gridded/data.noaa.oisst.v2.highres.html",
+                         citation = "Huang B, Liu C, Banzon V, Freeman E, Graham G, Hankins B, Smith T, Zhang H-M (2021) Improvements of the Daily Optimum Interpolation Sea Surface Temperature (DOISST) Version 2.1. Journal of Climate 34:2923-2939. doi: 10.1175/JCLI-D-20-0166.1",
+                         source_url = "https://downloads.psl.noaa.gov/Datasets/noaa.oisst.v2.highres/",
+                         license = "Please cite",
+                         method = list("bb_handler_rget", level = 1, accept_download = "\\.(mon|week|ltm)\\..+\\.nc$|lsmask.*\\.nc$"), ## monthly, weekly, and long-term mean files only (not daily, those can be better obtained from the v2.1 OISST Daily source)
+                         postprocess = NULL,
+                         access_function = "raadtools::readsst",
+                         collection_size = 0.9,
+                         data_group = "Sea surface temperature"))
+    }
+
     if (is.null(name) || any(name %in% tolower(c("NOAA OI SST V2", "oisst.v2")))) {
         out <- rbind(out,
                      bb_source(
@@ -85,14 +105,13 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          description = "Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis",
                          doc_url = "http://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.html",
                          citation = "NOAA_OI_SST_V2 data provided by the NOAA/OAR/ESRL PSD, Boulder, Colorado, USA, from their web site at http://www.esrl.noaa.gov/psd/",
-                         ##source_url = "ftp://ftp.cdc.noaa.gov/Datasets/noaa.oisst.v2/*",
                          source_url = "ftp://ftp.cdc.noaa.gov/Datasets/noaa.oisst.v2/",
                          license = "Please cite",
-                         ##method = list("bb_handler_wget"), ## "--recursive","--level=1","--no-parent"
                          method = list("bb_handler_rget", level = 1),
                          postprocess = NULL,
                          access_function = "raadtools::readsst",
                          collection_size = 0.9,
+                         comment = "Note: superseded by NOAA OI SST V2 High Resolution",
                          data_group = "Sea surface temperature"))
     }
     if (is.null(name) || any(name %in% tolower(c("NOAA Extended Reconstructed SST V3b","ersstv3")))) {
