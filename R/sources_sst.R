@@ -5,7 +5,7 @@
 #' \itemize{
 #'   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present (this is v2.1 of the daily OI SST product)
 #'   \item "NOAA OI 1/4 Degree Daily SST AVHRR v2": Superseded by v2.1, above. Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020
-#'   \item "NOAA OI SST V2 High Resolution": Weekly and monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
+#'   \item "NOAA OI SST V2 High Resolution": Monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
 #'   \item "NOAA OI SST V2": Superseded by NOAA OI SST V2 High Resolution, above. Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
 #'   \item "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
 #'   \item "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
@@ -85,15 +85,15 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                      bb_source(
                          name = "NOAA OI SST V2 High Resolution",
                          id = "oisst.v2.highres",
-                         description = "Weekly and monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis",
+                         description = "Monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis. For daily SST see the 'NOAA OI 1/4 Degree Daily SST AVHRR' source",
                          doc_url = "https://psl.noaa.gov/data/gridded/data.noaa.oisst.v2.highres.html",
                          citation = "Huang B, Liu C, Banzon V, Freeman E, Graham G, Hankins B, Smith T, Zhang H-M (2021) Improvements of the Daily Optimum Interpolation Sea Surface Temperature (DOISST) Version 2.1. Journal of Climate 34:2923-2939. doi: 10.1175/JCLI-D-20-0166.1",
                          source_url = "https://downloads.psl.noaa.gov/Datasets/noaa.oisst.v2.highres/",
                          license = "Please cite",
-                         method = list("bb_handler_rget", level = 1, accept_download = "\\.(mon|week|ltm)\\..+\\.nc$|lsmask.*\\.nc$"), ## monthly, weekly, and long-term mean files only (not daily, those can be better obtained from the v2.1 OISST Daily source)
+                         method = list("bb_handler_rget", level = 1, accept_download = "\\.(mon|ltm)\\..+\\.nc$|lsmask.*\\.nc$"), ## monthly and long-term mean files only (not daily, those can be better obtained from the v2.1 OISST Daily source, and not weekly - those files are large and slow to download. Weekly averages seem unlikely to be widely useful, probably better for users to calculate their own averages from daily files on whatever time period makes sense)
                          postprocess = NULL,
                          access_function = "raadtools::readsst",
-                         collection_size = 0.9,
+                         collection_size = 30, ## ~30G without daily files
                          data_group = "Sea surface temperature"))
     }
 

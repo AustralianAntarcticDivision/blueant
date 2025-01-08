@@ -122,7 +122,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
     idx$url <- str_match(idx$file, "^([^/]+/[^/]+)/.+")[, 2]
     uurl <- na.omit(unique(idx$url))
     ## each meta file
-    status <- list(ok = TRUE, files = list(NULL), msg = "")
+    status <- tibble(ok = TRUE, files = list(NULL), message = "")
     for (thisurl in uurl) {
         dummy <- config
         temp <- bb_data_sources(dummy)
@@ -132,7 +132,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
             temp$method <- list(list("bb_handler_rget", level = 1, no_check_certificate = no_check_cert))
             bb_data_sources(dummy) <- temp
             this_status <- get_fun(dummy, verbose = verbose, no_check_certificate = no_check_cert)
-            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
+            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), message = paste(status$message, this_status$message))
             ## Sprof file
             if (profile_type == "synthetic") {
                 temp$source_url <- file.path(source_url_no_trailing_sep, "dac", thisurl, paste0(this_float, "_Sprof.nc"))
@@ -140,7 +140,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
                 bb_data_sources(dummy) <- temp
                 this_status <- get_fun(dummy, verbose = verbose, no_check_certificate = no_check_cert)
                 ## not all profiles have this Sprof file, so don't change the 'ok' value on failure (??)
-                status <- tibble(ok = status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
+                status <- tibble(ok = status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), message = paste(status$message, this_status$message))
             }
         }
     }
@@ -154,7 +154,7 @@ bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALS
             bb_data_sources(dummy) <- temp
             ##        cat(str(dummy))
             this_status <- get_fun(dummy, verbose = verbose, no_check_certificate = no_check_cert)
-            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), msg = paste(status$msg, this_status$message))
+            status <- tibble(ok = status$ok && this_status$ok, files = list(rbind(status$files[[1]], this_status$files[[1]])), message = paste(status$message, this_status$message))
         }
     }
     status

@@ -1,7 +1,7 @@
 Package: blueant
 Type: Package
 Title: Antarctic and Southern Ocean Environmental Data Sources
-Version: 0.12.6
+Version: 0.12.7
 Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
              person("Michael", "Sumner", role = "aut"),
              person("Charlene", "Guillaumot", role = "aut"))

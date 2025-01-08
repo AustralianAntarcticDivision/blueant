@@ -25,7 +25,7 @@ Data sources providing SST data.
 \itemize{
   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present (this is v2.1 of the daily OI SST product)
   \item "NOAA OI 1/4 Degree Daily SST AVHRR v2": Superseded by v2.1, above. Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020
-  \item "NOAA OI SST V2 High Resolution": Weekly and monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
+  \item "NOAA OI SST V2 High Resolution": Monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
   \item "NOAA OI SST V2": Superseded by NOAA OI SST V2 High Resolution, above. Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
   \item "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
   \item "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
