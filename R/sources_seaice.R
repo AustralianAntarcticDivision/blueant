@@ -179,11 +179,10 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          id = "10.5067/NIMBUS/NmIcEdg2",
                          description = "This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery.",
                          doc_url = "http://nsidc.org/data/nmicedg2/",
-                         citation = "Gallaher, D. and G. Campbell. 2014. Nimbus Ice Edge Points from Nimbus Visible Imagery L2, CSV. [indicate subset used]. Boulder, Colorado USA: NASA National Snow and Ice Data Center Distributed Active Archive Center. http://dx.doi.org/10.5067/NIMBUS/NmIcEdg2",
-                         source_url = "https://n5eil01u.ecs.nsidc.org/NIMBUS/NmIcEdg2.001/",
+                         citation = "Gallaher D and Campbell G (2014) Nimbus Ice Edge Points from Nimbus Visible Imagery L2, CSV. [indicate subset used]. Boulder, Colorado USA: NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/NIMBUS/NmIcEdg2",
                          license = "Please cite, see https://nsidc.org/about/data-use-and-copyright",
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method = list("bb_handler_earthdata", level = 2, relative = TRUE, allow_unrestricted_auth = TRUE),##,"--accept-regex=/NmIcEdg2.001/"), ##--recursive --no-parent
+                         method = list("bb_handler_earthdata_stac", stac_id = "NSIDC_CPRD", collection_id = "NmIcEdg2_1"),
                          user = "",
                          password = "",
                          postprocess = NULL,
@@ -440,7 +439,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                                source_url = "https://thredds.met.no/thredds/catalog/osisaf/met.no/ice/drift_lr/merged/catalog.html",
                                citation = "OSI SAF Global Low Resolution Sea Ice Drift, OSI-405-c, doi: 10.15770/EUM_SAF_OSI_NRT_2007. EUMETSAT Ocean and Sea Ice Satellite Application Facility",
                                license = "Please cite",
-                               method = list("bb_handler_rget", no_parent_download = FALSE, level = 4, accept_download = ".*fileServer.*_sh_.*\\.nc$", accept_follow = "catalog\\.html"),
+                               method = list("bb_handler_rget", no_parent_download = FALSE, level = 4, accept_download = ".*fileServer.*_sh_.*\\.nc$", accept_follow = "catalog\\.html", reject_follow = "_nh_"),
                                comment = "Only southern hemisphere files will be downloaded. For northern hemisphere, adjust the `accept_download` parameter",
                                collection_size = 4,
                                data_group = "Sea ice"))
