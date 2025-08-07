@@ -47,3 +47,16 @@ test_that("polarview search works", {
         }
     }
 })
+
+test_that("ifremer SSMI sea ice works", {
+    src <- sources("CERSAT_SSMI") %>%
+        bb_modify_source(source_url = "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2025/",
+                         method = list(accept_download = "2025080.\\.nc\\.Z", level = 1))
+    td <- tempfile()
+    dir.create(td)
+    res <- bb_get(src, local_file_root = td, confirm_downloads_larger_than = -1)
+    chk <- dir(file.path(td, "ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/2025"), full.names = TRUE)
+    ## should have .nc file for each .nc.Z file
+    expect_true(all(table(sub("\\.Z$", "", chk)) == 2))
+    unlink(td, recursive = TRUE)
+})
