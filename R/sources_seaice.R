@@ -224,7 +224,6 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          citation = "Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
                          source_url = "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s6250/",
                          license = "Please cite",
-                         ##method = list("bb_handler_wget",level=5,accept=c("asi*.hdf","asi*.png","asi*.tif"),robots_off=TRUE), ##--recursive --no-parent
                          method = list("bb_handler_rget", level = 5, accept_download = "asi.*\\.(hdf|png|tif)"),
                          postprocess = NULL,
                          access_function = "raadtools::readice",
@@ -259,7 +258,6 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          citation = "See the citation details of the particular sea ice dataset used",
                          source_url = c("https://seaice.uni-bremen.de/data/grid_coordinates/","https://seaice.uni-bremen.de/data/amsre/landmasks/"),
                          license = "Please cite",
-                         ##method = list("bb_handler_wget",level=2,accept="hdf",robots_off=TRUE), ## --recursive --no-parent
                          method = list("bb_handler_rget", level = 2),
                          postprocess = NULL,
                          collection_size = 0.02,
@@ -277,9 +275,8 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          ##source_url = "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/*",
                          source_url = "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/antarctic/daily/netcdf/",
                          license = "Unknown",
-                         ##method = list("bb_handler_wget",level=3), ## --recursive --no-parent
                          method = list("bb_handler_rget", level = 3),
-                         postprocess = list("bb_uncompress"),
+                         postprocess = list("bb_inflate"),
                          access_function = "raadtools::readice",
                          collection_size = 2.5,
                          data_group = "Sea ice"))
@@ -296,7 +293,6 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          ##source_url = "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/*",
                          source_url = "ftp://ftp.ifremer.fr/ifremer/cersat/products/gridded/psi-concentration/data/",
                          license = "Unknown",
-                         ##method = list("bb_handler_wget"), ##--recursive --level=1 --no-parent
                          method = list("bb_handler_rget", level = 1),
                          postprocess = list("bb_gunzip"),
                          collection_size = 0.01,
