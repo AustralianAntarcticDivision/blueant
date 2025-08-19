@@ -2,7 +2,6 @@
 
 export("%>%")
 export(bb_aadc_source)
-export(bb_handler_aadc)
 export(bb_handler_amps)
 export(bb_handler_argo)
 export(bb_handler_polarview)

@@ -42,6 +42,8 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
     }
     out <- tibble()
     if (is.null(name) || any(name %in% tolower(c("CMEMS global gridded SSH reprocessed (1993-ongoing)", "SEALEVEL_GLO_PHY_L4_MY_008_047", "10.48670/moi-00148")))) {
+        ## monthly cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg_P1M-m_202411
+        ## daily "cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg_P1D_202411"
         out <- rbind(out,
                      bb_source(
                          name = "CMEMS global gridded SSH reprocessed (1993-ongoing)",
@@ -50,7 +52,7 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          doc_url = "https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_MY_008_047/description",
                          citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00148\"",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
-                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_L4_MY_008_047"),
+                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_L4_MY_008_047", layer = "cmems_obs-sl_glo_phy-ssh_my_allsat-l4-duacs-0.125deg_P1D_202411"),
                          authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",
@@ -60,6 +62,8 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("CMEMS global gridded SSH near-real-time", "SEALEVEL_GLO_PHY_L4_NRT_008_046", "10.48670/moi-00149")))) {
+        ## 0.25 degree product (deprecated?): cmems_obs-sl_glo_phy-ssh_nrt_allsat-l4-duacs-0.25deg_P1D_202311
+        ## 0.125 degree product: cmems_obs-sl_glo_phy-ssh_nrt_allsat-l4-duacs-0.125deg_P1D_202506
         out <- rbind(out,
                      bb_source(
                          name = "CMEMS global gridded SSH near-real-time",
@@ -68,7 +72,7 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          doc_url = "https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_NRT_008_046/description",
                          citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00149\"",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
-                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_L4_NRT_008_046"),
+                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_L4_NRT_008_046", layer = "cmems_obs-sl_glo_phy-ssh_nrt_allsat-l4-duacs-0.125deg_P1D_202506"),
                          authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",
