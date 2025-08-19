@@ -20,7 +20,7 @@ Note that the USNIC server does not support timestamp operations on requests, so
 
 This handler can take a \code{method} argument as specified in the \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}} constructor:
 \itemize{
-\item chart_type string: either "filled" \link{default} or "vector"
+\item chart_type string: either "filled" (default) or "vector"
 }
 }
 \references{

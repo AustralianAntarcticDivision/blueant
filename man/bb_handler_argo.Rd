@@ -18,7 +18,7 @@ This is a handler function to be used with Argo data. Tested with the Global Dat
 \details{
 This handler can take several \code{method} arguments as specified in the \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}} constructor:
 \itemize{
-\item profile_type string: either "merge" \link{default} or "synthetic" (currently only available from certain DACs)
+\item profile_type string: either "merge" (default) or "synthetic" (currently only available from certain DACs)
 \item institutions character: vector of institution codes. Only profiles from these institutions will be downloaded (current institution codes are "AO", "BO", "IF", "HZ", "CS", "IN")
 \item parameters character: vector of parameter codes. Only profiles with one or more of these parameters will be downloaded (current parameter set is "BBP470", "BBP532", "BBP700", "BISULFIDE", "CDOM", "CHLA", "CNDC", "CP660", "DOWN_IRRADIANCE380", "DOWN_IRRADIANCE412", "DOWN_IRRADIANCE443", "DOWN_IRRADIANCE490", "DOWN_IRRADIANCE555", "DOWNWELLING_PAR", "DOXY", "NITRATE", "PH_IN_SITU_TOTAL", "PRES", "PSAL", "TEMP", "TURBIDITY", "UP_RADIANCE412", "UP_RADIANCE443", "UP_RADIANCE490", "UP_RADIANCE555")
 \item latitude_filter function: this function is applied to each profile's \code{latitude} value; only profiles for which this function returns \code{TRUE} will be downloaded

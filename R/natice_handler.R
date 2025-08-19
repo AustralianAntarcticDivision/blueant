@@ -5,7 +5,7 @@
 #' Note that the USNIC server does not support timestamp operations on requests, so it is not possible to download only files that have changed since last downloaded. Bowerbird configurations with `clobber = 1` (download if modified) are likely to download all files, even if those files exist locally and have not changed since last download. Consider using `clobber = 0` (don't download if file already exists).
 #'
 #' This handler can take a `method` argument as specified in the [bowerbird::bb_source()] constructor:
-#' * chart_type string: either "filled" [default] or "vector"
+#' * chart_type string: either "filled" (default) or "vector"
 #'
 #' @references <https://usicecenter.gov/Products/AntarcHome>
 #'

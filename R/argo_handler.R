@@ -3,7 +3,7 @@
 #' This is a handler function to be used with Argo data. Tested with the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment) and Ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a `method` option in [bowerbird::bb_source()].
 #'
 #' This handler can take several `method` arguments as specified in the [bowerbird::bb_source()] constructor:
-#' * profile_type string: either "merge" [default] or "synthetic" (currently only available from certain DACs)
+#' * profile_type string: either "merge" (default) or "synthetic" (currently only available from certain DACs)
 #' * institutions character: vector of institution codes. Only profiles from these institutions will be downloaded (current institution codes are "AO", "BO", "IF", "HZ", "CS", "IN")
 #' * parameters character: vector of parameter codes. Only profiles with one or more of these parameters will be downloaded (current parameter set is "BBP470", "BBP532", "BBP700", "BISULFIDE", "CDOM", "CHLA", "CNDC", "CP660", "DOWN_IRRADIANCE380", "DOWN_IRRADIANCE412", "DOWN_IRRADIANCE443", "DOWN_IRRADIANCE490", "DOWN_IRRADIANCE555", "DOWNWELLING_PAR", "DOXY", "NITRATE", "PH_IN_SITU_TOTAL", "PRES", "PSAL", "TEMP", "TURBIDITY", "UP_RADIANCE412", "UP_RADIANCE443", "UP_RADIANCE490", "UP_RADIANCE555")
 #' * latitude_filter function: this function is applied to each profile's `latitude` value; only profiles for which this function returns `TRUE` will be downloaded
