@@ -1,28 +1,27 @@
 #' Handler for US National Ice Center charts
 #'
-#' This is a handler function to be used with US National Ice Center charts from https://usicecenter.gov/Products/AntarcHome. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+#' This is a handler function to be used with US National Ice Center charts from <https://usicecenter.gov/Products/AntarcHome>. This function is not intended to be called directly, but rather is specified as a `method` option in [bowerbird::bb_source()].
 #'
-#' Note that the USNIC server does not support timestamp operations on requests, so it is not possible to download only files that have changed since last downloaded. Bowerbird configurations with \code{clobber = 1} (download if modified) are likely to download all files, even if those files exist locally and have not changed since last download. Consider using \code{clobber = 0} (don't download if file already exists).
+#' Note that the USNIC server does not support timestamp operations on requests, so it is not possible to download only files that have changed since last downloaded. Bowerbird configurations with `clobber = 1` (download if modified) are likely to download all files, even if those files exist locally and have not changed since last download. Consider using `clobber = 0` (don't download if file already exists).
 #'
-#' This handler can take a \code{method} argument as specified in the \code{\link[bowerbird]{bb_source}} constructor:
-#' \itemize{
-#'   \item chart_type string: either "filled" [default] or "vector"
-#' }
-#' @references https://usicecenter.gov/Products/AntarcHome
+#' This handler can take a `method` argument as specified in the [bowerbird::bb_source()] constructor:
+#' * chart_type string: either "filled" [default] or "vector"
 #'
-#' @param ... : parameters passed to \code{\link{bb_rget}}
+#' @references <https://usicecenter.gov/Products/AntarcHome>
 #'
-#' @return TRUE on success
+#' @param ... : parameters passed to [bowerbird::bb_rget()]
+#'
+#' @return `TRUE` on success
 #'
 #' @export
 bb_handler_usnic <- function(...) {
     bb_handler_usnic_inner(...)
 }
 
-# @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
+# @param config bb_config: a bowerbird configuration (as returned by [bowerbird::bb_config()]) with a single data source
 # @param verbose logical: if TRUE, provide additional progress output
 # @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
-# @return the directory if local_dir_only is TRUE, otherwise TRUE on success
+# @return the directory if local_dir_only is TRUE, otherwise `TRUE` on success
 bb_handler_usnic_inner <- function(config, verbose = FALSE, local_dir_only = FALSE, ...) {
     assert_that(is(config, "bb_config"))
     assert_that(nrow(bb_data_sources(config)) == 1)

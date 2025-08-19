@@ -1,33 +1,31 @@
 #' Handler for Argo profile data sources
 #'
-#' This is a handler function to be used with Argo data. Tested with the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment) and Ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+#' This is a handler function to be used with Argo data. Tested with the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment) and Ifremer data centre, not yet tested with others. This function is not intended to be called directly, but rather is specified as a `method` option in [bowerbird::bb_source()].
 #'
-#' This handler can take several \code{method} arguments as specified in the \code{\link[bowerbird]{bb_source}} constructor:
-#' \itemize{
-#'   \item profile_type string: either "merge" [default] or "synthetic" (currently only available from certain DACs)
-#'   \item institutions character: vector of institution codes. Only profiles from these institutions will be downloaded (current institution codes are "AO", "BO", "IF", "HZ", "CS", "IN")
-#'   \item parameters character: vector of parameter codes. Only profiles with one or more of these parameters will be downloaded (current parameter set is "BBP470", "BBP532", "BBP700", "BISULFIDE", "CDOM", "CHLA", "CNDC", "CP660", "DOWN_IRRADIANCE380", "DOWN_IRRADIANCE412", "DOWN_IRRADIANCE443", "DOWN_IRRADIANCE490", "DOWN_IRRADIANCE555", "DOWNWELLING_PAR", "DOXY", "NITRATE", "PH_IN_SITU_TOTAL", "PRES", "PSAL", "TEMP", "TURBIDITY", "UP_RADIANCE412", "UP_RADIANCE443", "UP_RADIANCE490", "UP_RADIANCE555")
-#'   \item latitude_filter function: this function is applied to each profile's \code{latitude} value; only profiles for which this function returns \code{TRUE} will be downloaded
-#'   \item longitude_filter function: as for \code{latitude_filter}, but applied to longitude
-#' }
+#' This handler can take several `method` arguments as specified in the [bowerbird::bb_source()] constructor:
+#' * profile_type string: either "merge" [default] or "synthetic" (currently only available from certain DACs)
+#' * institutions character: vector of institution codes. Only profiles from these institutions will be downloaded (current institution codes are "AO", "BO", "IF", "HZ", "CS", "IN")
+#' * parameters character: vector of parameter codes. Only profiles with one or more of these parameters will be downloaded (current parameter set is "BBP470", "BBP532", "BBP700", "BISULFIDE", "CDOM", "CHLA", "CNDC", "CP660", "DOWN_IRRADIANCE380", "DOWN_IRRADIANCE412", "DOWN_IRRADIANCE443", "DOWN_IRRADIANCE490", "DOWN_IRRADIANCE555", "DOWNWELLING_PAR", "DOXY", "NITRATE", "PH_IN_SITU_TOTAL", "PRES", "PSAL", "TEMP", "TURBIDITY", "UP_RADIANCE412", "UP_RADIANCE443", "UP_RADIANCE490", "UP_RADIANCE555")
+#' * latitude_filter function: this function is applied to each profile's `latitude` value; only profiles for which this function returns `TRUE` will be downloaded
+#' * longitude_filter function: as for `latitude_filter`, but applied to longitude
 #'
-#' See \code{\link{sources_oceanographic}} for more details and examples.
+#' See [sources_oceanographic()] for more details and examples.
 #'
 #' @references <https://wwz.ifremer.fr/en/Research-Technology/Scientific-departments/Department-of-Marine-and-Digital-Infrastructures/The-French-ARGO-Data-Centre>, <http://www.argodatamgt.org/Documentation>
-#' @param ... : parameters passed to \code{\link{bb_rget}}
+#' @param ... : parameters passed to [bowerbird::bb_rget()]
 #'
-#' @return TRUE on success
+#' @return `TRUE` on success
 #'
 #' @export
 bb_handler_argo <- function(...) {
     bb_handler_argo_inner(...)
 }
 
-# @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
+# @param config bb_config: a bowerbird configuration (as returned by [bowerbird::bb_config()]) with a single data source
 # @param verbose logical: if TRUE, provide additional progress output
 # @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
 #
-# @return TRUE on success or the directory name if local_dir_only is TRUE
+# @return `TRUE` on success or the directory name if local_dir_only is TRUE
 bb_handler_argo_inner <- function(config, verbose = FALSE, local_dir_only = FALSE, ...) {
 
     ## ARGO from ifremer, see notes at https://github.com/AustralianAntarcticDivision/blueant/issues/13

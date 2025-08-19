@@ -7,14 +7,14 @@
 bb_handler_polarview(...)
 }
 \arguments{
-\item{...}{: parameters passed to \code{\link{bb_rget}}}
+\item{...}{: parameters passed to \code{\link[bowerbird:bb_rget]{bowerbird::bb_rget()}}}
 }
 \value{
 \code{TRUE} on success
 }
 \description{
-This is a handler function to be used with Sentinel-1 data from https://polarview.aq. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+This is a handler function to be used with Sentinel-1 data from \url{https://polarview.aq}. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}}.
 }
 \references{
-https://polarview.aq
+\url{https://polarview.aq}
 }

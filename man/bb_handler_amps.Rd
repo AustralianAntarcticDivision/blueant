@@ -7,14 +7,14 @@
 bb_handler_amps(...)
 }
 \arguments{
-\item{...}{: parameters passed to \code{\link{bb_rget}}}
+\item{...}{: parameters passed to \code{\link[bowerbird:bb_rget]{bowerbird::bb_rget()}}}
 }
 \value{
-TRUE on success
+\code{TRUE} on success
 }
 \description{
-This is a handler function to be used with AMPS data from http://www2.mmm.ucar.edu/rt/amps/. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+This is a handler function to be used with AMPS data from \url{http://www2.mmm.ucar.edu/rt/amps/}. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}}.
 }
 \references{
-http://www2.mmm.ucar.edu/rt/amps/
+\url{http://www2.mmm.ucar.edu/rt/amps/}
 }

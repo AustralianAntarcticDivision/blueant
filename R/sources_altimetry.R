@@ -2,15 +2,13 @@
 #'
 #' Data sources providing (typically satellite-derived) altimetry data.
 #'
-#' \itemize{
-#'   \item "CMEMS global gridded SSH reprocessed (1993-ongoing)": Global Ocean - Multimission altimeter satellite gridded sea surface heights and derived variables computed with respect to a twenty-year mean. All the missions are homogenized with respect to a reference mission which is currently OSTM/Jason-2
-#'   \item "CMEMS global gridded SSH near-real-time": near-real-time version of 'CMEMS global gridded SSH reprocessed (1993-ongoing)'
-#'   \item "CNES-CLS2013 Mean Dynamic Topography": CNES-CLS2013 Mean dynamic topography over the 1993-2012 period of the sea surface height above geoid. The MDT_CNES-CLS13 is an estimate of the ocean MDT for the 1993-2012 period. Since April 2014 (Duacs 2014, v15.0 version), the Ssalto/Duacs (M)SLA products are computed relative to 1993-2012 period that is consistent with this new MDT CNES-CLS13. Based on 2 years of GOCE data, 7 years of GRACE data, and 20 years of altimetry and in-situ data (hydrologic and drifters data)
-#'   \item "Gridded Sea Level Heights and geostrophic currents - Antarctic Ocean": Experimental Ssalto/Duacs gridded multimission altimeter products dedicated to Antarctic Ocean
-#'   \item "Near-real-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
-#'   \item "Delayed-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
-#'   \item "WAVERYS Global Ocean Waves Reanalysis": global wave reanalysis describing past sea states since years 1993.
-#' }
+#' * "CMEMS global gridded SSH reprocessed (1993-ongoing)": Global Ocean - Multimission altimeter satellite gridded sea surface heights and derived variables computed with respect to a twenty-year mean. All the missions are homogenized with respect to a reference mission which is currently OSTM/Jason-2
+#' * "CMEMS global gridded SSH near-real-time": near-real-time version of 'CMEMS global gridded SSH reprocessed (1993-ongoing)'
+#' * "CNES-CLS2013 Mean Dynamic Topography": CNES-CLS2013 Mean dynamic topography over the 1993-2012 period of the sea surface height above geoid. The MDT_CNES-CLS13 is an estimate of the ocean MDT for the 1993-2012 period. Since April 2014 (Duacs 2014, v15.0 version), the Ssalto/Duacs (M)SLA products are computed relative to 1993-2012 period that is consistent with this new MDT CNES-CLS13. Based on 2 years of GOCE data, 7 years of GRACE data, and 20 years of altimetry and in-situ data (hydrologic and drifters data)
+#' * "Gridded Sea Level Heights and geostrophic currents - Antarctic Ocean": Experimental Ssalto/Duacs gridded multimission altimeter products dedicated to Antarctic Ocean
+#' * "Near-real-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
+#' * "Delayed-time finite size Lyapunov exponents": These products provide the exponential rate of separation of particle trajectories initialized nearby and advected by altimetry velocities. FSLEs highlight the transport barriers that control the horizontal exchange of water in and out of eddy cores.
+#' * "WAVERYS Global Ocean Waves Reanalysis": global wave reanalysis describing past sea states since years 1993.
 #'
 #' The returned tibble contains more information about each source.
 #'
@@ -19,11 +17,9 @@
 #' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
 #' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
-#' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
+#' @references See the `doc_url` and `citation` field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
-#'
-#' @return a tibble with columns as specified by \code{\link{bb_source}}
+#' @return a tibble with columns as specified by [bowerbird::bb_source()]
 #'
 #' @examples
 #' \dontrun{

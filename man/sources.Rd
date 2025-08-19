@@ -16,14 +16,11 @@ sources(name, formats, time_resolutions, ...)
 \item{...}{: other parameters passed to thematic source functions}
 }
 \value{
-tibble
+A tibble
 }
 \description{
-The \code{sources} function is a convenience wrapper around the thematic functions: \code{sources_seaice}, \code{sources_altimetry}, etc.
+The \code{sources} function is a convenience wrapper around the thematic functions: \code{\link[=sources_seaice]{sources_seaice()}}, \code{\link[=sources_altimetry]{sources_altimetry()}}, etc.
 }
 \references{
 See \code{reference} and \code{citation} field in each row of the returned tibble
-}
-\seealso{
-\code{\link{bb_config}}, \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 }

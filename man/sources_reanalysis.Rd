@@ -16,16 +16,16 @@ sources_reanalysis(name, formats, time_resolutions, ...)
 \item{...}{: additional source-specific parameters. See the list of sources above for details}
 }
 \value{
-a tibble with columns as specified by \code{\link{bb_source}}
+a tibble with columns as specified by \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}}
 }
 \description{
 Data sources providing data from global reanalysis models.
 }
 \details{
 \itemize{
-  \item "NCEP-DOE Reanalysis 2": NCEP-DOE Reanalysis 2 is an improved version of the NCEP Reanalysis I model that fixed errors and updated paramterizations of of physical processes. Accepts \code{time_resolution} values of "6 hour", "day", and/or "month" (default). The 6-hourly data is the original output time resolution. Daily and monthly averages are calculated from the 6-hourly model output
-  \item "NCEP/NCAR Reanalysis 1": The NCEP/NCAR Reanalysis 1 project is using a state-of-the-art analysis/forecast system to perform data assimilation using past data from 1948 to the present. Only the monthly data are so far included here
-  \item "CCMP Wind Product V2": The Cross-Calibrated Multi-Platform (CCMP) gridded surface vector winds are produced using satellite, moored buoy, and model wind data, and are a Level-3 ocean vector wind analysis product. The V2 CCMP processing combines Version-7 RSS radiometer wind speeds, QuikSCAT and ASCAT scatterometer wind vectors, moored buoy wind data, and ERA-Interim model wind fields using a Variational Analysis Method (VAM) to produce four maps daily of 0.25 degree gridded vector winds
+\item "NCEP-DOE Reanalysis 2": NCEP-DOE Reanalysis 2 is an improved version of the NCEP Reanalysis I model that fixed errors and updated paramterizations of of physical processes. Accepts \code{time_resolution} values of "6 hour", "day", and/or "month" (default). The 6-hourly data is the original output time resolution. Daily and monthly averages are calculated from the 6-hourly model output
+\item "NCEP/NCAR Reanalysis 1": The NCEP/NCAR Reanalysis 1 project is using a state-of-the-art analysis/forecast system to perform data assimilation using past data from 1948 to the present. Only the monthly data are so far included here
+\item "CCMP Wind Product V2": The Cross-Calibrated Multi-Platform (CCMP) gridded surface vector winds are produced using satellite, moored buoy, and model wind data, and are a Level-3 ocean vector wind analysis product. The V2 CCMP processing combines Version-7 RSS radiometer wind speeds, QuikSCAT and ASCAT scatterometer wind vectors, moored buoy wind data, and ERA-Interim model wind fields using a Variational Analysis Method (VAM) to produce four maps daily of 0.25 degree gridded vector winds
 }
 
 The returned tibble contains more information about each source.
@@ -39,7 +39,4 @@ cf <- bb_config("/my/file/root") \%>\%
 }
 \references{
 See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
-}
-\seealso{
-\code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 }

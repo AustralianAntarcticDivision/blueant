@@ -16,14 +16,14 @@ sources_meteorological(name, formats, time_resolutions, ...)
 \item{...}{: additional source-specific parameters. See the list of sources above for details}
 }
 \value{
-a tibble with columns as specified by \code{\link{bb_source}}
+a tibble with columns as specified by \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}}
 }
 \description{
 Data sources providing meteorological data.
 }
 \details{
 \itemize{
-  \item "Antarctic Mesoscale Prediction System grib files": The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time numerical weather prediction capability that provides support for the United States Antarctic Program, Antarctic science, and international Antarctic efforts
+\item "Antarctic Mesoscale Prediction System grib files": The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time numerical weather prediction capability that provides support for the United States Antarctic Program, Antarctic science, and international Antarctic efforts
 }
 
 The returned tibble contains more information about each source.
@@ -37,7 +37,4 @@ cf <- bb_config("/my/file/root") \%>\%
 }
 \references{
 See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
-}
-\seealso{
-\code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
 }

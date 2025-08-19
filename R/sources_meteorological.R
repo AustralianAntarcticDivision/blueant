@@ -2,9 +2,7 @@
 #'
 #' Data sources providing meteorological data.
 #'
-#' \itemize{
-#'   \item "Antarctic Mesoscale Prediction System grib files": The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time numerical weather prediction capability that provides support for the United States Antarctic Program, Antarctic science, and international Antarctic efforts
-#' }
+#' * "Antarctic Mesoscale Prediction System grib files": The Antarctic Mesoscale Prediction System - AMPS - is an experimental, real-time numerical weather prediction capability that provides support for the United States Antarctic Program, Antarctic science, and international Antarctic efforts
 #'
 #' The returned tibble contains more information about each source.
 #'
@@ -13,11 +11,9 @@
 #' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
 #' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
-#' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
+#' @references See the `doc_url` and `citation` field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
-#'
-#' @return a tibble with columns as specified by \code{\link{bb_source}}
+#' @return a tibble with columns as specified by [bowerbird::bb_source()]
 #'
 #' @examples
 #' \dontrun{

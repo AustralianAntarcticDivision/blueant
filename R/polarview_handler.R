@@ -1,22 +1,22 @@
 #' Handler for Polarview Sentinel-1 data
 #'
-#' This is a handler function to be used with Sentinel-1 data from https://polarview.aq. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+#' This is a handler function to be used with Sentinel-1 data from <https://polarview.aq>. This function is not intended to be called directly, but rather is specified as a `method` option in [bowerbird::bb_source()].
 #'
-#' @references https://polarview.aq
+#' @references <https://polarview.aq>
 #'
-#' @param ... : parameters passed to \code{\link{bb_rget}}
+#' @param ... : parameters passed to [bowerbird::bb_rget()]
 #'
-#' @return \code{TRUE} on success
+#' @return `TRUE` on success
 #'
 #' @export
 bb_handler_polarview <- function(...) {
     bb_handler_polarview_inner(...)
 }
 
-# @param config bb_config: a bowerbird configuration (as returned by \code{bb_config}) with a single data source
+# @param config bb_config: a bowerbird configuration (as returned by [bowerbird::bb_config()]) with a single data source
 # @param verbose logical: if TRUE, provide additional progress output
 # @param local_dir_only logical: if TRUE, just return the local directory into which files from this data source would be saved
-# @return the directory if local_dir_only is TRUE, otherwise TRUE on success
+# @return the directory if local_dir_only is TRUE, otherwise `TRUE` on success
 bb_handler_polarview_inner <- function(config, verbose = FALSE, local_dir_only = FALSE, ...) {
     assert_that(is(config, "bb_config"))
     assert_that(nrow(bb_data_sources(config)) == 1)

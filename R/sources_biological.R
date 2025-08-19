@@ -1,15 +1,13 @@
 #' Biological data sources
 #'
-#' Data sources providing selected Southern Ocean biological data sets. Please note that this is not intended to be a comprehensive collection of such data. Users are referred to the SCAR Standing Committee on Antarctic Data Management (\url{https://www.scar.org/data-products/scadm/}) and in particular the Antarctic Master Directory metadata catalogue (\url{http://gcmd.nasa.gov/portals/amd/}).
+#' Data sources providing selected Southern Ocean biological data sets. Please note that this is not intended to be a comprehensive collection of such data. Users are referred to the SCAR Standing Committee on Antarctic Data Management (<https://www.scar.org/data-products/scadm/>) and in particular the Antarctic Master Directory metadata catalogue (<http://gcmd.nasa.gov/portals/amd/>).
 #'
-#' \itemize{
-#'   \item "Southern Ocean Continuous Plankton Recorder": zooplankton species, numbers and abundance data are recorded on a continuous basis while vessels are in transit
-#'   \item "SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution": outputs of the SEAPODYM Low and Mid-Trophic Levels (LMTL) model, which simulates the spatial and temporal dynamics of six micronekton and one zooplankton functional groups between the sea surface and ~1000m depth
-#'   \item "SCAR RAATD model outputs": Single-species habitat importance maps for 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins
-#'   \item "SCAR RAATD data filtered": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'filtered' version of the data files
-#'   \item "SCAR RAATD data standardised": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'standardized' version of the data files
-#'   \item "Myctobase": A circumpolar database of Southern Ocean mesopelagic fish surveys, including occurrence and abundance information, as well as trait-based information of individuals including standard length, weight and life stage
-#' }
+#' * "Southern Ocean Continuous Plankton Recorder": zooplankton species, numbers and abundance data are recorded on a continuous basis while vessels are in transit
+#' * "SEAPODYM Zooplankton & Micronekton weekly potential and biomass distribution": outputs of the SEAPODYM Low and Mid-Trophic Levels (LMTL) model, which simulates the spatial and temporal dynamics of six micronekton and one zooplankton functional groups between the sea surface and ~1000m depth
+#' * "SCAR RAATD model outputs": Single-species habitat importance maps for 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins
+#' * "SCAR RAATD data filtered": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'filtered' version of the data files
+#' * "SCAR RAATD data standardised": Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the 'standardized' version of the data files
+#' * "Myctobase": A circumpolar database of Southern Ocean mesopelagic fish surveys, including occurrence and abundance information, as well as trait-based information of individuals including standard length, weight and life stage
 #'
 #' The returned tibble contains more information about each source.
 #'
@@ -18,11 +16,9 @@
 #' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
 #' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
-#' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
+#' @references See the `doc_url` and `citation` field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_meteorological}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
-#'
-#' @return a tibble with columns as specified by \code{\link{bb_source}}
+#' @return a tibble with columns as specified by [bowerbird::bb_source()]
 #'
 #' @examples
 #' ## our local directory to store the data

@@ -27,8 +27,8 @@ bb_polarview_search(
 A character vector of image URLs
 }
 \description{
-This function is used by \code{\link{bb_handler_polarview}}. Users probably won't need to use it directly.
+This function is used by \code{\link[=bb_handler_polarview]{bb_handler_polarview()}}. Users probably won't need to use it directly.
 }
 \references{
-<https://www.polarview.aq>
+\url{https://www.polarview.aq}
 }

@@ -7,22 +7,22 @@
 bb_handler_usnic(...)
 }
 \arguments{
-\item{...}{: parameters passed to \code{\link{bb_rget}}}
+\item{...}{: parameters passed to \code{\link[bowerbird:bb_rget]{bowerbird::bb_rget()}}}
 }
 \value{
-TRUE on success
+\code{TRUE} on success
 }
 \description{
-This is a handler function to be used with US National Ice Center charts from https://usicecenter.gov/Products/AntarcHome. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link{bb_source}}.
+This is a handler function to be used with US National Ice Center charts from \url{https://usicecenter.gov/Products/AntarcHome}. This function is not intended to be called directly, but rather is specified as a \code{method} option in \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}}.
 }
 \details{
 Note that the USNIC server does not support timestamp operations on requests, so it is not possible to download only files that have changed since last downloaded. Bowerbird configurations with \code{clobber = 1} (download if modified) are likely to download all files, even if those files exist locally and have not changed since last download. Consider using \code{clobber = 0} (don't download if file already exists).
 
-This handler can take a \code{method} argument as specified in the \code{\link[bowerbird]{bb_source}} constructor:
+This handler can take a \code{method} argument as specified in the \code{\link[bowerbird:bb_source]{bowerbird::bb_source()}} constructor:
 \itemize{
-  \item chart_type string: either "filled" [default] or "vector"
+\item chart_type string: either "filled" \link{default} or "vector"
 }
 }
 \references{
-https://usicecenter.gov/Products/AntarcHome
+\url{https://usicecenter.gov/Products/AntarcHome}
 }

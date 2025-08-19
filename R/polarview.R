@@ -1,13 +1,13 @@
 #' Search the PolarView catalogue
 #'
-#' This function is used by \code{\link{bb_handler_polarview}}. Users probably won't need to use it directly.
+#' This function is used by [bb_handler_polarview()]. Users probably won't need to use it directly.
 #'
 #' @references <https://www.polarview.aq>
 #' @param acquisition_date Date: the allowable image acquisition dates
 #' @param formats character: one or more of "jpg" (jpg preview images) "jp2" or "geotiff". Note that the geotiffs are much larger than the jpg previews
 #' @param polygon string or sfc_POLYGON: either an \code{sfc_POLYGON} or a string giving a polygon in WKT format and EPSG:3031 projection. Only images intersecting this polygon will be returned
 #' @param max_results integer: maximum number of results to return
-#' @param verbose logical: if \code{TRUE}, show additional progress output
+#' @param verbose logical: if `TRUE`, show additional progress output
 #'
 #' @return A character vector of image URLs
 #'

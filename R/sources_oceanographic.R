@@ -2,16 +2,14 @@
 #'
 #' Data sources providing oceanographic data.
 #'
-#' \itemize{
-#'   \item "CSIRO Atlas of Regional Seas 2009": CARS is a digital climatology, or atlas of seasonal ocean water properties
-#'   \item "World Ocean Atlas 2009": World Ocean Atlas 2009 is included here for convenience but has been superseded by the World Ocean Atlas 2013 V2
-#'   \item "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
-#'   \item "World Ocean Atlas 2018": The World Ocean Atlas (WOA) is a collection of objectively analyzed, quality controlled temperature, salinity, oxygen, phosphate, silicate, and nitrate means based on profile data from the World Ocean Database (WOD). It can be used to create boundary and/or initial conditions for a variety of ocean models, verify numerical simulations of the ocean, and corroborate satellite data
-#'   \item "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
-#'   \item "Argo profile data": Argo profile data, by default from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). The DAC can be changed by specifying a \code{dac_url} parameter (see example below). Also see \code{\link{bb_handler_argo}} for a description of the other parameters that this source accepts.
-#'   \item "Roemmich-Gilson Argo Climatology": A basic description of the modern upper ocean based entirely on Argo data is available here, to provide a baseline for comparison with past datasets and with ongoing Argo data, to test the adequacy of Argo sampling of large-scale variability, and to examine the consistency of the Argo dataset with related ocean observations from other programs
-#'   \item "Effects of Sound on the Marine Environment": ESME uses publically available environmental data sources that provide detailed information about the ocean: (1) Bottom Sediment Type (BST) v 2.0, (2) Digital Bathymetry Database (DBDB) v 5.4, (3) Generalized Digital Environment Model (GDEM) v 3.0, (4) Surface Marine Gridded Climatology (SMGC) v 2.0"
-#' }
+#' * "CSIRO Atlas of Regional Seas 2009": CARS is a digital climatology, or atlas of seasonal ocean water properties
+#' * "World Ocean Atlas 2009": World Ocean Atlas 2009 is included here for convenience but has been superseded by the World Ocean Atlas 2013 V2
+#' * "World Ocean Atlas 2013 V2": World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids
+#' * "World Ocean Atlas 2018": The World Ocean Atlas (WOA) is a collection of objectively analyzed, quality controlled temperature, salinity, oxygen, phosphate, silicate, and nitrate means based on profile data from the World Ocean Database (WOD). It can be used to create boundary and/or initial conditions for a variety of ocean models, verify numerical simulations of the ocean, and corroborate satellite data
+#' * "Argo ocean basin data (USGODAE)": Argo float data from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). These are multi-profile netcdf files divided by ocean basin. Accepts \code{region} parameter values of "pacific" (default), "atlantic", and/or "indian". Also accepts \code{years} parameter: an optional vector of years to download data for
+#' * "Argo profile data": Argo profile data, by default from the Global Data Access Centre in Monterey, USA (US Global Ocean Data Assimilation Experiment). The DAC can be changed by specifying a \code{dac_url} parameter (see example below). Also see \code{\link{bb_handler_argo}} for a description of the other parameters that this source accepts.
+#' * "Roemmich-Gilson Argo Climatology": A basic description of the modern upper ocean based entirely on Argo data is available here, to provide a baseline for comparison with past datasets and with ongoing Argo data, to test the adequacy of Argo sampling of large-scale variability, and to examine the consistency of the Argo dataset with related ocean observations from other programs
+#' * "Effects of Sound on the Marine Environment": ESME uses publically available environmental data sources that provide detailed information about the ocean: (1) Bottom Sediment Type (BST) v 2.0, (2) Digital Bathymetry Database (DBDB) v 5.4, (3) Generalized Digital Environment Model (GDEM) v 3.0, (4) Surface Marine Gridded Climatology (SMGC) v 2.0"
 #'
 #' The returned tibble contains more information about each source.
 #'
@@ -20,11 +18,9 @@
 #' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
 #' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
-#' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
+#' @references See the `doc_url` and `citation` field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
-#'
-#' @return a tibble with columns as specified by \code{\link{bb_source}}
+#' @return a tibble with columns as specified by [bowerbird::bb_source()]
 #'
 #' @examples
 #' \dontrun{

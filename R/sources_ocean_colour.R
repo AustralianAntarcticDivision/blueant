@@ -4,19 +4,17 @@ generic_oceandata_citation <- "See https://oceancolor.gsfc.nasa.gov/resources/ho
 #'
 #' Data sources providing ocean colour data.
 #'
-#' \itemize{
-#'   \item "Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a": Monthly remote-sensing chlorophyll-a from the SeaWiFS satellite at 9km spatial resolution
-#'   \item "Oceandata MODIS Aqua Level-3 mapped daily 4km chl-a": Daily remote-sensing chlorophyll-a from the MODIS Aqua satellite at 4km spatial resolution
-#'   \item "Oceandata MODIS Aqua Level-3 mapped monthly 9km chl-a": Monthly remote-sensing chlorophyll-a from the MODIS Aqua satellite at 9km spatial resolution
-#'   \item "Oceandata VIIRS Level-3 mapped daily 4km chl-a": Daily remote-sensing chlorophyll-a from the VIIRS satellite at 4km spatial resolution
-#'   \item "Oceandata VIIRS Level-3 mapped monthly 9km chl-a": Monthly remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
-#'   \item "Oceandata VIIRS Level-3 mapped seasonal 9km chl-a": Seasonal remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
-#'   \item "Oceandata VIIRS Level-3 binned daily RRS": Daily remote-sensing reflectance from VIIRS. RRS is used to produce standard ocean colour products such as chlorophyll concentration
-#'   \item "Oceandata MODIS Aqua Level-3 binned daily RRS": Daily remote-sensing reflectance from MODIS Aqua. RRS is used to produce standard ocean colour products such as chlorophyll concentration
-#'   \item "Oceandata SeaWiFS Level-3 binned daily RRS": Daily remote-sensing reflectance from SeaWiFS. RRS is used to produce standard ocean colour products such as chlorophyll concentration
-#'   \item "Oceandata VIIRS Level-3 mapped 32-day 9km chl-a": Rolling 32-day composite remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
-#'   \item "Southern Ocean summer chlorophyll-a climatology (Johnson)": Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)
-#' }
+#' * "Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a": Monthly remote-sensing chlorophyll-a from the SeaWiFS satellite at 9km spatial resolution
+#' * "Oceandata MODIS Aqua Level-3 mapped daily 4km chl-a": Daily remote-sensing chlorophyll-a from the MODIS Aqua satellite at 4km spatial resolution
+#' * "Oceandata MODIS Aqua Level-3 mapped monthly 9km chl-a": Monthly remote-sensing chlorophyll-a from the MODIS Aqua satellite at 9km spatial resolution
+#' * "Oceandata VIIRS Level-3 mapped daily 4km chl-a": Daily remote-sensing chlorophyll-a from the VIIRS satellite at 4km spatial resolution
+#' * "Oceandata VIIRS Level-3 mapped monthly 9km chl-a": Monthly remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
+#' * "Oceandata VIIRS Level-3 mapped seasonal 9km chl-a": Seasonal remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
+#' * "Oceandata VIIRS Level-3 binned daily RRS": Daily remote-sensing reflectance from VIIRS. RRS is used to produce standard ocean colour products such as chlorophyll concentration
+#' * "Oceandata MODIS Aqua Level-3 binned daily RRS": Daily remote-sensing reflectance from MODIS Aqua. RRS is used to produce standard ocean colour products such as chlorophyll concentration
+#' * "Oceandata SeaWiFS Level-3 binned daily RRS": Daily remote-sensing reflectance from SeaWiFS. RRS is used to produce standard ocean colour products such as chlorophyll concentration
+#' * "Oceandata VIIRS Level-3 mapped 32-day 9km chl-a": Rolling 32-day composite remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution
+#' * "Southern Ocean summer chlorophyll-a climatology (Johnson)": Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)
 #'
 #' The returned tibble contains more information about each source.
 #'
@@ -25,11 +23,9 @@ generic_oceandata_citation <- "See https://oceancolor.gsfc.nasa.gov/resources/ho
 #' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
 #' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
-#' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
+#' @references See the `doc_url` and `citation` field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_sst}}, \code{\link{sources_topography}}
-#'
-#' @return a tibble with columns as specified by \code{\link{bb_source}}
+#' @return a tibble with columns as specified by [bowerbird::bb_source()]
 #'
 #' @examples
 #' \dontrun{

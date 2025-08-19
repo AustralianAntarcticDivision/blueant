@@ -2,18 +2,16 @@
 #'
 #' Data sources providing SST data.
 #'
-#' \itemize{
-#'   \item "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present (this is v2.1 of the daily OI SST product)
-#'   \item "NOAA OI 1/4 Degree Daily SST AVHRR v2": Superseded by v2.1, above. Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020
-#'   \item "NOAA OI SST V2 High Resolution": Monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
-#'   \item "NOAA OI SST V2": Superseded by NOAA OI SST V2 High Resolution, above. Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
-#'   \item "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
-#'   \item "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
-#'   \item "Oceandata MODIS Terra Level-3 mapped monthly 9km SST": Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution
-#'   \item "Oceandata MODIS Aqua Level-3 mapped monthly 9km SST": Monthly remote-sensing SST from the MODIS Aqua satellite at 9km spatial resolution
-#'   \item "GHRSST Level 4 MUR Global Foundation SST v4.1": A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) on a global 0.011 degree grid
-#'   \item "CMEMS Global Ocean OSTIA Sea Surface Temperature and Sea Ice Analysis": for the global ocean,  the OSTIA global foundation Sea Surface Temperature product provides daily gap-free maps of: Foundation Sea Surface Temperature at 0.05 degree horizontal grid resolution, using in-situ and satellite data from both infrared and microwave radiometers
-#' }
+#' * "NOAA OI 1/4 Degree Daily SST AVHRR": Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to present (this is v2.1 of the daily OI SST product)
+#' * "NOAA OI 1/4 Degree Daily SST AVHRR v2": Superseded by v2.1, above. Sea surface temperature at 0.25 degree daily resolution, from 1-Sep-1981 to Apr-2020
+#' * "NOAA OI SST V2 High Resolution": Monthly mean and long-term monthly mean SST data from Optimum Interpolation Sea Surface Temperature (OISST), 0.25-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
+#' * "NOAA OI SST V2": Superseded by NOAA OI SST V2 High Resolution, above. Weekly and monthly mean and long-term monthly mean SST data, 1-degree resolution, 1981 to present. Ice concentration data are also included, which are the ice concentration values input to the SST analysis
+#' * "NOAA Extended Reconstructed SST V3b": A global monthly SST analysis from 1854 to the present derived from ICOADS data with missing data filled in by statistical methods
+#' * "NOAA Extended Reconstructed SST V5": A global monthly sea surface temperature dataset derived from the International Comprehensive Ocean-Atmosphere Dataset
+#' * "Oceandata MODIS Terra Level-3 mapped monthly 9km SST": Monthly remote-sensing sea surface temperature from the MODIS Terra satellite at 9km spatial resolution
+#' * "Oceandata MODIS Aqua Level-3 mapped monthly 9km SST": Monthly remote-sensing SST from the MODIS Aqua satellite at 9km spatial resolution
+#' * "GHRSST Level 4 MUR Global Foundation SST v4.1": A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) on a global 0.011 degree grid
+#' * "CMEMS Global Ocean OSTIA Sea Surface Temperature and Sea Ice Analysis": for the global ocean,  the OSTIA global foundation Sea Surface Temperature product provides daily gap-free maps of: Foundation Sea Surface Temperature at 0.05 degree horizontal grid resolution, using in-situ and satellite data from both infrared and microwave radiometers
 #'
 #' The returned tibble contains more information about each source.
 #'
@@ -22,11 +20,9 @@
 #' @param time_resolutions character: for some sources, the time resolution can be specified. See the list of sources above for details
 #' @param ... : additional source-specific parameters. See the list of sources above for details
 #'
-#' @references See the \code{doc_url} and \code{citation} field in each row of the returned tibble for references associated with these particular data sources
+#' @references See the `doc_url` and `citation` field in each row of the returned tibble for references associated with these particular data sources
 #'
-#' @seealso \code{\link{sources_altimetry}}, \code{\link{sources_biological}}, \code{\link{sources_meteorological}}, \code{\link{sources_ocean_colour}}, \code{\link{sources_oceanographic}}, \code{\link{sources_reanalysis}}, \code{\link{sources_sdm}}, \code{\link{sources_seaice}}, \code{\link{sources_topography}}
-#'
-#' @return a tibble with columns as specified by \code{\link{bb_source}}
+#' @return a tibble with columns as specified by [bowerbird::bb_source()]
 #'
 #' @examples
 #' \dontrun{
