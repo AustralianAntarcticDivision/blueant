@@ -90,7 +90,7 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          doc_url = "https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_MDT_008_063/description",
                          citation = "In case of any publication, the Licensee will ensure credit the Copernicus Marine Service and cite the DOIs links guaranteeing the traceability of the scientific studies and experiments, in the following manner: \"This study has been conducted using E.U. Copernicus Marine Service Information; https://doi.org/10.48670/moi-00150\"",
                          license = "See http://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/",
-                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_MDT_008_063", ctype = "file"),
+                         method = list("bb_handler_copernicus", product = "SEALEVEL_GLO_PHY_MDT_008_063"),
                          authentication_note = "Copernicus Marine login required, see http://marine.copernicus.eu/services-portfolio/register-now/",
                          user = "",
                          password = "",

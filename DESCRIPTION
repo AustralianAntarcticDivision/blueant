@@ -11,7 +11,7 @@ BugReports: https://github.com/AustralianAntarcticDivision/blueant/issues
 Encoding: UTF-8
 License: MIT + file LICENSE
 Depends:
-    bowerbird (> 0.18.2),
+    bowerbird (>= 0.18.3),
     R (>= 3.3.0)
 Imports:
     assertthat,
