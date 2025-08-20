@@ -6,7 +6,7 @@
 #' * "GEBCO 2014 bathymetry": Global bathymetric grid at 30 arc-second intervals
 #' * "GEBCO 2019 bathymetry": Global bathymetric grid at 15 arc-second intervals
 #' * "GEBCO 2021 bathymetry": The GEBCO_2021 Grid is a global terrain model for ocean and land, providing elevation data, in meters, on a 15 arc-second interval grid. It includes a number of additonal data sets compared to the GEBCO_2020 Grid. The grid is accompanied by a Type Identifier (TID) Grid, giving information on the types of source data that the GEBCO_2021 Grid is based on. The primary GEBCO_2021 grid contains land and ice surface elevation information - as provided for previous GEBCO grid releases. In addition, for the 2021 release, we have made available a version with under-ice topography/bathymetry information for Greenland and Antarctica
-#' * "GECO 2024 bathymetry": The GEBCO_2024 Grid is a global terrain model for ocean and land, providing elevation data, in meters, on a 15 arc-second interval grid of 43200 rows x 86400 columns, giving 3,732,480,000 data points. The data values are pixel-centre registered i.e. they refer to elevations, in meters, at the centre of grid cells.
+#' * "GEBCO 2024 bathymetry": The GEBCO_2024 Grid is a global terrain model for ocean and land, providing elevation data, in meters, on a 15 arc-second interval grid of 43200 rows x 86400 columns, giving 3,732,480,000 data points. The data values are pixel-centre registered i.e. they refer to elevations, in meters, at the centre of grid cells.
 #' * "ETOPO1 bathymetry": ETOPO1 is a 1 arc-minute global relief model of Earth's surface that integrates land topography and ocean bathymetry
 #' * "ETOPO2 bathymetry": 2-Minute Gridded Global Relief Data (ETOPO2v2c)
 #' * "Bedmap2": Bedmap2 is a suite of gridded products describing surface elevation, ice-thickness and the sea floor and subglacial bed elevation of the Antarctic south of 60S
@@ -17,6 +17,7 @@
 #' * "IBCSO bathymetry": The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 is a digital bathymetric model portraying the seafloor of the circum-Antarctic waters south of 60S. IBCSO Version 1.0 has been compiled from all available bathymetric data collectively gathered by more than 30 institutions from 15 countries, including multibeam and single-beam echo soundings, digitized depths from nautical charts, regional bathymetric gridded compilations, and predicted bathymetry
 #' * "IBCSO chart for printing": The IBCSO Poster, 2013, is a polar stereographic view of the Southern Ocean displaying bathymetric contours south of 60S at a scale of 1:7,000,000
 #' * "IBCSOv2 bathymetry": The International Bathymetric Chart of the Southern Ocean Version 2 (IBCSO v2) is a digital bathymetric model for the area south of 50S with special emphasis on the bathymetry of the Southern Ocean. IBCSO v2 has a resolution of 500 m x 500 m in a Polar Stereographic projection. The total data coverage of the seafloor is 23.79% with a multibeam-only data coverage of 22.32%. The remaining 1.47% include singlebeam and other data. IBCSO v2 is the most authoritative seafloor map of the area south of 50S.
+#' * "IBCSO 2024 Annual Release": 2024 update to IBCSOv2
 #' * "RTOPO-1 Antarctic ice shelf topography": a consistent dataset of Antarctic ice sheet topography, cavity geometry, and global bathymetry
 #' * "Radarsat Antarctic digital elevation model V2": The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation model (DEM) combines topographic data from a variety of sources to provide consistent coverage of all of Antarctica. Version 2 improves upon the original version by incorporating new topographic data, error corrections, extended coverage, and other modifications
 #' * "New Zealand Regional Bathymetry 2016": The NZ 250m gridded bathymetric data set and imagery, Mitchell et al. 2012, released 2016
@@ -83,23 +84,22 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          collection_size = 1.4,
                          data_group = "Topography"))
     }
-  if (is.null(name) || any(name %in% tolower(c("GEBCO 2024 bathymetry", "GEBCO_2024")))) {
-      
-    out <- rbind(out, 
-                 bb_source(
-                   name = "GEBCO 2024 bathymetry",
-                   id = "GEBCO_2024",
-                   description = "The GEBCO_2024 Grid is a global terrain model for ocean and land, providing elevation data, in meters, on a 15 arc-second interval grid of 43200 rows x 86400 columns, giving 3,732,480,000 data points. The data values are pixel-centre registered i.e. they refer to elevations, in meters, at the centre of grid cells.",
-                   doc_url = "https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_2024/",
-                   citation = "GEBCO Compilation Group (2024) GEBCO 2024 Grid (doi:10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f)",
-                   license = "Must cite",
-                   source_url = "https://www.bodc.ac.uk/data/open_download/gebco/gebco_2024/zip/",
-                   method = list("bb_handler_rget", force_local_filename = "gebco_2024_netcdf.zip"),
-                   comment = "bowerbird cannot currently unzip the GEBCO 2024 files. You will need to unzip manually with a utility that can handle large files (e.g. 7z on Linux systems)",
-                   collection_size = 4.0,
-                   data_group = "Topography")
-                 )
-  }
+    if (is.null(name) || any(name %in% tolower(c("GEBCO 2024 bathymetry", "GEBCO_2024")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "GEBCO 2024 bathymetry",
+                         id = "GEBCO_2024",
+                         description = "The GEBCO_2024 Grid is a global terrain model for ocean and land, providing elevation data, in meters, on a 15 arc-second interval grid of 43200 rows x 86400 columns, giving 3,732,480,000 data points. The data values are pixel-centre registered i.e. they refer to elevations, in meters, at the centre of grid cells.",
+                         doc_url = "https://www.gebco.net/data_and_products/gridded_bathymetry_data/gebco_2024/",
+                         citation = "GEBCO Compilation Group (2024) GEBCO 2024 Grid (doi:10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f)",
+                         license = "Must cite",
+                         source_url = "https://www.bodc.ac.uk/data/open_download/gebco/gebco_2024/zip/",
+                         method = list("bb_handler_rget", force_local_filename = "gebco_2024_netcdf.zip"),
+                         comment = "bowerbird cannot currently unzip the GEBCO 2024 files. You will need to unzip manually with a utility that can handle large files (e.g. 7z on Linux systems)",
+                         collection_size = 4.0,
+                         data_group = "Topography")
+                     )
+    }
     if (is.null(name) || any(name %in% tolower(c("GEBCO 2021 bathymetry", "GEBCO_2021")))) {
         out <- rbind(out,
                      bb_source(
@@ -362,6 +362,22 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          license = "CC-BY",
                          source_url = c("https://download.pangaea.de/dataset/937574/files/IBCSO_v2_ice-surface.tif", "https://download.pangaea.de/dataset/937574/files/IBCSO_v2_bed.tif", "https://download.pangaea.de/dataset/937574/files/IBCSO_v2_TID.tif", "https://download.pangaea.de/dataset/937574/files/IBCSO_v2_RID.tif", "https://download.pangaea.de/dataset/937574/files/IBSCO_v2_digital_chart.pdf"),
                          method = list("bb_handler_rget"),
+                         collection_size = 0.5,
+                         data_group = "Topography"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("IBCSO 2024 Annual Release")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "IBCSO 2024 Annual Release",
+                         id = "IBCSO2024",
+                         description = "The International Bathymetric Chart of the Southern Ocean Version 2 (IBCSO v2) is a digital bathymetric model for the area south of 50S with special emphasis on the bathymetry of the Southern Ocean. IBCSO v2 has a resolution of 500 m x 500 m in a Polar Stereographic projection. The total data coverage of the seafloor is 23.79% with a multibeam-only data coverage of 22.32%. The remaining 1.47% include singlebeam and other data. IBCSO v2 is the most authoritative seafloor map of the area south of 50S.",
+                         doc_url = "http://www.ibcso.org/",
+                         citation = "Dorschel B et al. (2022) International Bathymetric Chart of the Southern Ocean Version 2 (IBCSO v2). 10.1038/s41597-022-01366-7",
+                         license = "CC-BY",
+                         source_url = "https://ibcso.org/ibcso-2024-annual-release/",
+                         method = list("bb_handler_rget", level = 1, accept_download = "zip$", no_parent_download = FALSE),
+                         postprocess = list("bb_unzip"),
                          collection_size = 0.5,
                          data_group = "Topography"))
     }
