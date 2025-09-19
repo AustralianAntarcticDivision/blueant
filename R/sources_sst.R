@@ -44,7 +44,6 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
 
     if (is.null(name) || any(name %in% tolower(c("NOAA OI 1/4 Degree Daily SST AVHRR","10.7289/V5SQ8XB5")))) {
         ## notes: files initially appear as e.g. "oisst-avhrr-v02r01.20230127_preliminary.nc" but then are replaced by e.g. "oisst-avhrr-v02r01.20230127.nc"
-        ## TODO clean up unneeded preliminary files in postprocess function?
         out <- rbind(out,
                      bb_source(
                          name = "NOAA OI 1/4 Degree Daily SST AVHRR",
@@ -54,13 +53,24 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
                          citation = "Richard W. Reynolds, Viva F. Banzon, and NOAA CDR Program (2008): NOAA Optimum Interpolation 1/4 Degree Daily Sea Surface Temperature (OISST) Analysis, Version 2.1. [indicate subset used]. NOAA National Climatic Data Center. doi:10.7289/V5SQ8XB5 [access date]",
                          source_url = "https://www.ncei.noaa.gov/data/sea-surface-temperature-optimum-interpolation/v2.1/access/avhrr/",
                          license = "Please cite",
-                         method = list("bb_handler_rget", level = 2),
-                         postprocess = NULL,
+                         method = list("bb_handler_rget", level = 2,
+                                       accept_download = function(urls) {
+                                           ## don't download preliminary files if the final file is available
+                                           ## each file's date
+                                           file_date <- stringr::str_match(sub("_preliminary\\.nc$", ".nc", urls), "([[:digit:]]{8})\\.nc")[, 2]
+                                           ## dates of final files
+                                           finals <- na.omit(stringr::str_match(urls, "([[:digit:]]{8})\\.nc")[, 2])
+                                           out <- grepl("\\.nc$", urls) & (!grepl("_preliminary\\.nc$", urls) | (nzchar(file_date) & !file_date %in% finals))
+                                           out[!grepl("\\.nc$", urls)] <- NA ## non-download links
+                                           out
+                                       }),
+                         postprocess = list("bb_oisst_cleanup"), ## clean up prelim files if we now have the final file
                          access_function = "raadtools::readsst",
                          collection_size = 25,
                          data_group = "Sea surface temperature"))
     }
     if (is.null(name) || any(name %in% tolower(c("NOAA OI 1/4 Degree Daily SST AVHRR v2","10.7289/V5SQ8XB5v2")))) {
+        ## this one is deprecated
         out <- rbind(out,
                      bb_source(
                          name = "NOAA OI 1/4 Degree Daily SST AVHRR v2",
@@ -207,4 +217,21 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
     }
 
     out
+}
+
+
+#' Postprocessing: remove redundant near-real-time OISST files
+#'
+#' This function is not intended to be called directly, but rather is specified as a \code{postprocess} option in \code{\link{bb_source}}.
+#'
+#' This function will remove near-real-time (NRT) files that have been superseded by their non-NRT versions.
+#'
+#' @param ... : extra parameters passed automatically by \code{bb_sync}
+#'
+#' @return a list, with components \code{status} (TRUE on success) and \code{deleted_files} (character vector of paths of files that were deleted)
+#'
+#' @export
+bb_oisst_cleanup <- function(...) {
+    ## example file names: oisst-avhrr-v02r01.20250130_preliminary.nc which is superseded by oisst-avhrr-v02r01.20250130.nc
+    bb_nrt_cleanup_inner(findnrt = function(z) grep("_preliminary\\.nc$", z), nrt2rt = function(z) sub("_preliminary\\.nc$", ".nc", z), ...)
 }
