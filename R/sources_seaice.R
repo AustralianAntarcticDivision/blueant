@@ -237,7 +237,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          citation = "Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
                          source_url = "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
                          license = "Please cite",
-                         method = list("bb_handler_rget", level = 5, accept_download = "Antarctic3125/asi.*\\.(hdf|png|tif)"),
+                         method = list("bb_handler_rget", level = 5, accept_download = "Antarctic3125/asi.*\\.(hdf|png|tif)", reject_follow = "(Amundsen|Antarctic3125NoLandMask|AntarcticPeninsula|Casey-Dumont|DavisSea|McMurdo|Neumayer|NeumayerEast|Polarstern|RossSea|ScotiaSea|WeddellSea|WestDavisSea)/"), ## ignore the regional sub-directories
                          postprocess = NULL,
                          access_function = "raadtools::readice",
                          collection_size = 100,
