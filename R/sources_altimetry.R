@@ -78,6 +78,7 @@ sources_altimetry <- function(name,formats,time_resolutions, ...) {
                          password = "",
                          access_function = "raadtools::readssh",
                          collection_size = 3,
+                         postprocess = list("bb_copernicus_cleanup"),
                          data_group = "Altimetry", warn_empty_auth = FALSE))
     }
 
