@@ -17,7 +17,8 @@
 #' * "IBCSO bathymetry": The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 is a digital bathymetric model portraying the seafloor of the circum-Antarctic waters south of 60S. IBCSO Version 1.0 has been compiled from all available bathymetric data collectively gathered by more than 30 institutions from 15 countries, including multibeam and single-beam echo soundings, digitized depths from nautical charts, regional bathymetric gridded compilations, and predicted bathymetry
 #' * "IBCSO chart for printing": The IBCSO Poster, 2013, is a polar stereographic view of the Southern Ocean displaying bathymetric contours south of 60S at a scale of 1:7,000,000
 #' * "IBCSOv2 bathymetry": The International Bathymetric Chart of the Southern Ocean Version 2 (IBCSO v2) is a digital bathymetric model for the area south of 50S with special emphasis on the bathymetry of the Southern Ocean. IBCSO v2 has a resolution of 500 m x 500 m in a Polar Stereographic projection. The total data coverage of the seafloor is 23.79% with a multibeam-only data coverage of 22.32%. The remaining 1.47% include singlebeam and other data. IBCSO v2 is the most authoritative seafloor map of the area south of 50S.
-#' * "IBCSO 2024 Annual Release": 2024 update to IBCSOv2
+#' * "IBCSO 2024 Annual Release": 2024 update to IBCSOv2 - NO LONGER AVAILABLE
+#' * "IBCSO Annual Release": the rolling annual update to IBCSOv2. Note that the annual release is a rolling product, which means that a new version replaces the existing one and that old one becomes unavailable.
 #' * "RTOPO-1 Antarctic ice shelf topography": a consistent dataset of Antarctic ice sheet topography, cavity geometry, and global bathymetry
 #' * "Radarsat Antarctic digital elevation model V2": The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation model (DEM) combines topographic data from a variety of sources to provide consistent coverage of all of Antarctica. Version 2 improves upon the original version by incorporating new topographic data, error corrections, extended coverage, and other modifications
 #' * "New Zealand Regional Bathymetry 2016": The NZ 250m gridded bathymetric data set and imagery, Mitchell et al. 2012, released 2016
@@ -367,17 +368,21 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("IBCSO 2024 Annual Release")))) {
+        stop("IBCSO 2024 Annual Release is no longer available, use 'IBCSO Annual Release' to get the latest annual release. Note that the annual release is a rolling product, which means that a new version replaces the existing one and that old one becomes unavailable.")
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("IBCSO Annual Release")))) {
         out <- rbind(out,
                      bb_source(
-                         name = "IBCSO 2024 Annual Release",
-                         id = "IBCSO2024",
+                         name = "IBCSO Annual Release",
+                         id = "IBCSO_annual",
                          description = "The International Bathymetric Chart of the Southern Ocean Version 2 (IBCSO v2) is a digital bathymetric model for the area south of 50S with special emphasis on the bathymetry of the Southern Ocean. IBCSO v2 has a resolution of 500 m x 500 m in a Polar Stereographic projection. The total data coverage of the seafloor is 23.79% with a multibeam-only data coverage of 22.32%. The remaining 1.47% include singlebeam and other data. IBCSO v2 is the most authoritative seafloor map of the area south of 50S.",
                          doc_url = "http://www.ibcso.org/",
                          citation = "Dorschel B et al. (2022) International Bathymetric Chart of the Southern Ocean Version 2 (IBCSO v2). 10.1038/s41597-022-01366-7",
                          license = "CC-BY",
-                         source_url = "https://ibcso.org/ibcso-2024-annual-release/",
-                         method = list("bb_handler_rget", level = 1, accept_download = "zip$", no_parent_download = FALSE),
-                         postprocess = list("bb_unzip"),
+                         source_url = "https://ibcso.org/ibcso-2025-annual-release/",
+                         method = list("bb_handler_rget", level = 1, accept_download = "tif$", no_parent_download = FALSE),
+                         comment = "Note that the annual release is a rolling product, which means that a new version replaces the existing one and that old one becomes unavailable.",
                          collection_size = 0.5,
                          data_group = "Topography"))
     }
