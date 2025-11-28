@@ -367,7 +367,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group = "Topography"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("IBCSO 2024 Annual Release")))) {
+    if (any(name %in% tolower(c("IBCSO 2024 Annual Release")))) {
         stop("IBCSO 2024 Annual Release is no longer available, use 'IBCSO Annual Release' to get the latest annual release. Note that the annual release is a rolling product, which means that a new version replaces the existing one and that old one becomes unavailable.")
     }
 
@@ -420,7 +420,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          data_group = "Topography"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("New Zealand Regional Bathymetry 2016", "NZBathy_DTM_2016_binary_grid")))) {
+    if (any(name %in% tolower(c("New Zealand Regional Bathymetry 2016", "NZBathy_DTM_2016_binary_grid")))) {
         stop("New Zealand Regional Bathymetry 2016 is no longer available")
         out <- rbind(out,
                      bb_source(
