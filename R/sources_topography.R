@@ -17,11 +17,11 @@
 #' * "IBCSO bathymetry": The International Bathymetric Chart of the Southern Ocean (IBCSO) Version 1.0 is a digital bathymetric model portraying the seafloor of the circum-Antarctic waters south of 60S. IBCSO Version 1.0 has been compiled from all available bathymetric data collectively gathered by more than 30 institutions from 15 countries, including multibeam and single-beam echo soundings, digitized depths from nautical charts, regional bathymetric gridded compilations, and predicted bathymetry
 #' * "IBCSO chart for printing": The IBCSO Poster, 2013, is a polar stereographic view of the Southern Ocean displaying bathymetric contours south of 60S at a scale of 1:7,000,000
 #' * "IBCSOv2 bathymetry": The International Bathymetric Chart of the Southern Ocean Version 2 (IBCSO v2) is a digital bathymetric model for the area south of 50S with special emphasis on the bathymetry of the Southern Ocean. IBCSO v2 has a resolution of 500 m x 500 m in a Polar Stereographic projection. The total data coverage of the seafloor is 23.79% with a multibeam-only data coverage of 22.32%. The remaining 1.47% include singlebeam and other data. IBCSO v2 is the most authoritative seafloor map of the area south of 50S.
-#' * "IBCSO 2024 Annual Release": 2024 update to IBCSOv2 - NO LONGER AVAILABLE
+#' * "IBCSO 2024 Annual Release": NO LONGER AVAILABLE - 2024 update to IBCSOv2
 #' * "IBCSO Annual Release": the rolling annual update to IBCSOv2. Note that the annual release is a rolling product, which means that a new version replaces the existing one and that old one becomes unavailable.
 #' * "RTOPO-1 Antarctic ice shelf topography": a consistent dataset of Antarctic ice sheet topography, cavity geometry, and global bathymetry
 #' * "Radarsat Antarctic digital elevation model V2": The high-resolution Radarsat Antarctic Mapping Project (RAMP) digital elevation model (DEM) combines topographic data from a variety of sources to provide consistent coverage of all of Antarctica. Version 2 improves upon the original version by incorporating new topographic data, error corrections, extended coverage, and other modifications
-#' * "New Zealand Regional Bathymetry 2016": The NZ 250m gridded bathymetric data set and imagery, Mitchell et al. 2012, released 2016
+#' * "New Zealand Regional Bathymetry 2016": NO LONGER AVAILABLE - The NZ 250m gridded bathymetric data set and imagery, Mitchell et al. 2012, released 2016
 #' * "Cryosat-2 digital elevation model": a digital elevation model of Antarctica derived from 6 years of continuous CryoSat-2 measurements
 #' * "Natural Earth 10m physical vector data": Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales
 #' * "GSHHG coastline data": a Global Self-consistent, Hierarchical, High-resolution Geography Database
@@ -421,6 +421,7 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("New Zealand Regional Bathymetry 2016", "NZBathy_DTM_2016_binary_grid")))) {
+        stop("New Zealand Regional Bathymetry 2016 is no longer available")
         out <- rbind(out,
                      bb_source(
                          name = "New Zealand Regional Bathymetry 2016",
@@ -460,8 +461,9 @@ sources_topography <- function(name,formats,time_resolutions, ...) {
                          doc_url = "http://www.naturalearthdata.com/downloads/10m-physical-vectors/",
                          citation = "No permission is needed to use Natural Earth. Crediting the authors is unnecessary. However, if you wish to cite the map data, simply use one of the following. Short text: Made with Natural Earth. Long text: Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
                          license = "PD-CC",
-                         source_url = "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/10m_physical.zip",
-                         method = list("bb_handler_rget"),
+                         ## source_url = "https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/10m_physical.zip", ## this is the source URL given on the web page, but it doesn't work with wget or similar (500 error)
+                         source_url = "https://naciscdn.org/naturalearth/10m/physical/10m_physical.zip", ## this is where the download redirects to
+                         method = list("bb_handler_rget", use_url_directory = FALSE, force_local_filename = "www.naturalearthdata.com/http/www.naturalearthdata.com/download/10m/physical/10m_physical.zip"), ## use these parms to maintain the same file location as previously (as if downloading from https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/10m_physical.zip)
                          postprocess = list("bb_unzip"),
                          collection_size = 0.2,
                          data_group = "Topography"))
