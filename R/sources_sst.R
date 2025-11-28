@@ -223,16 +223,16 @@ sources_sst <- function(name,formats,time_resolutions, ...) {
 
 #' Postprocessing: remove redundant near-real-time OISST files
 #'
-#' This function is not intended to be called directly, but rather is specified as a \code{postprocess} option in \code{\link{bb_source}}.
+#' This function is not intended to be called directly, but rather is specified as a \code{postprocess} option in \code{\link[bowerbird]{bb_source}}.
 #'
 #' This function will remove near-real-time (NRT) files that have been superseded by their non-NRT versions.
 #'
-#' @param ... : extra parameters passed automatically by \code{bb_sync}
+#' @param ... : extra parameters passed automatically by \code{bowerbird::bb_sync}
 #'
 #' @return a list, with components \code{status} (TRUE on success) and \code{deleted_files} (character vector of paths of files that were deleted)
 #'
 #' @export
 bb_oisst_cleanup <- function(...) {
     ## example file names: oisst-avhrr-v02r01.20250130_preliminary.nc which is superseded by oisst-avhrr-v02r01.20250130.nc
-    bb_nrt_cleanup_inner(findnrt = function(z) grep("_preliminary\\.nc$", z), nrt2rt = function(z) sub("_preliminary\\.nc$", ".nc", z), ...)
+    bowerbird:::bb_nrt_cleanup_inner(findnrt = function(z) grep("_preliminary\\.nc$", z), nrt2rt = function(z) sub("_preliminary\\.nc$", ".nc", z), ...)
 }

@@ -7,13 +7,13 @@
 bb_oisst_cleanup(...)
 }
 \arguments{
-\item{...}{: extra parameters passed automatically by \code{bb_sync}}
+\item{...}{: extra parameters passed automatically by \code{bowerbird::bb_sync}}
 }
 \value{
 a list, with components \code{status} (TRUE on success) and \code{deleted_files} (character vector of paths of files that were deleted)
 }
 \description{
-This function is not intended to be called directly, but rather is specified as a \code{postprocess} option in \code{\link{bb_source}}.
+This function is not intended to be called directly, but rather is specified as a \code{postprocess} option in \code{\link[bowerbird]{bb_source}}.
 }
 \details{
 This function will remove near-real-time (NRT) files that have been superseded by their non-NRT versions.
