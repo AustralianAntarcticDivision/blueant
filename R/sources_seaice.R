@@ -132,6 +132,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2", "10.5067/YTTHO2FJQ97K")))) {
+        if (Sys.Date() > as.Date("2026-01-15")) warning("The \"Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations\" are no longer updated")
         h <- switch(hemisphere, south = "S", north = "N", both = "[SN]")
         accept_download <- paste0("PS_", h, "25km.*\\.nc$")
         reject_download <- "\\.(xml|png)$" ## reject these always
