@@ -76,7 +76,6 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2", "10.5067/MPYG15WAA4WX")))) {
-        warning("The data download for the 'Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2' does not currently seem to be returning valid Last-Modified times, which means that we can't skip unchanged files. Even if you set clobber=1 (only download if the remote file is newer than the local copy), it may download every single file anyway. You might wish to use clobber=0 (do not overwrite existing files)")
         if (!is.null(time_resolutions)) {
             chk <- !time_resolutions %in% c("day","month")
             if (any(chk)) stop("unrecognized time_resolutions value for the 'Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2' source, expecting 'day' and/or 'month'")
@@ -94,9 +93,14 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
         ## https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0051.002/1978.11.01/NSIDC0051_SEAICE_PS_S25km_197811_v2.0.nc (for monthly)
         ## https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0051.002/1978.11.01/NSIDC0051_SEAICE_PS_S25km_19781101_v2.0.nc (for daily)
         h <- switch(hemisphere, south = "S", north = "N", both = "[SN]")
-        monthly_accept_follow <- if (!"day" %in% time_resolutions) "01" else "[[:digit:]]{2}" ## only the first of the month for monthly
-        yre <- paste0(if (!is.null(years)) paste0("(", paste(years, collapse = "|"), ")") else "[[:digit:]]{4}")
-        accept_follow <- paste0(yre, "\\.[[:digit:]]{2}\\.", monthly_accept_follow, "/")
+        monthly_accept_follow <- if (!"day" %in% time_resolutions) "(01)" else "([[:digit:]]{2})" ## only the first of the month for monthly
+        yre <- paste0(if (!is.null(years)) paste0("(", paste(years, collapse = "|"), ")") else "([[:digit:]]{4})")
+        ## the accept_follow pattern is ugly because we need to allow the year, year-month, and year-month-day patterns, optionally with year and month restrictions
+        accept_follow <- paste0("/virtual-directory/collections/C3177837840-NSIDC_CPRD/temporal/(",
+                                yre, "$|", ## year only
+                                yre, "/[[:digit:]]{2}$|", ## year-month only
+                                yre, "/[[:digit:]]{2}/", monthly_accept_follow, "$)", ## year-month-day
+                                "/?") ## optional trailing slash
         accept_download <- paste0("PS_", h, "25km")
         reject_download <- "\\.(xml|png)$" ## reject these always
         if (!"day" %in% time_resolutions) {
@@ -110,11 +114,11 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          id = "10.5067/MPYG15WAA4WX",
                          description = "Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to present. Data undergo a quality checking process and are updated annually. Near-real-time data if required are available via the \"Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2\" source.",
                          doc_url = "https://nsidc.org/data/nsidc-0051/versions/2",
-                         source_url = "https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0051.002/",
+                         source_url = "https://cmr.earthdata.nasa.gov/virtual-directory/collections/C3177837840-NSIDC_CPRD/temporal",
                          citation = "DiGirolamo NE, Parkinson CL, Cavalieri DJ, Gloersen P, Zwally HJ (2022, updated yearly). Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2. [Indicate subset used]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/MPYG15WAA4WX. [Date Accessed].",
                          license = "As a condition of using these data, you must include a citation.",
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method = list("bb_handler_earthdata", relative = TRUE, accept_follow = accept_follow, accept_download = accept_download, reject_download = reject_download, level = 2, allow_unrestricted_auth = TRUE),
+                         method = list("bb_handler_earthdata", level = 5, accept_follow = accept_follow, accept_download = accept_download, reject_download = reject_download, allow_unrestricted_auth = TRUE),
                          user = "",
                          password = "",
                          postprocess = NULL,
