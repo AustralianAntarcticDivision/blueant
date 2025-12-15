@@ -128,7 +128,6 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2", "10.5067/YTTHO2FJQ97K")))) {
-        warning("The data download for the 'Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2' does not currently seem to be returning valid Last-Modified times, which means that we can't skip unchanged files. Even if you set clobber=1 (only download if the remote file is newer than the local copy), it may download every single file anyway. You might wish to use clobber=0 (do not overwrite existing files)")
         h <- switch(hemisphere, south = "S", north = "N", both = "[SN]")
         accept_download <- paste0("PS_", h, "25km.*\\.nc$")
         reject_download <- "\\.(xml|png)$" ## reject these always
@@ -139,13 +138,13 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          description = "Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. For older, quality-controlled data see the \"NSIDC SMMR-SSM/I Nasateam sea ice concentration\" source",
                          doc_url = "https://nsidc.org/data/nsidc-0081/versions/2",
                          citation = "Meier WN, Stewart JS, Wilcox H, Hardman MA, Scott DJ (2021) Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2. [Indicate subset used]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/YTTHO2FJQ97K. [Date Accessed].",
-                         source_url = "https://n5eil01u.ecs.nsidc.org/PM/NSIDC-0081.002/",
+                         source_url = "https://cmr.earthdata.nasa.gov/virtual-directory/collections/C3177838875-NSIDC_CPRD/temporal",
                          license = "As a condition of using these data, you must include a citation.",
                          postprocess = NULL,
-                         method = list("bb_handler_earthdata", relative = TRUE, accept_download = accept_download, reject_download = reject_download, level = 2, allow_unrestricted_auth = TRUE),
+                         method = list("bb_handler_earthdata", level = 5, accept_follow = "/virtual-directory/collections/C3177838875-NSIDC_CPRD/temporal/", allow_unrestricted_auth = TRUE),
                          user = "",
                          password = "",
-                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/",
                          access_function = "raadtools::readice",
                          collection_size = 0.2,
                          data_group = "Sea ice"))
