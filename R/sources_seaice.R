@@ -16,7 +16,7 @@
 #' * "Circum-Antarctic landfast sea ice extent": maps of Antarctic landfast sea ice, derived from NASA MODIS imagery. There are 24 maps per year, spanning the 18 year period from March 2000 to Feb 2018
 #' * "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a `formats` parameter which can be one of "filled" or "vector". Accepts a `years` parameter to restrict the data to certain years
 #' * "Polarview Sentinel-1 imagery": Sentinel-1 imagery from polarview.aq. Accepts an `acquisition_date` parameter (default is the last four days including today), a `formats` parameter (one or both of "jpg", "geotiff", default is both), and a `polygon` parameter, which is a polygon within which to search - either a WKT polygon string in EPSG:3031 projection, or an object of class `sfc_POLYGON`, which will be converted to a WKT string internally
-#' * "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4": daily and monthly gridded estimates of sea ice freeboard, derived from along-track freeboard estimates in the ATLAS/ICESat-2 L3A Sea Ice Freeboard product (ATL10)
+#' * "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 5": daily and monthly gridded estimates of sea ice freeboard, derived from ATLAS/ICESat-2 L3A Sea Ice Freeboard (ATL10) along-track freeboard estimates
 #' * "NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4": a Climate Data Record of sea ice concentration from passive microwave data. The CDR algorithm output is a rule-based combination of ice concentration estimates from two well-established algorithms: the NASA Team (NT) algorithm (Cavalieri et al. 1984) and NASA Bootstrap (BT) algorithm (Comiso 1986). The CDR is a consistent, daily and monthly time series of sea ice concentrations from 25 October 1978 through the most recent processing
 #' * "Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2": a near-real-time Climate Data Record (CDR) of sea ice concentration from passive microwave data. The Near-real-time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration (NRT CDR) data set is the near-real-time version of the final NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration. The NRT CDR is designed to fill the temporal gap between updates of the final CDR, occurring every three to six months, and to provide the most recent data
 #' * "OSI SAF Global Low Resolution Sea Ice Drift": ice motion vectors with a time span of 48 hours are estimated by an advanced cross-correlation method (the Continuous MCC, CMCC) on pairs of satellite images. The merged (multi-sensor) dataset is provided here
@@ -374,7 +374,8 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                                     data_group = "Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4", "10.5067/ATLAS/ATL20.004", "ATL20")))) {
+    if (is.null(name) || any(name %in% tolower(c("ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4", "10.5067/ATLAS/ATL20.004")))) {
+        warning("ATLAS/ICESat-2 Sea Ice Freeboard, Version 5 is available, consider using that")
         out <- rbind(out,
                      bb_source(
                          name = "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4",
@@ -382,10 +383,30 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          description = "ATL20 contains daily and monthly gridded estimates of sea ice freeboard, derived from along-track freeboard estimates in the ATLAS/ICESat-2 L3A Sea Ice Freeboard product (ATL10). Data are gridded at 25 km using the SSM/I Polar Stereographic Projection.",
                          doc_url = "https://nsidc.org/data/atl20/versions/4",
                          citation = "Petty AA, Kwok R, Bagnardi M, Ivanoff A, Kurtz N, Lee J, Wimert J, Hancock D (2023) ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 4 [Data Set]. Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/ATLAS/ATL20.004",
-                         source_url = "https://n5eil01u.ecs.nsidc.org/ATLAS/ATL20.004/",
+                         source_url = "https://cmr.earthdata.nasa.gov/virtual-directory/collections/C2753295020-NSIDC_CPRD/temporal",
                          license = "As a condition of using these data, you must cite the use of this data set",
-                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'NSIDC_DATAPOOL_OPS' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         method = list("bb_handler_earthdata", level = 2, relative = TRUE, allow_unrestricted_auth = TRUE, accept_download_extra = "ATL20\\-02.*\\.h5$"),
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/",
+                         method = list("bb_handler_earthdata", level = 5, accept_follow = "/virtual-directory/collections/C2753295020-NSIDC_CPRD/temporal/?", accept_download_extra = "ATL20\\-02.*\\.h5$", allow_unrestricted_auth = TRUE),
+                         comment = "Only southern hemisphere files will be downloaded (\"ATL20-02*.h5\" files). For northern hemisphere, adjust the accept_download_extra to include \"ATL20-01*.h5\" files",
+                         user = "",
+                         password = "",
+                         postprocess = NULL,
+                         collection_size = 0.2,
+                         data_group = "Sea ice", warn_empty_auth = FALSE))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 5", "10.5067/ATLAS/ATL20.005", "ATL20")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 5",
+                         id = "10.5067/ATLAS/ATL20.005",
+                         description = "ATL20 contains daily and monthly gridded estimates of sea ice freeboard, derived from ATLAS/ICESat-2 L3A Sea Ice Freeboard (ATL10) along-track freeboard estimates. Data are gridded at 25 km using the SSM/I Polar Stereographic Projection.",
+                         doc_url = "https://nsidc.org/data/atl20/versions/5",
+                         citation = "Petty AA, Kwok R, Bagnardi M, Ivanoff A, Kurtz N, Lee J, Wimert J, Hancock D (2025) ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard (ATL20, Version 5). Boulder, Colorado USA. NASA National Snow and Ice Data Center Distributed Active Archive Center. https://doi.org/10.5067/ATLAS/ATL20.005",
+                         source_url = "https://cmr.earthdata.nasa.gov/virtual-directory/collections/C3825009052-NSIDC_CPRD/temporal",
+                         license = "As a condition of using these data, you must cite the use of this data set",
+                         authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/",
+                         method = list("bb_handler_earthdata", level = 5, accept_follow = "/virtual-directory/collections/C3825009052-NSIDC_CPRD/temporal/?", accept_download_extra = "ATL20\\-02.*\\.h5$", allow_unrestricted_auth = TRUE),
                          comment = "Only southern hemisphere files will be downloaded (\"ATL20-02*.h5\" files). For northern hemisphere, adjust the accept_download_extra to include \"ATL20-01*.h5\" files",
                          user = "",
                          password = "",
