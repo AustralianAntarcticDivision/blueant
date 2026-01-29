@@ -5,66 +5,52 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.">
 <title>Antarctic and Southern Ocean Environmental Data Sources • blueant</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Open_Sans-0.4.8/font.css" rel="stylesheet">
-<link href="deps/Bebas_Neue-0.4.8/font.css" rel="stylesheet">
-<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Antarctic and Southern Ocean Environmental Data Sources">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Open_Sans-0.4.10/font.css" rel="stylesheet">
+<link href="deps/Bebas_Neue-0.4.10/font.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Antarctic and Southern Ocean Environmental Data Sources">
+<meta name="description" content="A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.">
 <meta property="og:description" content="A collection of data source definitions that can be used with the bowerbird package. These sources define a range of environmental and other data sources useful to Antarctic and Southern Ocean studies.">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="index.html">blueant</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.13</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="articles/blueant.html">Get started</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="articles/blueant.html">Get started</a></li>
+<li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/SO_SDM_data.html">Data for Southern Ocean species distribution modelling</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/SO_SDM_data.html">Data for Southern Ocean species distribution modelling</a></li>
+  </ul>
 </li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/AustralianAntarcticDivision/blueant/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/AustralianAntarcticDivision/blueant/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-home">
 <div class="row">
@@ -108,42 +94,45 @@
 <p>Once the configuration has been defined and the data source added to it, we can run the sync process. We set <code>verbose = TRUE</code> here so that we see additional progress output:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">status</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/bowerbird/reference/bb_sync.html" class="external-link">bb_sync</a></span><span class="op">(</span><span class="va">cf</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Wed Aug 31 09:31:14 2022</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Synchronizing dataset: George V bathymetry</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Source URL c("http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc", "http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc")</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">## --------------------------------------------------------------------------------------------</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  this dataset path is: /tmp/data/public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  downloading file 1 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100m_v3.nc ...  done.</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  downloading file 2 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250m_v3.nc ...  done.</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  downloading file 3 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500m_v3.nc ...  done.</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  downloading file 4 of 4: http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem1000m_v3.nc ...  done.</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Wed Aug 31 09:32:03 2022 dataset synchronization complete: George V bathymetry</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="do">## Fri Feb  2 12:41:52 2024</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="do">## Synchronizing dataset: George V bathymetry</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="do">## --------------------------------------------------------------------------------------------</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="do">##  this dataset path is: /tmp/data/data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/GVdem_2008</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="do">##  downloading file 1 of 5: https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/object/download?prefix=GVdem_2008_netcdf/README ...  file unchanged on server, not downloading.</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="do">##  downloading file 2 of 5: https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/object/download?prefix=GVdem_2008_netcdf/gvdem1000m_v3.nc ...  file unchanged on server, not downloading.</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="do">##  downloading file 3 of 5: https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/object/download?prefix=GVdem_2008_netcdf/gvdem100m_v3.nc ...  done.</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="do">##  downloading file 4 of 5: https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/object/download?prefix=GVdem_2008_netcdf/gvdem250m_v3.nc ...  done.</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="do">##  downloading file 5 of 5: https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/object/download?prefix=GVdem_2008_netcdf/gvdem500m_v3.nc ...  done.</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="do">## Fri Feb  2 12:42:36 2024 dataset synchronization complete: George V bathymetry</span></span></code></pre></div>
 <p>Congratulations! You now have your own local copy of this data set. The files in this data set have been stored in a data-source-specific subdirectory of our local file root, with details given by the returned <code>status</code> object:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myfiles</span> <span class="op">&lt;-</span> <span class="va">status</span><span class="op">$</span><span class="va">files</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">myfiles</span></span>
-<span><span class="co">## # A tibble: 4 × 3</span></span>
+<span><span class="co">## # A tibble: 5 × 3</span></span>
 <span><span class="co">##   url                                                                           </span></span>
 <span><span class="co">##   &lt;chr&gt;                                                                         </span></span>
-<span><span class="co">## 1 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100…</span></span>
-<span><span class="co">## 2 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem250…</span></span>
-<span><span class="co">## 3 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem500…</span></span>
-<span><span class="co">## 4 http://public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem100…</span></span>
+<span><span class="co">## 1 https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/…</span></span>
+<span><span class="co">## 2 https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/…</span></span>
+<span><span class="co">## 3 https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/…</span></span>
+<span><span class="co">## 4 https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/…</span></span>
+<span><span class="co">## 5 https://data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF1/…</span></span>
 <span><span class="co">##   file                                                                          </span></span>
 <span><span class="co">##   &lt;chr&gt;                                                                         </span></span>
-<span><span class="co">## 1 /tmp/data/public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem…</span></span>
-<span><span class="co">## 2 /tmp/data/public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem…</span></span>
-<span><span class="co">## 3 /tmp/data/public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem…</span></span>
-<span><span class="co">## 4 /tmp/data/public.services.aad.gov.au/datasets/science/GVdem_2008_netcdf/gvdem…</span></span>
-<span><span class="co">##   note      </span></span>
-<span><span class="co">##   &lt;chr&gt;     </span></span>
-<span><span class="co">## 1 downloaded</span></span>
-<span><span class="co">## 2 downloaded</span></span>
-<span><span class="co">## 3 downloaded</span></span>
-<span><span class="co">## 4 downloaded</span></span></code></pre></div>
+<span><span class="co">## 1 /tmp/data/data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF…</span></span>
+<span><span class="co">## 2 /tmp/data/data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF…</span></span>
+<span><span class="co">## 3 /tmp/data/data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF…</span></span>
+<span><span class="co">## 4 /tmp/data/data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF…</span></span>
+<span><span class="co">## 5 /tmp/data/data.aad.gov.au/eds/api/dataset/B6337379-D42F-4340-BCFB-1A154D7C3FF…</span></span>
+<span><span class="co">##   note         </span></span>
+<span><span class="co">##   &lt;chr&gt;        </span></span>
+<span><span class="co">## 1 existing copy</span></span>
+<span><span class="co">## 2 existing copy</span></span>
+<span><span class="co">## 3 downloaded   </span></span>
+<span><span class="co">## 4 downloaded   </span></span>
+<span><span class="co">## 5 downloaded</span></span></code></pre></div>
 <p>The data sources provided by blueant can be read, manipulated, and plotted using a range of other R packages, including <a href="https://github.com/AustralianAntarcticDivision/raadtools" class="external-link">RAADTools</a> and <a href="https://cran.r-project.org/package=raster" class="external-link">raster</a>. In this case the data files are netcdf, which can be read by <code>raster</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/raster" class="external-link">raster</a></span><span class="op">)</span></span>
@@ -218,18 +207,10 @@
 <div class="section level4">
 <h4 id="cmems-global-gridded-ssh-near-real-time">CMEMS global gridded SSH near-real-time<a class="anchor" aria-label="anchor" href="#cmems-global-gridded-ssh-near-real-time"></a>
 </h4>
-<p>For the Global Ocean - Multimission altimeter satellite gridded sea surface heights and derived variables computed with respect to a twenty-year mean. Previously distributed by Aviso+, no change in the scientific content. All the missions are homogenized with respect to a reference mission which is currently Jason-3. The acquisition of various altimeter data is a few days at most. VARIABLES</p>
-<ul>
-<li><p>sea_surface_height_above_sea_level (SSH)</p></li>
-<li><p>surface_geostrophic_eastward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)</p></li>
-<li><p>surface_geostrophic_northward_sea_water_velocity_assuming_sea_level_for_geoid (UVG)</p></li>
-<li><p>sea_surface_height_above_geoid (SSH)</p></li>
-<li><p>surface_geostrophic_eastward_sea_water_velocity (UVG)</p></li>
-<li><p>surface_geostrophic_northward_sea_water_velocity (UVG)</p></li>
-</ul>
+<p>Altimeter satellite gridded Sea Level Anomalies (SLA) computed with respect to a twenty-year [1993, 2012] mean. The SLA is estimated by Optimal Interpolation, merging the L3 along-track measurement from the different altimeter missions available. Part of the processing is fitted to the Global ocean. (see QUID document or <a href="http://duacs.cls.fr" class="external-link uri">http://duacs.cls.fr</a> pages for processing details). The product gives additional variables (i.e. Absolute Dynamic Topography and geostrophic currents (absolute and anomalies)). It serves in delayed-time applications. This product is processed by the DUACS multimission altimeter data processing system.</p>
 <p>Authentication note: Copernicus Marine login required, see <a href="http://marine.copernicus.eu/services-portfolio/register-now/" class="external-link uri">http://marine.copernicus.eu/services-portfolio/register-now/</a></p>
 <p>Approximate size: 3 GB</p>
-<p>Documentation link: <a href="http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&amp;view=details&amp;product_id=SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046" class="external-link uri">http://marine.copernicus.eu/services-portfolio/access-to-products/?option=com_csw&amp;view=details&amp;product_id=SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046</a></p>
+<p>Documentation link: <a href="https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_NRT_008_046/description" class="external-link uri">https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_NRT_008_046/description</a></p>
 </div>
 <div class="section level4">
 <h4 id="cmems-global-gridded-ssh-reprocessed-1993-ongoing">CMEMS global gridded SSH reprocessed (1993-ongoing)<a class="anchor" aria-label="anchor" href="#cmems-global-gridded-ssh-reprocessed-1993-ongoing"></a>
@@ -245,15 +226,7 @@
 </ul>
 <p>Authentication note: Copernicus Marine login required, see <a href="http://marine.copernicus.eu/services-portfolio/register-now/" class="external-link uri">http://marine.copernicus.eu/services-portfolio/register-now/</a></p>
 <p>Approximate size: 310 GB</p>
-<p>Documentation link: <a href="https://resources.marine.copernicus.eu/?option=com_csw&amp;view=details&amp;product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047" class="external-link uri">https://resources.marine.copernicus.eu/?option=com_csw&amp;view=details&amp;product_id=SEALEVEL_GLO_PHY_L4_REP_OBSERVATIONS_008_047</a></p>
-</div>
-<div class="section level4">
-<h4 id="cnes-cls2013-mean-dynamic-topography">CNES-CLS2013 Mean Dynamic Topography<a class="anchor" aria-label="anchor" href="#cnes-cls2013-mean-dynamic-topography"></a>
-</h4>
-<p>CNES-CLS2013 Mean dynamic topography over the 1993-2012 period of the sea surface height above geoid. The MDT_CNES-CLS13 is an estimate of the ocean MDT for the 1993-2012 period. Since April 2014 (Duacs 2014, v15.0 version), the Ssalto/Duacs (M)SLA products are computed relative to 1993-2012 period that is consistent with this new MDT CNES-CLS13. Based on 2 years of GOCE data, 7 years of GRACE data, and 20 years of altimetry and in-situ data (hydrologic and drifters data).</p>
-<p>Authentication note: AVISO login required, see <a href="https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html" class="external-link uri">https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html</a></p>
-<p>Approximate size: 0.1 GB</p>
-<p>Documentation link: <a href="https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html" class="external-link uri">https://www.aviso.altimetry.fr/en/data/products/auxiliary-products/mdt.html</a></p>
+<p>Documentation link: <a href="https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_MY_008_047/description" class="external-link uri">https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L4_MY_008_047/description</a></p>
 </div>
 <div class="section level4">
 <h4 id="delayed-time-finite-size-lyapunov-exponents">Delayed-time finite size Lyapunov exponents<a class="anchor" aria-label="anchor" href="#delayed-time-finite-size-lyapunov-exponents"></a>
@@ -264,12 +237,20 @@
 <p>Documentation link: <a href="https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html" class="external-link uri">https://www.aviso.altimetry.fr/en/data/products/value-added-products/fsle-finite-size-lyapunov-exponents/fsle-description.html</a></p>
 </div>
 <div class="section level4">
+<h4 id="global-ocean-mean-dynamic-topography">Global Ocean Mean Dynamic Topography<a class="anchor" aria-label="anchor" href="#global-ocean-mean-dynamic-topography"></a>
+</h4>
+<p>Mean Dynamic Topography that combines the global CNES-CLS-2022 MDT, the Black Sea CMEMS2020 MDT and the Med Sea CMEMS2020 MDT. It is an estimate of the mean over the 1993-2012 period of the sea surface height above geoid. This is consistent with the reference time period also used in the DUACS products.</p>
+<p>Authentication note: Copernicus Marine login required, see <a href="http://marine.copernicus.eu/services-portfolio/register-now/" class="external-link uri">http://marine.copernicus.eu/services-portfolio/register-now/</a></p>
+<p>Approximate size: 0.1 GB</p>
+<p>Documentation link: <a href="https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_MDT_008_063/description" class="external-link uri">https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_MDT_008_063/description</a></p>
+</div>
+<div class="section level4">
 <h4 id="gridded-sea-level-heights-and-geostrophic-currents---antarctic-ocean">Gridded Sea Level Heights and geostrophic currents - Antarctic Ocean<a class="anchor" aria-label="anchor" href="#gridded-sea-level-heights-and-geostrophic-currents---antarctic-ocean"></a>
 </h4>
 <p>Experimental Ssalto/Duacs gridded multimission altimeter products dedicated to Antarctic Ocean. This dataset is one of the experimental products which are available on the SSALTO/DUACS experimental products. Multimission sea level heights computed with respect to a twenty-year mean and associated geostrophic current anomalies. The formal error is also included.</p>
 <p>Authentication note: AVISO login required, see <a href="https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html" class="external-link uri">https://www.aviso.altimetry.fr/en/data/data-access/endatadata-accessregistration-form.html</a></p>
 <p>Approximate size: 4.5 GB</p>
-<p>Documentation link: <a href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/regional/antarctic-ocean-gridded-sea-level-heights.html" class="external-link uri">https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/regional/antarctic-ocean-gridded-sea-level-heights.html</a></p>
+<p>Documentation link: <a href="https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/regional/antarctic-sea-level-heights.html" class="external-link uri">https://www.aviso.altimetry.fr/en/data/products/sea-surface-height-products/regional/antarctic-sea-level-heights.html</a></p>
 </div>
 <div class="section level4">
 <h4 id="near-real-time-finite-size-lyapunov-exponents">Near-real-time finite size Lyapunov exponents<a class="anchor" aria-label="anchor" href="#near-real-time-finite-size-lyapunov-exponents"></a>
@@ -282,23 +263,15 @@
 <div class="section level4">
 <h4 id="waverys-global-ocean-waves-reanalysis">WAVERYS Global Ocean Waves Reanalysis<a class="anchor" aria-label="anchor" href="#waverys-global-ocean-waves-reanalysis"></a>
 </h4>
-<p>GLOBAL_REANALYSIS_WAV_001_032 for the global wave reanalysis describing past sea states since years 1993. This product also bears the name of WAVERYS within the GLO-HR MFC, for correspondence to other global multi-year products like GLORYS, BIORYS, etc. The core of WAVERYS is based on the MFWAM model, a third generation wave model that calculates the wave spectrum, i.e. the distribution of sea state energy in frequency and direction on a 1/5-degree irregular grid. Average wave quantities derived from this wave spectrum, such as the SWH (significant wave height) or the average wave period, are delivered on a regular 1/5-degree grid with a 3h time step. The wave spectrum is discretized into 30 frequencies obtained from a geometric sequence of first member 0.035 Hz and a reason 7.5. WAVERYS takes into account oceanic currents from the GLORYS12 physical ocean reanalysis and assimilates significant wave height observed from historical altimetry missions and directional wave spectra from Sentinel 1 SAR from 2017 onwards.</p>
+<p>Global wave reanalysis describing past sea states since years 1993. This product also bears the name of WAVERYS within the GLO-HR MFC. for correspondence to other global multi-year products like GLORYS. BIORYS. etc. The core of WAVERYS is based on the MFWAM model. a third generation wave model that calculates the wave spectrum. i.e. the distribution of sea state energy in frequency and direction on a 1/5 degree irregular grid. Average wave quantities derived from this wave spectrum. such as the SWH (significant wave height) or the average wave period. are delivered on a regular 1/5 degree grid with a 3h time step. The wave spectrum is discretized into 30 frequencies obtained from a geometric sequence of first member 0.035 Hz and a reason 7.5. WAVERYS takes into account oceanic currents from the GLORYS12 physical ocean reanalysis and assimilates significant wave height observed from historical altimetry missions and directional wave spectra from Sentinel 1 SAR from 2017 onwards.</p>
 <p>Authentication note: Copernicus Marine login required, see <a href="http://marine.copernicus.eu/services-portfolio/register-now/" class="external-link uri">http://marine.copernicus.eu/services-portfolio/register-now/</a></p>
 <p>Approximate size: 1100 GB</p>
-<p>Documentation link: <a href="https://resources.marine.copernicus.eu/?option=com_csw&amp;view=details&amp;product_id=GLOBAL_REANALYSIS_WAV_001_032" class="external-link uri">https://resources.marine.copernicus.eu/?option=com_csw&amp;view=details&amp;product_id=GLOBAL_REANALYSIS_WAV_001_032</a></p>
+<p>Documentation link: <a href="https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_WAV_001_032/description" class="external-link uri">https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_WAV_001_032/description</a></p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="data-group-biology">Data group: Biology<a class="anchor" aria-label="anchor" href="#data-group-biology"></a>
 </h3>
-<div class="section level4">
-<h4 id="cmems-global-ocean-low-and-mid-trophic-levels-biomass-content-hindcast">CMEMS Global ocean low and mid trophic levels biomass content hindcast<a class="anchor" aria-label="anchor" href="#cmems-global-ocean-low-and-mid-trophic-levels-biomass-content-hindcast"></a>
-</h4>
-<p>The Low and Mid-Trophic Levels (LMTL) reanalysis for global ocean is produced at CLS on behalf of Global Ocean Marine Forecasting Center. It provides 2D fields of biomass content of zooplankton and six groups of micronekton. It uses the LMTL component of [CLS dynamical population model]](<a href="http://www.seapodym.eu/" class="external-link uri">http://www.seapodym.eu/</a>). No data assimilation has been done. This product also contains forcing data: net primary production, euphotic depth, depth of each pelagic layers zooplankton and micronekton inhabit, average temperature and currents over pelagic layers.</p>
-<p>Authentication note: Copernicus Marine login required, see <a href="http://marine.copernicus.eu/services-portfolio/register-now/" class="external-link uri">http://marine.copernicus.eu/services-portfolio/register-now/</a></p>
-<p>Approximate size: not specified</p>
-<p>Documentation link: <a href="https://resources.marine.copernicus.eu/product-detail/GLOBAL_MULTIYEAR_BGC_001_033/INFORMATION" class="external-link uri">https://resources.marine.copernicus.eu/product-detail/GLOBAL_MULTIYEAR_BGC_001_033/INFORMATION</a></p>
-</div>
 <div class="section level4">
 <h4 id="myctobase">Myctobase<a class="anchor" aria-label="anchor" href="#myctobase"></a>
 </h4>
@@ -318,29 +291,43 @@
 </p>
 <p>The taxonomic name for each individual was verified against the World Register of Marine Species (<a href="http://www.marinespecies.org/" class="external-link uri">http://www.marinespecies.org/</a>).</p>
 
-<p>Approximate size: 0.009 GB</p>
+<p>Approximate size: 0 GB</p>
 <p>Documentation link: <a href="https://doi.org/10.5281/zenodo.6809070" class="external-link uri">https://doi.org/10.5281/zenodo.6809070</a></p>
 </div>
 <div class="section level4">
 <h4 id="scar-raatd-data-filtered">SCAR RAATD data filtered<a class="anchor" aria-label="anchor" href="#scar-raatd-data-filtered"></a>
 </h4>
-<p>Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the ‘filtered’ version of the data files. These files contain position estimates that have been processed using a state-space model in order to estimate locations at regular time intervals. For technical details of the filtering process, consult the data paper. The filtering code can be found in the <a href="https://github.com/SCAR/RAATD" class="external-link uri">https://github.com/SCAR/RAATD</a> repository.</p>
-<p>Approximate size: 1.2 GB</p>
+<p>The Retrospective Analysis of Antarctic Tracking Data (RAATD) is a Scientific Committee for Antarctic Research (SCAR) project led jointly by the Expert Groups on Birds and Marine Mammals and Antarctic Biodiversity Informatics, and endorsed by the Commission for the Conservation of Antarctic Marine Living Resources. The RAATD project team consolidated tracking data for multiple species of Antarctic meso- and top-predators to identify Areas of Ecological Significance. These datasets constitute the compiled tracking data from a large number of research groups that have worked in the Antarctic since the 1990s.</p>
+<p>This metadata record pertains to the “filtered” version of the data files. These files contain position estimates that have been processed using a state-space model in order to estimate locations at regular time intervals. For technical details of the filtering process, consult the data paper. The filtering code can be found in the <a href="https://github.com/SCAR/RAATD" class="external-link uri">https://github.com/SCAR/RAATD</a> repository.</p>
+<p>This data set comprises one metadata csv file that describes all deployments, along with data files (3 files for each of 17 species). For each species there is:</p>
+<ul>
+<li><p>an RDS file that contains the fitted filter model object and model predictions (this file is RDS format that can be read by the R statistical software package)</p></li>
+<li><p>a PDF file that shows the quality control results for each individual model</p></li>
+<li><p>a CSV file containing the interpolated position estimates</p></li>
+</ul>
+<p>For details of the file contents and formats, consult the data paper.</p>
+<p>The data are also available in a standardized version (see <a href="https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018_Standardised" class="external-link uri">https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018_Standardised</a>) that contain position estimates as provided by the original data collectors (generally, raw Argos or GPS locations, or estimated GLS locations) without state-space filtering.</p>
+<p>Approximate size: 1.6 GB</p>
 <p>Documentation link: <a href="https://doi.org/10.4225/15/5afcadad6c130" class="external-link uri">https://doi.org/10.4225/15/5afcadad6c130</a></p>
 </div>
 <div class="section level4">
 <h4 id="scar-raatd-data-standardised">SCAR RAATD data standardised<a class="anchor" aria-label="anchor" href="#scar-raatd-data-standardised"></a>
 </h4>
-<p>Tracking data from 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. This data set is the ‘standardized’ version of the data files. These files contain position estimates as provided by the original data collectors (generally, raw Argos or GPS locations, or estimated GLS locations). Original data files have been converted to a common format and quality-checking applied, but have not been further filtered or interpolated.</p>
+<p>The Retrospective Analysis of Antarctic Tracking Data (RAATD) is a Scientific Committee for Antarctic Research (SCAR) project led jointly by the Expert Groups on Birds and Marine Mammals and Antarctic Biodiversity Informatics, and endorsed by the Commission for the Conservation of Antarctic Marine Living Resources. The RAATD project team consolidated tracking data for multiple species of Antarctic meso- and top-predators to identify Areas of Ecological Significance. These datasets constitute the compiled tracking data from a large number of research groups that have worked in the Antarctic since the 1990s.</p>
+<p>This metadata record pertains to the “standardized” version of the data files. These files contain position estimates as provided by the original data collectors (generally, raw Argos or GPS locations, or estimated GLS locations). Original data files have been converted to a common format and quality-checking applied, but have not been further filtered or interpolated.</p>
+<p>Periods at the start or end of deployments were identified and discarded if there was evidence that location data during these periods did not represent the animals’ at-sea movement. For example, tags may have been turned on early (thereby recording locations prior to their deployment on animals) or animals may have remained at the deployment site, e.g. the breeding colony, for an extended period at the start or end of the tag deployment. Some tracks also showed a marked deterioration in the frequency and quality (for PTTs) of location estimates near the end of a track. Such locations were visually identified based on maps of each track in conjunction with plots of location distance from deployment site against time. This information is captured in the location_to_keep column appended to each species’ data file (1 = keep, 0 = discard). The code used to trim the tracks can be found in the <a href="https://github.com/SCAR/RAATD" class="external-link uri">https://github.com/SCAR/RAATD</a> repository.</p>
+<p>This data set comprises one metadata csv file that describes all deployments, along with data csv files (17 files, one per species) containing the position data. For details of the file formats, consult the data paper.</p>
+<p>The data are also available in a filtered version (see <a href="https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018" class="external-link uri">https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018</a>) that have been processed using a state-space model in order to estimate locations at regular time intervals.</p>
 <p>Approximate size: 0.3 GB</p>
-<p>Documentation link: <a href="https://doi.org/10.4225/15/5afcb927e8162" class="external-link uri">https://doi.org/10.4225/15/5afcb927e8162</a></p>
+<p>Documentation link: <a href="https://doi.org/10.1038/s41597-020-0406-x" class="external-link uri">https://doi.org/10.1038/s41597-020-0406-x</a></p>
 </div>
 <div class="section level4">
 <h4 id="scar-raatd-model-outputs">SCAR RAATD model outputs<a class="anchor" aria-label="anchor" href="#scar-raatd-model-outputs"></a>
 </h4>
-<p>Single-species habitat importance maps for 17 species of Antarctic and subantarctic seabirds, marine mammals, and penguins. The data also include the integrated maps that incorporate all species (weighted by colony size, and unweighted)</p>
-<p>Approximate size: 0.3 GB</p>
-<p>Documentation link: <a href="https://doi.org/10.26179/5d64b361ca8ec" class="external-link uri">https://doi.org/10.26179/5d64b361ca8ec</a></p>
+<p>We assembled tracking data from seabirds (n = 12 species) and marine mammals (n = 5 species), collected between 1991 and 2016, from across the Antarctic predator research community. See <a href="https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018_Standardised" class="external-link uri">https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018_Standardised</a> and <a href="https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018_Filtered" class="external-link uri">https://data.aad.gov.au/metadata/records/SCAR_EGBAMM_RAATD_2018_Filtered</a> for the tracking data. Habitat selectivity modelling was applied to these tracking data in order to identify the environmental characteristics important to each species, and to produce circum-Antarctic predictions of important geographic space for each individual species. The individual species maps were then combined to identify regions important to our full suite of species. This approach enabled us to account for incomplete tracking coverage (i.e., colonies from which no animals have been tracked) and to produce an integrated and spatially explicit assessment of areas of ecological importance across the Southern Ocean.</p>
+<p>The data attached to this metadata record include the single-species maps for Adelie, emperor, king, macaroni, and royal penguins; Antarctic and white-chinned petrels; black-browed, grey-headed, light-mantled, sooty, and wandering albatross; humpback whales; Antarctic fur seal, southern elephant seals, and crabeater and Weddell seals. The data also include the integrated maps that incorporate all species (weighted by colony size, and unweighted). See the paper and its supplementary information for full details on the modelling process and discussion of the model outputs.</p>
+<p>Approximate size: 0.1 GB</p>
+<p>Documentation link: <a href="https://doi.org/10.1038/s41586-020-2126-y" class="external-link uri">https://doi.org/10.1038/s41586-020-2126-y</a></p>
 </div>
 <div class="section level4">
 <h4 id="seapodym-zooplankton--micronekton-weekly-potential-and-biomass-distribution">SEAPODYM Zooplankton &amp; Micronekton weekly potential and biomass distribution<a class="anchor" aria-label="anchor" href="#seapodym-zooplankton--micronekton-weekly-potential-and-biomass-distribution"></a>
@@ -353,9 +340,19 @@
 <div class="section level4">
 <h4 id="southern-ocean-continuous-plankton-recorder">Southern Ocean Continuous Plankton Recorder<a class="anchor" aria-label="anchor" href="#southern-ocean-continuous-plankton-recorder"></a>
 </h4>
-<p>Continuous Plankton Recorder (CPR) surveys from the Southern Ocean. Zooplankton species, numbers and abundance data are recorded on a continuous basis while vessels are in transit</p>
+<p>This dataset contains results from Continuous Plankton Recorder (CPR) surveys in the Southern Ocean. When the opportunity arises, zooplankton species, numbers and abundance data are recorded on a continuous basis as vessels steam through the area between Australia and Antarctica, including Heard and Macquarie Islands. Observations have been made since June 1990 and are ongoing. Obviously the observations are not continuous over the region with time.</p>
+<p>Many of the original SO-CPR logbooks from the various voyages have also been scanned, and are available via the Australian Antarctic Data Centre’s Reports Register.</p>
+<p>Zooplankton have been identified to lowest possible taxon, usually species, and counted for each segment. For copepods, copepodites and for some species nauplii (e.g. Rhincalanus gigas) have been counted separately, and for euphausiids, naupliar, calyptopis and furcilia developmental stages are identified.</p>
+<p>The fields in this dataset are: Tow_number - the CPR tow number Ship_name - the name of the ship on which the tow was conducted Season - two-year Antarctic season based around the austral summer, e.g. ‘2000-01’ runs from July 2000 to June 2001 Latitude - the decimal latitude of the segment sample Longitude - the decimal longitude of the segment sample Observation_date - UTC date and time of the segment sample in ISO8601 format (yyyy-mm-ddTHH:MMZ) Observation_date_year - the observation date year Observation_date_month - the observation date month Observation_date_day - the observation date day Observation_date_hour - the observation date hour Observation_date_minute - the observation date minute Observation_date_time_zone - the observation date time zone (0=UTC) Segment_number - the individual segment number within each tow Segment_length - the distance travelled by the CPR during this segment (nautical miles). This is the true segment length as used in the Geocoding program used to cut the silk, and to calculate positions and average environmental data for each segment. In theory, all segments are 5 nautical miles long. However, this wasn’t always the case with early Aurora Australis tows, where it was assumed that each marked segment was 5 nautical miles whereas each tow had subtle variations in silk advancement, depending on the wear of the cassette or travel with or against a current. True segment length has since been recalculated. At other times, some silks have been incorrectly cut and the true length has again been recalculated. The last segment of each tow may be less than 5 nautical miles. This field can be used to standardise species counts to say 5 nautical miles or to a theoretical volume filtered by multiplying the distance travelled by aperture area (12.7 x 12.7 mm): Volume Filtered = Distance (n miles) x 1852 metres x 0.0127^2. A 5 nautical mile segment theoretically represents 1.49 m^3.</p>
+<p>Total_abundance - total count of all zooplankton in a segment</p>
+<p>Phytoplankton_colour_index - visual estimation of the green colour of the silk mesh. Values are ‘No Colour’, ‘Very Pale Green’, ‘Pale Green’, or ‘Green’. This colouration is due to the green chlorophyll pigments derived from chloroplasts of intact and broken cells and small unarmoured flagellates. It may provide an indicator of phytoplankton standing stock, although in the Southern Ocean there are some diatoms that are quite common on the silks but as they have very low amounts of chlorophyll the colour doesn’t register in the PCI analysis.</p>
+<p>Fluorescence - water fluoresence measured by the vessel, averaged for the segment (arbitrary units). See Quality notes for more information.</p>
+<p>Salinity - water salinity measured by the vessel, averaged for the segment (psu). See Quality notes for more information.</p>
+<p>Water_temperature - water temperature measured by the vessel (degrees Celsius). See Quality notes for more information.</p>
+<p>Photosynthetically_active_radiation - photosynthetically active radiation measured by the vessel (micro-Einsteins m-2 s-1). This is not available on some vessels but has been included as a useful parameter to help differentiate data from night and day.</p>
+<p>The remaining fields (‘Abylidae’ through to ‘Vibilia_sp’) are zooplankton taxon names. The entries in these columns are the counts of each taxon in the segment.</p>
 <p>Approximate size: 0.1 GB</p>
-<p>Documentation link: <a href="https://doi.org/10.26179/fbfd-0828" class="external-link uri">https://doi.org/10.26179/fbfd-0828</a></p>
+<p>Documentation link: <a href="https://doi.org/10.26179/vthe-7b65" class="external-link uri">https://doi.org/10.26179/vthe-7b65</a></p>
 </div>
 </div>
 <div class="section level3">
@@ -375,8 +372,85 @@
 <div class="section level4">
 <h4 id="southern-ocean-marine-environmental-data">Southern Ocean marine environmental data<a class="anchor" aria-label="anchor" href="#southern-ocean-marine-environmental-data"></a>
 </h4>
-<p>A collection of gridded marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data.</p>
-<p>Approximate size: 0.1 GB</p>
+<p>This dataset is a collection of marine environmental data layers suitable for use in Southern Ocean species distribution modelling. All environmental layers have been generated at a spatial resolution of 0.1 degrees, covering the Southern Ocean extent (80 degrees S - 45 degrees S, -180 - 180 degrees). The layers include information relating to bathymetry, sea ice, ocean currents, primary production, particulate organic carbon, and other oceanographic data.</p>
+<p>An example of reading and using these data layers in R can be found at <a href="https://australianantarcticdivision.github.io/blueant/articles/SO_SDM_data.html" class="external-link uri">https://australianantarcticdivision.github.io/blueant/articles/SO_SDM_data.html</a>.</p>
+<p>The following layers are provided:</p>
+<ol style="list-style-type: decimal">
+<li>Layer name: depth Description: Bathymetry. Downloaded from GEBCO 2014 (0.0083 degrees = 30sec arcmin resolution) and set at resolution 0.1 degrees. Then completed with the bathymetry layer manually corrected and provided in Fabri-Ruiz et al. (2017) Value range: -8038.722 - 0 Units: m</li>
+</ol>
+<p>Source: This study. Derived from GEBCO URL: <a href="https://www.gebco.net/data_and_products/gridded_bathymetry_data/" class="external-link uri">https://www.gebco.net/data_and_products/gridded_bathymetry_data/</a> Citation: Fabri-Ruiz S, Saucede T, Danis B and David B (2017). Southern Ocean Echinoids database_An updated version of Antarctic, Sub-Antarctic and cold temperate echinoid database. ZooKeys, (697), 1.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Layer name: geomorphology Description: Last update on biodiversity.aq portal. Derived from O’Brien et al. (2009) seafloor geomorphic feature dataset. Mapping based on GEBCO contours, ETOPO2, seismic lines). 27 categories Value range: 27 categories Units: categorical Source: This study. Derived from Australian Antarctic Data Centre URL: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a> Citation: O’Brien, P.E., Post, A.L., and Romeyn, R. (2009) Antarctic-wide geomorphology as an aid to habitat mapping and locating vulnerable marine ecosystems. CCAMLR VME Workshop 2009. Document WS-VME-09/10</p></li>
+<li><p>Layer name: sediments Description: Sediment features Value range: 14 categories Units: categorical Source: Griffiths 2014 (unpublished) URL: <a href="http://share.biodiversity.aq/GIS/antarctic/" class="external-link uri">http://share.biodiversity.aq/GIS/antarctic/</a></p></li>
+<li><p>Layer name: slope Description: Seafloor slope derived from bathymetry with the terrain function of raster R package. Computation according to Horn (1981), ie option neighbor=8. The computation was done on the GEBCO bathymetry layer (0.0083 degrees resolution) and the resolution was then changed to 0.1 degrees. Unit set at degrees. Value range: 0.000252378 - 16.94809 Units: degrees Source: This study. Derived from GEBCO URL: <a href="https://www.gebco.net/data_and_products/gridded_bathymetry_data/" class="external-link uri">https://www.gebco.net/data_and_products/gridded_bathymetry_data/</a> Citation: Horn, B.K.P., 1981. Hill shading and the reflectance map. Proceedings of the IEEE 69:14-47</p></li>
+<li><p>Layer name: roughness Description: Seafloor roughness derived from bathymetry with the terrain function of raster R package. Roughness is the difference between the maximum and the minimum value of a cell and its 8 surrounding cells. The computation was done on the GEBCO bathymetry layer (0.0083 degrees resolution) and the resolution was then changed to 0.1 degrees. Value range: 0 - 5171.278 Units: unitless Source: This study. Derived from GEBCO URL: <a href="https://www.gebco.net/data_and_products/gridded_bathymetry_data/" class="external-link uri">https://www.gebco.net/data_and_products/gridded_bathymetry_data/</a></p></li>
+<li><p>Layer name: mixed layer depth Description: Summer mixed layer depth climatology from ARGOS data. Regridded from 2-degree grid using nearest neighbour interpolation Value range: 13.79615 - 461.5424 Units: m Source: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a></p></li>
+<li><p>Layer name: seasurface_current_speed Description: Current speed near the surface (2.5m depth), derived from the CAISOM model (Galton-Fenzi et al. 2012, based on ROMS model) Value range: 1.50E-04 - 1.7 Units: m/s Source: This study. Derived from Australian Antarctic Data Centre URL: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a> Citation: see Galton-Fenzi BK, Hunter JR, Coleman R, Marsland SJ, Warner RC (2012) Modeling the basal melting and marine ice accretion of the Amery Ice Shelf. Journal of Geophysical Research: Oceans, 117, C09031. <a href="http://dx.doi.org/10.1029/2012jc008214" class="external-link uri">http://dx.doi.org/10.1029/2012jc008214</a>, <a href="https://data.aad.gov.au/metadata/records/polar_environmental_data" class="external-link uri">https://data.aad.gov.au/metadata/records/polar_environmental_data</a></p></li>
+<li><p>Layer name: seafloor_current_speed Description: Current speed near the sea floor, derived from the CAISOM model (Galton-Fenzi et al. 2012, based on ROMS) Value range: 3.40E-04 - 0.53 Units: m/s Source: This study. Derived from Australian Antarctic Data Centre URL: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a> Citation: see Galton-Fenzi BK, Hunter JR, Coleman R, Marsland SJ, Warner RC (2012) Modeling the basal melting and marine ice accretion of the Amery Ice Shelf. Journal of Geophysical Research: Oceans, 117, C09031. <a href="http://dx.doi.org/10.1029/2012jc008214" class="external-link uri">http://dx.doi.org/10.1029/2012jc008214</a>, <a href="https://data.aad.gov.au/metadata/records/polar_environmental_data" class="external-link uri">https://data.aad.gov.au/metadata/records/polar_environmental_data</a></p></li>
+<li><p>Layer name: distance_antarctica Description: Distance to the nearest part of the Antarctic continent Value range: 0 - 3445 Units: km Source: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a></p></li>
+<li><p>Layer name: distance_canyon Description: Distance to the axis of the nearest canyon Value range: 0 - 3117 Units: km Source: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a></p></li>
+<li><p>Layer name: distance_max_ice_edge Description: Distance to the mean maximum winter sea ice extent (derived from daily estimates of sea ice concentration) Value range: -2614.008 - 2314.433 Units: km Source: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a></p></li>
+<li><p>Layer name: distance_shelf Description: Distance to nearest area of seafloor of depth 500m or shallower Value range: -1296 - 1750 Units: km Source: <a href="https://data.aad.gov.au/metadata/records/Polar_Environmental_Data" class="external-link uri">https://data.aad.gov.au/metadata/records/Polar_Environmental_Data</a></p></li>
+<li><p>Layer name: ice_cover_max Description: Ice concentration fraction, maximum on [1957-2017] time period Value range: 0 - 1 Units: unitless Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: ice_cover_mean Description: Ice concentration fraction, mean on [1957-2017] time period Value range: 0 - 0.9708595 Units: unitless Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: ice_cover_min Description: Ice concentration fraction, minimum on [1957-2017] time period Value range: 0 - 0.8536261 Units: unitless Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: ice_cover_range Description: Ice concentration fraction, difference maximum-minimum on [1957-2017] time period Value range: 0 - 1 Units: unitless Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: ice_thickness_max Description: Ice thickness, maximum on [1957-2017] time period Value range: 0 - 3.471811 Units: m Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: ice_thickness_mean Description: Ice thickness, mean on [1957-2017] time period Value range: 0 - 1.614133 Units: m Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: ice_thickness_min Description: Ice thickness, minimum on [1957-2017] time period Value range: 0 - 0.7602701 Units: m Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: ice_thickness_range Description: Ice thickness, difference maximum-minimum on [1957-2017] time period Value range: 0 - 3.471811 Units: m Source: BioOracle accessed 24/04/2018, see Assis et al. (2018) URL: <a href="http://www.bio-oracle.org/" class="external-link uri">http://www.bio-oracle.org/</a> Citation: Assis J, Tyberghein L, Bosch S, Verbruggen H, Serrao EA and De Clerck O (2018). Bio_ORACLE v2. 0: Extending marine data layers for bioclimatic modelling. Global Ecology and Biogeography, 27(3), 277-284 , see also <a href="https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis" class="external-link uri">https://www.ecmwf.int/en/research/climate-reanalysis/ocean-reanalysis</a></p></li>
+<li><p>Layer name: chla_ampli_alltime_2005_2012 Description: Chlorophyll-a concentrations obtained from MODIS satellite data. Amplitude of pixel values (difference between maximal and minimal value encountered by each pixel during all months of the period [2005-2012]) Value range: 0 - 77.15122 Units: mg/m^3 Source: <a href="https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/" class="external-link uri">https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/</a> URL: <a href="https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php" class="external-link uri">https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php</a></p></li>
+<li><p>Layer name: chla_max_alltime_2005_2012 Description: Chlorophyll-a concentrations obtained from MODIS satellite data. Maximal value encountered by each pixel during all months of the period [2005-2012] Value range: 0 - 77.28562 Units: mg/m^3 Source: <a href="https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/" class="external-link uri">https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/</a> URL: <a href="https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php" class="external-link uri">https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php</a></p></li>
+<li><p>Layer name: chla_mean_alltime_2005_2012 Description: Chlorophyll-a concentrations obtained from MODIS satellite data. Mean value of each pixel during all months of the period [2005-2012] Value range: 0 - 30.42691 Units: mg/m^3 Source: <a href="https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/" class="external-link uri">https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/</a> URL: <a href="https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php" class="external-link uri">https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php</a></p></li>
+<li><p>Layer name: chla_min_alltime_2005_2012 Description: Chlorophyll-a concentrations obtained from MODIS satellite data. Minimal value encountered by each pixel during all months of the period [2005-2012] Value range: 0 - 29.02929 Units: mg/m^3 Source: <a href="https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/" class="external-link uri">https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/</a> URL: <a href="https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php" class="external-link uri">https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php</a></p></li>
+<li><p>Layer name: chla_sd_alltime_2005_2012 Description: Chlorophyll-a concentrations obtained from MODIS satellite data. Standard deviation value of each pixel during all months of the period [2005-2012] Value range: 0 - 27.9877 Units: mg/m^3 Source: <a href="https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/" class="external-link uri">https://oceandata.sci.gsfc.nasa.gov/MODIS-Aqua/Mapped/Monthly/9km/chlor_a/</a> URL: <a href="https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php" class="external-link uri">https://modis.gsfc.nasa.gov/data/dataprod/chlor_a.php</a></p></li>
+<li><p>Layer name: POC_2005_2012_ampli Description: Particulate organic carbon, model Lutz et al. (2007). Amplitude value (difference maximal and minimal value, see previous layers) all seasonal layers [2005-2012] Value range: 0 - 1.31761 Units: g/m^2/d Source: This study. Following Lutz et al. (2007) URL: <a href="https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers" class="external-link uri">https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers</a> Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms of net primary production and particulate organic carbon flux to depth describe the efficiency of biological pump in the global ocean. Journal of Geophysical Research: Oceans, 112(C10).</p></li>
+<li><p>Layer name: POC_2005_2012_max Description: Particulate organic carbon, model Lutz et al. (2007). Maximal value encountered on each pixel among all seasonal layers [2005-2012] Value range: 0.00332562 - 1.376601 Units: g/m^2/d Source: This study. Following Lutz et al. (2007) URL: <a href="https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers" class="external-link uri">https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers</a> Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms of net primary production and particulate organic carbon flux to depth describe the efficiency of biological pump in the global ocean. Journal of Geophysical Research: Oceans, 112(C10).</p></li>
+<li><p>Layer name: POC_2005_2012_mean Description: Particulate organic carbon, model Lutz et al. (2007). Mean all seasonal layers [2005-2012] Value range: 0.003184335 - 0.5031364 Units: g/m^2/d Source: This study. Following Lutz et al. (2007) URL: <a href="https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers" class="external-link uri">https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers</a> Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms of net primary production and particulate organic carbon flux to depth describe the efficiency of biological pump in the global ocean. Journal of Geophysical Research: Oceans, 112(C10).</p></li>
+<li><p>Layer name: POC_2005_2012_min Description: Particulate organic carbon, model Lutz et al. (2007). Minimal value encountered on each pixel among all seasonal layers [2005-2012] Value range: 0.003116508 - 0.1313119 Units: g/m^2/d Source: This study. Following Lutz et al. (2007) URL: <a href="https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers" class="external-link uri">https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers</a> Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms of net primary production and particulate organic carbon flux to depth describe the efficiency of biological pump in the global ocean. Journal of Geophysical Research: Oceans, 112(C10).</p></li>
+<li><p>Layer name: POC_2005_2012_sd Description: Particulate organic carbon, model Lutz et al. (2007). Standard deviation all seasonal layers [2005-2012] Value range: 3.85E-08 - 0.4417001 Units: g/m^2/d Source: This study. Following Lutz et al. (2007) URL: <a href="https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers" class="external-link uri">https://data.aad.gov.au/metadata/records/Particulate_carbon_export_flux_layers</a> Citation: Lutz MJ, Caldeira K, Dunbar RB and Behrenfeld MJ (2007). Seasonal rhythms of net primary production and particulate organic carbon flux to depth describe the efficiency of biological pump in the global ocean. Journal of Geophysical Research: Oceans, 112(C10).</p></li>
+<li><p>Layer name: seafloor_oxy_1955_2012_ampli Description: Amplitude (difference maximum-minimum) value encountered for each pixel on all month layers of seafloor oxygen concentration over [1955-2012], modified from WOCE Value range: 0.001755714 - 5.285187 Units: mL/L Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_oxy_1955_2012_max Description: Maximum value encountered for each pixel on all month layers of oxygen concentration over [1955-2012], modified from WOCE Value range: 3.059685 - 11.52433 Units: mL/L Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_oxy_1955_2012_mean Description: Mean seafloor oxygen concentration over [1955-2012] (average of all monthly layers), modified from WOCE Value range: 2.836582 - 8.858084 Units: mL/L Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_oxy_1955_2012_min Description: Minimum value encountered for each pixel on all month layers of seafloor oxygen concentration over [1955-2012], modified from WOCE Value range: 0.4315577 - 8.350794 Units: mL/L Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_oxy_1955_2012_sd Description: Standard deviation seafloor oxygen concentration over [1955-2012] (of all monthly layers), modified from WOCE Value range: 0.000427063 - 1.588707 Units: mL/L Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_sali_2005_2012_ampli Description: Amplitude (difference maximum-minimum) value encountered for each pixel on all month layers of seafloor salinity over [2005-2012], modified from WOCE Value range: 0.000801086 - 4.249901 Units: PSU Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_sali_2005_2012_max Description: Maximum value encountered for each pixel on all month layers of seafloor salinity over [2005-2012], modified from WOCE Value range: 32.90105 - 35.3997 Units: PSU Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_sali_2005_2012_mean Description: Mean seafloor salinity over [2005-2012] (average of all monthly layers), modified from WOCE Value range: 32.51107 - 35.03207 Units: PSU Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li>
+<p>Layer name: seafloor_sali_2005_2012_min Description: Minimum value encountered for each pixel on all month layers of seafloor salinity over [2005-2012], modified from WOCE Value range: 29.8904</p>
+<ul>
+<li>34.97735 Units: PSU Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a>
+</li>
+</ul>
+</li>
+<li><p>Layer name: seafloor_sali_2005_2012_sd Description: Standard deviation seafloor salinity over [2005-2012] (of all monthly layers), modified from WOCE Value range: 0.000251834 - 1.36245 Units: PSU Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_temp_2005_2012_ampli Description: Amplitude (difference maximum-minimum) value encountered for each pixel on all month layers of seafloor temperature over [2005-2012], modified from WOCE Value range: 0.0086 - 8.625669 Units: degrees C Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_temp_2005_2012_max Description: Maximum value encountered for each pixel on all month layers of seafloor temperature over [2005-2012], modified from WOCE Value range: -2.021455 - 15.93171 Units: degrees C Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: seafloor_temp_2005_2012_mean Description: Mean seafloor temperature over [2005-2012] (average of all monthly layers), modified from WOCE Value range: -2.085796 - 13.23161 Units: degrees C Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li>
+<p>Layer name: seafloor_temp_2005_2012_min Description: Minimum value encountered for each pixel on all month layers of seafloor temperature over [2005-2012], modified from WOCE Value range: -2.1</p>
+<ul>
+<li>11.6431 Units: degrees C Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a>
+</li>
+</ul>
+</li>
+<li><p>Layer name: seafloor_temp_2005_2012_sd Description: Standard deviation seafloor temperature over [2005-2012] (of all monthly layers), modified from WOCE Value range: 0.002843571 - 2.877084 Units: degrees C Source: Derived from World Ocean Circulation Experiment 2013 URL: <a href="https://www.nodc.noaa.gov/OC5/woa13/woa13data.html" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/woa13data.html</a></p></li>
+<li><p>Layer name: extreme_event_max_chl_2005_2012_ampli Description: Amplitude (difference maximum-minimum) number of the number of extreme events calculated between 2005 and 2012 Value range: integer values 0 - 3 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_max_chl_2005_2012_max Description: Maximum number of extreme events calculated between 2005 and 2012 Value range: integer values 0 - 5 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_max_chl_2005_2012_mean Description: Mean of the number of extreme events calculated between 2005 and 2012 Value range: 0 - 3.875 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_max_chl_2005_2012_min Description: Minimum number of extreme events calculated between 2005 and 2012 Value range: integer values 0 - 5 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_min_chl_2005_2012_ampli Description: Amplitude (difference maximum-minimum) number of the number of extreme events calculated between 2005 and 2012 Value range: integer values 0 - 9 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_min_chl_2005_2012_max Description: Maximum number of extreme events calculated between 2005 and 2012 Value range: integer values 0 - 11 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_min_chl_2005_2012_mean Description: Mean of the number of extreme events calculated between 2005 and 2012 Value range: 0 - 11 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_min_chl_2005_2012_min Description: Minimum number of extreme events calculated between 2005 and 2012 Value range: integer values 0 - 11 Units: unitless Source: derived from chlorophyll-a concentration layers</p></li>
+<li><p>Layer name: extreme_event_min_oxy_1955_2012_nb Description: Number of extreme events (minimal seafloor oxygen concentration records) that happened between January and December of the year Value range: integer values 0 - 12 Units: per year Source: derived from seafloor oxygen concentration layers</p></li>
+<li><p>Layer name: extreme_event_max_sali_2005_2012_nb Description: Number of extreme events (maximal seafloor salinity records) that happened between January and December of the year Value range: integer values 0 - 12 Units: per year Source: derived from seafloor salinity layers</p></li>
+<li><p>Layer name: extreme_event_min_sali_2005_2012_nb Description: Number of extreme events (minimal seafloor salinity records) that happened between January and December of the year Value range: integer values 0 - 12 Units: per year Source: derived from seafloor salinity layers</p></li>
+<li><p>Layer name: extreme_event_max_temp_2005_2012_nb Description: Number of extreme events (maximal seafloor temperature records) that happened between January and December of the year Value range: integer values 0 - 12 Units: per year Source: derived from seafloor temperature layers</p></li>
+<li><p>Layer name: extreme_event_min_temp_2005_2012_nb Description: Number of extreme events (minimal seafloor temperature records) that happened between January and December of the year Value range: integer values 0 - 12 Units: per year Source: derived from seafloor temperature layers</p></li>
+</ol>
+<p>Approximate size: 0.3 GB</p>
 <p>Documentation link: <a href="https://doi.org/10.26179/5b8f30e30d4f3" class="external-link uri">https://doi.org/10.26179/5b8f30e30d4f3</a></p>
 </div>
 </div>
@@ -389,7 +463,7 @@
 <p>Daily remote-sensing reflectance from MODIS Aqua. RRS is used to produce standard ocean colour products such as chlorophyll concentration</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 800 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-modis-aqua-level-3-mapped-daily-4km-chl-a">Oceandata MODIS Aqua Level-3 mapped daily 4km chl-a<a class="anchor" aria-label="anchor" href="#oceandata-modis-aqua-level-3-mapped-daily-4km-chl-a"></a>
@@ -397,7 +471,7 @@
 <p>Daily remote-sensing chlorophyll-a from the MODIS Aqua satellite at 4km spatial resolution</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 40 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-modis-aqua-level-3-mapped-monthly-9km-chl-a">Oceandata MODIS Aqua Level-3 mapped monthly 9km chl-a<a class="anchor" aria-label="anchor" href="#oceandata-modis-aqua-level-3-mapped-monthly-9km-chl-a"></a>
@@ -405,7 +479,7 @@
 <p>Monthly remote-sensing chlorophyll-a from the MODIS Aqua satellite at 9km spatial resolution</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 8 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-seawifs-level-3-binned-daily-rrs">Oceandata SeaWiFS Level-3 binned daily RRS<a class="anchor" aria-label="anchor" href="#oceandata-seawifs-level-3-binned-daily-rrs"></a>
@@ -413,7 +487,7 @@
 <p>Daily remote-sensing reflectance from SeaWiFS. RRS is used to produce standard ocean colour products such as chlorophyll concentration</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 130 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-seawifs-level-3-mapped-monthly-9km-chl-a">Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a<a class="anchor" aria-label="anchor" href="#oceandata-seawifs-level-3-mapped-monthly-9km-chl-a"></a>
@@ -421,7 +495,7 @@
 <p>Monthly remote-sensing chlorophyll-a from the SeaWiFS satellite at 9km spatial resolution</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 7.2 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-viirs-level-3-binned-daily-rrs">Oceandata VIIRS Level-3 binned daily RRS<a class="anchor" aria-label="anchor" href="#oceandata-viirs-level-3-binned-daily-rrs"></a>
@@ -429,7 +503,7 @@
 <p>Daily remote-sensing reflectance from VIIRS. RRS is used to produce standard ocean colour products such as chlorophyll concentration</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 180 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-viirs-level-3-mapped-32-day-9km-chl-a">Oceandata VIIRS Level-3 mapped 32-day 9km chl-a<a class="anchor" aria-label="anchor" href="#oceandata-viirs-level-3-mapped-32-day-9km-chl-a"></a>
@@ -437,7 +511,7 @@
 <p>Rolling 32-day composite remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 4 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-viirs-level-3-mapped-daily-4km-chl-a">Oceandata VIIRS Level-3 mapped daily 4km chl-a<a class="anchor" aria-label="anchor" href="#oceandata-viirs-level-3-mapped-daily-4km-chl-a"></a>
@@ -445,7 +519,7 @@
 <p>Daily remote-sensing chlorophyll-a from the VIIRS satellite at 4km spatial resolution</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 50 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-viirs-level-3-mapped-monthly-9km-chl-a">Oceandata VIIRS Level-3 mapped monthly 9km chl-a<a class="anchor" aria-label="anchor" href="#oceandata-viirs-level-3-mapped-monthly-9km-chl-a"></a>
@@ -453,7 +527,7 @@
 <p>Monthly remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 1 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="oceandata-viirs-level-3-mapped-seasonal-9km-chl-a">Oceandata VIIRS Level-3 mapped seasonal 9km chl-a<a class="anchor" aria-label="anchor" href="#oceandata-viirs-level-3-mapped-seasonal-9km-chl-a"></a>
@@ -461,13 +535,13 @@
 <p>Seasonal remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution</p>
 <p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘OB.DAAC Data Access’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 0.5 GB</p>
-<p>Documentation link: <a href="http://oceancolor.gsfc.nasa.gov/" class="external-link uri">http://oceancolor.gsfc.nasa.gov/</a></p>
+<p>Documentation link: <a href="https://oceancolor.gsfc.nasa.gov/" class="external-link uri">https://oceancolor.gsfc.nasa.gov/</a></p>
 </div>
 <div class="section level4">
 <h4 id="southern-ocean-summer-chlorophyll-a-climatology-johnson">Southern Ocean summer chlorophyll-a climatology (Johnson)<a class="anchor" aria-label="anchor" href="#southern-ocean-summer-chlorophyll-a-climatology-johnson"></a>
 </h4>
-<p>Climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013)</p>
-<p>Approximate size: 0.05 GB</p>
+<p>This dataset is a climatological summer chlorophyll-a layer for the Southern Ocean south of 40S, following the OC3M algorithm of Johnson et al. (2013). The climatology was calculated from level-3 binned MODISA RRS products spanning the 2002/03 to 2015/16 austral summer seasons (summer taken as day 355 to day 80).</p>
+<p>Approximate size: 0.1 GB</p>
 <p>Documentation link: <a href="https://doi.org/10.4225/15/5906b48f70bf9" class="external-link uri">https://doi.org/10.4225/15/5906b48f70bf9</a></p>
 </div>
 </div>
@@ -484,7 +558,7 @@
 <div class="section level4">
 <h4 id="argo-profile-data">Argo profile data<a class="anchor" aria-label="anchor" href="#argo-profile-data"></a>
 </h4>
-<p>Argo profile data from <a href="https://www.usgodae.org/ftp/outgoing/argo/" class="external-link uri">https://www.usgodae.org/ftp/outgoing/argo/</a>.</p>
+<p>Argo profile data from <a href="https://usgodae.org/ftp/outgoing/argo/" class="external-link uri">https://usgodae.org/ftp/outgoing/argo/</a>.</p>
 <p>Approximate size: not specified</p>
 <p>Documentation link: <a href="http://www.argodatamgt.org/Documentation" class="external-link uri">http://www.argodatamgt.org/Documentation</a></p>
 </div>
@@ -510,6 +584,13 @@
 <p>Documentation link: <a href="https://esme.bu.edu/index.shtml" class="external-link uri">https://esme.bu.edu/index.shtml</a></p>
 </div>
 <div class="section level4">
+<h4 id="roemmich-gilson-argo-climatology">Roemmich-Gilson Argo Climatology<a class="anchor" aria-label="anchor" href="#roemmich-gilson-argo-climatology"></a>
+</h4>
+<p>The Argo Program has achieved 15 years of global coverage, growing from a very sparse global array of 1000 profiling floats in 2004 to more than 3000 instruments from late 2007 to the present. A basic description of the modern upper ocean based entirely on Argo data is available here, to provide a baseline for comparison with past datasets and with ongoing Argo data, to test the adequacy of Argo sampling of large-scale variability, and to examine the consistency of the Argo dataset with related ocean observations from other programs. This new version of the Roemmich-Gilson Argo Climatology extends the analysis of Argo-only derived temperature and salinity fields through 2018. Several marginal seas and the Artic Ocean have been added. The analysis method is similar to what was descibed in the Progress In Oceanography Roemmich and Gilson paper (2009). The only modification has been to scale the zonal equatorial correlation of the optimal estimation step, by 8 times, versus 4 times as in the 2009 paper. The additional Argo data utilized in the analysis results in a longer monthly record as well as better estimates of the mean and variability fields. Monthly updates are available in between major biennial re-analyses.</p>
+<p>Approximate size: 3 GB</p>
+<p>Documentation link: <a href="https://sio-argo.ucsd.edu/RG_Climatology.html" class="external-link uri">https://sio-argo.ucsd.edu/RG_Climatology.html</a></p>
+</div>
+<div class="section level4">
 <h4 id="world-ocean-atlas-2009">World Ocean Atlas 2009<a class="anchor" aria-label="anchor" href="#world-ocean-atlas-2009"></a>
 </h4>
 <p>World Ocean Atlas 2009 (WOA09) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on both 1 degree and 5 degree grids</p>
@@ -522,6 +603,13 @@
 <p>World Ocean Atlas 2013 version 2 (WOA13 V2) is a set of objectively analyzed (1 degree grid) climatological fields of in situ temperature, salinity, dissolved oxygen, Apparent Oxygen Utilization (AOU), percent oxygen saturation, phosphate, silicate, and nitrate at standard depth levels for annual, seasonal, and monthly compositing periods for the World Ocean. It also includes associated statistical fields of observed oceanographic profile data interpolated to standard depth levels on 5 degree, 1 degree, and 0.25 degree grids</p>
 <p>Approximate size: 57 GB</p>
 <p>Documentation link: <a href="https://www.nodc.noaa.gov/OC5/woa13/" class="external-link uri">https://www.nodc.noaa.gov/OC5/woa13/</a></p>
+</div>
+<div class="section level4">
+<h4 id="world-ocean-atlas-2018">World Ocean Atlas 2018<a class="anchor" aria-label="anchor" href="#world-ocean-atlas-2018"></a>
+</h4>
+<p>The World Ocean Atlas (WOA) is a collection of objectively analyzed, quality controlled temperature, salinity, oxygen, phosphate, silicate, and nitrate means based on profile data from the World Ocean Database (WOD). It can be used to create boundary and/or initial conditions for a variety of ocean models, verify numerical simulations of the ocean, and corroborate satellite data.</p>
+<p>Approximate size: not specified</p>
+<p>Documentation link: <a href="https://www.ncei.noaa.gov/products/world-ocean-atlas" class="external-link uri">https://www.ncei.noaa.gov/products/world-ocean-atlas</a></p>
 </div>
 </div>
 <div class="section level3">
@@ -555,16 +643,9 @@
 <div class="section level4">
 <h4 id="artist-amsr-e-sea-ice-concentration">Artist AMSR-E sea ice concentration<a class="anchor" aria-label="anchor" href="#artist-amsr-e-sea-ice-concentration"></a>
 </h4>
-<p>Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011.</p>
+<p>Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011. Advanced Microwave Scanning Radiometer aboard EOS (AMSR-E) data have been used to produce a finer resolved sea-ice concentration data set gridded onto a polar-stereographic grid true at 70 degrees with 6.25 km grid resolution. The sea-ice concentration data available here have been computed by applying the ARTIST Sea Ice (ASI) algorithm to brightness temperatures measured with the 89 GHz AMSR-E channels. These channels have a considereably finer spatial resolution than the commonly used lower frequency channels.</p>
 <p>Approximate size: 25 GB</p>
-<p>Documentation link: <a href="https://icdc.cen.uni-hamburg.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html" class="external-link uri">https://icdc.cen.uni-hamburg.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html</a></p>
-</div>
-<div class="section level4">
-<h4 id="artist-amsr-e-supporting-files">Artist AMSR-E supporting files<a class="anchor" aria-label="anchor" href="#artist-amsr-e-supporting-files"></a>
-</h4>
-<p>Grids and other support files for Artist AMSR-E passive microwave sea ice data.</p>
-<p>Approximate size: 0.01 GB</p>
-<p>Documentation link: <a href="http://icdc.zmaw.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html" class="external-link uri">http://icdc.zmaw.de/1/daten/cryosphere/seaiceconcentration-asi-amsre.html</a></p>
+<p>Documentation link: <a href="https://www.cen.uni-hamburg.de/en/icdc/data/cryosphere/seaiceconcentration-asi-amsre.html" class="external-link uri">https://www.cen.uni-hamburg.de/en/icdc/data/cryosphere/seaiceconcentration-asi-amsre.html</a></p>
 </div>
 <div class="section level4">
 <h4 id="artist-amsr2-near-real-time-3125km-sea-ice-concentration">Artist AMSR2 near-real-time 3.125km sea ice concentration<a class="anchor" aria-label="anchor" href="#artist-amsr2-near-real-time-3125km-sea-ice-concentration"></a>
@@ -605,14 +686,26 @@
 <h4 id="circum-antarctic-landfast-sea-ice-extent-2000-2018---version-22">Circum-Antarctic landfast sea ice extent, 2000-2018 - version 2.2<a class="anchor" aria-label="anchor" href="#circum-antarctic-landfast-sea-ice-extent-2000-2018---version-22"></a>
 </h4>
 <p>This dataset (provided as a series of CF-compatible netcdf file) consists of 432 consecutive maps of Antarctic landfast sea ice, derived from NASA MODIS imagery. There are 24 maps per year, spanning the 18 year period from March 2000 to Feb 2018. The data are provided in a polar stereographic projection with a latitude of true scale at 70 S (i.e., to maintain compatibility with the NSIDC polar stereographic projection).</p>
-<p>Approximate size: 8 GB</p>
+<p>Approximate size: 7.7 GB</p>
 <p>Documentation link: <a href="https://doi.org/10.26179/5d267d1ceb60c" class="external-link uri">https://doi.org/10.26179/5d267d1ceb60c</a></p>
 </div>
 <div class="section level4">
 <h4 id="modis-composite-based-maps-of-east-antarctic-fast-ice-coverage">MODIS Composite Based Maps of East Antarctic Fast Ice Coverage<a class="anchor" aria-label="anchor" href="#modis-composite-based-maps-of-east-antarctic-fast-ice-coverage"></a>
 </h4>
-<p>Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required). Coverage from 2000-03-01 to 2008-12-31</p>
-<p>Approximate size: 0.4 GB</p>
+<p>Maps of East Antarctic landfast sea-ice extent, generated from approx. 250,000 1 km visible/thermal infrared cloud-free MODIS composite imagery (augmented with AMSR-E 6.25-km sea-ice concentration composite imagery when required).</p>
+<p>Because of imperfections in the MODIS composite images (typically caused by inaccurate cloud masking, persistent cloud in a given region, and/or a highly dynamic fast-ice edge), automation of the fast-ice extent retrieval process was not possible. Each image was thus classified manually. A study of errors/biases of this process revealed that most images were able to be classified with a 2-sigma accuracy of +/- ~3%. More details are provided in Fraser et al., (2010).</p>
+<p>*Version 1.2 with extra QC around the Mawson coast and Lutzow-Holm Bay</p>
+<p>The directory named “pngs” contains browsable maps of fast-ice extent, in the form of Portable Network Graphics (PNG) images. Each of the 159 consecutive images (20-day intervals from Day Of Year (DOY) 61-80, 2000 to DOY 341-366, 2008) contains a map of fast-ice extent along the East Antarctic coast, generated from MODIS and AMSR-E imagery. The colour scale is as follows:</p>
+<p>Dark blue: Fast ice, as classified from a single 20-day MODIS composite image Red: Fast ice, as classified using the previous or next 20-day MODIS composite images Yellow: Fast ice, as classified using a single 20-day AMSR-E composite image White: Antarctic continent (including ice shelves), as defined using the Mosaic of Antarctica product. Light blue: Southern ocean/pack ice/icebergs</p>
+<p>These maps are also provided as unformatted binary fast ice images, in the directory named “imgs”. These .img files are all flat binary images of dimension 4300 * 425 pixels. The data type is 8-bit byte. Within the .img files, the value for each pixel indicates its cover: 0: Southern Ocean, pack ice or icebergs, corresponding to light blue in the PNG files. 1: Antarctic continent (including ice shelves), as defined using the Mosaic of Antarctica product, corresponding to white in the PNG files. 2: Fast ice, as classified from a single 20-day MODIS composite image, corresponding to dark blue in the PNG files 3: Fast ice, as classified using a single 20-day AMSR-E composite image, corresponding to yellow in the PNG files 4: Fast ice, as classified using the previous or next 20-day MODIS composite images, corresponding to red in the PNG files</p>
+<p>To assist in georeferencing these data, files containing information on the latitude and longitude of each pixel are provided in the directory named “geo”. These files are summarised as follows:</p>
+<p>lats.img: File containing the latitude of the centre of each pixel. File format is unformatted 32-bit floating point, 4300 * 425 pixels. lons.img: File containing the longitude of the centre of each pixel. File format is unformatted 32-bit floating point, 4300 * 425 pixels.</p>
+<p>The .gpd Grid Point Descriptor file used to build the projection is also included. It contains parameters which you can use for matching your projection.</p>
+<p>To refer to the time series, climatology, or maps of average persistence, please reference this paper: Fraser, A. D., R. A. Massom, K. J. Michael, B. K. Galton-Fenzi, and J. L. Lieser, East Antarctic landfast sea ice distribution and variability, 2000-08, Journal of Climate 25, 4, pp. 1137-1156, 2012</p>
+<p>In addition, please cite the following reference when describing the process of generating these maps: Fraser, A. D., R. A. Massom, and K. J. Michael, Generation of high-resolution East Antarctic landfast sea-ice maps from cloud-free MODIS satellite composite imagery, Elsevier Remote Sensing of Environment, 114 (12), 2888-2896, <a href="doi:10.1016/j.rse.2010.07.006" class="uri">doi:10.1016/j.rse.2010.07.006</a>, 2010.</p>
+<p>To reference the techniques for generating the MODIS composite images, please use the following reference: Fraser, A. D., R. A. Massom, and K. J. Michael, A method for compositing polar MODIS satellite images to remove cloud cover for landfast sea-ice detection, IEEE Transactions on Geoscience and Remote Sensing, 47 (9), pp. 3272-3282, <a href="doi:10.1109/TGRS.2009.2019726" class="uri">doi:10.1109/TGRS.2009.2019726</a>, 2009.</p>
+<p>Please contact Alex Fraser (<a href="mailto:adfraser@utas.edu.au" class="email">adfraser@utas.edu.au</a>) for further information.</p>
+<p>Approximate size: 0.3 GB</p>
 <p>Documentation link: <a href="https://doi.org/10.4225/15/5667AC726B224" class="external-link uri">https://doi.org/10.4225/15/5667AC726B224</a></p>
 </div>
 <div class="section level4">
@@ -621,6 +714,14 @@
 <p>The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product.</p>
 <p>Approximate size: not specified</p>
 <p>Documentation link: <a href="https://usicecenter.gov/Products/AntarcHome" class="external-link uri">https://usicecenter.gov/Products/AntarcHome</a></p>
+</div>
+<div class="section level4">
+<h4 id="near-real-time-dmsp-ssmis-daily-polar-gridded-sea-ice-concentrations-version-2">Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2<a class="anchor" aria-label="anchor" href="#near-real-time-dmsp-ssmis-daily-polar-gridded-sea-ice-concentrations-version-2"></a>
+</h4>
+<p>Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. For older, quality-controlled data see the “NSIDC SMMR-SSM/I Nasateam sea ice concentration” source</p>
+<p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘NSIDC_DATAPOOL_OPS’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
+<p>Approximate size: 0.2 GB</p>
+<p>Documentation link: <a href="https://nsidc.org/data/nsidc-0081/versions/2" class="external-link uri">https://nsidc.org/data/nsidc-0081/versions/2</a></p>
 </div>
 <div class="section level4">
 <h4 id="nimbus-ice-edge-points-from-nimbus-visible-imagery">Nimbus Ice Edge Points from Nimbus Visible Imagery<a class="anchor" aria-label="anchor" href="#nimbus-ice-edge-points-from-nimbus-visible-imagery"></a>
@@ -638,13 +739,6 @@
 <p>Documentation link: <a href="http://nsidc.org/data/nsidc-0051.html" class="external-link uri">http://nsidc.org/data/nsidc-0051.html</a></p>
 </div>
 <div class="section level4">
-<h4 id="nsidc-smmr-ssmi-nasateam-near-real-time-sea-ice-concentration">NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration<a class="anchor" aria-label="anchor" href="#nsidc-smmr-ssmi-nasateam-near-real-time-sea-ice-concentration"></a>
-</h4>
-<p>Near-real-time passive microwave estimates of sea ice concentration at 25km, daily resolution. For older, quality-controlled data see the “NSIDC SMMR-SSM/I Nasateam sea ice concentration” source</p>
-<p>Approximate size: 0.6 GB</p>
-<p>Documentation link: <a href="http://nsidc.org/data/nsidc-0081.html" class="external-link uri">http://nsidc.org/data/nsidc-0081.html</a></p>
-</div>
-<div class="section level4">
 <h4 id="nsidc-smmr-ssmi-nasateam-sea-ice-concentration">NSIDC SMMR-SSM/I Nasateam sea ice concentration<a class="anchor" aria-label="anchor" href="#nsidc-smmr-ssmi-nasateam-sea-ice-concentration"></a>
 </h4>
 <p>Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to present. Data undergo a quality checking process and are updated annually. More recent data if required are available via the “NSIDC SMMR-SSM/I Nasateam near-real-time sea ice concentration” source.</p>
@@ -658,6 +752,14 @@
 <p>Sentinel-1 imagery from polarview.aq</p>
 <p>Approximate size: not specified</p>
 <p>Documentation link: <a href="https://www.polarview.aq/" class="external-link uri">https://www.polarview.aq/</a></p>
+</div>
+<div class="section level4">
+<h4 id="sea-ice-concentrations-from-nimbus-7-smmr-and-dmsp-ssmi-ssmis-passive-microwave-data-version-2">Sea Ice Concentrations from Nimbus-7 SMMR and DMSP SSM/I-SSMIS Passive Microwave Data, Version 2<a class="anchor" aria-label="anchor" href="#sea-ice-concentrations-from-nimbus-7-smmr-and-dmsp-ssmi-ssmis-passive-microwave-data-version-2"></a>
+</h4>
+<p>Passive microwave estimates of sea ice concentration at 25km spatial resolution. Daily and monthly resolution, available from 1-Oct-1978 to present. Data undergo a quality checking process and are updated annually. Near-real-time data if required are available via the “Near-Real-Time DMSP SSMIS Daily Polar Gridded Sea Ice Concentrations, Version 2” source.</p>
+<p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the application ‘NSIDC_DATAPOOL_OPS’ (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
+<p>Approximate size: 5 GB</p>
+<p>Documentation link: <a href="https://nsidc.org/data/nsidc-0051/versions/2" class="external-link uri">https://nsidc.org/data/nsidc-0051/versions/2</a></p>
 </div>
 <div class="section level4">
 <h4 id="sea-ice-lead-climatologies">Sea ice lead climatologies<a class="anchor" aria-label="anchor" href="#sea-ice-lead-climatologies"></a>
@@ -674,6 +776,7 @@
 <h4 id="ghrsst-level-4-mur-global-foundation-sst-v41">GHRSST Level 4 MUR Global Foundation SST v4.1<a class="anchor" aria-label="anchor" href="#ghrsst-level-4-mur-global-foundation-sst-v41"></a>
 </h4>
 <p>A Group for High Resolution Sea Surface Temperature (GHRSST) Level 4 sea surface temperature analysis produced as a retrospective dataset (four day latency) at the JPL Physical Oceanography DAAC using wavelets as basis functions in an optimal interpolation approach on a global 0.011 degree grid. The version 4 Multiscale Ultrahigh Resolution (MUR) L4 analysis is based upon nighttime GHRSST L2P skin and subskin SST observations from several instruments including the NASA Advanced Microwave Scanning Radiometer-EOS (AMSRE), the Moderate Resolution Imaging Spectroradiometer (MODIS) on the NASA Aqua and Terra platforms, the US Navy microwave WindSat radiometer and in situ SST observations from the NOAA iQuam project. The ice concentration data are from the archives at the EUMETSAT Ocean and Sea Ice Satellite Application Facility (OSI SAF) High Latitude Processing Center and are also used for an improved SST parameterization for the high-latitudes. This data set is funded by the NASA MEaSUREs program (<a href="http://earthdata.nasa.gov/our-community/community-data-system-programs/measures-projects" class="external-link uri">http://earthdata.nasa.gov/our-community/community-data-system-programs/measures-projects</a>), and created by a team led by Dr. Toshio Chin from JPL.</p>
+<p>Authentication note: Requires Earthdata login, see <a href="https://urs.earthdata.nasa.gov/" class="external-link uri">https://urs.earthdata.nasa.gov/</a>. Note that you will also need to authorize the PODAAC application (see ‘My Applications’ at <a href="https://urs.earthdata.nasa.gov/profile" class="external-link uri">https://urs.earthdata.nasa.gov/profile</a>)</p>
 <p>Approximate size: 2000 GB</p>
 <p>Documentation link: <a href="https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1" class="external-link uri">https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1</a></p>
 </div>
@@ -733,8 +836,24 @@
 <div class="section level4">
 <h4 id="aas_4116_coastal_complexity">AAS_4116_Coastal_Complexity<a class="anchor" aria-label="anchor" href="#aas_4116_coastal_complexity"></a>
 </h4>
-<p>The Antarctic outer coastal margin is the key interface between the marine and terrestrial environments. Its physical configuration (including both length scale of variation and orientation/aspect) has direct bearing on several closely associated cryospheric, biological, oceanographical and ecological processes. This dataset provides a characterisation of Antarctic coastal complexity. At each point, a complexity metric is calculated at length scales from 1 to 256 km, giving a multiscale estimate of the magnitude and direction of undulation or complexity at each point location along the entire coastline.</p>
-<p>Approximate size: 0.05 GB</p>
+<p>The Antarctic outer coastal margin (i.e., the coastline itself, or the terminus/front of ice shelves, whichever is adjacent to the ocean) is the key interface between the marine and terrestrial environments. Its physical configuration (including both length scale of variation and orientation/aspect) has direct bearing on several closely associated cryospheric, biological, oceanographical and ecological processes, yet no study has quantified the coastal complexity or orientation of Antarctica’s coastal margin. This first-of-a-kind characterisation of Antarctic coastal complexity aims to address this knowledge gap. We quantify and investigate the physical configuration and complexity of Antarctica’s circumpolar outer coastal margin using a novel, technique based on ~40,000 random points selected along a vector coastline derived from the MODIS Mosaic of Antarctica dataset. At each point, a complexity metric is calculated at length scales from 1 to 256 km, giving a multiscale estimate of the magnitude and direction of undulation or complexity at each point location along the entire coastline.</p>
+<p>General description of the data</p>
+<table class="table">
+<colgroup><col width="100%"></colgroup>
+<tbody>
+<tr class="odd">
+<td>A shapefile of ~40,000 random points selected along a vector coastline derived from the MODIS Mosaic of Antarctica dataset. At each point coastal complexity is calculated including magnitude and orientation at multiple scales and features such as bays and peninsulas identified. The structure of the dataset is as follows:</td>
+</tr>
+<tr class="even">
+<td>Fields Definitions</td>
+</tr>
+</tbody>
+</table>
+<p>STATION………………………Station number EASTING………………………Easting Polar Stereographic NORTHING……………………Northing Polar Stereographic X_COORD…………………….X geographic coordinate<br>
+Y_COORD…………………….Y geographic coordinate COAST_EDGE……………….Type of coast ‘Ice shelf/Ground’ <em>FEAT_01KM – 256KM………Described feature ‘Bay/Peninsula’ </em>AMT_01KM – 256KM……….Measure of complexity, Angled Measurement Technique 0-180 degrees <em>MAG_01KM – 256KM………Measure of complexity - Magnitude on dimensionless scale 0-100<br></em>ANG_01KM – 256KM………Angle (absolute angle of station points from reference 0, 0)<br>
+*ANGR_01KM – 256KM….…Angle of ‘Magnitude’ (relative to coastline - directly offshore being 0/360°)</p>
+<p>*Repeated for length scales 1, 2, 4, 8, 16, 32, 64, 128 and 256 kms at each point</p>
+<p>Approximate size: 0.1 GB</p>
 <p>Documentation link: <a href="https://doi.org/10.26179/5d1af0ba45c03" class="external-link uri">https://doi.org/10.26179/5d1af0ba45c03</a></p>
 </div>
 <div class="section level4">
@@ -817,8 +936,8 @@
 <div class="section level4">
 <h4 id="george-v-bathymetry">George V bathymetry<a class="anchor" aria-label="anchor" href="#george-v-bathymetry"></a>
 </h4>
-<p>This dataset comprises Digital Elevation Models (DEMs) of varying resolutions for the George V and Terre Adelie continental margin, derived by incorporating all available singlebeam and multibeam point depth data.</p>
-<p>Approximate size: 0.15 GB</p>
+<p>This dataset comprises Digital Elevation Models (DEMs) of varying resolutions for the George V and Terre Adelie continental margin, derived by incorporating all available singlebeam and multibeam point depth data into ESRI ArcGIS grids. The purpose was to provide revised DEMs for Census of Antarctic Marine Life (CAML) researchers who required accurate, high-resolution depth models for correlating seabed biota data against the physical environment. The DEM processing method utilised all individual multibeam and singlebeam depth points converted to geographic xyz (long/lat/depth) ASCII files. In addition, an ArcGIS line shapefile of the East Antarctic coastline showing the grounding lines of coastal glaciers and floating ice shelves, was converted to a xyz ASCII file with 0 m as the depth value. Land elevation data utilised the Radarsat Antarctic Mapping Project (RAMP) 200 m DEM data converted to xyz ASCII data. All depth, land and coastline ASCII files were input to Fledermaus 3DEditor visualisation software for removal of noisy data. The cleaned point data were then binned into a gridded surface using Fledermaus DMagic software, resulting in a 0.001-arcdegree (~100 m) resolution DEM with holes where no input data exists. ArcGIS Topogrid software was used to interpolate across the holes to output a full-coverage DEM. ArcGIS was used to produce the additional 0.0025-arcdegree (~250 m) and 0.005-arcdegree (~500 m) resolution grids. Full processing details can be viewed in: Beaman, R.J., O’Brien, P.E., Post, A.L., De Santis, L., 2011. A new high-resolution bathymetry model for the Terre Adelie and George V continental margin, East Antarctica. Antarctic Science 23(1), 95-103. <a href="doi:10.1017/S095410201000074X" class="uri">doi:10.1017/S095410201000074X</a></p>
+<p>Approximate size: 0.2 GB</p>
 <p>Documentation link: <a href="https://data.aad.gov.au/metadata/records/GVdem_2008" class="external-link uri">https://data.aad.gov.au/metadata/records/GVdem_2008</a></p>
 </div>
 <div class="section level4">
@@ -918,7 +1037,7 @@
 </h4>
 <p>Global seafloor topography from satellite altimetry and ship depth soundings</p>
 <p>Approximate size: 1.4 GB</p>
-<p>Documentation link: <a href="http://topex.ucsd.edu/WWW_html/mar_topo.html" class="external-link uri">http://topex.ucsd.edu/WWW_html/mar_topo.html</a></p>
+<p>Documentation link: <a href="https://topex.ucsd.edu/marine_topo/" class="external-link uri">https://topex.ucsd.edu/marine_topo/</a></p>
 </div>
 </div>
 </div>
@@ -952,9 +1071,9 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Ben Raymond <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Michael Sumner <br><small class="roles"> Author </small>  </li>
-<li>Charlene Guillaumot <br><small class="roles"> Author </small>  </li>
+<li>Ben Raymond <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Michael Sumner <br><small class="roles"> Author </small>   </li>
+<li>Charlene Guillaumot <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
 
@@ -972,21 +1091,19 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Ben Raymond, Michael Sumner, Charlene Guillaumot.</p>
+  <p>Developed by Ben Raymond, Michael Sumner, Charlene Guillaumot.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
