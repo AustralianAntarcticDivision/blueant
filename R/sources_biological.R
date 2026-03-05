@@ -52,8 +52,7 @@ sources_biological <- function(name, formats, time_resolutions, ...) {
     out <- tibble()
 
     if (is.null(name) || any(name %in% tolower(c("Southern Ocean Continuous Plankton Recorder", "SO-CPR")))) {
-        this <- bb_aadc_source(metadata_id = "AADC-00099", eds_id = 6120, id_is_metadata_id = TRUE, data_group = "Biology")
-        ## note: to update the eds_id when the dataset is updated, check https://data.aad.gov.au/eds/api/metadata/AADC-00099?format=json
+        this <- bb_aadc_source(metadata_id = "AADC-00099", filter = !grepl("logbooks", dataset_name), id_is_metadata_id = TRUE, data_group = "Biology")
         this$name <- "Southern Ocean Continuous Plankton Recorder" ## backwards compat
         out <- rbind(out, this)
     }
