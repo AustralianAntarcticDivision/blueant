@@ -26,8 +26,8 @@ Data sources providing (primarily satellite-derived) sea ice data:
 \item "NSIDC passive microwave supporting files": Grids and other support files for NSIDC passive microwave sea ice data
 \item "Nimbus Ice Edge Points from Nimbus Visible Imagery": This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery
 \item "Artist AMSR-E sea ice concentration": Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011. Previously accepted formats "geotiff" and/or "hdf", but these are now ignored (the only file format available now is netcdf)
-\item "Artist AMSR2 near-real-time sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present
-\item "Artist AMSR2 near-real-time 3.125km sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution, from 24-July-2012 to present
+\item "Artist AMSR2 near-real-time sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present. Accepts a \code{formats} parameter containing one or more of "netcdf", "hdf", "png", "tif"
+\item "Artist AMSR2 near-real-time 3.125km sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution, from 24-July-2012 to present. Accepts a \code{formats} parameter containing one or more of "netcdf", "hdf", "png", "tif"
 \item "Artist AMSR2 supporting files": Grids and landmasks for Artist AMSR2 passive microwave sea ice data
 \item "CERSAT SSM/I sea ice concentration": Passive microwave sea ice concentration data at 12.5km resolution, 3-Dec-1991 to present
 \item "CERSAT SSM/I sea ice concentration supporting files": Grids for the CERSAT SSM/I sea ice concentration data

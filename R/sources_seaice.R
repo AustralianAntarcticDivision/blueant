@@ -6,8 +6,8 @@
 #' * "NSIDC passive microwave supporting files": Grids and other support files for NSIDC passive microwave sea ice data
 #' * "Nimbus Ice Edge Points from Nimbus Visible Imagery": This data set (NmIcEdg2) estimates the location of the North and South Pole sea ice edges at various times during the mid to late 1960s, based on recovered Nimbus 1 (1964), Nimbus 2 (1966), and Nimbus 3 (1969) visible imagery
 #' * "Artist AMSR-E sea ice concentration": Passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 19-Jun-2002 to 2-Oct-2011. Previously accepted formats "geotiff" and/or "hdf", but these are now ignored (the only file format available now is netcdf)
-#' * "Artist AMSR2 near-real-time sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present
-#' * "Artist AMSR2 near-real-time 3.125km sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution, from 24-July-2012 to present
+#' * "Artist AMSR2 near-real-time sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present. Accepts a `formats` parameter containing one or more of "netcdf", "hdf", "png", "tif"
+#' * "Artist AMSR2 near-real-time 3.125km sea ice concentration": Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution, from 24-July-2012 to present. Accepts a `formats` parameter containing one or more of "netcdf", "hdf", "png", "tif"
 #' * "Artist AMSR2 supporting files": Grids and landmasks for Artist AMSR2 passive microwave sea ice data
 #' * "CERSAT SSM/I sea ice concentration": Passive microwave sea ice concentration data at 12.5km resolution, 3-Dec-1991 to present
 #' * "CERSAT SSM/I sea ice concentration supporting files": Grids for the CERSAT SSM/I sea ice concentration data
@@ -215,6 +215,15 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time sea ice concentration", "AMSR2_ASI_s6250")))) {
+        myformats <- tolower(formats)
+        if (length(myformats) > 0) {
+            chk <- all(myformats %in% c("netcdf", "hdf", "png", "tif"))
+            if (!isTRUE(chk)) stop("formats must be a character vector with one or more of 'netcdf', 'hdf', 'png', 'tif'")
+        } else {
+            myformats <- c("hdf", "png", "tif") ## default to these for backwards compatibility
+        }
+        myformats[which(myformats == "netcdf")] <- "nc"
+        base_source_url <- "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s6250/"
         out <- rbind(out,
                      bb_source(
                          name = "Artist AMSR2 near-real-time sea ice concentration",
@@ -222,9 +231,9 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          description = "Near-real-time passive microwave estimates of daily sea ice concentration at 6.25km spatial resolution, from 24-July-2012 to present.",
                          doc_url = "https://seaice.uni-bremen.de/sea-ice-concentration/",
                          citation = "Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
-                         source_url = "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s6250/",
+                         source_url = c(if ("nc" %in% myformats) paste0(base_source_url, "netcdf/"), if (any(c("hdf", "png", "tif") %in% myformats)) base_source_url),
                          license = "Please cite",
-                         method = list("bb_handler_rget", level = 5, accept_download = "asi.*\\.(hdf|png|tif)"),
+                         method = list("bb_handler_rget", level = 5, accept_download = paste0("asi.*\\.(", paste(myformats, collapse = "|"), ")$")),
                          postprocess = NULL,
                          access_function = "raadtools::readice",
                          collection_size = 11,
@@ -232,6 +241,15 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
     }
 
     if (is.null(name) || any(name %in% tolower(c("Artist AMSR2 near-real-time 3.125km sea ice concentration", "AMSR2_ASI_s3125")))) {
+        myformats <- tolower(formats)
+        if (length(myformats) > 0) {
+            chk <- all(myformats %in% c("netcdf", "hdf", "png", "tif"))
+            if (!isTRUE(chk)) stop("formats must be a character vector with one or more of 'netcdf', 'hdf', 'png', 'tif'")
+        } else {
+            myformats <- c("hdf", "png", "tif") ## default to these for backwards compatibility
+        }
+        myformats[which(myformats == "netcdf")] <- "nc"
+        base_source_url <- "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/"
         out <- rbind(out,
                      bb_source(
                          name = "Artist AMSR2 near-real-time 3.125km sea ice concentration",
@@ -239,9 +257,9 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          description = "Near-real-time passive microwave estimates of daily sea ice concentration at 3.125km spatial resolution (full Antarctic coverage).",
                          doc_url = "https://seaice.uni-bremen.de/sea-ice-concentration/",
                          citation = "Spreen, G., L. Kaleschke, and G. Heygster (2008), Sea ice remote sensing using AMSR-E 89 GHz channels, J. Geophys. Res. 113, C02S03, doi:10.1029/2005JC003384",
-                         source_url = "https://seaice.uni-bremen.de/data/amsr2/asi_daygrid_swath/s3125/",
+                         source_url = c(if ("nc" %in% myformats) paste0(base_source_url, "netcdf/"), if (any(c("hdf", "png", "tif") %in% myformats)) base_source_url),
                          license = "Please cite",
-                         method = list("bb_handler_rget", level = 5, accept_download = "Antarctic3125/asi.*\\.(hdf|png|tif)", reject_follow = "(Amundsen|Antarctic3125NoLandMask|AntarcticPeninsula|Casey-Dumont|DavisSea|McMurdo|Neumayer|NeumayerEast|Polarstern|RossSea|ScotiaSea|WeddellSea|WestDavisSea)/"), ## ignore the regional sub-directories
+                         method = list("bb_handler_rget", level = 5, accept_download = paste0("Antarctic3125/asi.*\\.(", paste(myformats, collapse = "|"), ")$"), reject_follow = "(Amundsen|Antarctic3125NoLandMask|AntarcticPeninsula|Casey-Dumont|DavisSea|McMurdo|Neumayer|NeumayerEast|Polarstern|RossSea|ScotiaSea|WeddellSea|WestDavisSea)/"), ## ignore the regional sub-directories
                          postprocess = NULL,
                          access_function = "raadtools::readice",
                          collection_size = 100,
