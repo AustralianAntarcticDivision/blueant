@@ -12,8 +12,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{bowerbird}{\code{\link[bowerbird]{bb_aadc_source}}}
+  \item{bowerbird}{\code{\link[bowerbird:bb_aadc_source]{bb_aadc_source()}}}
 
-  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:\%>\%]{\%>\%}}}
 }}
 
