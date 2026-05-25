@@ -121,7 +121,7 @@ sources_reanalysis <- function(name,formats,time_resolutions, ...) {
                          citation = "Wentz FJ, Scott J, Hoffman R, Leidner M, Atlas R, Ardizzone J (2015) Remote Sensing Systems Cross-Calibrated Multi-Platform (CCMP) 6-hourly ocean vector wind analysis product on 0.25 deg grid, Version 2.0, [indicate date subset, if used]. Remote Sensing Systems, Santa Rosa, CA. Available online at www.remss.com/measurements/ccmp\n\nMears CA, Scott J, Wentz FJ, Ricciardulli L, Leidner SM, Hoffman R, Atlas R (2019) A near real time version of the Cross Calibrated Multiplatform (CCMP) ocean surface wind velocity data set. Journal of Geophysical Research: Oceans. https://doi.org/10.1029/2019JC015367",
                          source_url = "https://data.remss.com/ccmp/",
                          license = "Please cite",
-                         method = list("bb_handler_rget", level = 4, no_parent = FALSE, accept_follow = "data\\.remss\\.com/ccmp"),
+                         method = list("bb_handler_rget", level = 4, accept_follow = "data\\.remss\\.com/ccmp", reject_follow = "\\.mnf$"), ## accept_download_extra = "\\.mnf$" these are just hash files ## previously also `no_parent = FALSE` but not needed?
                          postprocess = NULL,
                          collection_size = 120,
                          data_group = "Reanalysis"))

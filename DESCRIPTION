@@ -26,7 +26,6 @@ Imports:
     xml2
 LazyLoad: yes
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Suggests:
     knitr,
     ncdf4,
@@ -37,3 +36,4 @@ Suggests:
     covr
 Remotes: ropensci/bowerbird
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0
