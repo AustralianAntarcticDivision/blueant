@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">blueant</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.12.13</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.13.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
                         <h4 data-toc-skip class="author">Guillaumot C,
 Raymond Ben</h4>
             
-            <h4 data-toc-skip class="date">2026-01-30</h4>
+            <h4 data-toc-skip class="date">2026-05-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/AustralianAntarcticDivision/blueant/blob/HEAD/vignettes/SO_SDM_data.Rmd" class="external-link"><code>vignettes/SO_SDM_data.Rmd</code></a></small>
       <div class="d-none name"><code>SO_SDM_data.Rmd</code></div>
@@ -465,7 +465,7 @@ folder.</p>
 <span><span class="co">## put these together into a blueant configuration</span></span>
 <span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/bowerbird/reference/bb_config.html" class="external-link">bb_config</a></span><span class="op">(</span><span class="va">my_data_directory</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://docs.ropensci.org/bowerbird/reference/bb_add.html" class="external-link">bb_add</a></span><span class="op">(</span><span class="va">data_source</span><span class="op">)</span></span>
 <span><span class="va">config</span></span></code></pre></div>
-<pre><code><span><span class="co">## Local file root: /tmp/RtmpARc6SF </span></span>
+<pre><code><span><span class="co">## Local file root: /tmp/Rtmp42hc3g </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## # Data group:  Modelling </span></span>
 <span><span class="co">## </span></span>
@@ -884,81 +884,81 @@ folder.</p>
 <span><span class="co">## Source: derived from seafloor temperature layers </span></span>
 <span><span class="co">## Approximate size: 0.3 GB </span></span>
 <span><span class="co">## Documentation link:  https://doi.org/10.26179/5b8f30e30d4f3 </span></span>
-<span><span class="co">## Citation:  Guillaumot, C., Raymond, B. and Danis, B. (2018) Marine environmental data layers for Southern Ocean species distribution modelling, Ver. 1,  &lt;em&gt;Australian Antarctic Data Centre&lt;/em&gt; - &lt;a href="http://dx.doi.org/doi:10.26179/5b8f30e30d4f3"&gt;doi:10.26179/5b8f30e30d4f3&lt;/a&gt;, Accessed: 2026-01-29 </span></span>
+<span><span class="co">## Citation:  Guillaumot, C., Raymond, B. and Danis, B. (2018) Marine environmental data layers for Southern Ocean species distribution modelling, Ver. 1,  &lt;em&gt;Australian Antarctic Data Centre&lt;/em&gt; - &lt;a href="http://dx.doi.org/doi:10.26179/5b8f30e30d4f3"&gt;doi:10.26179/5b8f30e30d4f3&lt;/a&gt;, Accessed: 2026-05-26 </span></span>
 <span><span class="co">## License:  CC-BY </span></span>
-<span><span class="co">## Local file system paths: /tmp/RtmpARc6SF/data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/environmental_layers/</span></span>
+<span><span class="co">## Local file system paths: /tmp/Rtmp42hc3g/data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/environmental_layers/</span></span>
 <span><span class="co">## Associated access functions:  raster::stack</span></span></code></pre>
 <p>Now we can ask <code>blueant</code> to fetch and unpack the data:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">status</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/bowerbird/reference/bb_sync.html" class="external-link">bb_sync</a></span><span class="op">(</span><span class="va">config</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
-<span><span class="co">## Fri Jan 30 07:52:25 2026</span></span>
+<span><span class="co">## Tue May 26 14:13:02 2026</span></span>
 <span><span class="co">## Synchronizing dataset: Southern Ocean marine environmental data</span></span>
 <span><span class="co">## --------------------------------------------------------------------------------------------</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##  this dataset path is: /tmp/RtmpARc6SF/data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/environmental_layers</span></span>
-<span><span class="co">##  downloading file 1 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/POC_2005_2012_ampli.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 2 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/POC_2005_2012_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 3 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/POC_2005_2012_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 4 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/POC_2005_2012_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 5 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/POC_2005_2012_sd.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 6 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/README ...  done.</span></span>
-<span><span class="co">##  downloading file 7 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/chla_ampli_alltime_2005_2012.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 8 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/chla_max_alltime_2005_2012.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 9 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/chla_mean_alltime_2005_2012.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 10 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/chla_min_alltime_2005_2012.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 11 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/chla_sd_alltime_2005_2012.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 12 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/depth.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 13 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/distance_antarctica.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 14 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/distance_canyon.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 15 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/distance_max_ice_edge.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 16 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/distance_shelf.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 17 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_max_chl_2005_2012_ampli.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 18 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_max_chl_2005_2012_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 19 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_max_chl_2005_2012_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 20 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_max_chl_2005_2012_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 21 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_max_sali_2005_2012_nb.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 22 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_max_temp_2005_2012_nb.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 23 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_min_chl_2005_2012_ampli.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 24 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_min_chl_2005_2012_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 25 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_min_chl_2005_2012_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 26 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_min_chl_2005_2012_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 27 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_min_oxy_1955_2012_nb.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 28 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_min_sali_2005_2012_nb.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 29 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/extreme_event_min_temp_2005_2012_nb.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 30 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/geomorphology.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 31 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_cover_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 32 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_cover_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 33 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_cover_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 34 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_cover_range.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 35 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_thickness_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 36 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_thickness_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 37 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_thickness_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 38 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/ice_thickness_range.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 39 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/metadata_details2.csv ...  done.</span></span>
-<span><span class="co">##  downloading file 40 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/mixed_layer_depth.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 41 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/roughness.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 42 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_current_speed.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 43 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_oxy_19552012_ampli.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 44 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_oxy_19552012_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 45 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_oxy_19552012_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 46 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_oxy_19552012_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 47 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_oxy_19552012_sd.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 48 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_sali_2005_2012_ampli.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 49 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_sali_2005_2012_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 50 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_sali_2005_2012_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 51 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_sali_2005_2012_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 52 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_sali_2005_2012_sd.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 53 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_temp_2005_2012_ampli.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 54 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_temp_2005_2012_max.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 55 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_temp_2005_2012_mean.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 56 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_temp_2005_2012_min.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 57 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seafloor_temp_2005_2012_sd.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 58 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/seasurface_current_speed.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 59 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/sediments.nc ...  done.</span></span>
-<span><span class="co">##  downloading file 60 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=environmental_layers/slope.nc ...  done.</span></span>
+<span><span class="co">##  this dataset path is: /tmp/Rtmp42hc3g/data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/environmental_layers</span></span>
+<span><span class="co">##  downloading file 1 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=POC_2005_2012_ampli.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 2 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=POC_2005_2012_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 3 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=POC_2005_2012_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 4 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=POC_2005_2012_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 5 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=POC_2005_2012_sd.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 6 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=README ...  done.</span></span>
+<span><span class="co">##  downloading file 7 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=chla_ampli_alltime_2005_2012.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 8 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=chla_max_alltime_2005_2012.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 9 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=chla_mean_alltime_2005_2012.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 10 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=chla_min_alltime_2005_2012.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 11 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=chla_sd_alltime_2005_2012.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 12 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=depth.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 13 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=distance_antarctica.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 14 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=distance_canyon.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 15 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=distance_max_ice_edge.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 16 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=distance_shelf.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 17 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_max_chl_2005_2012_ampli.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 18 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_max_chl_2005_2012_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 19 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_max_chl_2005_2012_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 20 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_max_chl_2005_2012_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 21 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_max_sali_2005_2012_nb.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 22 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_max_temp_2005_2012_nb.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 23 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_min_chl_2005_2012_ampli.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 24 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_min_chl_2005_2012_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 25 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_min_chl_2005_2012_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 26 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_min_chl_2005_2012_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 27 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_min_oxy_1955_2012_nb.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 28 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_min_sali_2005_2012_nb.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 29 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=extreme_event_min_temp_2005_2012_nb.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 30 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=geomorphology.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 31 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_cover_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 32 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_cover_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 33 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_cover_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 34 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_cover_range.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 35 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_thickness_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 36 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_thickness_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 37 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_thickness_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 38 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=ice_thickness_range.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 39 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=metadata_details2.csv ...  done.</span></span>
+<span><span class="co">##  downloading file 40 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=mixed_layer_depth.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 41 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=roughness.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 42 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_current_speed.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 43 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_oxy_19552012_ampli.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 44 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_oxy_19552012_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 45 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_oxy_19552012_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 46 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_oxy_19552012_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 47 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_oxy_19552012_sd.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 48 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_sali_2005_2012_ampli.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 49 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_sali_2005_2012_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 50 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_sali_2005_2012_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 51 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_sali_2005_2012_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 52 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_sali_2005_2012_sd.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 53 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_temp_2005_2012_ampli.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 54 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_temp_2005_2012_max.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 55 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_temp_2005_2012_mean.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 56 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_temp_2005_2012_min.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 57 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seafloor_temp_2005_2012_sd.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 58 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=seasurface_current_speed.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 59 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=sediments.nc ...  done.</span></span>
+<span><span class="co">##  downloading file 60 of 60: https://data.aad.gov.au/eds/api/dataset/1f485e94-b135-4137-b7b3-de458086e629/object/download?prefix=slope.nc ...  done.</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Fri Jan 30 07:52:54 2026 dataset synchronization complete: Southern Ocean marine environmental data</span></span></code></pre>
+<span><span class="co">## Tue May 26 14:13:41 2026 dataset synchronization complete: Southern Ocean marine environmental data</span></span></code></pre>
 <p>The <code>verbose = TRUE</code> argument helps to display the
 progress output. Once completed, the <code>status</code> object provides
 some information about the files that were downloaded. In particular,
@@ -1053,7 +1053,7 @@ the downloaded netCDF files can be listed with:</p>
 <code class="sourceCode R"><span><span class="co">## or subset by layer number</span></span>
 <span><span class="co">## e.g. plot the first four layers</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="SO_SDM_data_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="SO_SDM_data_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
 <p>You can also consult the <a href="https://australianantarcticdivision.github.io/blueant/articles/blueant.html" class="external-link">blueant
 vignette</a> for further information.</p>
 </div>
@@ -1068,7 +1068,7 @@ vignette</a> for further information.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

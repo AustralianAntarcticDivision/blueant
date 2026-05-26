@@ -7,3 +7,4 @@ template:
     fg: "#222"
     bg: "#FFFFFF"
     primary: "#222"
+llm-docs: false
