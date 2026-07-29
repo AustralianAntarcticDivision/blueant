@@ -17,8 +17,10 @@
 #' * "National Ice Center Antarctic daily sea ice charts": The USNIC Daily Ice Edge product depicts the daily sea ice pack in red (8-10/10ths or greater of sea ice), and the Marginal Ice Zone (MIZ) in yellow. The marginal ice zone is the transition between the open ocean (ice free) and pack ice. The MIZ is very dynamic and affects the air-ocean heat transport, as well as being a significant factor in navigational safety. The daily ice edge is analyzed by sea ice experts using multiple sources of near real time satellite data, derived satellite products, buoy data, weather, and analyst interpretation of current sea ice conditions. The product is a current depiction of the location of the ice edge vice a satellite derived ice edge product. Accepts a `formats` parameter which can be one of "filled" or "vector". Accepts a `years` parameter to restrict the data to certain years
 #' * "Polarview Sentinel-1 imagery": Sentinel-1 imagery from polarview.aq. Accepts an `acquisition_date` parameter (default is the last four days including today), a `formats` parameter (one or both of "jpg", "geotiff", default is both), and a `polygon` parameter, which is a polygon within which to search - either a WKT polygon string in EPSG:3031 projection, or an object of class `sfc_POLYGON`, which will be converted to a WKT string internally
 #' * "ATLAS/ICESat-2 L3B Daily and Monthly Gridded Sea Ice Freeboard, Version 5": daily and monthly gridded estimates of sea ice freeboard, derived from ATLAS/ICESat-2 L3A Sea Ice Freeboard (ATL10) along-track freeboard estimates
-#' * "NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4": a Climate Data Record of sea ice concentration from passive microwave data. The CDR algorithm output is a rule-based combination of ice concentration estimates from two well-established algorithms: the NASA Team (NT) algorithm (Cavalieri et al. 1984) and NASA Bootstrap (BT) algorithm (Comiso 1986). The CDR is a consistent, daily and monthly time series of sea ice concentrations from 25 October 1978 through the most recent processing
-#' * "Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2": a near-real-time Climate Data Record (CDR) of sea ice concentration from passive microwave data. The Near-real-time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration (NRT CDR) data set is the near-real-time version of the final NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration. The NRT CDR is designed to fill the temporal gap between updates of the final CDR, occurring every three to six months, and to provide the most recent data
+#' * "NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4": superseded by Version 6
+#' * "NOAA-NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration Version 6": a Climate Data Record of sea ice concentration from passive microwave data. The CDR algorithm output is a rule-based combination of ice concentration estimates from two well-established algorithms: the NASA Team (NT) algorithm (Cavalieri et al. 1984) and NASA Bootstrap (BT) algorithm (Comiso 1986). The CDR is a consistent, daily and monthly time series of sea ice concentrations from 25 October 1978 through the most recent processing
+#' * "Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2": superseded by Version 4
+#' * "Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4": a near-real-time Climate Data Record (CDR) of sea ice concentration from passive microwave data. The Near-real-time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration (NRT CDR) data set is the near-real-time version of the final NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration. The NRT CDR is designed to fill the temporal gap between updates of the final CDR, occurring every three to six months, and to provide the most recent data
 #' * "OSI SAF Global Low Resolution Sea Ice Drift": ice motion vectors with a time span of 48 hours are estimated by an advanced cross-correlation method (the Continuous MCC, CMCC) on pairs of satellite images. The merged (multi-sensor) dataset is provided here
 #'
 #' The returned tibble contains more information about each source.
@@ -433,7 +435,7 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          data_group = "Sea ice", warn_empty_auth = FALSE))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4", "G02202", "10.7265/efmz-2t65")))) {
+    if (is.null(name) || any(name %in% tolower(c("NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4", "10.7265/efmz-2t65")))) {
         out <- rbind(out,
                      bb_source(
                          name = "NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4",
@@ -449,7 +451,23 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          data_group = "Sea ice"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2", "G10016", "10.7265/tgam-yv28")))) {
+    if (is.null(name) || any(name %in% tolower(c("NOAA-NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration Version 6", "10.7265/b18jz797")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "NOAA-NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration Version 6",
+                         id = "10.7265/b18jz797",
+                         description = "This data set provides a passive microwave sea ice concentration climate data record (CDR) based on gridded brightness temperatures (TBs) from the Nimbus-7 Scanning Multichannel Microwave Radiometer (SMMR) and the Defense Meteorological Satellite Program (DMSP) series of passive microwave radiometers: the Special Sensor Microwave Imager (SSM/I) and the Special Sensor Microwave Imager/Sounder (SSMIS). The sea ice concentration CDR is an estimate of sea ice concentration that is produced by combining concentration estimates from two algorithms developed at the NASA Goddard Space Flight Center (GSFC): the NASA Team (NT) algorithm and the Bootstrap (BT) algorithm. The individual algorithms are used to process and combine brightness temperature data at NSIDC. This product is designed to provide a consistent time series of sea ice concentrations (the fraction, or percentage, of ocean area covered by sea ice) from November 1978 to the present, which spans the coverage of several passive microwave instruments. The data are gridded on the NSIDC polar stereographic grid with 25 km x 25 km grid cells and are available in NetCDF file format. Each file contains a variable with the CDR concentration values as well as variables that hold the raw NT and BT processed concentrations for reference. Variables containing standard deviation, quality flags, and projection information are also included. Files that are from 2013 to the present also contain a prototype CDR sea ice concentration based on gridded TBs from the Advanced Microwave Scanning Radiometer 2 (AMSR2) onboard the GCOM-W1 satellite.",
+                         doc_url = "https://nsidc.org/data/g02202/versions/6",
+                         license = "As a condition of using these data, you must include a citation",
+                         source_url = c("https://noaadata.apps.nsidc.org/NOAA/G02202_V6/south/daily/", "https://noaadata.apps.nsidc.org/NOAA/G02202_V6/south/monthly/"),
+                         citation = "Meier WN, Fetterer F, Windnagel AK, Stewart JS, Stafford T (2024) NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 6. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. 10.7265/b18jz797",
+                         method = list("bb_handler_rget", level = 2),
+                         comment = "Only southern hemisphere files will be downloaded. For northern hemisphere, adjust the source_urls",
+                         collection_size = 8,
+                         data_group = "Sea ice"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2", "10.7265/tgam-yv28")))) {
         out <- rbind(out,
                      bb_source(
                          name = "Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2",
@@ -459,6 +477,22 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          citation = "Meier WN, Fetterer F, Windnagel AK, Stewart JS (2021) Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2 [Data Set]. Boulder, Colorado USA. National Snow and Ice Data Center. 10.7265/tgam-yv28",
                          source_url = c("https://noaadata.apps.nsidc.org/NOAA/G10016_V2/south/daily/", "https://noaadata.apps.nsidc.org/NOAA/G10016_V2/south/monthly/"),
                          license = "As a condition of using these data, you must cite the use of this data set",
+                         method = list("bb_handler_rget", level = 2),
+                         comment = "Only southern hemisphere files will be downloaded. For northern hemisphere, adjust the source_urls",
+                         collection_size = 0.1,
+                         data_group = "Sea ice"))
+    }
+
+    if (is.null(name) || any(name %in% tolower(c("Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4", "10.7265/tm2n-1m33")))) {
+        out <- rbind(out,
+                     bb_source(
+                         name = "Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4",
+                         id = "10.7265/tm2n-1m33",
+                         description = "This data set provides a near-real-time Climate Data Record (CDR) of sea ice concentration from passive microwave data. The Near-real-time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration (NRT CDR) data set is the near-real-time version of the final NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration (G02202). The NRT CDR is designed to fill the temporal gap between updates of the final CDR to provide the most recent data. It provides the most recent 3 months of data.",
+                         doc_url = "https://nsidc.org/data/g10016/versions/4",
+                         license = "As a condition of using these data, you must include a citation",
+                         source_url = c("https://noaadata.apps.nsidc.org/NOAA/G10016_V4/south/daily/", "https://noaadata.apps.nsidc.org/NOAA/G10016_V4/south/monthly/"),
+                         citation = "Meier WN, Fetterer F, Windnagel AK, Stewart JS, Stafford T (2026). Near-Real-Time NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration. (G10016, Version 4). Boulder, Colorado USA. National Snow and Ice Data Center. 10.7265/tm2n-1m33.",
                          method = list("bb_handler_rget", level = 2),
                          comment = "Only southern hemisphere files will be downloaded. For northern hemisphere, adjust the source_urls",
                          collection_size = 0.1,
