@@ -45,160 +45,164 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
     }
     out <- tibble()
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a","SeaWiFS_L3m_MO_CHL_chlor_a_9km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a", "SeaWiFS_L3m_MO_CHL_chlor_a_9km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a",
-                         id="SeaWiFS_L3m_MO_CHL_chlor_a_9km",
-                         description="Monthly remote-sensing chlorophyll-a from the SeaWiFS satellite at 9km spatial resolution",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation, ## https://oceancolor.gsfc.nasa.gov/data/10.5067/ORBVIEW-2/SeaWiFS/L3M/CHL/2022.0
-                         license="Please cite",
-                         method=list("bb_handler_oceandata", search="SEASTAR_SEAWIFS_GAC*L3m.MO.CHL.chlor_a.9km.nc", sensor = "seawifs", dtype = "L3m"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         collection_size=7.2,
+                         name = "Oceandata SeaWiFS Level-3 mapped monthly 9km chl-a",
+                         id = "SeaWiFS_L3m_MO_CHL_chlor_a_9km",
+                         description = "Monthly remote-sensing chlorophyll-a from the SeaWiFS satellite at 9km spatial resolution",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", sensor = "SeaWiFS", dtype = "L3m", period = "MO", resolution_id = "9km", prod_id = "chlor_a", sdate = "1997-09-01", edate = "2011-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         collection_size = 7.2,
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 mapped daily 4km chl-a","MODISA_L3m_DAY_CHL_chlor_a_4km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 mapped daily 4km chl-a", "MODISA_L3m_DAY_CHL_chlor_a_4km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata MODIS Aqua Level-3 mapped daily 4km chl-a",
-                         id="MODISA_L3m_DAY_CHL_chlor_a_4km",
-                         description="Daily remote-sensing chlorophyll-a from the MODIS Aqua satellite at 4km spatial resolution",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="AQUA_MODIS*L3m.DAY.CHL.chlor_a.4km*.nc", sensor = "aqua", dtype = "L3m"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         collection_size=40,
+                         name = "Oceandata MODIS Aqua Level-3 mapped daily 4km chl-a",
+                         id = "MODISA_L3m_DAY_CHL_chlor_a_4km",
+                         description = "Daily remote-sensing chlorophyll-a from the MODIS Aqua satellite at 4km spatial resolution",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*DAY.CHL.chlor_a.*", sensor = "MODISA", dtype = "L3m", period = "DAY", resolution_id = "4km", prod_id = "chlor_a", sdate = "2002-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         collection_size = 40,
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 mapped monthly 9km chl-a","MODISA_L3m_MO_CHL_chlor_a_9km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 mapped monthly 9km chl-a", "MODISA_L3m_MO_CHL_chlor_a_9km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata MODIS Aqua Level-3 mapped monthly 9km chl-a",
-                         id="MODISA_L3m_MO_CHL_chlor_a_9km",
-                         description="Monthly remote-sensing chlorophyll-a from the MODIS Aqua satellite at 9km spatial resolution",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="AQUA_MODIS*L3m.MO.CHL.chlor_a.9km*.nc", sensor = "aqua", dtype = "L3m"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         collection_size=8,
+                         name = "Oceandata MODIS Aqua Level-3 mapped monthly 9km chl-a",
+                         id = "MODISA_L3m_MO_CHL_chlor_a_9km",
+                         description = "Monthly remote-sensing chlorophyll-a from the MODIS Aqua satellite at 9km spatial resolution",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*MO.CHL.chlor_a.*", sensor = "MODISA", dtype = "L3m", period = "MO", resolution_id = "9km", prod_id = "chlor_a", sdate = "2002-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         collection_size = 8,
+                         comment = "NRT files will be included unless a non-NRT version exists for the same month",
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 mapped daily 4km chl-a","VIIRS_L3m_DAY_NPP_CHL_chlor_a_4km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 mapped daily 4km chl-a", "VIIRS_L3m_DAY_NPP_CHL_chlor_a_4km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata VIIRS Level-3 mapped daily 4km chl-a",
-                         id="VIIRS_L3m_DAY_NPP_CHL_chlor_a_4km",
-                         description="Daily remote-sensing chlorophyll-a from the VIIRS satellite at 4km spatial resolution",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata", search = "SNPP_VIIRS*L3m.DAY.CHL.chlor_a.4km*.nc", sensor = "viirs", dtype = "L3m"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         collection_size=50,
+                         name = "Oceandata VIIRS Level-3 mapped daily 4km chl-a",
+                         id = "VIIRS_L3m_DAY_NPP_CHL_chlor_a_4km",
+                         description = "Daily remote-sensing chlorophyll-a from the VIIRS satellite at 4km spatial resolution",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*DAY.CHL.chlor_a.*", sensor = "VIIRS", dtype = "L3m", period = "DAY", resolution_id = "4km", prod_id = "chlor_a", sdate = "2012-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         collection_size = 50,
+                         comment = "NRT files will be included unless a non-NRT version exists for the same month",
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 mapped monthly 9km chl-a","VIIRS_L3m_MO_SNPP_CHL_chlor_a_9km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 mapped monthly 9km chl-a", "VIIRS_L3m_MO_SNPP_CHL_chlor_a_9km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata VIIRS Level-3 mapped monthly 9km chl-a",
-                         id="VIIRS_L3m_MO_SNPP_CHL_chlor_a_9km",
-                         description="Monthly remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="SNPP_VIIRS*L3m.MO.CHL.chlor_a.9km*.nc", sensor = "viirs", dtype = "L3m"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         collection_size=1,
+                         name = "Oceandata VIIRS Level-3 mapped monthly 9km chl-a",
+                         id = "VIIRS_L3m_MO_SNPP_CHL_chlor_a_9km",
+                         description = "Monthly remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*MO.CHL.chlor_a.*", sensor = "VIIRS", dtype = "L3m", period = "MO", resolution_id = "9km", prod_id = "chlor_a", sdate = "2012-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         collection_size = 1,
+                         comment = "NRT files will be included unless a non-NRT version exists for the same month",
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 mapped seasonal 9km chl-a","VIIRS_L3m_SNxx_SNPP_CHL_chlor_a_9km")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 mapped seasonal 9km chl-a", "VIIRS_L3m_SNxx_SNPP_CHL_chlor_a_9km")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata VIIRS Level-3 mapped seasonal 9km chl-a",
-                         id="VIIRS_L3m_SNxx_SNPP_CHL_chlor_a_9km",
-                         description="Seasonal remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="SNPP_VIIRS*L3m.SN*.CHL.chlor_a.9km*.nc", sensor = "viirs", dtype = "L3m"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         collection_size=0.5,
+                         name = "Oceandata VIIRS Level-3 mapped seasonal 9km chl-a",
+                         id = "VIIRS_L3m_SNxx_SNPP_CHL_chlor_a_9km",
+                         description = "Seasonal remote-sensing chlorophyll-a from the VIIRS satellite at 9km spatial resolution",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*SN??.CHL.chlor_a.*", sensor = "VIIRS", dtype = "L3m", resolution_id = "9km", prod_id = "chlor_a", sdate = "2012-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         collection_size = 0.5,
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 binned daily RRS","VIIRS_L3b_DAY_SNPP_RRS")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 binned daily RRS", "VIIRS_L3b_DAY_SNPP_RRS")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata VIIRS Level-3 binned daily RRS",
-                         id="VIIRS_L3b_DAY_SNPP_RRS",
-                         description="Daily remote-sensing reflectance from VIIRS. RRS is used to produce standard ocean colour products such as chlorophyll concentration",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata", search = "SNPP_VIIRS*L3b.DAY.RRS.*.nc", sensor = "viirs", dtype = "L3b"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         access_function="roc::readL3",
-                         collection_size=180,
+                         name = "Oceandata VIIRS Level-3 binned daily RRS",
+                         id = "VIIRS_L3b_DAY_SNPP_RRS",
+                         description = "Daily remote-sensing reflectance from VIIRS. RRS is used to produce standard ocean colour products such as chlorophyll concentration",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*DAY.RRS.*", sensor = "VIIRS", dtype = "L3b", period = "DAY", suite_id = "RRS", dtid = c(1006, 1018), sdate = "2012-01-01"), ## dtid = 1006 for refined files, dtid = 1018 for NRT files
+                         postprocess = list("bb_oceandata_cleanup"),
+                         access_function = "roc::readL3",
+                         collection_size = 180,
+                         comment = "NRT files will be included unless a non-NRT version exists for the same day",
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 binned daily RRS","MODISA_L3b_DAY_RRS")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata MODIS Aqua Level-3 binned daily RRS", "MODISA_L3b_DAY_RRS")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata MODIS Aqua Level-3 binned daily RRS",
-                         id="MODISA_L3b_DAY_RRS",
-                         description="Daily remote-sensing reflectance from MODIS Aqua. RRS is used to produce standard ocean colour products such as chlorophyll concentration",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="AQUA_MODIS*L3b.DAY.RRS.*.nc", sensor = "aqua", dtype = "L3b"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         access_function="roc::readL3",
-                         collection_size=800,
+                         name = "Oceandata MODIS Aqua Level-3 binned daily RRS",
+                         id = "MODISA_L3b_DAY_RRS",
+                         description = "Daily remote-sensing reflectance from MODIS Aqua. RRS is used to produce standard ocean colour products such as chlorophyll concentration",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*DAY.RRS.*", sensor = "MODISA", dtid = c(1042, 1054), dtype = "L3b", period = "DAY", suite_id = "RRS", sdate = "2002-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         access_function = "roc::readL3",
+                         collection_size = 800,
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
-    if (is.null(name) || any(name %in% tolower(c("Oceandata SeaWiFS Level-3 binned daily RRS","SeaWiFS_L3b_DAY_RRS")))) {
+    if (is.null(name) || any(name %in% tolower(c("Oceandata SeaWiFS Level-3 binned daily RRS", "SeaWiFS_L3b_DAY_RRS")))) {
         out <- rbind(out,
                      bb_source(
-                         name="Oceandata SeaWiFS Level-3 binned daily RRS",
-                         id="SeaWiFS_L3b_DAY_RRS",
-                         description="Daily remote-sensing reflectance from SeaWiFS. RRS is used to produce standard ocean colour products such as chlorophyll concentration",
-                         doc_url="https://oceancolor.gsfc.nasa.gov/",
-                         citation=generic_oceandata_citation,
-                         license="Please cite",
-                         method=list("bb_handler_oceandata",search="SEASTAR_SEAWIFS_GAC*L3b.DAY.RRS.nc", sensor = "seawifs", dtype = "L3b"),
-                         postprocess=list("bb_oceandata_cleanup"),
-                         access_function="roc::readL3",
-                         collection_size=130,
+                         name = "Oceandata SeaWiFS Level-3 binned daily RRS",
+                         id = "SeaWiFS_L3b_DAY_RRS",
+                         description = "Daily remote-sensing reflectance from SeaWiFS. RRS is used to produce standard ocean colour products such as chlorophyll concentration",
+                         doc_url = "https://oceancolor.gsfc.nasa.gov/",
+                         citation = generic_oceandata_citation,
+                         license = "Please cite",
+                         method = list("bb_handler_oceandata", search = "*DAY.RRS.*", sensor = "SeaWiFS", dtid = 1122, dtype = "L3b", period = "DAY", suite_id = "RRS", sdate = "1997-09-01", edate = "2011-01-01"),
+                         postprocess = list("bb_oceandata_cleanup"),
+                         access_function = "roc::readL3",
+                         collection_size = 130,
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
     if (is.null(name) || any(name %in% tolower(c("Oceandata VIIRS Level-3 mapped 32-day 9km chl-a","VIIRS_L3m_R32_SNPP_CHL_chlor_a_9km")))) {
@@ -215,7 +219,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          collection_size=4,
                          user = "", password = "", warn_empty_auth = FALSE,
                          authentication_note = "Requires Earthdata login, see https://urs.earthdata.nasa.gov/. Note that you will also need to authorize the application 'OB.DAAC Data Access' (see 'My Applications' at https://urs.earthdata.nasa.gov/profile)",
-                         data_group="Ocean colour"))
+                         data_group = "Ocean colour"))
     }
 
     if (is.null(name) || any(name %in% tolower(c("Southern Ocean summer chlorophyll-a climatology (Johnson)","10.4225/15/5906b48f70bf9")))) {

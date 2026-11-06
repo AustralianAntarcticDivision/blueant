@@ -462,7 +462,6 @@ sources_seaice <- function(name, formats, time_resolutions, ...) {
                          source_url = paste0("https://noaadata.apps.nsidc.org/NOAA/G02202_V6/", url_paths, "/"),
                          citation = "Meier WN, Fetterer F, Windnagel AK, Stewart JS, Stafford T (2024) NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 6. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. 10.7265/b18jz797",
                          method = list("bb_handler_rget", level = 2),
-                         comment = "Only southern hemisphere files will be downloaded. For northern hemisphere, adjust the source_urls",
                          collection_size = 8,
                          data_group = "Sea ice"))
     }
