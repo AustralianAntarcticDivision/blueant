@@ -145,7 +145,7 @@ sources_ocean_colour <- function(name,formats,time_resolutions, ...) {
                          doc_url = "https://oceancolor.gsfc.nasa.gov/",
                          citation = generic_oceandata_citation,
                          license = "Please cite",
-                         method = list("bb_handler_oceandata", search = "*SN??.CHL.chlor_a.*", sensor = "VIIRS", dtype = "L3m", dtid = c(1007, 1019), resolution_id = "9km", prod_id = "chlor_a", sdate = "2012-01-01"),
+                         method = list("bb_handler_oceandata", period = c("SNWI", "SNSP", "SNSU", "SNAU"), sensor = "VIIRS", dtype = "L3m", dtid = c(1007, 1019), resolution_id = "9km", prod_id = "chlor_a", sdate = "2012-01-01"),
                          postprocess = list("bb_oceandata_cleanup"),
                          collection_size = 0.5,
                          comment = "NRT files will be included unless a non-NRT version exists for the same day",
